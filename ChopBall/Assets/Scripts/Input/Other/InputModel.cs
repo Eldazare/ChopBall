@@ -15,5 +15,19 @@ public class InputModel {
 
 	public bool Submit;
 	public bool Cancel;
-	//public bool Dash;
+
+	// Default = Zero;
+	public InputModel(){
+		XAxisLeft = 0;
+		YAxisLeft = 0;
+		XAxisRight = 0;
+		YAxisRight = 0;
+
+		PaddleLeft = false;
+		PaddleRight = false;
+		Dash = false;
+
+		Submit = false;
+		Cancel = false;
+	}
 }

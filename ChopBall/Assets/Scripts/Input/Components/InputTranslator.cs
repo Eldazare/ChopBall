@@ -9,6 +9,7 @@ public class InputTranslator : MonoBehaviour {
 	public UnityInputEvent UpdateInputs;
 	private string begin;
 	private InputStorage customInputs;
+	private PlayerStateData stateData;
 
 	void Awake(){
 		begin = "P" + controllerNumber + "_";
@@ -17,12 +18,18 @@ public class InputTranslator : MonoBehaviour {
 		if (customInputs.playerNo != controllerNumber) {
 			Debug.LogWarning ("Misaligned customInput and controller "+customInputs.playerNo+" and "+controllerNumber);
 		}
+		stateData = (PlayerStateData)Resources.LoadAll ("Scriptables/Players/StateData") [controllerNumber - 1];
+		if (stateData == null) {
+			Debug.LogWarning ("InputTranslator " + controllerNumber + " didn't find playerState");
+		}
 	}
 
 	void Update(){
 		InputModel model = new InputModel ();
-		model.XAxisLeft = Input.GetAxisRaw (begin  + "Horizontal_Left");
-		model.YAxisLeft = Input.GetAxisRaw (begin + "Vertical_Left");
+		if (!stateData.XYmovementLocked) {
+			model.XAxisLeft = Input.GetAxisRaw (begin + "Horizontal_Left");
+			model.YAxisLeft = Input.GetAxisRaw (begin + "Vertical_Left");
+		}
 		model.XAxisRight = Input.GetAxisRaw (begin + "Horizontal_Right");
 		model.YAxisRight = Input.GetAxisRaw (begin + "Vertical_Right");
 		/*
@@ -37,5 +44,9 @@ public class InputTranslator : MonoBehaviour {
 		model.Submit = Input.GetKeyDown (customInputs.Submit);
 		model.Cancel = Input.GetKeyDown (customInputs.Cancel);
 		UpdateInputs.Invoke (model);
+	}
+
+	public void FinalCall(){
+		UpdateInputs.Invoke (new InputModel ());
 	}
 }

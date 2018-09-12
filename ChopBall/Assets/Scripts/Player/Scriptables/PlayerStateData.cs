@@ -12,7 +12,11 @@ public class PlayerStateData : ScriptableObject {
 	//TODO, more stuff
 
 
-	public void GetDefaults(){
-		//TODO once above is finished
+	public void SetDefaultValues(){
+		active = false;
+		XYmovementLocked = false;
+		characterChoice = -1;
+		stageChoice = -1;
+		// TODO add as they come
 	}
 }

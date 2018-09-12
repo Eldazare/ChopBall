@@ -26,10 +26,8 @@ public class InputTranslator : MonoBehaviour {
 
 	void Update(){
 		InputModel model = new InputModel ();
-		if (!stateData.XYmovementLocked) {
-			model.XAxisLeft = Input.GetAxisRaw (begin + "Horizontal_Left");
-			model.YAxisLeft = Input.GetAxisRaw (begin + "Vertical_Left");
-		}
+		model.XAxisLeft = Input.GetAxisRaw (begin + "Horizontal_Left");
+		model.YAxisLeft = Input.GetAxisRaw (begin + "Vertical_Left");
 		model.XAxisRight = Input.GetAxisRaw (begin + "Horizontal_Right");
 		model.YAxisRight = Input.GetAxisRaw (begin + "Vertical_Right");
 		/*

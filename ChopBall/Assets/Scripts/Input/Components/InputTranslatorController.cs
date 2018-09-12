@@ -7,11 +7,23 @@ public class InputTranslatorController : MonoBehaviour {
 	private bool CheckForControllers = false;
 	private InputTranslator[] translators;
 
-	// Public Scriptable 
-
 	public void StartChecking (){
 		CheckForControllers = true;
 		StartCoroutine (CheckControllers ());
+	}
+
+	public void CheckOnce(){
+		string[] JoyNames = Input.GetJoystickNames ();
+		for (int i = 0; i < JoyNames.Length; i++) {
+			if (!string.IsNullOrEmpty (JoyNames [i])) {
+				Debug.Log ("Joystick "+i+" Connected");
+				translators [i].enabled = true;
+			} else {
+				Debug.Log ("Joystick "+i+" Disconnected");
+				translators [i].FinalCall ();
+				translators [i].enabled = false;
+			}
+		}
 	}
 
 	public void StopChecking(){
@@ -20,24 +32,22 @@ public class InputTranslatorController : MonoBehaviour {
 
 	void Awake(){
 		translators = gameObject.GetComponents<InputTranslator> ();
-		StartChecking ();
+		//CheckUntilFound ();
+		//StartChecking ();
+		CheckOnce();
 	}
 
 	private IEnumerator CheckControllers(){
 		while (CheckForControllers) {
 			yield return new WaitForSecondsRealtime (2f);
-			// Scriptable: Dictionary
-			string[] JoyNames = Input.GetJoystickNames ();
-			for (int i = 0; i < JoyNames.Length; i++) {
-				if (!string.IsNullOrEmpty (JoyNames [i])) {
-					Debug.Log ("Joystick "+i+" Connected");
-					translators [i].enabled = true;
-				} else {
-					Debug.Log ("Joystick "+i+" Disconnected");
-					translators [i].FinalCall ();
-					translators [i].enabled = false;
-				}
-			}
+			CheckOnce ();
+		}
+	}
+
+	private IEnumerator CheckUntilFound(){
+		while (Input.GetJoystickNames ().Length == 0) {
+			yield return new WaitForSecondsRealtime (2f);
+			CheckOnce ();
 		}
 	}
 }

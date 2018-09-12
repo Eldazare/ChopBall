@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4853006274933532}
+  - component: {fileID: 114928776142679624}
   - component: {fileID: 114546421835369640}
   - component: {fileID: 114570602777079042}
   m_Layer: 0
@@ -47,7 +48,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813958437218548}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3067b76140b675140adba7100525c649, type: 3}
   m_Name: 
@@ -75,7 +76,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1813958437218548}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3067b76140b675140adba7100525c649, type: 3}
   m_Name: 
@@ -97,3 +98,14 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityInputEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &114928776142679624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813958437218548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbb8032f38b70034185aa28222f303a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

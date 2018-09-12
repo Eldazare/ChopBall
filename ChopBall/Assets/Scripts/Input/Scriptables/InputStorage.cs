@@ -16,11 +16,11 @@ public class InputStorage : ScriptableObject {
 	public KeyCode Submit; // For menus and such
 	public KeyCode Cancel; // -||-
 
-	public void GetDefaultButtons(){
-		PaddleLeft = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button0");
-		PaddleRight = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button1");
-		Dash = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button2");
-		Submit = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button3");
-		Cancel = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button4");
+	public void SetDefaultButtons(){
+		PaddleLeft = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button5");
+		PaddleRight = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button6");
+		Dash = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button7");
+		Submit = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button0");
+		Cancel = (KeyCode)Enum.Parse (typeof(KeyCode), "Joystick" + playerNo + "Button1");
 	}
 }

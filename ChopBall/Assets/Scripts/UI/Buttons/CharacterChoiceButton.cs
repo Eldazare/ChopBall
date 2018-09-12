@@ -14,4 +14,9 @@ public class CharacterChoiceButton : _CursorButton {
 			Debug.LogError ("No characterID");
 		}
 	}
+
+	override
+	public void Hover(int playerID){
+		Debug.Log ("Hover over choice ID: " + characterID);
+	}
 }

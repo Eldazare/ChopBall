@@ -4,41 +4,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ChoiceCursor : MonoBehaviour {
+public class _Cursor : MonoBehaviour {
 
-	public int playerID;
+	public int playerID = -1;
 	public int pixelBuffer = 10;
 	public float movementMultiplier = 100;
-	float XMin;
-	float XMax;
-	float YMin;
-	float YMax;
-	InputModel model;
-	RectTransform rect;
-	GraphicRaycaster raycaster;
-	PlayerStateData stateData;
-	private Vector3 lastPos;
+	protected float XMin;
+	protected float XMax;
+	protected float YMin;
+	protected float YMax;
+	protected InputModel model;
+	protected RectTransform rect;
+	protected GraphicRaycaster raycaster;
+	protected  Vector3 lastPos;
 
-	private List<RaycastResult> results;
-	PointerEventData ped;
-	_CursorButton foundButton; // universal used in raycast
-	_CursorButton hoverButton; // Used in fixed updat
-	_CursorButton clickButton; // Used when "submit":ting
+	protected List<RaycastResult> results;
+	protected PointerEventData ped;
+	protected _CursorButton foundButton; // universal used in raycast
+	protected _CursorButton hoverButton; // Used in fixed updat
+	protected _CursorButton clickButton; // Used when "submit":ting
 
-	bool lateSubmit = false;
-	bool lateCancel = false;
+	protected bool lateSubmit = false;
+	protected bool lateCancel = false;
 
-	void Awake(){
+	protected void Initialize(){
 		rect = gameObject.GetComponent<RectTransform> ();
 		raycaster = gameObject.GetComponentInParent<GraphicRaycaster> ();
-		stateData = (PlayerStateData) Resources.LoadAll ("Scriptables/Players/StateData", typeof(PlayerStateData)) [playerID - 1];
 		GetBounds ();
 		model = new InputModel ();
 		lastPos = rect.position;
-		ped = new PointerEventData (null);
+		ped = new PointerEventData (null);		
 	}
 
-	void GetBounds(){
+	protected void GetBounds(){
 		float height = Screen.height;
 		float width = Screen.width;
 		XMin = 0 + pixelBuffer;
@@ -47,28 +45,30 @@ public class ChoiceCursor : MonoBehaviour {
 		YMax = height - pixelBuffer;
 	}
 
-	public void GetModel(InputModel model){
-		this.model = model;
+	virtual
+	public void GetModel(InputModel gotModel){
+		this.model = gotModel;
 	}
 
-	void Update(){
-		if (!stateData.XYmovementLocked) {
-			float newX = rect.position.x + (model.XAxisLeft * Time.deltaTime * movementMultiplier);
-			float newY = rect.position.y + (model.YAxisLeft * Time.deltaTime * movementMultiplier);
-			if (newX > XMax) {
-				newX = XMax;
-			}
-			if (newX < XMin) {
-				newX = XMin;
-			} 
-			if (newY > YMax) {
-				newY = YMax;
-			}
-			if (newY < YMin) {
-				newY = YMin;
-			}
-			rect.position = new Vector2 (newX, newY);
+	protected void Movement(float xAxis, float yAxis){
+		float newX = rect.position.x + (xAxis * Time.deltaTime * movementMultiplier);
+		float newY = rect.position.y + (yAxis * Time.deltaTime * movementMultiplier);
+		if (newX > XMax) {
+			newX = XMax;
 		}
+		if (newX < XMin) {
+			newX = XMin;
+		} 
+		if (newY > YMax) {
+			newY = YMax;
+		}
+		if (newY < YMin) {
+			newY = YMin;
+		}
+		rect.position = new Vector2 (newX, newY);
+	}
+
+	protected void SubmitToClick(){
 		if (lateSubmit == false) {
 			if (model.Submit == true) {
 				clickButton = RaycastAButton ();
@@ -80,7 +80,9 @@ public class ChoiceCursor : MonoBehaviour {
 		} else if (model.Submit == false) {
 			lateSubmit = false;
 		}
+	}
 
+	protected void CancelCheck(){
 		if (lateCancel == false) {
 			if (model.Cancel == true) {
 				// TODO: Cancel?
@@ -90,18 +92,17 @@ public class ChoiceCursor : MonoBehaviour {
 			lateCancel = false;
 		}
 	}
-		
-	void FixedUpdate(){
+
+	protected void ContinuedHover(){
 		if (rect.position != lastPos) {
 			lastPos = rect.position;
 			hoverButton = RaycastAButton ();
 			if (hoverButton != null){
 				hoverButton.Hover (playerID);
 			}
-		}
+		}	
 	}
-
-
+		
 	_CursorButton RaycastAButton(){
 		ped.position = rect.position;
 		results = new List<RaycastResult> ();

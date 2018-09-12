@@ -26,6 +26,7 @@ public class InputTranslator : MonoBehaviour {
 
 	void Update(){
 		InputModel model = new InputModel ();
+		model.playerID = controllerNumber;
 		model.XAxisLeft = Input.GetAxisRaw (begin + "Horizontal_Left");
 		model.YAxisLeft = Input.GetAxisRaw (begin + "Vertical_Left");
 		model.XAxisRight = Input.GetAxisRaw (begin + "Horizontal_Right");

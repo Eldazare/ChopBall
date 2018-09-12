@@ -8,7 +8,7 @@ public class CharacterChoiceButton : _CursorButton {
 
 	override
 	public void Click(int playerID){
-		if (characterID != null) {
+		if (characterID > 0) {
 			PlayerStateController.ChooseCharacter (playerID, characterID);
 		} else {
 			Debug.LogError ("No characterID");

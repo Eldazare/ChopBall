@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class CharacterAttributeData : ScriptableObject {
 
-	public string name;
+	public string characterName;
 	public Sprite portrait;
 	public float testdata1;
 }

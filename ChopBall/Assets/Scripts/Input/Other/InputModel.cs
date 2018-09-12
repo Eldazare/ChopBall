@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InputModel {
 
+	public int playerID;
 	public float XAxisLeft;
 	public float YAxisLeft;
 	public float XAxisRight;

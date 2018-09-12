@@ -14,11 +14,11 @@ public class InputTranslator : MonoBehaviour {
 	void Awake(){
 		begin = "P" + controllerNumber + "_";
 		//TODO:
-		customInputs = (InputStorage) Resources.LoadAll ("Scriptables/Input/ButtonStorage")[controllerNumber-1];
+		customInputs = InputStorageController.GetAStorage(controllerNumber);
 		if (customInputs.playerNo != controllerNumber) {
 			Debug.LogWarning ("Misaligned customInput and controller "+customInputs.playerNo+" and "+controllerNumber);
 		}
-		stateData = (PlayerStateData)Resources.LoadAll ("Scriptables/Players/StateData") [controllerNumber - 1];
+		stateData = PlayerStateController.GetAState (controllerNumber);
 		if (stateData == null) {
 			Debug.LogWarning ("InputTranslator " + controllerNumber + " didn't find playerState");
 		}

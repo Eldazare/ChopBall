@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputTranslatorController : MonoBehaviour {
+public class InputTranslatorMaster : MonoBehaviour {
 
 	private bool CheckForControllers = false;
 	private InputTranslator[] translators;

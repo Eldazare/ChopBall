@@ -7,21 +7,25 @@ public static class PlayerStateController {
 
 	static PlayerStateData[] states;
 
-	public static void GetStates(){
-		states = Resources.LoadAll("Scriptables/Players/StateData", typeof(PlayerStateData)).Cast<PlayerStateData>().ToArray();
-		/*
-		PlayerStateData[] test = loads.ToArray();
-		Debug.Log (test);
-		foreach (var nb in loads) {
-			states.Add (nb);
+	private static void LoadStates(){
+		if (states == null) {
+			states = Resources.LoadAll ("Scriptables/Players/StateData", typeof(PlayerStateData)).Cast<PlayerStateData> ().ToArray ();
 		}
-		*/
+
+	}
+
+	public static PlayerStateData[] GetAllStates(){
+		LoadStates ();
+		return states;
+	}
+
+	public static PlayerStateData GetAState(int playerID){
+		LoadStates ();
+		return states [playerID - 1];
 	}
 
 	public static void ChooseCharacter(int playerID, int characterID){
-		if (states == null) {
-			GetStates ();
-		}
+		LoadStates ();
 		PlayerStateData data = states [playerID-1];
 		if (data.characterChoice != characterID) {
 			data.characterChoice = characterID;

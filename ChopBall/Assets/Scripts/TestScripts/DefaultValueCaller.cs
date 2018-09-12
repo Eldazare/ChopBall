@@ -11,7 +11,7 @@ public static class DefaultValueCaller {
 	}
 
 	public static void DefaultButtonsAll(){
-		InputStorage[] storages = Resources.LoadAll ("Scriptables/Input/ButtonStorage").Cast<InputStorage> ().ToArray ();
+		InputStorage[] storages = InputStorageController.GetAllStorages();
 		if (storages == null) {
 			Debug.LogWarning ("Input storages not found");
 		} else {
@@ -22,7 +22,7 @@ public static class DefaultValueCaller {
 	}
 
 	public static void DefaultPlayerStatesAll(){
-		PlayerStateData[] states = Resources.LoadAll ("Scriptables/Players/StateData").Cast<PlayerStateData> ().ToArray ();
+		PlayerStateData[] states = PlayerStateController.GetAllStates();
 		if (states == null) {
 			Debug.LogWarning ("PlayerStateDatas not found for defaultValueCaller");
 		} else {

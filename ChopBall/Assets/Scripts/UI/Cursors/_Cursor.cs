@@ -8,7 +8,8 @@ public class _Cursor : MonoBehaviour {
 
 	public int playerID = -1;
 	public int pixelBuffer = 10;
-	public float movementMultiplier = 100;
+	public float movementMultiplier = 50;
+	private float boundsMultiplier = 1;
 	protected float XMin;
 	protected float XMax;
 	protected float YMin;
@@ -43,6 +44,9 @@ public class _Cursor : MonoBehaviour {
 		XMax = width - pixelBuffer;
 		YMin = 0 + pixelBuffer;
 		YMax = height - pixelBuffer;
+
+		boundsMultiplier = height / 100 + width / 100;
+		Debug.Log ("Bounds multiplier:" +boundsMultiplier);
 	}
 
 	virtual
@@ -51,8 +55,8 @@ public class _Cursor : MonoBehaviour {
 	}
 
 	protected void Movement(float xAxis, float yAxis){
-		float newX = rect.position.x + (xAxis * Time.deltaTime * movementMultiplier);
-		float newY = rect.position.y + (yAxis * Time.deltaTime * movementMultiplier);
+		float newX = rect.position.x + (xAxis * Time.deltaTime * movementMultiplier * boundsMultiplier);
+		float newY = rect.position.y + (yAxis * Time.deltaTime * movementMultiplier * boundsMultiplier);
 		if (newX > XMax) {
 			newX = XMax;
 		}

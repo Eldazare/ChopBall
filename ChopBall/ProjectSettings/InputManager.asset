@@ -14,7 +14,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
+    dead: 0
     sensitivity: 1
     snap: 0
     invert: 0
@@ -46,7 +46,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
+    dead: 0
     sensitivity: 1
     snap: 0
     invert: 0
@@ -78,7 +78,7 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
+    dead: 0
     sensitivity: 1
     snap: 0
     invert: 1
@@ -110,12 +110,12 @@ InputManager:
     altNegativeButton: 
     altPositiveButton: 
     gravity: 0
-    dead: 0.19
+    dead: 0
     sensitivity: 1
     snap: 0
     invert: 1
     type: 2
-    axis: 3
+    axis: 5
     joyNum: 1
   - serializedVersion: 3
     m_Name: P2_Vertical_Right
@@ -131,5 +131,5 @@ InputManager:
     snap: 0
     invert: 1
     type: 2
-    axis: 3
+    axis: 5
     joyNum: 2

@@ -24,6 +24,7 @@ public class InputTranslator : MonoBehaviour {
 		}
 		*/
 	}
+	float PaddleStrValue;
 
 	void Update(){
 		InputModel model = new InputModel ();
@@ -37,13 +38,27 @@ public class InputTranslator : MonoBehaviour {
 			model.YAxisLeft = Input.GetAxisRaw (customInputs.YAxisLeft);
 			model.YAxisRight = Input.GetAxisRaw (customInputs.YAxisRight);		
 		}
+		DeadZoneCheck (model, customInputs.deadZoneLeft, customInputs.deadZoneRight);
 
 		model.PaddleLeft = Input.GetKey (customInputs.PaddleLeft);
 		model.PaddleRight = Input.GetKey (customInputs.PaddleRight);
 		model.Dash = Input.GetKey (customInputs.Dash);
-		model.Submit = Input.GetKeyDown (customInputs.Submit);
-		model.Cancel = Input.GetKeyDown (customInputs.Cancel);
+		model.Submit = Input.GetKey (customInputs.Submit);
+		model.Cancel = Input.GetKey (customInputs.Cancel);
 		UpdateInputs.Invoke (model);
+	}
+
+	private void DeadZoneCheck(InputModel nearFinishedModel, float deadZoneLeft, float deadZoneRight){
+		float leftTotal = nearFinishedModel.XAxisLeft + nearFinishedModel.YAxisLeft;
+		float rightTotal = nearFinishedModel.XAxisRight + nearFinishedModel.YAxisRight;
+		if (leftTotal < deadZoneLeft) {
+			nearFinishedModel.XAxisLeft = 0;
+			nearFinishedModel.YAxisLeft = 0;
+		}
+		if (rightTotal < deadZoneRight) {
+			nearFinishedModel.XAxisRight = 0;
+			nearFinishedModel.YAxisRight = 0;
+		}
 	}
 
 	public void FinalCall(){

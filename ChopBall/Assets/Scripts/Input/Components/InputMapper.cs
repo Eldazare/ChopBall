@@ -53,7 +53,7 @@ public class InputMapper : MonoBehaviour {
 	private void SuperTranslatorAxes(int playerIndex){
 		for (int i = 0; i < numberOfAxes; i++) {
 			axisAmount = Input.GetAxisRaw (axisStringList[playerIndex][i]);
-			if(axisAmount != 0){
+			if(axisAmount > 0.25 || axisAmount < -0.25){
 				Debug.Log (axisStringList[playerIndex][i] + " is "+ axisAmount);
 			}
 		}

@@ -16,8 +16,9 @@ MonoBehaviour:
   YAxisLeft: 2
   XAxisRight: 4
   YAxisRight: 5
-  PaddleLeft: 17
-  PaddleRight: 18
-  Dash: 19
+  deadZone: 0.24
+  PaddleLeft: 4
+  PaddleRight: 5
+  Dash: 9
   Submit: 0
   Cancel: 1

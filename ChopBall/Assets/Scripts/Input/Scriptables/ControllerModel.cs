@@ -13,6 +13,7 @@ public class ControllerModel : ScriptableObject{
 	public int YAxisLeft;
 	public int XAxisRight;
 	public int YAxisRight;
+	public float deadZone = 0.19f;
 
 	public int PaddleLeft;
 	public int PaddleRight;

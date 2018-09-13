@@ -70,6 +70,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityInputEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  invertYInput: 1
 --- !u!114 &114570602777079042
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -98,6 +99,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityInputEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+  invertYInput: 1
 --- !u!114 &114928776142679624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,6 +108,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1813958437218548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbb8032f38b70034185aa28222f303a6, type: 3}
+  m_Script: {fileID: 11500000, guid: 3bb3c5514fc10c94db7dd4c88b4d3450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

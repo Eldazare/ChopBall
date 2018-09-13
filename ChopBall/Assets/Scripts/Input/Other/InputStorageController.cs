@@ -22,4 +22,21 @@ public static class InputStorageController {
 		LoadInputStorages ();
 		return storages [playerID - 1];
 	}
+
+	public static void SetDefaultsAll(){
+		LoadInputStorages ();
+		foreach (InputStorage storage in storages) {
+			storage.ReadDefaultButtonsFromCurrentModel ();
+		}
+	}
+
+	public static void SetDefault(int playerID){
+		LoadInputStorages ();
+		storages [playerID - 1].ReadDefaultButtonsFromCurrentModel ();
+	}
+
+	public static void SetModelToStorage(int playerID, string modelName){
+		LoadInputStorages ();
+		storages [playerID - 1].ReadModel (ControllerModelController.GetControllerModel (modelName));
+	}
 }

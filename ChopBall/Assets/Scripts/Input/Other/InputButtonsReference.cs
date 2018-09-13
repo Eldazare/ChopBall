@@ -31,6 +31,6 @@ public static class InputButtonsReference {
 
 	public static List<KeyCode> GetButtonsForPlayer(int playerID){
 		Initialize ();
-		return theReference [playerID];
+		return theReference [playerID-1];
 	}
 }

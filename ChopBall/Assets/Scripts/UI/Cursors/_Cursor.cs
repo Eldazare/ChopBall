@@ -119,4 +119,8 @@ public class _Cursor : MonoBehaviour {
 		}
 		return null;
 	}
+
+	public void OnScreenSizeChange(){
+		GetBounds ();
+	}
 }

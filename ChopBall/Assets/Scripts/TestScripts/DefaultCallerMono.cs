@@ -5,6 +5,7 @@ using UnityEngine;
 public class DefaultCallerMono : MonoBehaviour {
 
 	void Start(){
-		DefaultValueCaller.RunAll ();
+		InputStorageController.SetDefaultsAll ();
+		PlayerStateController.SetDefaultsAll ();
 	}
 }

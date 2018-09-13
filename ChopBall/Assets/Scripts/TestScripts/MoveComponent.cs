@@ -17,9 +17,21 @@ public class MoveComponent : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (model != null) {
-			rig.velocity = new Vector3 (model.XAxisLeft, model.YAxisLeft);
+			rig.velocity = new Vector3 (model.XAxisRight, model.YAxisRight);
 			if (model.Submit) {
 				Debug.Log ("Submit registered");
+			}
+			if (model.Cancel) {
+				Debug.Log ("Cancel registered");
+			}
+			if (model.Dash) {
+				Debug.Log ("Dash registered");
+			}
+			if (model.PaddleLeft) {
+				Debug.Log ("PaddleLeft registered");
+			}
+			if (model.PaddleRight) {
+				Debug.Log ("PaddleRight registered");
 			}
 		}	
 	}

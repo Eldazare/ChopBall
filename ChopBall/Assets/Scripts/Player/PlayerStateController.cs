@@ -11,7 +11,6 @@ public static class PlayerStateController {
 		if (states == null) {
 			states = Resources.LoadAll ("Scriptables/Players/StateData", typeof(PlayerStateData)).Cast<PlayerStateData> ().ToArray ();
 		}
-
 	}
 
 	public static PlayerStateData[] GetAllStates(){
@@ -36,5 +35,17 @@ public static class PlayerStateController {
 			data.XYmovementLocked = false;
 		}
 		Debug.Log ("Set");
+	}
+
+	public static void SetDefaultsAll(){
+		LoadStates ();
+		foreach (PlayerStateData state in states) {
+			state.SetDefaultValues ();
+		}
+	}
+
+	public static void SetDefaults(int playerID){
+		LoadStates ();
+		states [playerID - 1].SetDefaultValues ();
 	}
 }

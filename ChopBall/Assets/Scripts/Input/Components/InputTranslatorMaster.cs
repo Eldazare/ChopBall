@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class InputTranslatorMaster : MonoBehaviour {
 
+	// TODO: Maybe store bool data somewhere and read it for Translators?
+
 	private bool CheckForControllers = false;
 	private InputTranslator[] translators;
+	private bool[] connectedControllers = { false, false, false, false };
 
 	public void StartChecking (){
 		CheckForControllers = true;
@@ -16,12 +19,20 @@ public class InputTranslatorMaster : MonoBehaviour {
 		string[] JoyNames = Input.GetJoystickNames ();
 		for (int i = 0; i < JoyNames.Length; i++) {
 			if (!string.IsNullOrEmpty (JoyNames [i])) {
-				Debug.Log ("Joystick "+i+" Connected");
-				translators [i].enabled = true;
+				if (connectedControllers [i] == false) {
+					Debug.Log (JoyNames [i]);
+					connectedControllers [i] = true;
+					Debug.Log ("Joystick " + i + " Connected");
+					InputStorageController.SetModelToStorage ((i + 1), JoyNames [i]);
+					translators [i].enabled = true;
+				}
 			} else {
-				Debug.Log ("Joystick "+i+" Disconnected");
-				translators [i].FinalCall ();
-				translators [i].enabled = false;
+				if (connectedControllers[i] == true) {
+					Debug.Log ("Joystick " + i + " Disconnected");
+					translators [i].FinalCall ();
+					translators [i].enabled = false;
+					connectedControllers [i] = false;
+				}
 			}
 		}
 	}

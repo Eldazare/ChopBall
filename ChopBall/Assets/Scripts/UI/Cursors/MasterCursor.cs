@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class MasterCursor : _Cursor {
 
-	protected float totalXAxisLeft;
-	protected float totalYAxisLeft;
+	protected Vector2 totalDirectionLeft;
 	InputEventListener[] listeners;
 	protected bool controllerChosen;
 
@@ -19,8 +18,7 @@ public class MasterCursor : _Cursor {
 
 	override
 	public void GetModel(InputModel gotModel){
-		totalXAxisLeft += gotModel.XAxisLeft;
-		totalYAxisLeft += gotModel.YAxisLeft;
+		totalDirectionLeft += gotModel.leftDirection;
 		model = gotModel;
 		if (controllerChosen == false) {
 			if (model.Submit == true) {
@@ -32,7 +30,7 @@ public class MasterCursor : _Cursor {
 	}
 
 	void Update(){
-		Movement (totalXAxisLeft, totalYAxisLeft);
+		Movement (totalDirectionLeft);
 		ResetTotalAxes ();
 		SubmitToClick ();
 		CancelCheck ();
@@ -43,8 +41,7 @@ public class MasterCursor : _Cursor {
 	}
 
 	protected void ResetTotalAxes(){
-		totalXAxisLeft = 0;
-		totalYAxisLeft = 0;
+		totalDirectionLeft = Vector2.zero;
 	}
 
 	protected void EnableOnlyListener(int wantedIndex){

@@ -15,7 +15,7 @@ public class ChoiceCursor : _Cursor {
 
 	void Update(){
 		if (!stateData.XYmovementLocked) {
-			Movement (model.XAxisLeft, model.YAxisLeft);
+			Movement (model.leftDirection);
 		}
 		SubmitToClick ();
 		CancelCheck ();

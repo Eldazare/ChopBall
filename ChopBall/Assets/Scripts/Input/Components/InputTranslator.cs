@@ -49,8 +49,8 @@ public class InputTranslator : MonoBehaviour {
 	}
 
 	private void DeadZoneCheck(InputModel nearFinishedModel, float deadZoneLeft, float deadZoneRight){
-		float leftTotal = nearFinishedModel.XAxisLeft + nearFinishedModel.YAxisLeft;
-		float rightTotal = nearFinishedModel.XAxisRight + nearFinishedModel.YAxisRight;
+		float leftTotal = Mathf.Abs(nearFinishedModel.XAxisLeft) + Mathf.Abs(nearFinishedModel.YAxisLeft);
+		float rightTotal = Mathf.Abs(nearFinishedModel.XAxisRight) + Mathf.Abs(nearFinishedModel.YAxisRight);
 		if (leftTotal < deadZoneLeft) {
 			nearFinishedModel.XAxisLeft = 0;
 			nearFinishedModel.YAxisLeft = 0;

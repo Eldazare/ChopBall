@@ -73,11 +73,13 @@ public class CharacterMovement : MonoBehaviour {
 
             // Calculate deadzones manually to be circle shaped --> Move this to input handling!
             // http://www.third-helix.com/2013/04/12/doing-thumbstick-dead-zones-right.html
-            float deadzone = 0.19f;
+			float deadzone = 0.19f;
+			/*
             if (direction.magnitude < deadzone)
                 direction = Vector2.zero;
             else
                 direction = direction.normalized * ((direction.magnitude - deadzone) / (1 - deadzone));
+           	*/
             // ---------------------------------------------------------------------------------
 
             if (direction.magnitude > 1f)
@@ -86,12 +88,12 @@ public class CharacterMovement : MonoBehaviour {
             }
 
             Vector2 rotateInputDirection = new Vector2(input.XAxisRight, input.YAxisRight);
-
+			/*
             if (rotateInputDirection.magnitude < deadzone)
                 rotateInputDirection = Vector2.zero;
             else
                 rotateInputDirection = rotateInputDirection.normalized * ((rotateInputDirection.magnitude - deadzone) / (1 - deadzone));
-
+			*/
             if (rotateInputDirection.magnitude > 1f)
             {
                 rotateInputDirection.Normalize();

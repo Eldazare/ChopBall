@@ -9,6 +9,8 @@ public class InputModel {
 	public float YAxisLeft;
 	public float XAxisRight;
 	public float YAxisRight;
+	public Vector2 leftDirection;
+	public Vector2 rightDirection;
 
 	public bool PaddleLeft;
 	public bool PaddleRight;
@@ -23,6 +25,8 @@ public class InputModel {
 		YAxisLeft = 0;
 		XAxisRight = 0;
 		YAxisRight = 0;
+		leftDirection = Vector2.zero;
+		rightDirection = Vector2.zero;
 
 		PaddleLeft = false;
 		PaddleRight = false;

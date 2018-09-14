@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 
 public class InputMapper : MonoBehaviour {
 
 	// Attach this to a panel which you want to control the remapping
+	// Debugs with GetKeyDown, contrast to usual Translator's GetKey
 
 	public bool enableMegaTranslators = false; // for listening for remaps
 	public int numberOfAxes = 6;
 	public int numberOfPlayers = 2;
 	public GameObject remapButtonPrefab;
+	public GameObject remapNoneBottomReference;
 	private List<List<KeyCode>> keyCodesList;
 	private List<List<String>> axisStringList;
 	private List<ButtonCommand> listenedCommands;
@@ -26,9 +29,22 @@ public class InputMapper : MonoBehaviour {
 
 
 	public void GenerateRemapButtons(){
+		/*
+		GameObject commandButton = Instantiate (remapButtonPrefab, gameObject.transform) as GameObject;
+		commandButton.GetComponent<RemapCursorButton> ().Initialize (ButtonCommand.None, ReceiveButtonPress);
+		RectTransform rTrs = commandButton.GetComponent<RectTransform> ();
+		rTrs.anchorMin = new Vector2 (1, 0);
+		rTrs.anchorMax = new Vector2 (0, 1);
+		rTrs.pivot = new Vector2 (0.5f, 0.5f);
+		*/
+		remapNoneBottomReference.GetComponent<RemapCursorButton> ().Initialize (ButtonCommand.None, ReceiveButtonPress);
+		GameObject commandButton;
+		GameObject layoutPanel = gameObject.GetComponentInChildren<VerticalLayoutGroup> ().gameObject;
 		foreach (ButtonCommand command in Enum.GetValues(typeof(ButtonCommand))) {
-			GameObject commandButton = Instantiate (remapButtonPrefab, gameObject.transform) as GameObject;
-			commandButton.GetComponent<RemapCursorButton> ().Initialize (command, ReceiveButtonPress);
+			if (command != ButtonCommand.None) {
+				commandButton = Instantiate (remapButtonPrefab, layoutPanel.transform) as GameObject;
+				commandButton.GetComponent<RemapCursorButton> ().Initialize (command, ReceiveButtonPress);
+			}
 		}
 	}
 
@@ -50,6 +66,18 @@ public class InputMapper : MonoBehaviour {
 			MegaTranslatorAxes ();
 			MegaTranslatorButtons ();
 		}
+		if (CheckListenedCommands ()) {
+			MegaTranslatorButtons ();
+		}
+	}
+
+	private bool CheckListenedCommands(){
+		foreach (ButtonCommand command in listenedCommands) {
+			if (command != ButtonCommand.None) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private void MegaTranslatorAxes(){
@@ -90,7 +118,7 @@ public class InputMapper : MonoBehaviour {
 
 	private void SuperTranslatorButtons(int playerIndex){
 		foreach (KeyCode keyCode in keyCodesList[playerIndex]) {
-			if (Input.GetKey (keyCode)) {
+			if (Input.GetKeyDown (keyCode)) {
 				Debug.Log ("Key " + keyCode.ToString () + " registered");
 				if (listenedCommands [playerIndex] != ButtonCommand.None) {
 					InputStorageController.SetAButtonToStorage (playerIndex + 1, listenedCommands [playerIndex], keyCode);

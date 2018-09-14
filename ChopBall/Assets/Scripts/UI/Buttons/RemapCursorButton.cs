@@ -12,16 +12,20 @@ public class RemapCursorButton : _CursorButton {
 	public void Initialize(ButtonCommand command, ReturnMapCall rmc){
 		designatedCommand = command;
 		returnMapCall = rmc;
-		gameObject.GetComponentInChildren<Text> ().text = command.ToString ();
+		Text text = gameObject.GetComponentInChildren<Text> ();
+		if (text != null) {
+			text.text = command.ToString ();
+		}
 	}
 
 	override
 	public void Click(int playerID){
-		returnMapCall (designatedCommand, playerID);
+		//
 	}
 
 	override
 	public void Hover(int playerID){
 		Debug.Log ("Hovering above command " + designatedCommand + " remapping button");
+		returnMapCall (designatedCommand, playerID);
 	}
 }

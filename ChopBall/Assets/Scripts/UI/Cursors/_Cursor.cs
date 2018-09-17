@@ -17,11 +17,12 @@ public class _Cursor : MonoBehaviour {
 	protected InputModel model;
 	protected RectTransform rect;
 	protected GraphicRaycaster raycaster;
-	protected  Vector3 lastPos;
+	protected Vector3 lastPos;
 
 	protected List<RaycastResult> results;
 	protected PointerEventData ped;
 	protected _CursorButton foundButton; // universal used in raycast
+	protected _CursorButton pastHoverButton;
 	protected _CursorButton hoverButton; // Used in fixed updat
 	protected _CursorButton clickButton; // Used when "submit":ting
 
@@ -101,9 +102,15 @@ public class _Cursor : MonoBehaviour {
 		if (rect.position != lastPos) {
 			lastPos = rect.position;
 			hoverButton = RaycastAButton ();
+			if (pastHoverButton != null) {
+				if (pastHoverButton != hoverButton) {
+					pastHoverButton.OnHoverExit (playerID);
+				}
+			}
 			if (hoverButton != null){
 				hoverButton.Hover (playerID);
 			}
+			pastHoverButton = hoverButton;
 		}	
 	}
 		

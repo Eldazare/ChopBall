@@ -16,4 +16,9 @@ public class GenericCursorButton : _CursorButton {
 	public void Hover(int playerID){
 		Debug.Log ("Hover over generic button");
 	}
+
+	override
+	public void OnHoverExit(int playerID){
+		//
+	}
 }

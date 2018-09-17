@@ -25,4 +25,9 @@ public class CharacterChoiceButton : _CursorButton {
 	public void Hover(int playerID){
 		Debug.Log ("Hover over choice ID: " + characterID);
 	}
+
+	override
+	public void OnHoverExit(int playerID){
+		Debug.Log ("Player " + playerID + " just exited characterChoice with ID " + characterID);
+	}
 }

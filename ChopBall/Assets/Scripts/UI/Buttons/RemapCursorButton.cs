@@ -28,4 +28,10 @@ public class RemapCursorButton : _CursorButton {
 		Debug.Log ("Hovering above command " + designatedCommand + " remapping button");
 		returnMapCall (designatedCommand, playerID);
 	}
+
+	override
+	public void OnHoverExit(int playerID){
+		Debug.Log ("Exited command " + designatedCommand + " button");
+		returnMapCall (ButtonCommand.None, playerID);
+	}
 }

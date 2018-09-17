@@ -45,13 +45,17 @@ public class InputStorage : ScriptableObject {
 	}
 
 	public void ReadModel(ControllerModel model){
-		usedModelName = model.ControllerName;
 		XAxisLeft = GetAxisString (model.XAxisLeft);
 		YAxisLeft= GetAxisString (model.YAxisLeft);
 		XAxisRight = GetAxisString (model.XAxisRight);
 		YAxisRight = GetAxisString (model.YAxisRight);
 		deadZoneLeft = model.deadZone;
 		deadZoneRight = model.deadZone;
+		if (usedModelName != model.ControllerName) {
+			usedModelName = model.ControllerName;
+			ReadModelDefaultButtons(model);
+		}
+
 	}
 
 	public void ReadDefaultButtonsFromCurrentModel(){

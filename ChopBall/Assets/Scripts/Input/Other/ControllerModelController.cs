@@ -20,7 +20,7 @@ public static class ControllerModelController {
 				return cModel;
 			}
 		}
-		Debug.LogWarning ("ControllerModel not found for: " + controllerModelName);
+		Debug.LogError ("ControllerModel not found for: " + controllerModelName);
 		return null;
 	}
 }

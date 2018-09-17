@@ -37,7 +37,10 @@ public static class InputStorageController {
 
 	public static void SetModelToStorage(int playerID, string modelName){
 		LoadInputStorages ();
-		storages [playerID - 1].ReadModel (ControllerModelController.GetControllerModel (modelName));
+		ControllerModel model = ControllerModelController.GetControllerModel (modelName);
+		if (model != null) {
+			storages [playerID - 1].ReadModel (model);
+		}
 	}
 
 	public static void SetAButtonToStorage(int playerID, ButtonCommand command, KeyCode newButton){

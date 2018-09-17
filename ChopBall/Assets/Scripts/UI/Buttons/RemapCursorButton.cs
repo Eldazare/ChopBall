@@ -20,7 +20,7 @@ public class RemapCursorButton : _CursorButton {
 
 	override
 	public void Click(int playerID){
-		//
+		// Do nothing. Just believe that the mapper input translator is active.
 	}
 
 	override

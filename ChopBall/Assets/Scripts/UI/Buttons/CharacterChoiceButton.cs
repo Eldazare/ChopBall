@@ -8,10 +8,16 @@ public class CharacterChoiceButton : _CursorButton {
 
 	override
 	public void Click(int playerID){
-		if (characterID > 0) {
-			PlayerStateController.ChooseCharacter (playerID, characterID);
+		if (playerID > 0) {
+			if (characterID > 0) { // playerCursor
+				PlayerStateController.ChooseCharacter (playerID, characterID);
+			} else {
+				Debug.LogError ("No characterID");
+			}
+		} else if (playerID == 0) {
+			Debug.Log ("MasterCursor can't choose character");
 		} else {
-			Debug.LogError ("No characterID");
+			Debug.LogError("Invalid playerID given :" + playerID);
 		}
 	}
 

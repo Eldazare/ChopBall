@@ -22,6 +22,8 @@ GameObject:
   - component: {fileID: 114928776142679624}
   - component: {fileID: 114546421835369640}
   - component: {fileID: 114570602777079042}
+  - component: {fileID: 114923173655064088}
+  - component: {fileID: 114978207997359856}
   m_Layer: 0
   m_Name: InputTranslatorMaster
   m_TagString: Untagged
@@ -100,6 +102,35 @@ MonoBehaviour:
     m_TypeName: UnityInputEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
   invertYInput: 1
+--- !u!114 &114923173655064088
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813958437218548}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3067b76140b675140adba7100525c649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerNumber: 3
+  UpdateInputs:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: b63e2c10d097f924e98e3ac7c08a72f0, type: 2}
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityInputEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  invertYInput: 1
 --- !u!114 &114928776142679624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -111,3 +142,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb3c5514fc10c94db7dd4c88b4d3450, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114978207997359856
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813958437218548}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3067b76140b675140adba7100525c649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controllerNumber: 4
+  UpdateInputs:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 11400000, guid: b67ef3a533cae5149a16053777b59350, type: 2}
+        m_MethodName: Raise
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityInputEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  invertYInput: 1

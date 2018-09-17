@@ -34,7 +34,12 @@ public static class PlayerStateController {
 			data.characterChoice = -1;
 			data.XYmovementLocked = false;
 		}
-		Debug.Log ("Set");
+	}
+
+	public static void ChooseStage(int playerID, string stageName){
+		LoadStates ();
+		PlayerStateData data = states [playerID - 1];
+		data.stageNameChoice = stageName;
 	}
 
 	public static void SetDefaultsAll(){

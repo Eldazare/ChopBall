@@ -8,7 +8,8 @@ public class PlayerStateData : ScriptableObject {
 	public bool active = false;
 	public bool XYmovementLocked = false;
 	public int characterChoice = -1;
-	public int stageChoice = -1;
+	public int team = -1;
+	public string stageNameChoice = "";
 	//TODO, more stuff
 
 
@@ -16,7 +17,8 @@ public class PlayerStateData : ScriptableObject {
 		active = false;
 		XYmovementLocked = false;
 		characterChoice = -1;
-		stageChoice = -1;
+		team = -1;
+		stageNameChoice = "";
 		// TODO add as they come
 	}
 }

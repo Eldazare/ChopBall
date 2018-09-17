@@ -23,6 +23,6 @@ public class StageChoiceButton : _CursorButton {
 
 	override
 	public void Hover(int playerID){
-		
+		Debug.Log ("Hovering over stage choice: " + stageName);
 	}
 }

@@ -13,7 +13,7 @@ public class InputMapper : MonoBehaviour {
 	public int numberOfAxes = 6;
 	public int numberOfPlayers = 2;
 	public GameObject remapButtonPrefab;
-	public GameObject remapNoneBottomReference;
+	//public GameObject remapNoneBottomReference;
 	private List<List<KeyCode>> keyCodesList;
 	private List<List<String>> axisStringList;
 	private List<ButtonCommand> listenedCommands;
@@ -37,7 +37,7 @@ public class InputMapper : MonoBehaviour {
 		rTrs.anchorMax = new Vector2 (0, 1);
 		rTrs.pivot = new Vector2 (0.5f, 0.5f);
 		*/
-		remapNoneBottomReference.GetComponent<RemapCursorButton> ().Initialize (ButtonCommand.None, ReceiveButtonPress);
+		//remapNoneBottomReference.GetComponent<RemapCursorButton> ().Initialize (ButtonCommand.None, ReceiveButtonPress);
 		GameObject commandButton;
 		GameObject layoutPanel = gameObject.GetComponentInChildren<VerticalLayoutGroup> ().gameObject;
 		foreach (ButtonCommand command in Enum.GetValues(typeof(ButtonCommand))) {

@@ -24,6 +24,12 @@ public class RemapCursorButton : _CursorButton {
 	}
 
 	override
+	public void OnHoverEnter(int playerID){
+		Debug.Log ("Entered command " + designatedCommand + " button");
+		returnMapCall (designatedCommand, playerID);
+	}
+
+	override
 	public void Hover(int playerID){
 		Debug.Log ("Hovering above command " + designatedCommand + " remapping button");
 		returnMapCall (designatedCommand, playerID);

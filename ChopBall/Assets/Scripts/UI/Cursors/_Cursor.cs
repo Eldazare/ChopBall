@@ -102,12 +102,14 @@ public class _Cursor : MonoBehaviour {
 		if (rect.position != lastPos) {
 			lastPos = rect.position;
 			hoverButton = RaycastAButton ();
-			if (pastHoverButton != null) {
-				if (pastHoverButton != hoverButton) {
+			if (pastHoverButton != hoverButton) {
+				if (hoverButton != null) {
+					hoverButton.OnHoverEnter (playerID);
+				} 
+				if (pastHoverButton != null) {
 					pastHoverButton.OnHoverExit (playerID);
 				}
-			}
-			if (hoverButton != null){
+			} else if (hoverButton != null) {
 				hoverButton.Hover (playerID);
 			}
 			pastHoverButton = hoverButton;

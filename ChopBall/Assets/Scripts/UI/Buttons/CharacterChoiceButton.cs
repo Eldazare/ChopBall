@@ -23,6 +23,7 @@ public class CharacterChoiceButton : _CursorButton {
 
 	override
 	public void OnHoverEnter(int playerID){
+		base.OnHoverEnter (playerID);
 		Debug.Log ("Player " + playerID + " just entered characterChoice with ID " + characterID);
 	}
 

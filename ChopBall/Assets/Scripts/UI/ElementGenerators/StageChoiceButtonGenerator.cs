@@ -7,12 +7,12 @@ public class StageChoiceButtonGenerator : MonoBehaviour {
 	public GameObject stageButtonPrefab;
 	public GameObject stageButtonPanel; // Should contain N-amount of buttons. Optional.
 
-	/*
+
 	// TODO: Comment/Remove, FOR DEBUGGING ONLY
 	void Start(){
 		InitializeButtonsFromPanel (StageTag.T1v1);
 	}
-	*/
+
 
 	public void GenerateButtons(StageTag primaryTag){
 		StageData[] stages = StageDataController.GetStages ();

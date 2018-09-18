@@ -6,15 +6,15 @@ using UnityEngine.UI;
 public class StageChoiceButton : _CursorButton {
 
 	private StageData stageData;
-	private Image display;
+	private Image overlay;
 	private Outline outline;
 	private bool clickable;
 
 	public void Initialize(StageData stageData){
-		display = GetComponent<Image> ();
+		overlay = transform.GetChild(0).GetComponent<Image>();
 		outline = GetComponent<Outline> ();
 		this.stageData = stageData;
-		display.sprite = stageData.previewImage;
+		overlay.sprite = stageData.previewImage;
 	}
 
 	public void CheckPrimaryTag(StageTag primaryTag){
@@ -30,19 +30,19 @@ public class StageChoiceButton : _CursorButton {
 	private void Hilight(){
 		clickable = true;
 		outline.enabled = true;
-		display.color = new Color32 (255, 255, 255,255);
+		overlay.color = new Color32 (255, 255, 255,0);
 	}
 
 	private void Normal(){
 		clickable = true;
 		outline.enabled = false;
-		display.color = new Color32 (255,255, 255,255);
+		overlay.color = new Color32 (220,220, 220,100);
 	}
 
 	private void Darken(){
 		clickable = false;
 		outline.enabled = false;
-		display.color = new Color32 (100, 100, 100,255);
+		overlay.color = new Color32 (80, 80, 80,100);
 	}
 
 	override

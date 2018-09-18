@@ -30,19 +30,19 @@ public class StageChoiceButton : _CursorButton {
 	private void Hilight(){
 		clickable = true;
 		outline.enabled = true;
-		display.color = new Color (255, 255, 255);
+		display.color = new Color32 (255, 255, 255,255);
 	}
 
 	private void Normal(){
 		clickable = true;
 		outline.enabled = false;
-		display.color = new Color (255,255, 255);
+		display.color = new Color32 (255,255, 255,255);
 	}
 
 	private void Darken(){
 		clickable = false;
 		outline.enabled = false;
-		display.color = new Color (100, 100, 100);
+		display.color = new Color32 (100, 100, 100,255);
 	}
 
 	override
@@ -60,7 +60,7 @@ public class StageChoiceButton : _CursorButton {
 
 	override
 	public void OnHoverEnter(int playerID){
-
+		Debug.Log ("Entered clickable: " + clickable);
 	}
 
 	override

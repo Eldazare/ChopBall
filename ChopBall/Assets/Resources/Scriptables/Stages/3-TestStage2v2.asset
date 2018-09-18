@@ -9,10 +9,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3ac3c7e320d2db42b364c46d2416b72, type: 3}
-  m_Name: 1-TestStage
+  m_Name: 3-TestStage2v2
   m_EditorClassIdentifier: 
-  stageName: 1v1
+  stageName: 2v2
   stageSceneName: 
-  previewImage: {fileID: 21300000, guid: 3db78b1a2b780dd4980c07d916d5aa3e, type: 3}
-  PrimaryTag: 0
-  SecondaryTags: 
+  previewImage: {fileID: 21300000, guid: ddf5ec761c8d47944b754f602aeb57e2, type: 3}
+  PrimaryTag: 1
+  SecondaryTags: 0000000003000000

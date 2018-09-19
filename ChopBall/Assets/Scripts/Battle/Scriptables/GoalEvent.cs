@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu]
 public class GoalEvent : ScriptableObject {
 
 	private List<GoalEventListener> listeners = new List<GoalEventListener> ();

@@ -8,8 +8,9 @@ public class MasterCursor : _Cursor {
 	InputEventListener[] listeners;
 	protected bool controllerChosen;
 
-	void Awake(){
-		Initialize ();
+	override
+	protected void Awake(){
+		base.Awake();
 		ResetTotalAxes ();
 		listeners = GetComponents<InputEventListener> ();
 		controllerChosen = false;
@@ -30,6 +31,10 @@ public class MasterCursor : _Cursor {
 	}
 
 	void Update(){
+		if (totalDirectionLeft.magnitude > baseData.McTotalMultiplierCap) {
+			totalDirectionLeft.Normalize ();
+			totalDirectionLeft = totalDirectionLeft * baseData.McTotalMultiplierCap;
+		}
 		Movement (totalDirectionLeft);
 		ResetTotalAxes ();
 		SubmitToClick ();

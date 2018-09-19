@@ -25,6 +25,7 @@ public class RemapCursorButton : _CursorButton {
 
 	override
 	public void OnHoverEnter(int playerID){
+		base.OnHoverEnter (playerID);
 		Debug.Log ("Entered command " + designatedCommand + " button");
 		returnMapCall (designatedCommand, playerID);
 	}
@@ -37,6 +38,7 @@ public class RemapCursorButton : _CursorButton {
 
 	override
 	public void OnHoverExit(int playerID){
+		base.OnHoverExit (playerID);
 		Debug.Log ("Exited command " + designatedCommand + " button");
 		returnMapCall (ButtonCommand.None, playerID);
 	}

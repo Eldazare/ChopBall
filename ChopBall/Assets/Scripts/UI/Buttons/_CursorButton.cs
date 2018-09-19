@@ -1,14 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class _CursorButton : MonoBehaviour {
 
 	protected List<int> hoveringPlayers;
+	protected Image buttonImage;
+	protected CursorButtonBaseData baseData;
+
+	protected virtual void Awake(){
+		hoveringPlayers = new List<int> ();
+		buttonImage = GetComponent<Image> ();
+		baseData = (CursorButtonBaseData) Resources.Load ("Scriptables/_BaseDatas/CursorButtonBaseData", (typeof(CursorButtonBaseData)));
+		buttonImage.color = baseData.NeutralHilightColor;
+	}
 
 	public virtual void Click(int playerID){
 		
 	}
+
 	public virtual void OnHoverEnter (int playerID){
 		if (EnterAPlayer (playerID)) {
 			EnterGeneralHilight ();
@@ -49,10 +60,10 @@ public abstract class _CursorButton : MonoBehaviour {
 	}
 
 	protected void EnterGeneralHilight(){
-		
+		buttonImage.color = baseData.HoverHilightColor;
 	}
 
 	protected void ExitGeneralHilight(){
-	
+		buttonImage.color = baseData.NeutralHilightColor;
 	}
 }

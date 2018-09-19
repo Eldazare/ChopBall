@@ -8,8 +8,9 @@ public class ChoiceCursor : _Cursor {
 	
 	protected PlayerStateData stateData;
 
-	void Awake(){
-		Initialize ();
+	override
+	protected void Awake(){
+		base.Awake ();
 		stateData = (PlayerStateData) Resources.LoadAll ("Scriptables/Players/StateData", typeof(PlayerStateData)) [playerID - 1];
 	}
 

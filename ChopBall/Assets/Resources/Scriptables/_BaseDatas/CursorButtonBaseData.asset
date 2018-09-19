@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7c737f7d1df234489d647efdd7dc195, type: 3}
+  m_Name: CursorButtonBaseData
+  m_EditorClassIdentifier: 
+  HoverHilightColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  NeutralHilightColor:
+    serializedVersion: 2
+    rgba: 4293651435
+  ScbMaskHilight:
+    serializedVersion: 2
+    rgba: 16777215
+  ScbMaskNeutral:
+    serializedVersion: 2
+    rgba: 1692196060
+  ScbMaskDarken:
+    serializedVersion: 2
+    rgba: 3023846460
+  ScbOutlineColor:
+    serializedVersion: 2
+    rgba: 4291348480

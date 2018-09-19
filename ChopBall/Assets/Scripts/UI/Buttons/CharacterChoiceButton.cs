@@ -34,6 +34,7 @@ public class CharacterChoiceButton : _CursorButton {
 
 	override
 	public void OnHoverExit(int playerID){
+		base.OnHoverExit (playerID);
 		Debug.Log ("Player " + playerID + " just exited characterChoice with ID " + characterID);
 	}
 }

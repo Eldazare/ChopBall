@@ -12,18 +12,12 @@ public class GenericCursorButton : _CursorButton {
 		ResponseToClick.Invoke ();
 	}
 
-	override
-	public void OnHoverEnter(int playerID){
-		
-	}
+	//OnHoverEnter();
 
 	override
 	public void Hover(int playerID){
 		Debug.Log ("Hover over generic button");
 	}
 
-	override
-	public void OnHoverExit(int playerID){
-		//
-	}
+	//OnHoverExit();
 }

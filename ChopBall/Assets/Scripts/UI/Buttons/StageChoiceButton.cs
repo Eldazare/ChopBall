@@ -13,6 +13,7 @@ public class StageChoiceButton : _CursorButton {
 	public void Initialize(StageData stageData){
 		overlay = transform.GetChild(0).GetComponent<Image>();
 		outline = GetComponent<Outline> ();
+		outline.effectColor = baseData.ScbOutlineColor;
 		this.stageData = stageData;
 		overlay.sprite = stageData.previewImage;
 	}
@@ -30,19 +31,19 @@ public class StageChoiceButton : _CursorButton {
 	private void Hilight(){
 		clickable = true;
 		outline.enabled = true;
-		overlay.color = new Color32 (255, 255, 255,0);
+		overlay.color = baseData.ScbMaskHilight;
 	}
 
 	private void Normal(){
 		clickable = true;
 		outline.enabled = false;
-		overlay.color = new Color32 (220,220, 220,100);
+		overlay.color = baseData.ScbMaskNeutral;
 	}
 
 	private void Darken(){
 		clickable = false;
 		outline.enabled = false;
-		overlay.color = new Color32 (80, 80, 80,100);
+		overlay.color = baseData.ScbMaskDarken;
 	}
 
 	override
@@ -60,7 +61,9 @@ public class StageChoiceButton : _CursorButton {
 
 	override
 	public void OnHoverEnter(int playerID){
-		Debug.Log ("Entered clickable: " + clickable);
+		if (clickable) {
+			base.OnHoverEnter (playerID);
+		}
 	}
 
 	override
@@ -70,6 +73,8 @@ public class StageChoiceButton : _CursorButton {
 
 	override
 	public void OnHoverExit(int playerID){
-	
+		if (clickable) {
+			base.OnHoverExit (playerID);
+		}
 	}
 }

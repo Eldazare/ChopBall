@@ -4,32 +4,38 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class _Cursor : MonoBehaviour {
+public abstract class _Cursor : MonoBehaviour {
 
 	public int playerID = -1;
-	public int pixelBuffer = 10;
-	public float movementMultiplier = 50;
-	private float boundsMultiplier = 1;
+
 	protected float XMin;
 	protected float XMax;
 	protected float YMin;
 	protected float YMax;
+	protected float boundsMultiplier;
 	protected InputModel model;
 	protected RectTransform rect;
 	protected GraphicRaycaster raycaster;
 	protected Vector3 lastPos;
 
+	protected CursorBaseData baseData;
+	protected int pixelBuffer;
+	protected float movementMultiplier;
+
 	protected List<RaycastResult> results;
 	protected PointerEventData ped;
 	protected _CursorButton foundButton; // universal used in raycast
 	protected _CursorButton pastHoverButton;
-	protected _CursorButton hoverButton; // Used in fixed updat
+	protected _CursorButton hoverButton; // Used in fixed update
 	protected _CursorButton clickButton; // Used when "submit":ting
 
 	protected bool lateSubmit = false;
 	protected bool lateCancel = false;
 
-	protected void Initialize(){
+	protected virtual void Awake(){
+		baseData = (CursorBaseData) Resources.Load ("Scriptables/_BaseDatas/CursorBaseData", typeof(CursorBaseData));
+		movementMultiplier = baseData.movespeedMultiplier;
+		pixelBuffer = baseData.pixelBuffer;
 		rect = gameObject.GetComponent<RectTransform> ();
 		raycaster = gameObject.GetComponentInParent<GraphicRaycaster> ();
 		GetBounds ();

@@ -15,8 +15,7 @@ public class CharacterMovement : MonoBehaviour {
     [SerializeField]
     private float dashCoolDown = 2f;
 
-    private Vector2 direction;
-    private Vector2 mousePosition;
+    private Vector2 moveDirection;
     private Vector2 lookDirection;
     private float rotationAnalogMultiplier;
 
@@ -28,12 +27,6 @@ public class CharacterMovement : MonoBehaviour {
     private float dashCoolDownElapsed = 0f;
 
     private Rigidbody2D rb2d;
-    private InputModel input;
-
-    public void GetInputModel(InputModel model)
-    {
-        this.input = model;
-    }
 
     private void Awake()
     {
@@ -42,75 +35,25 @@ public class CharacterMovement : MonoBehaviour {
 
     private void Update()
     {
-        //direction.x = Input.GetAxisRaw("Horizontal");
-        //direction.y = Input.GetAxisRaw("Vertical");
-        //direction.Normalize();
-
-        //mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        //if (Input.GetKeyDown(KeyCode.Space) && dashTimerElapsed <= 0f && dashCoolDownElapsed <= 0f)
-        //{
-        //    Dash();
-        //}
-
         if (dashCoolDownElapsed > 0)
         {
             dashCoolDownElapsed -= Time.deltaTime;
         }
     }
 
-    private void FixedUpdate()
+    public void Move(Vector2 inputAxis)
     {
-        if (input != null)
+        moveDirection = inputAxis;
+
+        if (moveDirection.magnitude > 1f)
         {
-            if (input.Dash)
-            {
-                Dash();
-            }
-
-			direction = input.leftDirection;
-
-            // Calculate deadzones manually to be circle shaped --> Move this to input handling!
-            // http://www.third-helix.com/2013/04/12/doing-thumbstick-dead-zones-right.html
-			//float deadzone = 0.19f;
-			/*
-            if (direction.magnitude < deadzone)
-                direction = Vector2.zero;
-            else
-                direction = direction.normalized * ((direction.magnitude - deadzone) / (1 - deadzone));
-           	*/
-            // ---------------------------------------------------------------------------------
-
-            if (direction.magnitude > 1f)
-            {
-                direction.Normalize();
-            }
-
-			Vector2 rotateInputDirection = input.rightDirection;
-			/*
-            if (rotateInputDirection.magnitude < deadzone)
-                rotateInputDirection = Vector2.zero;
-            else
-                rotateInputDirection = rotateInputDirection.normalized * ((rotateInputDirection.magnitude - deadzone) / (1 - deadzone));
-			*/
-            if (rotateInputDirection.magnitude > 1f)
-            {
-                rotateInputDirection.Normalize();
-            }
-
-            rotationAnalogMultiplier = rotateInputDirection.magnitude;
-            if (rotationAnalogMultiplier > 0)
-            {
-                lookDirection.x = rotateInputDirection.x;
-                lookDirection.y = rotateInputDirection.y;
-                lookDirection.Normalize();
-            }
+            moveDirection.Normalize();
         }
 
         if (dashTimerElapsed <= 0)
         {
-            velocity.x = direction.x * runSpeed * rb2d.drag * Time.deltaTime;
-            velocity.y = direction.y * runSpeed * rb2d.drag * Time.deltaTime;
+            velocity.x = moveDirection.x * runSpeed * rb2d.drag * Time.deltaTime;
+            velocity.y = moveDirection.y * runSpeed * rb2d.drag * Time.deltaTime;
         }
         else
         {
@@ -120,7 +63,25 @@ public class CharacterMovement : MonoBehaviour {
             dashTimerElapsed -= Time.deltaTime;
         }
 
-        //lookDirection = mousePosition - rb2d.position;
+        rb2d.AddForce(velocity - rb2d.velocity, ForceMode2D.Impulse);
+    }
+
+    public void Rotate(Vector2 inputAxis)
+    {
+        Vector2 rotateInputDirection = inputAxis;
+
+        if (rotateInputDirection.magnitude > 1f)
+        {
+            rotateInputDirection.Normalize();
+        }
+
+        rotationAnalogMultiplier = rotateInputDirection.magnitude;
+        if (rotationAnalogMultiplier > 0)
+        {
+            lookDirection.x = rotateInputDirection.x;
+            lookDirection.y = rotateInputDirection.y;
+            lookDirection.Normalize();
+        }
 
         float angle = Vector2.SignedAngle(transform.up, lookDirection);
         float sign = Mathf.Sign(angle);
@@ -135,12 +96,12 @@ public class CharacterMovement : MonoBehaviour {
         rb2d.AddTorque(angularVelocity - rb2d.angularVelocity, ForceMode2D.Impulse);
     }
 
-    private void Dash()
+    public void Dash()
     {
-        if (direction.magnitude != 0)
+        if (moveDirection.magnitude != 0)
         {
-            dashDirection.x = direction.normalized.x;
-            dashDirection.y = direction.normalized.y;
+            dashDirection.x = moveDirection.normalized.x;
+            dashDirection.y = moveDirection.normalized.y;
         }
         else
         {

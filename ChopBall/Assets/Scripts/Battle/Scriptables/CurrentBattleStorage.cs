@@ -6,7 +6,7 @@ public enum GameMode{shortStock, longStock, goalsOnly};
 
 [CreateAssetMenu]
 public class CurrentBattleStorage : ScriptableObject {
-	public bool useTimer; //
+	public bool useTimer = false; //
 	public int minutesLeft;
 	public float secondsLeft;
 	public int roundsLeft;
@@ -22,6 +22,14 @@ public class CurrentBattleStorage : ScriptableObject {
 			teamData = null;
 		}
 		// TODO: Iterate playerdata and Generate CompetitorContainers
+
+		if (masterData.timer.used) {
+			useTimer = true;
+			minutesLeft = masterData.timer.minutes;
+			secondsLeft = masterData.timer.seconds;
+		} else {
+			useTimer = false;
+		}
 	}
 }
 

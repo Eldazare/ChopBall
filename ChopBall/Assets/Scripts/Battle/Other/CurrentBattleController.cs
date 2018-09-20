@@ -11,36 +11,34 @@ public static class CurrentBattleController  {
 
 	private static void LoadCurrentBattle(){
 		if (currentBattle == null) {
-			currentBattle = (CurrentBattleStorage) Resources.Load ("Scriptables/Battle/Storage/CurrentBattleStorage", typeof(CurrentBattleStorage));
+			currentBattle = (CurrentBattleStorage) Resources.Load ("Scriptables/Battle/Storages/CurrentBattleStorage", typeof(CurrentBattleStorage));
 		}
 	}
 
-	// "Was this the last goal of the match?"
-	public static bool AddGoal(GoalData goalData){
+	public static void InitializeCurrentData(){
 		LoadCurrentBattle ();
-		// TODO: Parse from currentBattle for how to insert
-		return false;
+
+	}
+
+	// "Was this the last goal of the match?"
+	public static int AddGoal(GoalData goalData){
+		LoadCurrentBattle ();
+		currentBattle.roundsLeft -= 1;
+		return currentBattle.roundsLeft;
 	}
 
 	// "Did game end?"
-	public static bool AdvanceTime(float deltaTime){
+	public static int AdvanceTime(float deltaTime){
 		LoadCurrentBattle ();
 		if (currentBattle.useTimer) {
 			currentBattle.secondsLeft -= deltaTime;
 			if (currentBattle.secondsLeft < 0) {
 				currentBattle.minutesLeft -= 1;
 				if (currentBattle.minutesLeft < 0) {
-					return true;
+					currentBattle.roundsLeft -= 1;
 				}
 			}
 		}
-		return false;
+		return currentBattle.roundsLeft;
 	}
-}
-
-
-public class GoalData{
-	public int giverPlayerID;
-	public int goalPlayerID;
-	public int teamGoalID;
 }

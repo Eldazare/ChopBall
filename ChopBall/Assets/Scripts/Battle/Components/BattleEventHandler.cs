@@ -21,7 +21,7 @@ public class BattleEventHandler : MonoBehaviour {
 	}
 
 	public void PassGoalData(GoalData goalData){
-		if (CurrentBattleController.AddGoal (goalData)) {
+		if (CurrentBattleController.AddGoal (goalData) == 0) {
 			GameEndEvent.Raise ();
 		}
 	}
@@ -29,7 +29,7 @@ public class BattleEventHandler : MonoBehaviour {
 	void Update(){
 		if (!startGame) {
 			if (!paused) {
-				if (CurrentBattleController.AdvanceTime (Time.deltaTime)) {
+				if (CurrentBattleController.AdvanceTime (Time.deltaTime) == 0) {
 					GameEndEvent.Raise ();
 				}
 			}

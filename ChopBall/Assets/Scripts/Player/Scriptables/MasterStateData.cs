@@ -11,7 +11,7 @@ public class MasterStateData : ScriptableObject {
 	public int numberOfPlayers; // TODO: Define how this is read / input by player?
 	public bool teams; // Wether the game is Free-For-All or Teams
 	public StageChoiceType stageChoiceType;
-	public float timeLimit; // 0 is infinite
+	public ATime timer;
 	public int goalLimit; // 1-N
 	public string stageNameFinal; // Either from master cursor or voter class.
 
@@ -23,8 +23,26 @@ public class MasterStateData : ScriptableObject {
 		numberOfPlayers = 1;
 		teams = false;
 		stageChoiceType = StageChoiceType.individualRandom;
-		timeLimit = 8.00f;
+		timer = new ATime (8, 0f);
 		goalLimit = 10;
 		stageNameFinal = "";
+	}
+}
+
+public class ATime{
+	public bool used;
+	public int minutes;
+	public float seconds;
+
+	public ATime(){
+		used = false;
+		minutes = 0;
+		seconds = 0;
+	}
+
+	public ATime(int minutes, float seconds){
+		used = true;
+		this.minutes = minutes;
+		this.seconds = seconds;
 	}
 }

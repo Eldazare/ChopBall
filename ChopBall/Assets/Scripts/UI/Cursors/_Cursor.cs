@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public abstract class _Cursor : MonoBehaviour {
 
 	public int playerID = -1;
+	public GameEvent OnCancel;
 
 	protected float XMin;
 	protected float XMax;
@@ -96,7 +97,7 @@ public abstract class _Cursor : MonoBehaviour {
 	protected void CancelCheck(){
 		if (lateCancel == false) {
 			if (model.Cancel == true) {
-				// TODO: Cancel?
+				OnCancel.Raise ();
 				lateCancel = true;
 			}
 		} else if (model.Cancel == false) {

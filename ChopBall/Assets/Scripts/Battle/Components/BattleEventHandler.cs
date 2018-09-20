@@ -21,17 +21,13 @@ public class BattleEventHandler : MonoBehaviour {
 	}
 
 	public void PassGoalData(GoalData goalData){
-		if (CurrentBattleController.AddGoal (goalData) == 0) {
-			GameEndEvent.Raise ();
-		}
+		CurrentBattleController.AddGoal (goalData);
 	}
 
 	void Update(){
 		if (!startGame) {
 			if (!paused) {
-				if (CurrentBattleController.AdvanceTime (Time.deltaTime) == 0) {
-					GameEndEvent.Raise ();
-				}
+				CurrentBattleController.AdvanceTime (Time.deltaTime);
 			}
 		}
 	}

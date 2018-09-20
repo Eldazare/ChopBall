@@ -49,15 +49,20 @@ public class InputTranslator : MonoBehaviour {
 	}
 
 	private void DeadZoneCheck(InputModel nearFinishedModel, float deadZoneLeft, float deadZoneRight){
-		nearFinishedModel.leftDirection = IndividualDeadzones (nearFinishedModel.leftDirection, deadZoneLeft);
-		nearFinishedModel.rightDirection = IndividualDeadzones (nearFinishedModel.rightDirection, deadZoneRight);
+		nearFinishedModel.leftDirection = IndividualDeadzonesAndCap (nearFinishedModel.leftDirection, deadZoneLeft);
+		nearFinishedModel.rightDirection = IndividualDeadzonesAndCap (nearFinishedModel.rightDirection, deadZoneRight);
 	}
 
-	private Vector2 IndividualDeadzones(Vector2 dir, float deadZone){
+	private Vector2 IndividualDeadzonesAndCap(Vector2 dir, float deadZone){
 		if (dir.magnitude < deadZone)
 			return Vector2.zero;
-		else
-			return dir.normalized * ((dir.magnitude - deadZone) / (1 - deadZone));
+		else {
+			Vector2 smoothedDir = dir.normalized * ((dir.magnitude - deadZone) / (1 - deadZone));
+			if (smoothedDir.magnitude > 1) {
+				smoothedDir.Normalize ();
+			}
+			return smoothedDir;
+		}
 	}
 
 	public void FinalCall(){

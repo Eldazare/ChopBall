@@ -42,7 +42,7 @@ public class CurrentBattleStorage : ScriptableObject {
 			newCompCont.goalsScored = 0;
 			if (masterData.teams) {
 				newCompCont.teamID = stateData.team;
-				teamData [stateData.team] = new TeamContainer (stateData.team);
+				//teamData [stateData.team] = new TeamContainer (stateData.team);
 			} else {
 				newCompCont.teamID = -1;
 			}
@@ -78,40 +78,3 @@ public class CurrentBattleStorage : ScriptableObject {
 	}
 }
 
-public class TeamContainer{
-	public TeamContainer(int iD){
-		teamID = iD;
-		goals = 0;
-		score = 0;
-	}
-
-	public void TeamDidAGoal(){
-		goals += 1;
-	}
-
-	public void AddScore(int amount){
-		score += amount;
-	}
-
-	public int teamID;
-	public int goals;
-	public int score;
-}
-
-public class CompetitorContainer{
-	public int teamID;
-	public float score;
-	public int stock;
-	public int goalsScored;
-
-	public void DidAGoal(){
-		goalsScored += 1;
-	}
-
-	public void RemoveStock(){
-		stock -= 1;
-		if (stock < 0) {
-			stock = 0;
-		}
-	}
-}

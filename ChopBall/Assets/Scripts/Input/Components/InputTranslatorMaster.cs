@@ -20,11 +20,12 @@ public class InputTranslatorMaster : MonoBehaviour {
 		for (int i = 0; i < JoyNames.Length; i++) {
 			if (!string.IsNullOrEmpty (JoyNames [i])) {
 				if (connectedControllers [i] == false) {
-					Debug.Log (JoyNames [i]);
-					connectedControllers [i] = true;
-					Debug.Log ("Joystick " + i + " Connected");
-					InputStorageController.SetModelToStorage ((i + 1), JoyNames [i]);
-					translators [i].enabled = true;
+					Debug.Log ("Trying: "+ JoyNames [i]);
+					if (InputStorageController.SetModelToStorage ((i + 1), JoyNames [i])) {
+						connectedControllers [i] = true;
+						Debug.Log ("Joystick " + i + " Connected");
+						translators [i].enabled = true;
+					}
 				}
 			} else {
 				if (connectedControllers[i] == true) {

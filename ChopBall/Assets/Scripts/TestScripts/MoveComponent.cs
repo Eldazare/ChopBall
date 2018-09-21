@@ -17,7 +17,7 @@ public class MoveComponent : MonoBehaviour {
 
 	void FixedUpdate () {
 		if (model != null) {
-			rig.velocity = model.rightDirection;
+			rig.velocity = model.rightDirectionalInput;
 			if (model.Submit) {
 				Debug.Log ("Submit registered");
 			}

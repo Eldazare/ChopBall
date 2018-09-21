@@ -35,8 +35,8 @@ public class CharacterHandler : MonoBehaviour {
                 movement.Dash();
             }
 
-            movement.Move(input.leftDirection);
-            movement.Rotate(input.rightDirection);
+            movement.Move(input.leftDirectionalInput);
+            movement.Rotate(input.rightDirectionalInput);
 
             leftPaddleTriggeredLastFrame = input.PaddleLeft;
             rightPaddleTriggeredLastFrame = input.PaddleRight;

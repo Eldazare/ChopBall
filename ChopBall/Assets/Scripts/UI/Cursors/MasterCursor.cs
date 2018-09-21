@@ -19,7 +19,7 @@ public class MasterCursor : _Cursor {
 
 	override
 	public void GetModel(InputModel gotModel){
-		totalDirectionLeft += gotModel.leftDirection;
+		totalDirectionLeft += gotModel.leftDirectionalInput;
 		model = gotModel;
 		if (controllerChosen == false) {
 			if (model.Submit == true) {

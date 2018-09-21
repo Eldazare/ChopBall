@@ -5,8 +5,8 @@ using UnityEngine;
 public class InputModel {
 
 	public int playerID;
-	public Vector2 leftDirection;
-	public Vector2 rightDirection;
+	public Vector2 leftDirectionalInput;
+	public Vector2 rightDirectionalInput;
 
 	public bool PaddleLeft;
 	public bool PaddleRight;
@@ -17,8 +17,8 @@ public class InputModel {
 
 	// Default = Zero;
 	public InputModel(){
-		leftDirection = Vector2.zero;
-		rightDirection = Vector2.zero;
+		leftDirectionalInput = Vector2.zero;
+		rightDirectionalInput = Vector2.zero;
 
 		PaddleLeft = false;
 		PaddleRight = false;

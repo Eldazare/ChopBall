@@ -11,12 +11,24 @@ public class InputTranslator : MonoBehaviour {
 	private string begin;
 	private InputStorage customInputs;
 	private PlayerStateData stateData;
+	private InputBaseData baseData;
+	private Vector2 previousDirectionalInputLeft;
+	private Vector2 previousDirectinalInputRight;
+
+	private Vector2 smoothVelocityLeft;
+	private Vector2 smoothVelocityRight;
 
 	void Awake(){
 		customInputs = InputStorageController.GetAStorage(controllerNumber);
 		if (customInputs.playerNo != controllerNumber) {
 			Debug.LogWarning ("Misaligned customInput and controller "+customInputs.playerNo+" and "+controllerNumber);
 		}
+		baseData = (InputBaseData)Resources.Load ("Scriptables/_BaseDatas/InputBaseData", typeof(InputBaseData));
+		if (baseData == null) {
+			Debug.LogError ("InputBaseData not found.");
+		}
+		previousDirectionalInputLeft = Vector2.zero;
+		previousDirectinalInputRight = Vector2.zero;
 		/*
 		stateData = PlayerStateController.GetAState (controllerNumber);
 		if (stateData == null) {
@@ -24,19 +36,18 @@ public class InputTranslator : MonoBehaviour {
 		}
 		*/
 	}
-	float PaddleStrValue;
 
 	void Update(){
 		InputModel model = new InputModel ();
 		model.playerID = controllerNumber;
-		model.leftDirection.x = Input.GetAxisRaw (customInputs.XAxisLeft);
-		model.rightDirection.x = Input.GetAxisRaw (customInputs.XAxisRight);
+		model.leftDirectionalInput.x = Input.GetAxisRaw (customInputs.XAxisLeft);
+		model.rightDirectionalInput.x = Input.GetAxisRaw (customInputs.XAxisRight);
 		if (invertYInput) {
-			model.leftDirection.y = -Input.GetAxisRaw (customInputs.YAxisLeft);
-			model.rightDirection.y = -Input.GetAxisRaw (customInputs.YAxisRight);
+			model.leftDirectionalInput.y = -Input.GetAxisRaw (customInputs.YAxisLeft);
+			model.rightDirectionalInput.y = -Input.GetAxisRaw (customInputs.YAxisRight);
 		} else {	
-			model.leftDirection.y = -Input.GetAxisRaw (customInputs.YAxisLeft);
-			model.rightDirection.y = -Input.GetAxisRaw (customInputs.YAxisRight);
+			model.leftDirectionalInput.y = -Input.GetAxisRaw (customInputs.YAxisLeft);
+			model.rightDirectionalInput.y = -Input.GetAxisRaw (customInputs.YAxisRight);
 		}
 		DeadZoneCheck (model, customInputs.deadZoneLeft, customInputs.deadZoneRight);
 
@@ -49,20 +60,35 @@ public class InputTranslator : MonoBehaviour {
 	}
 
 	private void DeadZoneCheck(InputModel nearFinishedModel, float deadZoneLeft, float deadZoneRight){
-		nearFinishedModel.leftDirection = IndividualDeadzonesAndCap (nearFinishedModel.leftDirection, deadZoneLeft);
-		nearFinishedModel.rightDirection = IndividualDeadzonesAndCap (nearFinishedModel.rightDirection, deadZoneRight);
+		nearFinishedModel.leftDirectionalInput = IndividualDeadzonesAndCap (nearFinishedModel.leftDirectionalInput, deadZoneLeft, previousDirectionalInputLeft, ref smoothVelocityLeft);
+		nearFinishedModel.rightDirectionalInput = IndividualDeadzonesAndCap (nearFinishedModel.rightDirectionalInput, deadZoneRight, previousDirectinalInputRight, ref smoothVelocityRight);
 	}
 
-	private Vector2 IndividualDeadzonesAndCap(Vector2 dir, float deadZone){
-		if (dir.magnitude < deadZone)
+	private Vector2 IndividualDeadzonesAndCap(Vector2 inputVector, float deadZone, Vector2 previousInput, ref Vector2 smoothVelocity){
+		if (inputVector.magnitude < deadZone)
 			return Vector2.zero;
 		else {
-			Vector2 smoothedDir = dir.normalized * ((dir.magnitude - deadZone) / (1 - deadZone));
+			Vector2 smoothedDir = inputVector.normalized * ((inputVector.magnitude - deadZone) / (1 - deadZone));
 			if (smoothedDir.magnitude > 1) {
 				smoothedDir.Normalize ();
 			}
-			return smoothedDir;
+			//return smoothedDir;
+			return SuperSmooth(smoothedDir, previousInput, ref smoothVelocity);
 		}
+	}
+
+	private Vector2 SuperSmooth(Vector2 inputVector, Vector2 previousInput, ref Vector2 smoothVelocity){
+		
+
+		//gravityMultiplier = (input == Vector2.zero) ? gravity : 0f;
+
+		Vector2 sensitivityInput = inputVector.normalized * baseData.sensitivityCurve.Evaluate(inputVector.magnitude);
+		float inputDistanceDelta = Mathf.Abs((sensitivityInput - previousInput).magnitude);
+
+		inputVector.x = Mathf.SmoothDamp(previousInput.x, sensitivityInput.x, ref smoothVelocity.x, baseData.smoothingCurve.Evaluate(sensitivityInput.magnitude) * baseData.inputSmoothing * baseData.velocitySmoothingCurve.Evaluate(inputDistanceDelta)); //* (1 - gravityMultiplier));
+		inputVector.y = Mathf.SmoothDamp(previousInput.y, sensitivityInput.y, ref smoothVelocity.y, baseData.smoothingCurve.Evaluate(sensitivityInput.magnitude) * baseData.inputSmoothing * baseData.velocitySmoothingCurve.Evaluate(inputDistanceDelta)); //* (1 - gravityMultiplier));
+
+		return inputVector;
 	}
 
 	public void FinalCall(){

@@ -35,11 +35,14 @@ public static class InputStorageController {
 		storages [playerID - 1].ReadDefaultButtonsFromCurrentModel ();
 	}
 
-	public static void SetModelToStorage(int playerID, string modelName){
+	public static bool SetModelToStorage(int playerID, string modelName){
 		LoadInputStorages ();
 		ControllerModel model = ControllerModelController.GetControllerModel (modelName);
 		if (model != null) {
 			storages [playerID - 1].ReadModel (model);
+			return true;
+		} else {
+			return false;
 		}
 	}
 

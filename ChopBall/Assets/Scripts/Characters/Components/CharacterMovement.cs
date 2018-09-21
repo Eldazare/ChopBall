@@ -45,11 +45,6 @@ public class CharacterMovement : MonoBehaviour {
     {
         moveDirection = inputAxis;
 
-        if (moveDirection.magnitude > 1f)
-        {
-            moveDirection.Normalize();
-        }
-
         if (dashTimerElapsed <= 0)
         {
             velocity.x = moveDirection.x * runSpeed * rb2d.drag * Time.deltaTime;
@@ -69,11 +64,6 @@ public class CharacterMovement : MonoBehaviour {
     public void Rotate(Vector2 inputAxis)
     {
         Vector2 rotateInputDirection = inputAxis;
-
-        if (rotateInputDirection.magnitude > 1f)
-        {
-            rotateInputDirection.Normalize();
-        }
 
         rotationAnalogMultiplier = rotateInputDirection.magnitude;
         if (rotationAnalogMultiplier > 0)

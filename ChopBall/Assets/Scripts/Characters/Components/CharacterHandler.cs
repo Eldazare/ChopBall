@@ -10,6 +10,7 @@ public class CharacterHandler : MonoBehaviour {
 
     private bool leftPaddleTriggeredLastFrame = false;
     private bool rightPaddleTriggeredLastFrame = false;
+    private bool dashTriggeredLastFrame = false;
 
     public void GetInputModel(InputModel model)
     {
@@ -30,7 +31,7 @@ public class CharacterHandler : MonoBehaviour {
             if (input.PaddleLeft && !leftPaddleTriggeredLastFrame) paddles[0].Hit();
             if (input.PaddleRight && !rightPaddleTriggeredLastFrame) paddles[1].Hit();
 
-            if (input.Dash)
+            if (input.Dash && !dashTriggeredLastFrame)
             {
                 movement.Dash();
             }
@@ -40,6 +41,7 @@ public class CharacterHandler : MonoBehaviour {
 
             leftPaddleTriggeredLastFrame = input.PaddleLeft;
             rightPaddleTriggeredLastFrame = input.PaddleRight;
+            dashTriggeredLastFrame = input.Dash;
         }
     }
 }

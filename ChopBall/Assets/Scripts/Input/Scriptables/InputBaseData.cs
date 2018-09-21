@@ -10,4 +10,5 @@ public class InputBaseData : ScriptableObject {
 	public AnimationCurve smoothingCurve;
 	public AnimationCurve velocitySmoothingCurve;
 	public float inputSmoothing;
+	public float gravityModifier;
 }

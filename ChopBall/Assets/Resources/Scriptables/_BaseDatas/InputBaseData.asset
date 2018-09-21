@@ -84,3 +84,4 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   inputSmoothing: 0.05
+  gravityModifier: 1

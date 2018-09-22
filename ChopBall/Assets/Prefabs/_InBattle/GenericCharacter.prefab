@@ -358,8 +358,8 @@ MonoBehaviour:
   runSpeed: 8
   rotationSpeed: 4
   dashSpeed: 30
-  dashTime: 0.015
-  dashCoolDown: 1
+  dashTime: 0.15
+  dashCoolDown: 5
 --- !u!114 &114183932374068286
 MonoBehaviour:
   m_ObjectHideFlags: 1

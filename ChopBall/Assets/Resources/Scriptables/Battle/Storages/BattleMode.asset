@@ -13,7 +13,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EndOfRound: {fileID: 11400000, guid: 0119c844770d91340ac2106d114ee0f8, type: 2}
   EndOfMatch: {fileID: 11400000, guid: f1752d2f576075742839f332319c16d2, type: 2}
-  minutesLeft: 0
-  secondsLeft: 0
-  useTimer: 0
+  StatsUpdated: {fileID: 11400000, guid: 2496106e52812f744b330b74af408873, type: 2}
+  TimerUpdated: {fileID: 11400000, guid: afdf1c5b61feda34f8df4e4ec40b022b, type: 2}
+  minutesLeft: 3
+  secondsLeft: 33.382828
+  useTimer: 1
   roundNumber: 1

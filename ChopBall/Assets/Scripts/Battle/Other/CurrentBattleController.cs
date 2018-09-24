@@ -16,17 +16,25 @@ public static class CurrentBattleController  {
 		LoadCurrentBattle ();
 		currentBattle.InitializeFromMasterStateData ();
 	}
-
-	// "Was this the last goal of the match?"
+		
 	public static void AddGoal(GoalData goalData){
 		LoadCurrentBattle ();
 		Debug.Log ("Goal detected to goal ID: " + goalData.goalPlayerID + " by player ID " + goalData.giverPlayerID);
 		currentBattle.DoGoal (goalData);
 	}
-
-	// "Did game end?"
+		
 	public static void AdvanceTime(float deltaTime){
 		LoadCurrentBattle ();
 		currentBattle.AdvanceTime (deltaTime);
+	}
+
+	public static ATime GetATime(){
+		LoadCurrentBattle ();
+		return new ATime (currentBattle.minutesLeft, currentBattle.secondsLeft);
+	}
+
+	public static List<CompetitorContainer> GetCompetitors(){
+		LoadCurrentBattle ();
+		return currentBattle.competitors;
 	}
 }

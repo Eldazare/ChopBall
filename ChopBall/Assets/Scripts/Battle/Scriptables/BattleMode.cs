@@ -13,10 +13,12 @@ public class BattleMode : ScriptableObject {
 	public GameEvent EndOfRound;
 	public GameEvent EndOfMatch;
 
+	public GameEvent StatsUpdated;
+	public GameEvent TimerUpdated;
+
 	private CountObject countObject;
-	private int countValue; // Starting stock or goalCap, per round
 	private RoundEnd roundEnd;
-	private int roundEndCap;
+	private int roundEndCap; // Starting stock / target goals. Unncesssary with timer.
 	private int minutes;
 	private float seconds;
 	private MatchEnd matchEndCriteria; // For ending the match
@@ -49,7 +51,7 @@ public class BattleMode : ScriptableObject {
 			newCompCont.score = 0;
 			newCompCont.goalsScored = 0;
 			if (countObject == CountObject.Stocks) {
-				newCompCont.SetStock(countValue);
+				newCompCont.SetStock(roundEndCap);
 			}
 			if (masterData.teams) {
 				newCompCont.teamID = stateData.team;
@@ -60,7 +62,9 @@ public class BattleMode : ScriptableObject {
 			competitors.Add (newCompCont);
 		}
 		roundNumber = 1;
-		ReceiveBlueprint (masterData.battleModeBlueprint);
+		if (!ReceiveBlueprint (masterData.battleModeBlueprint)) {
+			throw new UnityException ("CUSTOM: Blueprint not valid, game cannot be loaded.");
+		}
 	}
 
 	public void DoGoal(GoalData gd){
@@ -77,6 +81,7 @@ public class BattleMode : ScriptableObject {
 		if (CheckRoundEndElimination (receiver)) {
 			EndRound ();
 		}
+		StatsUpdated.Raise ();
 	}
 
 	public void AdvanceTime(float deltaTime){
@@ -91,6 +96,7 @@ public class BattleMode : ScriptableObject {
 					}
 				}
 			}
+			TimerUpdated.Raise ();
 		}
 	}
 
@@ -141,7 +147,7 @@ public class BattleMode : ScriptableObject {
 		List<int> indexOrder = new List<int> ();
 		bool addLast = true;
 		for (int i = 0; i<competitors.Count; i++) {
-			for (int j = 0; j<indexOrder.Count;i++) {
+			for (int j = 0; j<indexOrder.Count;j++) {
 				if (competitors[indexOrder[j]].roundScoreValue < competitors [i].roundScoreValue) {
 					indexOrder.Insert (j, i);
 					addLast = false;
@@ -183,7 +189,7 @@ public class BattleMode : ScriptableObject {
 		List<int> indexOrder = new List<int> ();
 		bool addLast = true;
 		for (int i = 0; i<teams.Count; i++) {
-			for (int j = 0; j<indexOrder.Count;i++) {
+			for (int j = 0; j<indexOrder.Count;j++) {
 				if (teams[indexOrder[j]].roundScoreValue < teams[i].roundScoreValue) {
 					indexOrder.Insert (j, i);
 					addLast = false;
@@ -257,12 +263,14 @@ public class BattleMode : ScriptableObject {
 	public bool ReceiveBlueprint(BattleModeBlueprint blueprint){
 		if (blueprint.Validate ()) {
 			countObject = blueprint.countObject;
-			countValue = blueprint.countValue;
+			roundEndCap = blueprint.roundEndCap;
 			roundEnd = blueprint.roundEnd;
 			if (roundEnd == RoundEnd.Timer) {
 				useTimer = true;
 				minutes = blueprint.timer.minutes;
 				seconds = blueprint.timer.seconds;
+				minutesLeft = minutes;
+				secondsLeft = seconds;
 			} else {
 				useTimer = false;
 				roundEndCap = blueprint.roundEndCap;
@@ -279,11 +287,11 @@ public class BattleMode : ScriptableObject {
 	public bool CheckRoundEndGoals(CompetitorContainer goalGiver){
 		if (roundEnd == RoundEnd.Cap && countObject == CountObject.Goals) {
 			if (teams != null) {
-				if (teams [goalGiver.teamID].goals >= countValue) {
+				if (teams [goalGiver.teamID].goals >= roundEndCap) {
 					return true;
 				}
 			} else {
-				if (goalGiver.goalsScored >= countValue) {
+				if (goalGiver.goalsScored >= roundEndCap) {
 					return true;
 				}
 			}
@@ -395,22 +403,21 @@ public class CompetitorContainer{
 
 public class BattleModeBlueprint{
 	public CountObject countObject;
-	public int countValue; // Starting stock or goalCap, per round
 	public RoundEnd roundEnd;
-	public int roundEndCap;
+	public int roundEndCap; // Starting stock or goalCap, per round. Unnecessary with timer.
 	public ATime timer;
 	public MatchEnd endCriteria; // For ending the match
 	public int endValue;
 	public ScoringMode scoringMode; // How do goals/Stocks/etc relate to score at end of round
 
 	public bool Validate(){
-		if (countValue < 1) {
-			return false;
-		}
 		if (endValue < 1) {
 			return false;
 		}
 		if (roundEnd == RoundEnd.Cap && roundEndCap < 1) {
+			return false;
+		}
+		if (roundEnd == RoundEnd.Elimination && roundEndCap < 1) {
 			return false;
 		}
 		if (roundEnd == RoundEnd.Timer && ((timer.minutes <= 0 && timer.seconds <= 0) || timer.seconds >= 60)) {

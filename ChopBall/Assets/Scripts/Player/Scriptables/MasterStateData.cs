@@ -32,7 +32,13 @@ public class MasterStateData : ScriptableObject {
 
 	private BattleModeBlueprint DefaultBP(){
 		BattleModeBlueprint newBP = new BattleModeBlueprint ();
-		//TODO: set defaults
+		newBP.countObject = CountObject.Goals;
+		newBP.roundEnd = RoundEnd.Timer;
+		//newBP.roundEndCap = 0; // Starting stock or goalCap, per round
+		newBP.timer = new ATime(4,0f);
+		newBP.endCriteria = MatchEnd.ScoreCap; // For ending the match
+		newBP.endValue = 20;
+		newBP.scoringMode = ScoringMode.Direct1to1; // How do goals/Stocks/etc relate to score at end of round
 		return newBP;
 	}
 
@@ -44,7 +50,7 @@ public class MasterStateData : ScriptableObject {
 		foreach (StageData stageData in StageDataController.GetStages ()) {
 			if (stageNameFinal == stageData.stageName) {
 				SceneManager.LoadScene (stageData.stageSceneName);
-				break;
+				return;
 			}
 		}
 		Debug.LogWarning ("Stage name not found: " + stageNameFinal);

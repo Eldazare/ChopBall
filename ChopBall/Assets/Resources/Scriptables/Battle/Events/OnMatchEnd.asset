@@ -9,5 +9,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93824da33ec0ba848a91b16880a5babf, type: 3}
-  m_Name: OnGameEnd
+  m_Name: OnMatchEnd
   m_EditorClassIdentifier: 

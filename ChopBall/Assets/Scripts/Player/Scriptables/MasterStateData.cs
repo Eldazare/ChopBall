@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum StageChoiceType {individualRandom, masterSingle, randomPreset}
 
@@ -13,62 +14,39 @@ public class MasterStateData : ScriptableObject {
 
 	public int numberOfPlayers; // TODO: Define how this is read / input by player?
 	public bool teams; // Wether the game is Free-For-All or Teams
+	public BattleModeBlueprint battleModeBlueprint;
+
 	public StageChoiceType stageChoiceType;
-	//public GameMode gameModeChoice;
-
-	// stocksTimer variables
-	public ATime stocksTimerTimer;
-	public int stocksTimerStocks;
-
-	public ScoringMode stocksTimerScoringMode;
-	public MatchEnd stocksTimerEndEnum;
-	public int stocksTimerEndValue;
-
-	// stocksElim variables
-	public int stocksElimStocks;
-	public int stocksElimScoreLimit;
-
-	public ScoringMode stocksElimScoringMode;
-	public MatchEnd stocksElimEndEnum;
-	public int stocksElimEndValue;
-
-	// goalsTimer
-	public int goalsTimerGoals;
-
 	public string stageNameFinal; // Either from master cursor or voter class.
 
 	public List<string> randomStagePreset;
 
-	/*
 	public void SetDefaults(){
 		// Should contain every field
 		numberOfPlayers = 1;
 		teams = false;
-		stageChoiceType = StageChoiceType.individualRandom;
-		timer = new ATime (8, 0f);
-		stocks = 0; // infinite (or not used)
-		goalLimit = 10;
-		stageNameFinal = "";
-		totalRounds = 1;
-		roundWins = 0;
-	}
-	*/
-}
-
-public class ATime{
-	public bool used;
-	public int minutes;
-	public float seconds;
-
-	public ATime(){
-		used = false;
-		minutes = 0;
-		seconds = 0;
+		battleModeBlueprint = DefaultBP ();
+		stageChoiceType = StageChoiceType.masterSingle;
+		stageNameFinal = "TestStage";
 	}
 
-	public ATime(int minutes, float seconds){
-		used = true;
-		this.minutes = minutes;
-		this.seconds = seconds;
+	private BattleModeBlueprint DefaultBP(){
+		BattleModeBlueprint newBP = new BattleModeBlueprint ();
+		//TODO: set defaults
+		return newBP;
+	}
+
+	public void SetBattleModeBlueprint(BattleModeBlueprint bp){
+		this.battleModeBlueprint = bp;
+	}
+
+	public void GoToBattle(){
+		foreach (StageData stageData in StageDataController.GetStages ()) {
+			if (stageNameFinal == stageData.stageName) {
+				SceneManager.LoadScene (stageData.stageSceneName);
+				break;
+			}
+		}
+		Debug.LogWarning ("Stage name not found: " + stageNameFinal);
 	}
 }

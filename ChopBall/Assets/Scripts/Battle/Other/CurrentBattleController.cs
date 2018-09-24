@@ -4,27 +4,29 @@ using UnityEngine;
 
 public static class CurrentBattleController  {
 
-	private static CurrentBattleStorage currentBattle;
+	private static BattleMode currentBattle;
 
 	private static void LoadCurrentBattle(){
 		if (currentBattle == null) {
-			currentBattle = (CurrentBattleStorage) Resources.Load ("Scriptables/Battle/Storages/CurrentBattleStorage", typeof(CurrentBattleStorage));
+			currentBattle = (BattleMode) Resources.Load ("Scriptables/Battle/Storages/BattleMode", typeof(BattleMode));
 		}
 	}
 
 	public static void InitializeCurrentData(){
 		LoadCurrentBattle ();
-		currentBattle.LoadFromMasterState ();
+		currentBattle.InitializeFromMasterStateData ();
 	}
 
 	// "Was this the last goal of the match?"
 	public static void AddGoal(GoalData goalData){
 		LoadCurrentBattle ();
-		Debug.Log ("Goal detected: " + goalData.goalPlayerID + " by " + goalData.giverPlayerID);
+		Debug.Log ("Goal detected to goal ID: " + goalData.goalPlayerID + " by player ID " + goalData.giverPlayerID);
+		currentBattle.DoGoal (goalData);
 	}
 
 	// "Did game end?"
 	public static void AdvanceTime(float deltaTime){
 		LoadCurrentBattle ();
+		currentBattle.AdvanceTime (deltaTime);
 	}
 }

@@ -4,13 +4,11 @@ using UnityEngine;
 
 public enum CountObject{Stocks, Goals}
 public enum RoundEnd{Elimination, Cap, Timer}
-public enum MatchEnd{Rounds, RoundsWin, ScoreCap}
+public enum MatchEnd{Rounds, ScoreCap}
 public enum ScoringMode{WinnerOnly, PerPosition, Direct1to1}
 
 [CreateAssetMenu]
 public class BattleMode : ScriptableObject {
-
-	// TODO: Initialize competitors and teams
 
 	public GameEvent EndOfRound;
 	public GameEvent EndOfMatch;
@@ -33,10 +31,8 @@ public class BattleMode : ScriptableObject {
 	public List<CompetitorContainer> competitors;
 	public List<TeamContainer> teams;
 
-	//TODO: Unfinished
 	public void InitializeFromMasterStateData(){
 		MasterStateData masterData = MasterStateController.GetTheMasterData ();
-		//roundsLeft = masterData.totalRounds;
 
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates();
 		if (masterData.teams) {
@@ -47,10 +43,9 @@ public class BattleMode : ScriptableObject {
 		} else {
 			teams = null;
 		}
-		// TODO: Iterate playerdata and Generate CompetitorContainers
+		competitors = new List<CompetitorContainer> ();
 		foreach (PlayerStateData stateData in playerStates) {
 			CompetitorContainer newCompCont = new CompetitorContainer ();
-			//newCompCont.stock = masterData.stocks;
 			newCompCont.score = 0;
 			newCompCont.goalsScored = 0;
 			if (countObject == CountObject.Stocks) {
@@ -58,22 +53,14 @@ public class BattleMode : ScriptableObject {
 			}
 			if (masterData.teams) {
 				newCompCont.teamID = stateData.team;
-				//teamData [stateData.team] = new TeamContainer (stateData.team);
+				teams [stateData.team] = new TeamContainer ();
 			} else {
 				newCompCont.teamID = -1;
 			}
 			competitors.Add (newCompCont);
 		}
-		/*
-			if (masterData.timer.used) {
-				useTimer = true;
-				minutesLeft = masterData;
-				secondsLeft = masterData.timer.seconds;
-			} else {
-				useTimer = false;
-			}
-			*/
 		roundNumber = 1;
+		ReceiveBlueprint (masterData.battleModeBlueprint);
 	}
 
 	public void DoGoal(GoalData gd){
@@ -192,7 +179,6 @@ public class BattleMode : ScriptableObject {
 	}
 
 
-	// TODO: Unfinished
 	private void ScoreTeams(){
 		List<int> indexOrder = new List<int> ();
 		bool addLast = true;
@@ -237,18 +223,33 @@ public class BattleMode : ScriptableObject {
 		roundNumber += 1;
 		switch (matchEndCriteria) {
 		case MatchEnd.Rounds:
-			if (roundNumber <= matchEndValue) {
-				return false;
+			if (roundNumber > matchEndValue) {
+				return MatchEndCalls ();
 			}
 			break;
-		case MatchEnd.RoundsWin:
-			break;
 		case MatchEnd.ScoreCap:
+			if (teams != null) {
+				foreach (TeamContainer team in teams) {
+					if (team.score >= matchEndValue) {
+						return MatchEndCalls ();
+					}
+				}
+			} else {
+				foreach (CompetitorContainer competitor in competitors) {
+					if (competitor.score >= matchEndValue) {
+						return MatchEndCalls ();
+					}
+				}
+			}
 			break;
 		default:
 			Debug.LogError ("Undefined matchEndCriteria: " + matchEndCriteria);
 			break;
 		}
+		return false;
+	}
+
+	private bool MatchEndCalls(){
 		EndOfMatch.Raise ();
 		return true;
 	}
@@ -417,6 +418,23 @@ public class BattleModeBlueprint{
 		}
 		return true;
 	}
-
 	// TODO: Create BattleModeBP validation error event?
+}
+
+public class ATime{
+	public bool used;
+	public int minutes;
+	public float seconds;
+
+	public ATime(){
+		used = false;
+		minutes = 0;
+		seconds = 0;
+	}
+
+	public ATime(int minutes, float seconds){
+		used = true;
+		this.minutes = minutes;
+		this.seconds = seconds;
+	}
 }

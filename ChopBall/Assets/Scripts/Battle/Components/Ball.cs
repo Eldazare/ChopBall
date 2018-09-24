@@ -9,6 +9,16 @@ public class Ball : MonoBehaviour {
 	public Vector3 startPosition; // initialize this with loader, use in Reset method
 
 	public void ResetBallPosition(){
-		//TODO: Move / disable ball so that it enters play from the center
+		StartCoroutine (ResetEnumerator ());
+	}
+
+	private IEnumerator ResetEnumerator(){
+		GetComponent<MeshRenderer> ().enabled = false;
+		GetComponent<CircleCollider2D> ().enabled = false;
+		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+		yield return new WaitForSeconds(3f);
+		transform.position = startPosition;
+		GetComponent<MeshRenderer> ().enabled = true;
+		GetComponent<CircleCollider2D> ().enabled = true;
 	}
 }

@@ -13,8 +13,11 @@ public static class MasterStateController {
 
 	private static void LoadMasterData(){
 		if (masterData == null) {
-			masterData = Resources.Load ("Scriptables/Player/StateData/MasterStateData", typeof(MasterStateData)) as MasterStateData;
+			masterData = Resources.Load ("Scriptables/Players/StateData/MasterStateData", typeof(MasterStateData)) as MasterStateData;
 			Random.InitState((int)System.DateTime.Now.Ticks);
+		}
+		if (masterData == null) {
+			Debug.LogError ("MasterData is still null");
 		}
 	}
 

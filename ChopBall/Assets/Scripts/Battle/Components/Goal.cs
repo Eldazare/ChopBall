@@ -10,8 +10,9 @@ public class Goal : MonoBehaviour {
 	public int goalTeamID;
 
 	// Dunno if this is good way to do this
-	void OnTriggerEnter(Collider collider){
+	void OnTriggerEnter2D(Collider2D collider){
 		if (collider.gameObject.CompareTag ("Ball")) {
+			Debug.Log ("Collision");
 			GoalData gd = new GoalData ();
 			Ball ball = collider.gameObject.GetComponent<Ball> ();
 			gd.goalPlayerID = goalPlayerID;

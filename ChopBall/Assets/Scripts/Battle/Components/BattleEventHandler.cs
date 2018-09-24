@@ -25,7 +25,7 @@ public class BattleEventHandler : MonoBehaviour {
 	}
 
 	void Update(){
-		if (!startGame) {
+		if (startGame) {
 			if (!paused) {
 				CurrentBattleController.AdvanceTime (Time.deltaTime);
 			}

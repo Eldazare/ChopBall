@@ -62,6 +62,7 @@ public class BattleMode : ScriptableObject {
 			competitors.Add (newCompCont);
 		}
 		roundNumber = 1;
+		Debug.Log (masterData.battleModeBlueprint);
 		if (!ReceiveBlueprint (masterData.battleModeBlueprint)) {
 			throw new UnityException ("CUSTOM: Blueprint not valid, game cannot be loaded.");
 		}
@@ -260,7 +261,7 @@ public class BattleMode : ScriptableObject {
 		return true;
 	}
 
-	public bool ReceiveBlueprint(BattleModeBlueprint blueprint){
+	private bool ReceiveBlueprint(BattleModeBlueprint blueprint){
 		if (blueprint.Validate ()) {
 			countObject = blueprint.countObject;
 			roundEndCap = blueprint.roundEndCap;
@@ -271,6 +272,7 @@ public class BattleMode : ScriptableObject {
 				seconds = blueprint.timer.seconds;
 				minutesLeft = minutes;
 				secondsLeft = seconds;
+				TimerUpdated.Raise ();
 			} else {
 				useTimer = false;
 				roundEndCap = blueprint.roundEndCap;
@@ -278,6 +280,7 @@ public class BattleMode : ScriptableObject {
 			matchEndCriteria = blueprint.endCriteria;
 			matchEndValue = blueprint.endValue;
 			scoringMode = blueprint.scoringMode;
+			StatsUpdated.Raise ();
 			return true;
 		} else {
 			return false;

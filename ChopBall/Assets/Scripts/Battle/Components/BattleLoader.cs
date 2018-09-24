@@ -10,8 +10,9 @@ public class BattleLoader : MonoBehaviour {
 	//TODO: Initialize goal IDs
 	public GameEvent StartGame;
 
-	void Awake () {
+	void Start () {
 		CurrentBattleController.InitializeCurrentData ();
+		// TODO: Add timer? And timer displayer? (Before start)
 		StartGame.Raise();
 	}
 }

@@ -4,20 +4,10 @@ using UnityEngine;
 
 public class CharacterPaddle : MonoBehaviour {
 
-    [SerializeField]
-    private float speed;
-    [SerializeField]
-    private float length = 0.5f;
-    [SerializeField]
-    private float startRotation;
-    [SerializeField]
-    private float endRotation;
-    [SerializeField]
-    private Transform pivot;
-    [SerializeField]
-    private LayerMask collisionLayers;
-    [SerializeField]
-    private float addForceAmount;
+    public enum PaddleSide { Left = -1, Right = 1 }
+
+    public PaddleSide Side = PaddleSide.Left;
+    public Transform Pivot;
 
     private float currentRotation;
     private float targetRotation;
@@ -33,32 +23,38 @@ public class CharacterPaddle : MonoBehaviour {
     private Collider2D[] colliderBuffer = new Collider2D[16];
     private List<int> hitObjectIDs = new List<int>(16);
 
-    private void Awake()
+    private int playerID;
+    private CharacterBaseData characterBase;
+    private CharacterAttributeData characterAttributes;
+
+    public void SetPlayerID(int id)
+    {
+        playerID = id;
+    }
+
+    public void SetCharacterBaseData(CharacterBaseData baseData)
+    {
+        characterBase = baseData;
+    }
+
+    public void SetCharacterAttributeData(CharacterAttributeData attributeData)
+    {
+        characterAttributes = attributeData;
+    }
+
+    private void Start()
     {
         masterTransform = transform.parent;
         if (!masterTransform) masterTransform = transform;
 
-        if (!pivot) pivot = transform;
-        pivotPoint = pivot.position;
+        if (!Pivot) Pivot = transform;
+        pivotPoint = Pivot.position;
 
-        currentRotation = startRotation;
+        currentRotation = characterBase.PaddleLowerAngle * (float)Side;
         targetRotation = currentRotation;
-        paddleVector = Rotate(masterTransform.up, startRotation);
+        paddleVector = Rotate(masterTransform.up, targetRotation);
 
-        paddleHitDirection = Mathf.Sign(endRotation - startRotation);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Hit();
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        UpdatePaddle();
+        paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle - currentRotation);
     }
 
     public void Hit()
@@ -71,40 +67,46 @@ public class CharacterPaddle : MonoBehaviour {
     }
 
     // Updates the paddles state and transform
-    private void UpdatePaddle()
+    public void UpdatePaddle()
     {
-        pivotPoint = pivot.position;
+        pivotPoint = Pivot.position;
 
         if (hitActive)
         {
-            hitElapsed += speed * currentAngularDirection * Time.deltaTime;
+            hitElapsed += characterBase.PaddleSpeedUp * currentAngularDirection * Time.deltaTime;
 
             if (hitElapsed >= 1)
+            {
+                hitElapsed = 1;
                 currentAngularDirection = -1;
+            }
             else if (hitElapsed <= 0 && currentAngularDirection == -1)
             {
                 hitElapsed = 0;
                 hitActive = false;
-                hitObjectIDs.Clear();
-                return;
             }
 
-            targetRotation = Mathf.Lerp(startRotation, endRotation, hitElapsed);
+            targetRotation = Mathf.Lerp(characterBase.PaddleLowerAngle * (float)Side, characterBase.PaddleUpperAngle, hitElapsed);
 
             CheckPaddleCollisions();
+
+            if (hitActive == false) hitObjectIDs.Clear();
         }
 
         paddleVector = Rotate(masterTransform.up, targetRotation);
         currentRotation = targetRotation;
 
-        Debug.DrawLine(pivotPoint, pivotPoint + paddleVector * length, Color.green);
+        Debug.DrawLine(pivotPoint, pivotPoint + paddleVector * characterBase.PaddleLength, Color.green);
     }
 
     // Checks if paddle has collided with anything in collision layers
     private void CheckPaddleCollisions()
     {
         // Check if there are any colliders in the paddle radius -- radius is measured from the pivotpoint of the paddle
-        int colliderCount = Physics2D.OverlapCircleNonAlloc(pivotPoint, length, colliderBuffer, collisionLayers);
+        int colliderCount = Physics2D.OverlapCircleNonAlloc(pivotPoint,
+                                                            characterBase.PaddleLength,
+                                                            colliderBuffer,
+                                                            characterBase.PaddleCollisionLayers);
 
         // If any colliders are found -> proceed
         if (colliderCount > 0)
@@ -132,12 +134,12 @@ public class CharacterPaddle : MonoBehaviour {
                     Vector2 hitNormal = new Vector2(-paddleVector.y, paddleVector.x).normalized * paddleHitDirection;
 
                     // Do a raycast check in the direction of the paddle to see if the object hit the side of the paddle
-                    RaycastHit2D paddleSideHit = Physics2D.Raycast(pivotPoint, paddleVector, length, collisionLayers);
+                    RaycastHit2D paddleSideHit = Physics2D.Raycast(pivotPoint, paddleVector, characterBase.PaddleLength, characterBase.PaddleCollisionLayers);
 
                     if (paddleSideHit)
                     {
                         // If object hit the side of the paddle we need to check if it hit the tip or not
-                        Vector2 tipPoint = pivotPoint + paddleVector * length;
+                        Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength;
                         if (colliderBuffer[i].OverlapPoint(tipPoint))
                         {
                             // If object hit the tip we calculate the normal differently
@@ -148,13 +150,16 @@ public class CharacterPaddle : MonoBehaviour {
                     {
                         // If the object is not in the hit sector at all -> return
                         if (Vector2.Angle(-masterTransform.right, directionFromPivot) > currentRotation
-                            || Vector2.SignedAngle(-masterTransform.right, directionFromPivot) < startRotation) return;
+                            || Vector2.SignedAngle(-masterTransform.right, directionFromPivot) < characterBase.PaddleLowerAngle * (float)Side) return;
 
                         // If the object doesn't hit the side then the normal is just facing outwards from the pivot
                         hitNormal = directionFromPivot;
                     }
 
-                    hitBody.AddForce(hitNormal * addForceAmount * hitBody.mass, ForceMode2D.Impulse);
+                    hitBody.AddForce(hitNormal * characterBase.PaddleForceAmount * hitBody.mass, ForceMode2D.Impulse);
+
+                    Ball hitBall = hitBody.GetComponent<Ball>();
+                    if (hitBall) hitBall.lastTouchedPlayerID = playerID;
 
                     hitObjectIDs.Add(hitObjectID);
                 }
@@ -166,8 +171,8 @@ public class CharacterPaddle : MonoBehaviour {
     //private void OnDrawGizmos()
     //{
     //    Gizmos.color = new Color(0, 0, 0, 0.5f);
-    //    Gizmos.DrawSphere(pivotPoint, length);
-    //    Gizmos.DrawSphere(pivotPoint + paddleVector * length, 0.1f);
+    //    Gizmos.DrawSphere(pivotPoint, characterBase.PaddleLength);
+    //    Gizmos.DrawSphere(pivotPoint + paddleVector * characterBase.PaddleLength, 0.1f);
     //}
 
     // Helper function to rotate a 2d vector -> change to an extension method later

@@ -4,33 +4,36 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour {
 
-    [SerializeField]
-    private float runSpeed = 8f;
-    [SerializeField]
-    private float rotationSpeed = 5f;
-    [SerializeField]
-    private float dashSpeed = 16f;
-    [SerializeField]
-    private float dashTime = 1f;
-    [SerializeField]
-    private float dashCoolDown = 2f;
+    private Vector2 velocity;
+    private float angularVelocity;
 
     private Vector2 moveDirection;
     private Vector2 lookDirection;
     private float rotationAnalogMultiplier;
 
-    private Vector2 velocity;
-    private float angularVelocity;
-
     private Vector2 dashDirection;
+    private float dashSpeed;
     private float dashTimerElapsed = 0f;
     private float dashCoolDownElapsed = 0f;
 
-    private Rigidbody2D rb2d;
+    private Rigidbody2D characterRigidbody;
+
+    private CharacterBaseData characterBase;
+    private CharacterAttributeData characterAttributes;
+
+    public void SetCharacterBaseData(CharacterBaseData baseData)
+    {
+        characterBase = baseData;
+    }
+
+    public void SetCharacterAttributeData(CharacterAttributeData attributeData)
+    {
+        characterAttributes = attributeData;
+    }
 
     private void Awake()
     {
-        rb2d = GetComponent<Rigidbody2D>();
+        characterRigidbody = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -47,18 +50,18 @@ public class CharacterMovement : MonoBehaviour {
 
         if (dashTimerElapsed <= 0)
         {
-            velocity.x = moveDirection.x * runSpeed * rb2d.drag * Time.deltaTime;
-            velocity.y = moveDirection.y * runSpeed * rb2d.drag * Time.deltaTime;
+            velocity.x = moveDirection.x * characterBase.MovementSpeed * characterRigidbody.drag * Time.deltaTime;
+            velocity.y = moveDirection.y * characterBase.MovementSpeed * characterRigidbody.drag * Time.deltaTime;
         }
         else
         {
-            velocity.x = dashDirection.x * dashSpeed * rb2d.drag * Time.deltaTime;
-            velocity.y = dashDirection.y * dashSpeed * rb2d.drag * Time.deltaTime;
+            velocity.x = dashDirection.x * dashSpeed * characterRigidbody.drag * Time.deltaTime;
+            velocity.y = dashDirection.y * dashSpeed * characterRigidbody.drag * Time.deltaTime;
 
             dashTimerElapsed -= Time.deltaTime;
         }
 
-        rb2d.AddForce(velocity - rb2d.velocity, ForceMode2D.Impulse);
+        characterRigidbody.AddForce(velocity - characterRigidbody.velocity, ForceMode2D.Impulse);
     }
 
     public void Rotate(Vector2 inputAxis)
@@ -76,14 +79,13 @@ public class CharacterMovement : MonoBehaviour {
         float angle = Vector2.SignedAngle(transform.up, lookDirection);
         float sign = Mathf.Sign(angle);
 
-        float maxAngularVelocity = Mathf.Abs(angle) * rb2d.angularDrag * Time.deltaTime;
-        angularVelocity = Mathf.Abs((rotationSpeed * rotationAnalogMultiplier * rb2d.angularDrag * Time.deltaTime));
+        float maxAngularVelocity = Mathf.Abs(angle) * characterRigidbody.angularDrag * Time.deltaTime;
+        angularVelocity = Mathf.Abs((characterBase.RotationSpeed * rotationAnalogMultiplier * characterRigidbody.angularDrag * Time.deltaTime));
 
         angularVelocity = Mathf.Clamp(angularVelocity, 0, maxAngularVelocity);
         angularVelocity *= sign;
 
-        rb2d.AddForce(velocity - rb2d.velocity, ForceMode2D.Impulse);
-        rb2d.AddTorque(angularVelocity - rb2d.angularVelocity, ForceMode2D.Impulse);
+        characterRigidbody.AddTorque(angularVelocity - characterRigidbody.angularVelocity, ForceMode2D.Impulse);
     }
 
     public void Dash()
@@ -98,7 +100,8 @@ public class CharacterMovement : MonoBehaviour {
             dashDirection = transform.up;
         }
 
-        dashTimerElapsed = dashTime;
-        dashCoolDownElapsed = dashTime + dashCoolDown;
+        dashSpeed = characterBase.DashDistance / characterBase.DashTime;
+        dashTimerElapsed = characterBase.DashTime;
+        dashCoolDownElapsed = characterBase.DashTime + characterBase.DashCoolDown;
     }
 }

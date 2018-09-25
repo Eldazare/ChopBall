@@ -62,7 +62,9 @@ public class BattleMode : ScriptableObject {
 			competitors.Add (newCompCont);
 		}
 		roundNumber = 1;
-		Debug.Log (masterData.battleModeBlueprint);
+		if (masterData.battleModeBlueprint == null) { // TODO: Debug code
+			masterData.SetDefaults ();
+		}
 		if (!ReceiveBlueprint (masterData.battleModeBlueprint)) {
 			throw new UnityException ("CUSTOM: Blueprint not valid, game cannot be loaded.");
 		}
@@ -262,6 +264,10 @@ public class BattleMode : ScriptableObject {
 	}
 
 	private bool ReceiveBlueprint(BattleModeBlueprint blueprint){
+		if (blueprint == null) {
+			Debug.LogWarning ("Received null BattleMode blueprint");
+			return false;
+		}
 		if (blueprint.Validate ()) {
 			countObject = blueprint.countObject;
 			roundEndCap = blueprint.roundEndCap;

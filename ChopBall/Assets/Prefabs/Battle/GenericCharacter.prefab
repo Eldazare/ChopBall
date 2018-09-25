@@ -355,11 +355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10690b54d6177384c9c45492d9b79387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 8
-  rotationSpeed: 4
-  dashSpeed: 30
-  dashTime: 0.15
-  dashCoolDown: 5
 --- !u!114 &114183932374068286
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -371,15 +366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6a97b24263ba74b9c9ab0b68efc14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  length: 1.5
-  startRotation: -90
-  endRotation: 0
-  pivot: {fileID: 4719229573426736}
-  collisionLayers:
-    serializedVersion: 2
-    m_Bits: 2048
-  addForceAmount: 25
+  Side: -1
+  Pivot: {fileID: 4719229573426736}
 --- !u!114 &114280669518121150
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -391,6 +379,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 651bc233330cc7c4fbc628d6943180c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerID: 1
+  CharacterAttributes: {fileID: 0}
 --- !u!114 &114318656289107948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -402,15 +392,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea6a97b24263ba74b9c9ab0b68efc14f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  length: 1.5
-  startRotation: 90
-  endRotation: 0
-  pivot: {fileID: 4880309762545822}
-  collisionLayers:
-    serializedVersion: 2
-    m_Bits: 2048
-  addForceAmount: 25
+  Side: 1
+  Pivot: {fileID: 4880309762545822}
 --- !u!114 &114472812785657492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -427,7 +410,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 114280669518121150}
-        m_MethodName: GetInputModel
+        m_MethodName: SetInputModel
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

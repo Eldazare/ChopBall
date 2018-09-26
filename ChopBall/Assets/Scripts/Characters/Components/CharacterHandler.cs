@@ -82,7 +82,7 @@ public class CharacterHandler : MonoBehaviour {
 
             if (input.Dash && !dashTriggeredLastFrame)
             {
-                movement.Dash();
+                movement.Dash(input.leftDirectionalInput);
             }
 
             movement.Move(input.leftDirectionalInput);

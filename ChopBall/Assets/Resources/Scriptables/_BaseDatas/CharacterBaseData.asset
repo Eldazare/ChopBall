@@ -24,4 +24,4 @@ MonoBehaviour:
   RotationSpeed: 4
   DashDistance: 3
   DashTime: 0.1
-  DashCoolDown: 1
+  DashCoolDown: 2

@@ -75,6 +75,9 @@ public class BattleMode : ScriptableObject {
 		CompetitorContainer receiver = competitors [gd.goalPlayerID];
 		giver.DidAGoal ();
 		competitors [gd.goalPlayerID].RemoveStock ();
+		if (gd.giverPlayerID == gd.goalPlayerID) {
+			competitors [gd.giverPlayerID].goalsScored -= 2;
+		}
 		if (teams != null) {
 			teams [giver.teamID].TeamDidAGoal ();
 		} 

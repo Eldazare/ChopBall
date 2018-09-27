@@ -43,8 +43,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 2
-  pixelBuffer: 10
-  movementMultiplier: 100
+  OnCancel: {fileID: 11400000, guid: 175f4c8198d88a144ba459c0d5bcfc61, type: 2}
 --- !u!114 &114052728330645332
 MonoBehaviour:
   m_ObjectHideFlags: 1

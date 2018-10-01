@@ -71,16 +71,16 @@ public class BattleMode : ScriptableObject {
 	}
 
 	public void DoGoal(GoalData gd){
-		CompetitorContainer giver = competitors [gd.giverPlayerID];
-		CompetitorContainer receiver = competitors [gd.goalPlayerID];
+		CompetitorContainer giver = competitors [gd.giverPlayerID-1];
+		CompetitorContainer receiver = competitors [gd.goalPlayerID-1];
 		giver.DidAGoal ();
 		competitors [gd.goalPlayerID].RemoveStock ();
 		if (gd.giverPlayerID == gd.goalPlayerID) {
-			competitors [gd.giverPlayerID].goalsScored -= 2;
+			competitors [gd.giverPlayerID-1].goalsScored -= 2;
 		}
 		if (teams != null) {
 			teams [giver.teamID].TeamDidAGoal ();
-		} 
+		}
 		if (CheckRoundEndGoals (giver)) {
 			EndRound ();
 		}

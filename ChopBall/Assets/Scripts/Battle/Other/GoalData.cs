@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GoalData{
-	public int giverPlayerID;
+	public List<int> giverPlayerIDs;
 	public int goalPlayerID;
-	public int teamGoalID;
 }

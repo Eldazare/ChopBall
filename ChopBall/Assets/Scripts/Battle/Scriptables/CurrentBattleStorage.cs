@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/*
 [CreateAssetMenu]
 public class CurrentBattleStorage : ScriptableObject {
 	// Flow:
@@ -48,7 +48,6 @@ public class CurrentBattleStorage : ScriptableObject {
 			}
 			competitorData.Add (newCompCont);
 		}
-		/*
 		if (masterData.timer.used) {
 			useTimer = true;
 			minutesLeft = masterData;
@@ -56,7 +55,6 @@ public class CurrentBattleStorage : ScriptableObject {
 		} else {
 			useTimer = false;
 		}
-		*/
 	}
 
 	public void DoGoal(GoalData gd){
@@ -77,4 +75,4 @@ public class CurrentBattleStorage : ScriptableObject {
 		
 	}
 }
-
+*/

@@ -19,7 +19,7 @@ public static class CurrentBattleController  {
 		
 	public static void AddGoal(GoalData goalData){
 		LoadCurrentBattle ();
-		Debug.Log ("Goal detected to goal ID: " + goalData.goalPlayerID + " by player ID " + goalData.giverPlayerID);
+		Debug.Log ("Goal detected to goal ID: " + goalData.goalPlayerID + " by player ID " + goalData.giverPlayerIDs[0]);
 		currentBattle.DoGoal (goalData);
 	}
 		

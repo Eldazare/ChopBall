@@ -159,7 +159,7 @@ public class CharacterPaddle : MonoBehaviour {
                     hitBody.AddForce(hitNormal * characterBase.PaddleForceAmount * hitBody.mass, ForceMode2D.Impulse);
 
                     Ball hitBall = hitBody.GetComponent<Ball>();
-                    if (hitBall) hitBall.lastTouchedPlayerID = playerID;
+					if (hitBall) hitBall.GetPlayerPaddleTouch(playerID);
 
                     hitObjectIDs.Add(hitObjectID);
                 }

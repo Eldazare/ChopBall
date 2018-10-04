@@ -1,13 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Goal : MonoBehaviour {
 
 	public GoalEvent goalEvent;
+	public Image goalMarker;
 
-	public int goalPlayerID;
-	public int goalTeamID;
+	private int goalPlayerID;
+
+	public void Initialize(int playerID, Color32 color){
+		goalMarker.color = color;
+		goalPlayerID = playerID;
+	}
 
 	// Dunno if this is good way to do this
 	void OnTriggerEnter2D(Collider2D collider){
@@ -16,8 +22,7 @@ public class Goal : MonoBehaviour {
 			GoalData gd = new GoalData ();
 			Ball ball = collider.gameObject.GetComponent<Ball> ();
 			gd.goalPlayerID = goalPlayerID;
-			gd.teamGoalID = goalTeamID;
-			gd.giverPlayerID = ball.lastTouchedPlayerID;
+			gd.giverPlayerIDs = ball.touchedPlayers;
 			goalEvent.Raise (gd);
 			ball.ResetBallPosition ();
 		}

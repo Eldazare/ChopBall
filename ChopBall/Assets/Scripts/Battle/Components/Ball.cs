@@ -4,12 +4,19 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour {
 
-
-	public int lastTouchedPlayerID; // Manipulate this directly: Player sets, Goal gets
 	public Vector3 startPosition; // initialize this with loader, use in Reset method
+	public List<int> touchedPlayers = new List<int>(16);
 
 	public void ResetBallPosition(){
 		StartCoroutine (ResetEnumerator ());
+		touchedPlayers.Clear ();
+	}
+
+	public void GetPlayerPaddleTouch(int playerID){
+		if (touchedPlayers.Contains(playerID)) {
+			touchedPlayers.Remove (playerID);
+		}
+		touchedPlayers.Insert (0, playerID);
 	}
 
 	private IEnumerator ResetEnumerator(){

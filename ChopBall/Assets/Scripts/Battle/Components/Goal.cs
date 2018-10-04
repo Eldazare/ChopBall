@@ -6,11 +6,13 @@ using UnityEngine.UI;
 public class Goal : MonoBehaviour {
 
 	public GoalEvent goalEvent;
-	public Image goalMarker;
+	public SpriteRenderer goalMarker;
 
-	private int goalPlayerID;
+	public int goalPlayerID;
 
 	public void Initialize(int playerID, Color32 color){
+		gameObject.GetComponent<BoxCollider2D> ().enabled = true;
+		goalMarker.enabled = true;
 		goalMarker.color = color;
 		goalPlayerID = playerID;
 	}

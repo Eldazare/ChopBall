@@ -50,7 +50,7 @@ public class CharacterHandler : MonoBehaviour {
         rightPaddle.SetPlayerID(PlayerID);
     }
 
-    private void Awake()
+	public void Initialize()
     {
         CharacterPaddle[] paddles = new CharacterPaddle[2];
         paddles = GetComponents<CharacterPaddle>();

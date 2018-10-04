@@ -51,4 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b48c7552e07f5d4d9b0d64d9732339c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterTest: {fileID: 1973047356847882, guid: 5a809212c0b7fb0408e3201322640cc5,
+    type: 2}
+  ball: {fileID: 1915898121159630, guid: 78eea9a9f25989541827e93cafb1f0ef, type: 2}
   StartGame: {fileID: 11400000, guid: 18e22cd5b3d520b45bf2463457ee6c49, type: 2}

@@ -132,5 +132,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18ac90e3feb9714dbe4517c0d61ed82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastTouchedPlayerID: 1
   startPosition: {x: 0, y: 0, z: -1.5}
+  preSpawnIndicator: {fileID: 1133761555795408, guid: cd4de6414bdf7bd4ab66d0f160f56b83,
+    type: 2}
+  startPositions: []
+  touchedPlayers: 

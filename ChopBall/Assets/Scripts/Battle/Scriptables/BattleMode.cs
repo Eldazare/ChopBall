@@ -156,6 +156,7 @@ public class BattleMode : ScriptableObject {
 					team.Reset ();
 				}
 			}
+			StatsUpdated.Raise ();
 			EndOfRound.Raise ();
 		}
 	}
@@ -275,6 +276,7 @@ public class BattleMode : ScriptableObject {
 
 	private bool MatchEndCalls(){
 		EndOfMatch.Raise ();
+		Debug.Log ("Match has ended");
 		return true;
 	}
 

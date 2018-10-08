@@ -664,10 +664,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 333070034}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6d5a92a59041f46910d5e84aa192c5, type: 3}
+  m_Script: {fileID: 11500000, guid: c594359c2a917364f9e5c174da2529a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
+  masterZone: 1
 --- !u!1 &372854719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1478,10 +1479,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 957914679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6d5a92a59041f46910d5e84aa192c5, type: 3}
+  m_Script: {fileID: 11500000, guid: c594359c2a917364f9e5c174da2529a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
+  masterZone: 0
 --- !u!1 &1098522610
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,10 +1563,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1098522610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6d5a92a59041f46910d5e84aa192c5, type: 3}
+  m_Script: {fileID: 11500000, guid: c594359c2a917364f9e5c174da2529a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
+  masterZone: 0
 --- !u!1 &1255057342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,10 +1748,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1303799578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6d5a92a59041f46910d5e84aa192c5, type: 3}
+  m_Script: {fileID: 11500000, guid: c594359c2a917364f9e5c174da2529a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 0}
+  masterZone: 0
 --- !u!1 &1451752874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2012,60 +2016,16 @@ MonoBehaviour:
   ResponseToClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 957914679}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2029561352}
+        m_MethodName: Forward
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 333070039}
+          m_ObjectArgumentAssemblyTypeName: PanelScript, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1303799578}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1098522610}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2060808747}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 333070034}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -2394,56 +2354,12 @@ MonoBehaviour:
   ResponseToClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1098522610}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 2029561352}
+        m_MethodName: Forward
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1303799578}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 957914679}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2060808747}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 333070034}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2060808751}
+          m_ObjectArgumentAssemblyTypeName: PanelScript, Assembly-CSharp
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2715,9 +2631,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 2029561349}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 035349c8b539cce469869124615839e7, type: 3}
+  m_Script: {fileID: 11500000, guid: a7118f0c3080add4aa7eeae4e7779deb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerCursors:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  masterCursors: {fileID: 0}
 --- !u!114 &2029561353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2825,10 +2747,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2060808747}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed6d5a92a59041f46910d5e84aa192c5, type: 3}
+  m_Script: {fileID: 11500000, guid: c594359c2a917364f9e5c174da2529a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
+  masterZone: 0
 --- !u!1001 &2070154489
 Prefab:
   m_ObjectHideFlags: 0

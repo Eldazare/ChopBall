@@ -23,7 +23,6 @@ public class MasterCursor : _Cursor {
 		model = gotModel;
 		if (controllerChosen == false) {
 			if (model.Submit == true) {
-				controllerChosen = true;
 				EnableOnlyListener (model.playerID-1);
 				this.playerID = model.playerID;
 			}
@@ -57,11 +56,13 @@ public class MasterCursor : _Cursor {
 				listeners [i].enabled = true;
 			}
 		}
+		controllerChosen = true;
 	}
 
-	protected void EnabelAllListeners(){
+	public void EnabelAllListeners(){
 		foreach (InputEventListener listener in listeners) {
 			listener.enabled = true;
 		}
+		controllerChosen = false;
 	}
 }

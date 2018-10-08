@@ -85,8 +85,15 @@ public class CharacterHandler : MonoBehaviour {
                 movement.Dash(input.leftDirectionalInput);
             }
 
-            movement.Move(input.leftDirectionalInput);
-            movement.Rotate(input.rightDirectionalInput);
+            if (input.leftDirectionalInput != Vector2.zero)
+            {
+                movement.Move(input.leftDirectionalInput);
+            }
+
+            if (input.rightDirectionalInput != Vector2.zero)
+            {
+                movement.Rotate(input.rightDirectionalInput);
+            }
 
             leftPaddle.UpdatePaddle();
             rightPaddle.UpdatePaddle();

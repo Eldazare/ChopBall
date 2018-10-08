@@ -15,13 +15,13 @@ MonoBehaviour:
   PaddleUpperAngle: 0
   PaddleLowerAngle: 90
   PaddleSpeedUp: 10
-  PaddleSpeedDown: 10
+  PaddleSpeedDown: 5
   PaddleForceAmount: 25
   PaddleCollisionLayers:
     serializedVersion: 2
     m_Bits: 2048
   MovementSpeed: 8
   RotationSpeed: 4
-  DashDistance: 3
+  DashDistance: 4
   DashTime: 0.1
-  DashCoolDown: 2
+  DashCoolDown: 1

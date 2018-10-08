@@ -41,4 +41,9 @@ public static class CurrentBattleController  {
 		LoadCurrentBattle ();
 		return currentBattle.competitors;
 	}
+
+	public static List<TeamContainer> GetTeams(){
+		LoadCurrentBattle ();
+		return currentBattle.teams;
+	}
 }

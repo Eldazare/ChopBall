@@ -22,3 +22,5 @@ MonoBehaviour:
   Dash: 9
   Submit: 0
   Cancel: 1
+  Start: 7
+  Select: 6

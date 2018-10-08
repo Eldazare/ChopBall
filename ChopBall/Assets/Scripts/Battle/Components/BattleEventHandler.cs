@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BattleEventHandler : MonoBehaviour {
 
@@ -30,5 +31,9 @@ public class BattleEventHandler : MonoBehaviour {
 				CurrentBattleController.AdvanceTime (Time.deltaTime);
 			}
 		}
+	}
+
+	public void EndMatch(){
+		SceneManager.LoadScene ("MatchEndScene");
 	}
 }

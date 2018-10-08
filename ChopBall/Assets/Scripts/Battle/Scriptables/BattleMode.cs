@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum CountObject{Stocks, Goals}
 public enum RoundEnd{Elimination, Cap, Timer}
@@ -9,6 +10,10 @@ public enum ScoringMode{WinnerOnly, PerPosition, Direct1to1}
 
 [CreateAssetMenu]
 public class BattleMode : ScriptableObject {
+
+	//
+	int MAXNUMBEROFTEAMS = 4;
+	//
 
 	public GameEvent EndOfRound;
 	public GameEvent EndOfMatch;
@@ -39,7 +44,7 @@ public class BattleMode : ScriptableObject {
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates();
 		if (masterData.teams) {
 			teams = new List<TeamContainer> ();
-			foreach (PlayerStateData stateData in playerStates) {
+			for (int i = 0; i<MAXNUMBEROFTEAMS;i++) {
 				teams.Add (null);
 			}
 		} else {
@@ -47,19 +52,23 @@ public class BattleMode : ScriptableObject {
 		}
 		competitors = new List<CompetitorContainer> ();
 		foreach (PlayerStateData stateData in playerStates) {
-			CompetitorContainer newCompCont = new CompetitorContainer ();
-			newCompCont.score = 0;
-			newCompCont.goalsScored = 0;
-			if (countObject == CountObject.Stocks) {
-				newCompCont.SetStock(roundEndCap);
-			}
-			if (masterData.teams) {
-				newCompCont.teamID = stateData.team;
-				teams [stateData.team] = new TeamContainer ();
+			if (stateData.active) {
+				CompetitorContainer newCompCont = new CompetitorContainer ();
+				newCompCont.score = 0;
+				newCompCont.goalsScored = 0;
+				if (countObject == CountObject.Stocks) {
+					newCompCont.SetStock (roundEndCap);
+				}
+				if (masterData.teams) {
+					newCompCont.teamIndex = stateData.team;
+					teams [stateData.team] = new TeamContainer ();
+				} else {
+					newCompCont.teamIndex = -1;
+				}
+				competitors.Add (newCompCont);
 			} else {
-				newCompCont.teamID = -1;
+				competitors.Add (null);
 			}
-			competitors.Add (newCompCont);
 		}
 		roundNumber = 1;
 		if (masterData.battleModeBlueprint == null) { // TODO: Debug code
@@ -73,8 +82,8 @@ public class BattleMode : ScriptableObject {
 	public void DoGoal(GoalData gd){
 		if (teams != null) {
 			foreach (var playerID in gd.giverPlayerIDs) {
-				if (competitors [playerID - 1].teamID != competitors [gd.goalPlayerID-1].teamID) {
-					teams [competitors [playerID - 1].teamID-1].TeamDidAGoal ();
+				if (competitors [playerID - 1].teamIndex != competitors [gd.goalPlayerID-1].teamIndex) {
+					teams [competitors [playerID - 1].teamIndex].TeamDidAGoal ();
 					break;
 				}
 			}
@@ -139,7 +148,7 @@ public class BattleMode : ScriptableObject {
 			}
 			competitor.eliminated = false;
 			if (teams != null) {
-				teams [competitor.teamID].roundScoreValue += competitor.roundScoreValue;
+				teams [competitor.teamIndex].roundScoreValue += competitor.roundScoreValue;
 			}
 		}
 		if (teams != null) {
@@ -162,23 +171,7 @@ public class BattleMode : ScriptableObject {
 	}
 
 	private void ScoreTheRound(){
-		// Indexing the indexes in order, by roundScoreValue
-		List<int> indexOrder = new List<int> ();
-		bool addLast = true;
-		for (int i = 0; i<competitors.Count; i++) {
-			for (int j = 0; j<indexOrder.Count;j++) {
-				if (competitors[indexOrder[j]].roundScoreValue < competitors [i].roundScoreValue) {
-					indexOrder.Insert (j, i);
-					addLast = false;
-					break;
-				}
-			}
-			if (addLast) {
-				indexOrder.Add (i);
-			} else {
-				addLast = true;
-			}
-		}
+		List<int> indexOrder = GenerateIndexOrder(competitors.Cast<ICompetitor>().ToList());
 
 		for (int i = 0; i<competitors.Count;i++) {
 			switch (scoringMode) {
@@ -186,8 +179,8 @@ public class BattleMode : ScriptableObject {
 				competitors[i].score += competitors[i].roundScoreValue;
 				break;
 			case ScoringMode.PerPosition:
-				competitors [i].score += indexOrder.IndexOf (i);
-				Debug.Log("Competitor "+i+" got " + indexOrder.IndexOf(i) + " score ");
+				competitors [i].score += (indexOrder.Count - indexOrder.IndexOf(i) - 1);
+				Debug.Log("Competitor "+i+" got " + (indexOrder.Count - indexOrder.IndexOf(i) - 1) + " score ");
 				break;
 			case ScoringMode.WinnerOnly:
 				if (indexOrder.IndexOf (i) == 0) {
@@ -205,31 +198,16 @@ public class BattleMode : ScriptableObject {
 
 
 	private void ScoreTeams(){
-		List<int> indexOrder = new List<int> ();
-		bool addLast = true;
-		for (int i = 0; i<teams.Count; i++) {
-			for (int j = 0; j<indexOrder.Count;j++) {
-				if (teams[indexOrder[j]].roundScoreValue < teams[i].roundScoreValue) {
-					indexOrder.Insert (j, i);
-					addLast = false;
-					break;
-				}
-			}
-			if (addLast) {
-				indexOrder.Add (i);
-			} else {
-				addLast = true;
-			}
-		}
+		List<int> indexOrder = GenerateIndexOrder (teams.Cast<ICompetitor>().ToList());
 		for (int i = 0; i < teams.Count; i++) {
 			if (teams [i] != null) {
 				switch (scoringMode) {
 				case ScoringMode.Direct1to1:
-					teams [i].score += competitors [i].roundScoreValue;
+					teams [i].score += teams [i].roundScoreValue;
 					break;
 				case ScoringMode.PerPosition:
-					teams [i].score += indexOrder.IndexOf(i);
-					Debug.Log ("Competitor " + i + " got " + indexOrder.IndexOf (i) + " score ");
+					teams [i].score += (indexOrder.Count - indexOrder.IndexOf(i) - 1);
+					Debug.Log ("Team " + i + " got " + (indexOrder.Count - indexOrder.IndexOf(i) - 1) + " score ");
 					break;
 				case ScoringMode.WinnerOnly:
 					if (indexOrder.IndexOf (i) == 0) {
@@ -242,6 +220,26 @@ public class BattleMode : ScriptableObject {
 				}
 			}
 		}
+	}
+
+	private List<int> GenerateIndexOrder(List<ICompetitor> compList){
+		List<int> indexOrder = new List<int> ();
+		bool addLast = true;
+		for (int i = 0; i<compList.Count; i++) {
+			for (int j = 0; j<indexOrder.Count;j++) {
+				if (compList[indexOrder[j]].GetRoundScoreValue() < compList[i].GetRoundScoreValue()) {
+					indexOrder.Insert (j, i);
+					addLast = false;
+					break;
+				}
+			}
+			if (addLast) {
+				indexOrder.Add (i);
+			} else {
+				addLast = true;
+			}
+		}
+		return indexOrder;
 	}
 
 	public bool EndMatchCheck(){
@@ -275,9 +273,34 @@ public class BattleMode : ScriptableObject {
 	}
 
 	private bool MatchEndCalls(){
+		if (teams != null) {
+			SetTeamOrder ();
+		} else {
+			SetCompetitorOrder ();
+		}
 		EndOfMatch.Raise ();
 		Debug.Log ("Match has ended");
 		return true;
+	}
+
+	private void SetCompetitorOrder(){
+		foreach (CompetitorContainer competitor in competitors) {
+			competitor.roundScoreValue = competitor.score;
+		}
+		List<int> IndexOrder = GenerateIndexOrder (competitors.Cast<ICompetitor>().ToList());
+		for (int i = 0; i < competitors.Count; i++) {
+			competitors [i].endPosition = (IndexOrder.IndexOf (i) + 1);
+		}
+	}
+
+	private void SetTeamOrder(){
+		foreach (TeamContainer team in teams) {
+			team.roundScoreValue = team.score;
+		}
+		List<int> IndexOrder = GenerateIndexOrder (teams.Cast<ICompetitor>().ToList());
+		for (int i = 0; i < teams.Count; i++) {
+			teams [i].endPosition = (IndexOrder.IndexOf (i) + 1);
+		}
 	}
 
 	private bool ReceiveBlueprint(BattleModeBlueprint blueprint){
@@ -313,7 +336,7 @@ public class BattleMode : ScriptableObject {
 	public bool CheckRoundEndGoals(CompetitorContainer goalGiver){
 		if (roundEnd == RoundEnd.Cap && countObject == CountObject.Goals) {
 			if (teams != null) {
-				if (teams [goalGiver.teamID].goals >= roundEndCap) {
+				if (teams [goalGiver.teamIndex].goals >= roundEndCap) {
 					return true;
 				}
 			} else {
@@ -329,7 +352,7 @@ public class BattleMode : ScriptableObject {
 		if (roundEnd == RoundEnd.Elimination && countObject == CountObject.Stocks) {
 			if (teams != null) {
 				foreach (CompetitorContainer competitor in competitors) {
-					if (competitor.teamID == goalReceiver.teamID) {
+					if (competitor.teamIndex == goalReceiver.teamIndex) {
 						if (competitor.stock > 0) {
 							return false;
 						}
@@ -359,11 +382,19 @@ public class BattleMode : ScriptableObject {
 	}
 }
 
-public class TeamContainer{
+public interface ICompetitor{
+	int GetRoundScoreValue();
+}
+
+public class TeamContainer : ICompetitor{
 	public TeamContainer(){
 		goals = 0;
 		score = 0;
 		roundScoreValue = 0;
+	}
+
+	public int GetRoundScoreValue(){
+		return roundScoreValue;
 	}
 
 	public void TeamDidAGoal(){
@@ -383,16 +414,18 @@ public class TeamContainer{
 	public int goals;
 	public int score;
 	public int roundScoreValue;
+	public int endPosition;
 }
 
-public class CompetitorContainer{
-	public int teamID;
-	public float score;
+public class CompetitorContainer : ICompetitor{
+	public int teamIndex;
+	public int score;
 	public int stock;
 	private int maxStock;
 	public int goalsScored;
 	public bool eliminated;
 	public int roundScoreValue;
+	public int endPosition;
 
 	public CompetitorContainer(){
 		score = 0;
@@ -401,6 +434,10 @@ public class CompetitorContainer{
 		goalsScored = 0;
 		eliminated = false;
 		roundScoreValue = 0;
+	}
+
+	public int GetRoundScoreValue(){
+		return roundScoreValue;
 	}
 
 	public void DidAGoal(){

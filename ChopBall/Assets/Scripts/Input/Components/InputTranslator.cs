@@ -56,6 +56,8 @@ public class InputTranslator : MonoBehaviour {
 		model.Dash = Input.GetKey (customInputs.Dash);
 		model.Submit = Input.GetKey (customInputs.Submit);
 		model.Cancel = Input.GetKey (customInputs.Cancel);
+		model.Start = Input.GetKey (customInputs.Start);
+		model.Select = Input.GetKey (customInputs.Select);
 		UpdateInputs.Invoke (model);
 	}
 

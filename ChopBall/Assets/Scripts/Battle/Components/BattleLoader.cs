@@ -18,6 +18,7 @@ public class BattleLoader : MonoBehaviour {
 
 	void Start () {
 		CurrentBattleController.InitializeCurrentData ();
+		PlayerStateData[] playerStates = PlayerStateController.GetAllStates ();
 		Material[] charMaterials = Resources.LoadAll ("Materials", typeof(Material)).Cast<Material>().ToArray ();
 		GameObject goalMaster = GameObject.FindGameObjectWithTag ("GoalMaster");
 		Transform[] ballSpawns = GameObject.FindGameObjectWithTag ("BallSpawnMaster").GetComponentsInChildren<Transform>();
@@ -33,15 +34,29 @@ public class BattleLoader : MonoBehaviour {
 		ballComponent.Initialize (ballSpawns);
 		ballComponent.ResetBallPosition ();
 
+		// TODO: 
+		int nextPlayerStateIndex = 0;
 		for(int i = 0; i < goals.Length; i++){
-			goals [i].Initialize ((i + 1), playerBaseData.playerColors [i]);
+			while(nextPlayerStateIndex<playerStates.Length){
+				if (playerStates [nextPlayerStateIndex].active) {
+					nextPlayerStateIndex++;
+					break;
+				} else {
+					nextPlayerStateIndex++;
+				}
+			}
+			if (nextPlayerStateIndex >= playerStates.Length) {
+				Debug.LogError ("Not enough active states found");
+				break;
+			}
+			goals [i].Initialize ((nextPlayerStateIndex + 1), playerBaseData.playerColors [nextPlayerStateIndex]);
 
 			// NOT FINAL Character initialization code
 			Vector3 charSpawnPos = goals [i].GetComponentInChildren<CharacterSpawnIndicator> ().GetPosition ();
 			CharacterHandler charHand = Instantiate (characterTest, charSpawnPos, Quaternion.identity).GetComponent<CharacterHandler>();
-			charHand.PlayerID = (i+1);
+			charHand.PlayerID = (nextPlayerStateIndex+1);
 			InputEventListener charIEListener = charHand.GetComponent<InputEventListener> ();
-			charIEListener.Event = inputEvents [i];
+			charIEListener.Event = inputEvents [nextPlayerStateIndex];
 			charIEListener.enabled = true;
 			MeshRenderer[] renderers = charHand.GetComponentsInChildren<MeshRenderer> ();
 			foreach (var renderer in renderers) {

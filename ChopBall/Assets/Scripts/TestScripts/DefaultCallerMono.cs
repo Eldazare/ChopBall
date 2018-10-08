@@ -7,6 +7,5 @@ public class DefaultCallerMono : MonoBehaviour {
 	void Start(){
 		InputStorageController.SetDefaultsAll ();
 		PlayerStateController.SetDefaultsAll ();
-
 	}
 }

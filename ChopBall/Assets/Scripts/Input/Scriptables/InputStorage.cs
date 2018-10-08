@@ -23,6 +23,8 @@ public class InputStorage : ScriptableObject {
 	public KeyCode Dash;
 	public KeyCode Submit; // For menus and such
 	public KeyCode Cancel; // -||-
+	public KeyCode Start; // For menus and such
+	public KeyCode Select; // -||-
 
 	public void ChangeAButton(ButtonCommand command, KeyCode newButton){
 		switch (command) {
@@ -70,6 +72,8 @@ public class InputStorage : ScriptableObject {
 		Dash = GetButtonCode (model.Dash);
 		Submit = GetButtonCode (model.Submit);
 		Cancel = GetButtonCode (model.Cancel);
+		Start = GetButtonCode (model.Start);
+		Select = GetButtonCode (model.Select);
 	}
 
 	private KeyCode GetButtonCode(int buttonNumber){

@@ -15,6 +15,9 @@ public class InputModel {
 	public bool Submit;
 	public bool Cancel;
 
+	public bool Start;
+	public bool Select;
+
 	// Default = Zero;
 	public InputModel(){
 		leftDirectionalInput = Vector2.zero;
@@ -26,5 +29,8 @@ public class InputModel {
 
 		Submit = false;
 		Cancel = false;
+
+		Start = false;
+		Select = false;
 	}
 }

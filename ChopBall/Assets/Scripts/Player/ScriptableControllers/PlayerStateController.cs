@@ -53,4 +53,9 @@ public static class PlayerStateController {
 		LoadStates ();
 		states [playerID - 1].SetDefaultValues ();
 	}
+
+	public static void SetStateActive(int stateIndex){
+		LoadStates ();
+		states [stateIndex].active = true;
+	}
 }

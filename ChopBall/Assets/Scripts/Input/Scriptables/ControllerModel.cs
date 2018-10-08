@@ -20,4 +20,6 @@ public class ControllerModel : ScriptableObject{
 	public int Dash;
 	public int Submit;
 	public int Cancel;
+	public int Start;
+	public int Select;
 }

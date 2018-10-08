@@ -5,9 +5,16 @@ using UnityEngine;
 public class MenuBack : MonoBehaviour
 {
 
+	public static Previous currentPanel;
+
     public void Back()
     {
-        Previous.FindObjectOfType<Previous>().GetComponent<Previous>().PreviousPanel.SetActive(true);
+		if (currentPanel.previousPanel != null) {
+			currentPanel.gameObject.SetActive (false);
+			currentPanel.previousPanel.gameObject.SetActive (true);
+		} else {
+			Debug.Log ("previousPanel was null. Are we at start panel?");
+		}
 
         /*GameObject[] gameObjectArray = GameObject.FindGameObjectsWithTag("Menu");
 
@@ -16,4 +23,9 @@ public class MenuBack : MonoBehaviour
             go.SetActive(false);
         }*/
     }
+
+	public static void SetCurrentPanel(Previous currentPan){
+		currentPanel = currentPan;
+		Debug.Log ("Current panel = " + currentPanel.name);
+	}
 }

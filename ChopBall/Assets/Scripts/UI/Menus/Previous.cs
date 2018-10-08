@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Previous : MonoBehaviour
 {
-    public GameObject PreviousPanel;
+	public Previous previousPanel;
+
+	void OnEnable(){
+		MenuBack.SetCurrentPanel (this);
+	}
 
 }

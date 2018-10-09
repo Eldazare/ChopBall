@@ -17,7 +17,7 @@ public class Ball : MonoBehaviour {
 		touchedPlayers.Clear ();
 	}
 
-	public void Initialize(Transform[] ballSpawns){
+	public void Initialize(List<Transform> ballSpawns){
 		startPositions = new List<Vector3> ();
 		foreach (var spawn in ballSpawns) {
 			startPositions.Add (spawn.position);

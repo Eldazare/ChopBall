@@ -16,13 +16,11 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 	public void StatsUpdated(){
 		int i = 0;
 		foreach(CompetitorContainer competitor in CurrentBattleController.GetCompetitors ()){
-			if (competitor != null) {
 				displayTextList [i].text = "Goals: " + competitor.goalsScored;
 				displayTextList [i].text += "\nScore: " + competitor.score;
 				if (competitor.stock != 0) {
 					displayTextList [i].text += "\nStocks: " + competitor.stock;
 				}
-			}
 			i++;
 		}
 	}

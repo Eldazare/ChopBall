@@ -6,5 +6,6 @@ using UnityEngine;
 public class CharacterAttributeData : ScriptableObject {
 
 	public string CharacterName;
+	public string CharacterPrefabName;
 	public Sprite CharacterPortrait;
 }

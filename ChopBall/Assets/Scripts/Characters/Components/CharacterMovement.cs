@@ -40,6 +40,7 @@ public class CharacterMovement : MonoBehaviour {
         {
             dashCoolDownElapsed -= Time.deltaTime;
         }
+        else dashCoolDownElapsed = 0;
     }
 
     public void Move(Vector2 inputAxis)
@@ -80,19 +81,22 @@ public class CharacterMovement : MonoBehaviour {
 
     public void Dash(Vector2 inputAxis)
     {
-        if (inputAxis.sqrMagnitude > 0)
+        if (dashCoolDownElapsed <= 0 && dashTimerElapsed <= 0)
         {
-            dashDirection.x = inputAxis.x;
-            dashDirection.y = inputAxis.y;
-            dashDirection.Normalize();
-        }
-        else
-        {
-            dashDirection = transform.up;
-        }
+            if (inputAxis.sqrMagnitude > 0)
+            {
+                dashDirection.x = inputAxis.x;
+                dashDirection.y = inputAxis.y;
+                dashDirection.Normalize();
+            }
+            else
+            {
+                dashDirection = transform.up;
+            }
 
-        dashSpeed = characterBase.DashDistance / characterBase.DashTime;
-        dashTimerElapsed = characterBase.DashTime;
-        dashCoolDownElapsed = characterBase.DashTime + characterBase.DashCoolDown;
+            dashSpeed = characterBase.DashDistance / characterBase.DashTime;
+            dashTimerElapsed = characterBase.DashTime;
+            dashCoolDownElapsed = characterBase.DashTime + characterBase.DashCoolDown;
+        }
     }
 }

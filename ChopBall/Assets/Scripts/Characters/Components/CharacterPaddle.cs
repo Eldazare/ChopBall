@@ -9,6 +9,8 @@ public class CharacterPaddle : MonoBehaviour {
     public PaddleSide Side = PaddleSide.Left;
     public Transform Pivot;
 
+    private float paddleThickness = 0.6f;
+
     private float currentRotation;
     private float targetRotation;
     private float currentAngularDirection;
@@ -73,7 +75,9 @@ public class CharacterPaddle : MonoBehaviour {
 
         if (hitActive)
         {
-            hitElapsed += characterBase.PaddleSpeedUp * currentAngularDirection * Time.deltaTime;
+            float paddleSpeed = (currentAngularDirection > 0) ? characterBase.PaddleSpeedUp : characterBase.PaddleSpeedDown;
+
+            hitElapsed += paddleSpeed * currentAngularDirection * Time.deltaTime;
 
             if (hitElapsed >= 1)
             {
@@ -88,7 +92,7 @@ public class CharacterPaddle : MonoBehaviour {
 
             targetRotation = Mathf.Lerp(characterBase.PaddleLowerAngle * (float)Side, characterBase.PaddleUpperAngle, hitElapsed);
 
-            CheckPaddleCollisions();
+            if (currentAngularDirection > 0) CheckPaddleCollisions();
 
             if (hitActive == false) hitObjectIDs.Clear();
         }
@@ -96,7 +100,8 @@ public class CharacterPaddle : MonoBehaviour {
         paddleVector = Rotate(masterTransform.up, targetRotation);
         currentRotation = targetRotation;
 
-        Debug.DrawLine(pivotPoint, pivotPoint + paddleVector * characterBase.PaddleLength, Color.green);
+        //Debug.DrawLine(pivotPoint, pivotPoint + paddleVector * characterBase.PaddleLength, Color.green);
+        Debug.DrawLine(pivotPoint - (paddleThickness / 2) * paddleVector, pivotPoint + (characterBase.PaddleLength + paddleThickness / 2) * paddleVector, Color.green);
     }
 
     // Checks if paddle has collided with anything in collision layers
@@ -104,7 +109,7 @@ public class CharacterPaddle : MonoBehaviour {
     {
         // Check if there are any colliders in the paddle radius -- radius is measured from the pivotpoint of the paddle
         int colliderCount = Physics2D.OverlapCircleNonAlloc(pivotPoint,
-                                                            characterBase.PaddleLength,
+                                                            characterBase.PaddleLength + paddleThickness / 2,
                                                             colliderBuffer,
                                                             characterBase.PaddleCollisionLayers);
 
@@ -134,17 +139,42 @@ public class CharacterPaddle : MonoBehaviour {
                     Vector2 hitNormal = new Vector2(-paddleVector.y, paddleVector.x).normalized * paddleHitDirection;
 
                     // Do a raycast check in the direction of the paddle to see if the object hit the side of the paddle
-                    RaycastHit2D paddleSideHit = Physics2D.Raycast(pivotPoint, paddleVector, characterBase.PaddleLength, characterBase.PaddleCollisionLayers);
+                    //RaycastHit2D paddleSideHit = Physics2D.Raycast(pivotPoint, paddleVector, characterBase.PaddleLength, characterBase.PaddleCollisionLayers);
 
-                    if (paddleSideHit)
+                    Collider2D hitCollider = Physics2D.OverlapCapsule(pivotPoint + characterBase.PaddleLength / 2 * paddleVector,
+                                                                        new Vector2(paddleThickness, characterBase.PaddleLength + paddleThickness),
+                                                                        CapsuleDirection2D.Vertical,
+                                                                        currentRotation,
+                                                                        characterBase.PaddleCollisionLayers);
+                    if (hitCollider == colliderBuffer[i])
                     {
-                        // If object hit the side of the paddle we need to check if it hit the tip or not
-                        Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength;
-                        if (colliderBuffer[i].OverlapPoint(tipPoint))
-                        {
-                            // If object hit the tip we calculate the normal differently
-                            hitNormal = (hitBody.position - tipPoint).normalized;
-                        }
+                        Debug.Log("ball hit paddle");
+                        //hitBody.position -= hitBody.velocity;
+
+                        //RaycastHit2D hit = Physics2D.CapsuleCast(pivotPoint + characterBase.PaddleLength / 2 * paddleVector,
+                        //                                          new Vector2(paddleThickness, characterBase.PaddleLength + paddleThickness),
+                        //                                          CapsuleDirection2D.Vertical,
+                        //                                          currentRotation,
+                        //                                          hitBody.velocity.normalized,
+                        //                                          2 * hitBody.velocity.magnitude,
+                        //                                          characterBase.PaddleCollisionLayers);
+
+                        //hitBody.position += hitBody.velocity;
+
+                        //if (hit)
+                        //{
+                        //    hitNormal = -hit.normal;
+
+                        //    Debug.DrawRay(hit.point, hitNormal, Color.red, 1f);
+                        //}
+
+                        //// If object hit the side of the paddle we need to check if it hit the tip or not
+                        //Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength;
+                        //if (colliderBuffer[i].OverlapPoint(tipPoint))
+                        //{
+                        //    // If object hit the tip we calculate the normal differently
+                        //    hitNormal = (hitBody.position - tipPoint).normalized;
+                        //}
                     }
                     else
                     {
@@ -167,13 +197,22 @@ public class CharacterPaddle : MonoBehaviour {
         }
     }
 
-    // Debug gizmos
-    //private void OnDrawGizmos()
-    //{
-    //    Gizmos.color = new Color(0, 0, 0, 0.5f);
-    //    Gizmos.DrawSphere(pivotPoint, characterBase.PaddleLength);
-    //    Gizmos.DrawSphere(pivotPoint + paddleVector * characterBase.PaddleLength, 0.1f);
-    //}
+    //Debug gizmos
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(255, 255, 255, 0.5f);
+
+        for (int i = 0; i < 10; i++)
+        {
+            Gizmos.DrawSphere(pivotPoint + ((characterBase.PaddleLength / 10) * i * paddleVector), paddleThickness / 2);
+        }
+
+        Gizmos.color = new Color(0, 255, 0, 0.5f);
+
+        Gizmos.DrawSphere(pivotPoint + characterBase.PaddleLength * paddleVector, paddleThickness / 2);
+
+        Gizmos.DrawWireSphere(pivotPoint, characterBase.PaddleLength + paddleThickness / 2);
+    }
 
     // Helper function to rotate a 2d vector -> change to an extension method later
     private Vector2 Rotate(Vector2 v, float degrees)

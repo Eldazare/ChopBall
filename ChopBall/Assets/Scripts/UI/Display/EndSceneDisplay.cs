@@ -14,7 +14,7 @@ public class EndSceneDisplay : MonoBehaviour {
 			Debug.LogWarning ("Unimplemented");
 		} else {
 			for (int i = 0; i<competitors.Count; i++) {
-				textList [i].text = "Player "+(i+1)+":"+"\n"
+				textList [i].text = "Player "+competitors[i].playerID+":"+"\n"
 					+"Position: "+competitors[i].endPosition+"\n"
 					+"Score: "+competitors[i].score+"\n";
 			}

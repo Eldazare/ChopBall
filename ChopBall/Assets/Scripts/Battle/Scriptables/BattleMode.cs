@@ -23,7 +23,7 @@ public class BattleMode : ScriptableObject {
 
 	private CountObject countObject;
 	private RoundEnd roundEnd;
-	private int roundEndCap; // Starting stock / target goals. Unncesssary with timer.
+	private int roundEndCap; // Starting stock / target goals. Unncessary with timer.
 	private int minutes;
 	private float seconds;
 	private MatchEnd matchEndCriteria; // For ending the match
@@ -43,31 +43,26 @@ public class BattleMode : ScriptableObject {
 
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates();
 		if (masterData.teams) {
-			teams = new List<TeamContainer> ();
-			for (int i = 0; i<MAXNUMBEROFTEAMS;i++) {
-				teams.Add (null);
-			}
+			teams = new List<TeamContainer> (MAXNUMBEROFTEAMS);
 		} else {
 			teams = null;
 		}
 		competitors = new List<CompetitorContainer> ();
-		foreach (PlayerStateData stateData in playerStates) {
-			if (stateData.active) {
-				CompetitorContainer newCompCont = new CompetitorContainer ();
-				newCompCont.score = 0;
-				newCompCont.goalsScored = 0;
+		for (int i = 0; i<playerStates.Length; i++) {
+			if (playerStates[i].active) {
+				CompetitorContainer newCompCont = new CompetitorContainer (i+1);
 				if (countObject == CountObject.Stocks) {
 					newCompCont.SetStock (roundEndCap);
 				}
 				if (masterData.teams) {
-					newCompCont.teamIndex = stateData.team;
-					teams [stateData.team] = new TeamContainer ();
+					newCompCont.teamIndex = playerStates[i].team;
+					if (teams.SingleOrDefault (s => s.teamID == playerStates[i].team) != null) {
+						teams.Add (new TeamContainer (playerStates [i].team));
+					}
 				} else {
 					newCompCont.teamIndex = -1;
 				}
 				competitors.Add (newCompCont);
-			} else {
-				competitors.Add (null);
 			}
 		}
 		roundNumber = 1;
@@ -82,21 +77,22 @@ public class BattleMode : ScriptableObject {
 	public void DoGoal(GoalData gd){
 		if (teams != null) {
 			foreach (var playerID in gd.giverPlayerIDs) {
-				if (competitors [playerID - 1].teamIndex != competitors [gd.goalPlayerID-1].teamIndex) {
-					teams [competitors [playerID - 1].teamIndex].TeamDidAGoal ();
-					break;
+				foreach (CompetitorContainer competitor in competitors) {
+					if (competitors.Single(s=>s.playerID == playerID).teamIndex != competitors.Single(s=>s.playerID == gd.goalPlayerID).teamIndex) {
+						teams.Single(t=>t.teamID == competitors.Single(s=>s.playerID == playerID).teamIndex).TeamDidAGoal ();
+							break;
+						}
 				}
 			}
-			competitors [gd.goalPlayerID - 1].goalsScored -= 1;
 		}
 		CompetitorContainer giver = null;
 		foreach (var playerID in gd.giverPlayerIDs) {
 			if (playerID != gd.goalPlayerID) {
-				giver = competitors [playerID - 1];
+				giver = competitors.Single (s => s.playerID == playerID);
 				giver.DidAGoal ();
 			}
 		}
-		CompetitorContainer receiver = competitors [gd.goalPlayerID - 1];
+		CompetitorContainer receiver = competitors.Single(s=>s.playerID == gd.goalPlayerID);
 		receiver.RemoveStock ();
 		if (giver != null) {
 			if (CheckRoundEndGoals (giver)) {
@@ -148,7 +144,7 @@ public class BattleMode : ScriptableObject {
 			}
 			competitor.eliminated = false;
 			if (teams != null) {
-				teams [competitor.teamIndex].roundScoreValue += competitor.roundScoreValue;
+				teams.Single(t=>t.teamID == competitor.teamIndex).roundScoreValue += competitor.roundScoreValue;
 			}
 		}
 		if (teams != null) {
@@ -387,7 +383,8 @@ public interface ICompetitor{
 }
 
 public class TeamContainer : ICompetitor{
-	public TeamContainer(){
+	public TeamContainer(int teamID){
+		this.teamID = teamID;
 		goals = 0;
 		score = 0;
 		roundScoreValue = 0;
@@ -418,6 +415,7 @@ public class TeamContainer : ICompetitor{
 }
 
 public class CompetitorContainer : ICompetitor{
+	public int playerID;
 	public int teamIndex;
 	public int score;
 	public int stock;
@@ -427,7 +425,8 @@ public class CompetitorContainer : ICompetitor{
 	public int roundScoreValue;
 	public int endPosition;
 
-	public CompetitorContainer(){
+	public CompetitorContainer(int playerID){
+		this.playerID = playerID;
 		score = 0;
 		stock = 0;
 		maxStock = 0;

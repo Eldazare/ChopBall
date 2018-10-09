@@ -39,7 +39,6 @@ public class BattleLoader : MonoBehaviour {
 		for(int i = 0; i < goals.Length; i++){
 			while(nextPlayerStateIndex<playerStates.Length){
 				if (playerStates [nextPlayerStateIndex].active) {
-					nextPlayerStateIndex++;
 					break;
 				} else {
 					nextPlayerStateIndex++;
@@ -64,6 +63,7 @@ public class BattleLoader : MonoBehaviour {
 				renderer.material.color = playerBaseData.playerColors [i];
 			}
 			charHand.Initialize ();
+			nextPlayerStateIndex++;
 		}
 
 		StartGame.Raise();

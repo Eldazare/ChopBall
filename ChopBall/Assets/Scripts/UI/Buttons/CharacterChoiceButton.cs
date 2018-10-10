@@ -1,10 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CharacterChoiceButton : _CursorButton {
 
 	public int characterID;
+
+
+	public void Initialize(int characterID, Sprite portrait, string name){
+		GetComponentInChildren<Image>().sprite = portrait;
+		this.characterID = characterID;
+		this.gameObject.SetActive (true);
+		GetComponentInChildren<Text> ().text = name;
+	}
 
 	override
 	public void Click(int playerID){

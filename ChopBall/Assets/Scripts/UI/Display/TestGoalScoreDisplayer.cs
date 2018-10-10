@@ -34,10 +34,12 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 		} else {
 			if (displayTextList == null) {
 				displayTextList = new List<Text> ();
+				PlayerBaseData pBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
 				int j = 0;
 				foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors()) {
 					displayTextList.Add (allTextList [j]);
 					displayTextList [j].gameObject.SetActive (true);
+					displayTextList [j].color = pBaseData.playerColors[competitor.playerID-1];
 					j++;
 				}
 				ResolutionChangeUpdatePositions ();

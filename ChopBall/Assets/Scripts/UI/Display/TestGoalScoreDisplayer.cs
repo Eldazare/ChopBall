@@ -17,6 +17,9 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 
 	public void ResolutionChangeUpdatePositions(){
 		if (displayTextList != null){
+			if (displayTextList.Count == 0) {
+				return;
+			}
 			Debug.Log ("Height :" + Screen.height + " Width: " + Screen.width);
 			float yPos = (float)Screen.height * -0.475f;
 			float relativeX = Screen.width / displayTextList.Count;

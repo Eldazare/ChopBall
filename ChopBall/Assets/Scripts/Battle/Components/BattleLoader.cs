@@ -15,10 +15,12 @@ public class BattleLoader : MonoBehaviour {
 
 	public GameEvent StartGame;
 
+	public InputEvent[] inputEvents;
+	public Material[] charMaterials;
+
 	void Start () {
 		CurrentBattleController.InitializeCurrentData ();
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates ();
-		Material[] charMaterials = Resources.LoadAll ("Materials", typeof(Material)).Cast<Material>().ToArray ();
 		GameObject goalMaster = GameObject.FindGameObjectWithTag ("GoalMaster");
 		List<Transform> ballSpawns = GameObject.FindGameObjectWithTag ("BallSpawnMaster").GetComponentsInChildren<Transform>().ToList();
 		ballSpawns.RemoveAt (0);
@@ -27,7 +29,8 @@ public class BattleLoader : MonoBehaviour {
 			Debug.LogError ("playerBaseData not found");
 			return;
 		}
-		InputEvent[] inputEvents = Resources.LoadAll ("Scriptables/Input/Events/", typeof(InputEvent)).Cast<InputEvent>().ToArray ();
+		inputEvents = Resources.LoadAll ("Scriptables/Input/Events/", typeof(InputEvent)).Cast<InputEvent>().ToArray ();
+		charMaterials = Resources.LoadAll ("Materials", typeof(Material)).Cast<Material>().ToArray ();
 		Goal[] goals = goalMaster.GetComponentsInChildren<Goal> ();
 
 		Ball ballComponent = Instantiate (ball, Vector3.zero, Quaternion.identity).GetComponent<Ball>();
@@ -36,9 +39,11 @@ public class BattleLoader : MonoBehaviour {
 
 		// TODO: 
 		int nextPlayerStateIndex = 0;
+		bool areAnyActive = false;
 		for(int i = 0; i < goals.Length; i++){
 			while(nextPlayerStateIndex<playerStates.Length){
 				if (playerStates [nextPlayerStateIndex].active) {
+					areAnyActive = true;
 					break;
 				} else {
 					nextPlayerStateIndex++;
@@ -46,35 +51,50 @@ public class BattleLoader : MonoBehaviour {
 			}
 			if (nextPlayerStateIndex >= playerStates.Length) {
 				Debug.LogError ("Not enough active states found");
-				break;
+				if (!areAnyActive) {
+					Debug.Log ("Loading defaults...");
+				} else {
+					break;
+				}
 			}
-			goals [i].Initialize ((nextPlayerStateIndex + 1), playerBaseData.playerColors [nextPlayerStateIndex]);
-
-			// NOT FINAL Character initialization code
-			Vector3 charSpawnPos = goals [i].GetComponentInChildren<CharacterSpawnIndicator> ().GetPosition ();
-			CharacterAttributeData charAttributes = CharacterAttributeController.GetACharacter (playerStates [nextPlayerStateIndex].characterChoice);
-			GameObject charPrefab;
-			if (charAttributes != null){
-				charPrefab = (GameObject)Resources.Load(CharacterAttributeController.GetCharacterPrefabPreString() + charAttributes.CharacterPrefabName);
+			if (!areAnyActive) {
+				MakeACharacter (goals [i], null, playerBaseData, i);
+			} else {
+				MakeACharacter (goals[i], playerStates[nextPlayerStateIndex],playerBaseData, nextPlayerStateIndex);
+				nextPlayerStateIndex++;
 			}
-			else {
-				charPrefab = characterTest;
-			}
-			CharacterHandler charHand = Instantiate (charPrefab, charSpawnPos, Quaternion.identity).GetComponent<CharacterHandler>();
-			charHand.PlayerID = (nextPlayerStateIndex+1);
-			InputEventListener charIEListener = charHand.GetComponent<InputEventListener> ();
-			charIEListener.Event = inputEvents [nextPlayerStateIndex];
-			charIEListener.enabled = true;
-			MeshRenderer[] renderers = charHand.GetComponentsInChildren<MeshRenderer> ();
-			foreach (var renderer in renderers) {
-				renderer.material = charMaterials [i];
-				renderer.material.color = playerBaseData.playerColors [i];
-			}
-			charHand.Initialize ();
-			charHand.CharacterAttributes = charAttributes;
-			nextPlayerStateIndex++;
 		}
 
 		StartGame.Raise();
+	}
+
+	private void MakeACharacter(Goal goal, PlayerStateData stateData, PlayerBaseData baseData, int playerIndex){
+		goal.Initialize (playerIndex + 1, baseData.playerColors [playerIndex]);
+		Vector3 charSpawnPos = goal.GetComponentInChildren<CharacterSpawnIndicator>().GetPosition();
+		GameObject prefab = null;
+		CharacterAttributeData charAttributes = null;
+		if (stateData != null) {
+			charAttributes = CharacterAttributeController.GetACharacter (stateData.characterChoice);
+			if (charAttributes != null) {
+				prefab = (GameObject)Resources.Load (CharacterAttributeController.GetCharacterPrefabPreString() + charAttributes.CharacterPrefabName);
+			}
+		}
+		if (prefab == null) {
+			prefab = characterTest;
+		}
+		CharacterHandler charHand = Instantiate (prefab, charSpawnPos, Quaternion.identity).GetComponent<CharacterHandler>();
+		charHand.PlayerID = (playerIndex+1);
+		InputEventListener charIEListener = charHand.GetComponent<InputEventListener> ();
+		charIEListener.Event = inputEvents [playerIndex];
+		charIEListener.enabled = true;
+		if (stateData != null) {
+			MeshRenderer[] renderers = charHand.GetComponentsInChildren<MeshRenderer> ();
+			foreach (var renderer in renderers) {
+				renderer.material = charMaterials [playerIndex];
+				renderer.material.color = baseData.playerColors [playerIndex];
+			}
+		}
+		charHand.Initialize ();
+		charHand.CharacterAttributes = charAttributes;
 	}
 }

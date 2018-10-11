@@ -20,3 +20,12 @@ MonoBehaviour:
     rgba: 4280663589
   - serializedVersion: 2
     rgba: 4283754463
+  teamColors:
+  - serializedVersion: 2
+    rgba: 4289180672
+  - serializedVersion: 2
+    rgba: 4290395647
+  - serializedVersion: 2
+    rgba: 48245
+  - serializedVersion: 2
+    rgba: 4278208989

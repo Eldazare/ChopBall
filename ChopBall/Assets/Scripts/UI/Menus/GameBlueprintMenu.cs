@@ -115,6 +115,10 @@ public class GameBlueprintMenu : MonoBehaviour {
 		blueprintButtons [5].SetString (blueprint.scoringMode.ToString ());
 	}
 
+	void OnDisable(){
+		SaveBlueprint ();
+	}
+
 	public void SaveBlueprint(){
 		MasterStateController.GetTheMasterData ().SetBattleModeBlueprint (blueprint);
 	}

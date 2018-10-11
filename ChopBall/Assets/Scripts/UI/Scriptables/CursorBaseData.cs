@@ -6,6 +6,7 @@ using UnityEngine;
 public class CursorBaseData : ScriptableObject {
 
 	public float movespeedMultiplier;
+	public float dashMovespeedMultiplier;
 	public int pixelBuffer;
 
 	// Master Cursor Data

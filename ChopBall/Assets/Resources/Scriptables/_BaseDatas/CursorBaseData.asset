@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9759d68be9707084b835213b9a6779f5, type: 3}
   m_Name: CursorBaseData
   m_EditorClassIdentifier: 
-  movespeedMultiplier: 40
+  movespeedMultiplier: 30
+  dashMovespeedMultiplier: 2
   pixelBuffer: 10
   McTotalMultiplierCap: 2.5

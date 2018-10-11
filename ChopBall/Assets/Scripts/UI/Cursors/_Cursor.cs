@@ -64,9 +64,13 @@ public abstract class _Cursor : MonoBehaviour {
 		this.model = gotModel;
 	}
 
-	protected void Movement(Vector2 direction){
-		float newX = rect.position.x + (direction.x * Time.deltaTime * movementMultiplier * boundsMultiplier);
-		float newY = rect.position.y + (direction.y * Time.deltaTime * movementMultiplier * boundsMultiplier);
+	protected void Movement(Vector2 direction,bool dash){
+		float dashMultiplier = 1;
+		if (dash) {
+			dashMultiplier = baseData.dashMovespeedMultiplier;
+		}
+		float newX = rect.position.x + (direction.x * Time.deltaTime * movementMultiplier * boundsMultiplier * dashMultiplier);
+		float newY = rect.position.y + (direction.y * Time.deltaTime * movementMultiplier * boundsMultiplier * dashMultiplier);
 		if (newX > XMax) {
 			newX = XMax;
 		}

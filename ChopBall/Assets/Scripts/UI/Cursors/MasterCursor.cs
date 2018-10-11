@@ -34,7 +34,7 @@ public class MasterCursor : _Cursor {
 			totalDirectionLeft.Normalize ();
 			totalDirectionLeft = totalDirectionLeft * baseData.McTotalMultiplierCap;
 		}
-		Movement (totalDirectionLeft);
+		Movement (totalDirectionLeft,model.Dash);
 		ResetTotalAxes ();
 		ButtonCheck ();
 		CancelCheck ();

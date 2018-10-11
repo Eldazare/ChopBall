@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06ef32ea94e76d34bb02cca6bc3154cc, type: 3}
+  m_Name: SquareTest
+  m_EditorClassIdentifier: 
+  CharacterName: TestSquare
+  CharacterPrefabName: null
+  CharacterPortrait: {fileID: 21300000, guid: ddf5ec761c8d47944b754f602aeb57e2, type: 3}

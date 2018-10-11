@@ -11,7 +11,7 @@ public class MasterStateData : ScriptableObject {
 
 	// TODO: Presets in the UI component. Might be stored as scriptable themselves.
 
-
+	// Public mode: FFA / TEAMFFA / TeamVSTeam
 	public int numberOfPlayers; // TODO: Define how this is read / input by player?
 	public bool teams; // Wether the game is Free-For-All or Teams
 	public BattleModeBlueprint battleModeBlueprint;

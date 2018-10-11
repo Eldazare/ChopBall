@@ -20,6 +20,7 @@ public class CharacterChoiceButton : _CursorButton {
 		if (playerID > 0) {
 			if (characterID > 0) { // playerCursor
 				PlayerStateController.ChooseCharacter (playerID, characterID);
+				Debug.Log ("Character chosen");
 			} else {
 				Debug.LogError ("No characterID");
 			}

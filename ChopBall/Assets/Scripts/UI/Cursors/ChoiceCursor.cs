@@ -18,7 +18,7 @@ public class ChoiceCursor : _Cursor {
 		if (!stateData.XYmovementLocked) {
 			Movement (model.leftDirectionalInput);
 		}
-		SubmitToClick ();
+		ButtonCheck ();
 		CancelCheck ();
 	}
 		

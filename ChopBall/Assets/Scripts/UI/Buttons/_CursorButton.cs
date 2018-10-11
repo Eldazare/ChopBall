@@ -34,6 +34,14 @@ public abstract class _CursorButton : MonoBehaviour {
 		}
 	}
 
+	public virtual void OnClickRight(){
+	
+	}
+
+	public virtual void OnClickLeft(){
+	
+	}
+
 	// First to enter returns true, others false
 	protected bool EnterAPlayer(int playerID){
 		if (!hoveringPlayers.Contains (playerID)) {

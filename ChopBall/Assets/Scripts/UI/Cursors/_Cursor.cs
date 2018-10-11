@@ -32,6 +32,8 @@ public abstract class _Cursor : MonoBehaviour {
 
 	protected bool lateSubmit = false;
 	protected bool lateCancel = false;
+	protected bool latePaddleRight = false;
+	protected bool laterPaddleLeft = false;
 
 	protected virtual void Awake(){
 		baseData = (CursorBaseData) Resources.Load ("Scriptables/_BaseDatas/CursorBaseData", typeof(CursorBaseData));
@@ -80,28 +82,56 @@ public abstract class _Cursor : MonoBehaviour {
 		rect.position = new Vector2 (newX, newY);
 	}
 
-	protected void SubmitToClick(){
-		if (lateSubmit == false) {
-			if (model.Submit == true) {
-				clickButton = RaycastAButton ();
-				if (clickButton != null) {
-					clickButton.Click (playerID);
-				}
-				lateSubmit = true;
+	protected void ButtonCheck(){
+		clickButton = null;
+		if (IsButtonDown (out lateSubmit, lateSubmit, model.Submit)) {
+			clickButton = raycastIfNull(clickButton);
+			if (clickButton != null) {
+				clickButton.Click (playerID);
 			}
-		} else if (model.Submit == false) {
-			lateSubmit = false;
+		}
+
+		if (IsButtonDown(out latePaddleRight, latePaddleRight, model.PaddleRight)){
+			clickButton = raycastIfNull(clickButton);
+			if (clickButton != null){
+				clickButton.OnClickRight();
+			}
+		}
+
+		if (IsButtonDown (out laterPaddleLeft, laterPaddleLeft, model.PaddleLeft)) {
+			clickButton = raycastIfNull (clickButton);
+			if (clickButton != null){
+				clickButton.OnClickLeft();
+			}
 		}
 	}
 
 	protected void CancelCheck(){
-		if (lateCancel == false) {
-			if (model.Cancel == true) {
-				OnCancel.Raise ();
-				lateCancel = true;
+		if (IsButtonDown (out lateCancel, lateCancel, model.Cancel)) {
+			OnCancel.Raise ();
+		}
+	}
+
+	protected bool IsButtonDown(out bool lateButtonRet, bool lateButton, bool currentButton){
+		if (!lateButton) {
+			if (currentButton) {
+				lateButtonRet = true;
+				return true;
 			}
-		} else if (model.Cancel == false) {
-			lateCancel = false;
+			lateButtonRet = false;
+		} else if (!currentButton) {
+			lateButtonRet = false;
+		} else {
+			lateButtonRet = lateButton;
+		}
+		return false;
+	}
+
+	protected _CursorButton raycastIfNull(_CursorButton button){
+		if (button == null) {
+			return RaycastAButton ();
+		} else {
+			return button;
 		}
 	}
 

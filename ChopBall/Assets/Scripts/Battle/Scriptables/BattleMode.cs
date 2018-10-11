@@ -506,4 +506,17 @@ public class ATime{
 		this.minutes = minutes;
 		this.seconds = seconds;
 	}
+
+	public int GetScale(int secondsPerIndex){
+		return (minutes * 60 + (int)seconds) / secondsPerIndex;
+	}
+
+	public void SetScale(int scale, int secondsPerIndex){
+		minutes = scale * secondsPerIndex / 60;
+		seconds = (scale * secondsPerIndex) % 60.0f;
+	}
+
+	public string GetAsString(){
+		return string.Format ("{0}:{1:F1}", minutes, seconds);
+	}
 }

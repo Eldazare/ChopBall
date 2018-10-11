@@ -12,7 +12,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 
 	public void TimerUpdated(){
 		ATime timer =  CurrentBattleController.GetATime ();
-		timerDisplay.text = string.Format ("{0}:{1:F1}", timer.minutes, timer.seconds);
+		timerDisplay.text = timer.GetAsString ();
 	}
 
 	public void ResolutionChangeUpdatePositions(){

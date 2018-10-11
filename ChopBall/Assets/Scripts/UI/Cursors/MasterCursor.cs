@@ -36,7 +36,7 @@ public class MasterCursor : _Cursor {
 		}
 		Movement (totalDirectionLeft);
 		ResetTotalAxes ();
-		SubmitToClick ();
+		ButtonCheck ();
 		CancelCheck ();
 	}
 

@@ -8,6 +8,7 @@ public class CharacterBaseData : ScriptableObject {
     // BASE DATA
     [Header("Paddles")]
     public float PaddleLength;
+    public float PaddleThickness;
     public float PaddleUpperAngle;
     public float PaddleLowerAngle;
 	public float PaddleSpeedUp;

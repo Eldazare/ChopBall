@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Name: CharacterBaseData
   m_EditorClassIdentifier: 
   PaddleLength: 1.5
+  PaddleThickness: 0.6
   PaddleUpperAngle: 0
   PaddleLowerAngle: 90
-  PaddleSpeedUp: 10
+  PaddleSpeedUp: 15
   PaddleSpeedDown: 5
   PaddleForceAmount: 25
   PaddleCollisionLayers:

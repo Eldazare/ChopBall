@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MenuPanelHandler : MonoBehaviour
 {
-
+	public PanelScript firstPanel;
 	public static PanelScript currentPanel;
 	public List<ChoiceCursor> playerCursors;
 	public MasterCursor masterCursors;
@@ -30,6 +30,9 @@ public class MenuPanelHandler : MonoBehaviour
 	public void Forward(PanelScript nextPanel){
 		SetCursors (nextPanel.masterZone);
 		nextPanel.gameObject.SetActive (true);
+		if (currentPanel == null) {
+			currentPanel = firstPanel;
+		}
 		currentPanel.gameObject.SetActive (false);
 		currentPanel = nextPanel;
 	}

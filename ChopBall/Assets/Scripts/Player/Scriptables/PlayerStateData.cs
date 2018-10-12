@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerStateData : ScriptableObject {
 
 	public bool active = false;
-	public bool XYmovementLocked = false;
+	public bool CharacterLocked = false;
+	public bool characterChoosing = false;
 	public int characterChoice = -1;
 	public int team = -1; // From 0 to 3
 	public string stageNameChoice = "";
@@ -15,7 +16,8 @@ public class PlayerStateData : ScriptableObject {
 
 	public void SetDefaultValues(){
 		active = false;
-		XYmovementLocked = false;
+		CharacterLocked = false;
+		characterChoosing = false;
 		characterChoice = -1;
 		team = -1;
 		stageNameChoice = "";

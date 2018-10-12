@@ -27,7 +27,7 @@ public class CharacterChoiceButton : _CursorButton {
 		} else if (playerID == 0) {
 			Debug.Log ("MasterCursor can't choose character");
 		} else {
-			Debug.LogError("Invalid playerID given :" + playerID);
+			Debug.LogError("Invalid playerID given: " + playerID);
 		}
 	}
 

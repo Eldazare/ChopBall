@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum StageChoiceType {individualRandom, masterSingle, randomPreset}
+public enum GrandMode{ FFA , TEAMFFA , TeamVSTeam}
 
 [CreateAssetMenu]
 public class MasterStateData : ScriptableObject {
@@ -11,7 +12,7 @@ public class MasterStateData : ScriptableObject {
 
 	// TODO: Presets in the UI component. Might be stored as scriptable themselves.
 
-	// Public mode: FFA / TEAMFFA / TeamVSTeam
+	public GrandMode mode;
 	public int numberOfPlayers; // TODO: Define how this is read / input by player?
 	public bool teams; // Wether the game is Free-For-All or Teams
 	public BattleModeBlueprint battleModeBlueprint;
@@ -24,7 +25,7 @@ public class MasterStateData : ScriptableObject {
 	public void SetDefaults(){
 		// Should contain every field
 		numberOfPlayers = 1;
-		teams = false;
+		SetGrandMode (GrandMode.FFA);
 		battleModeBlueprint = DefaultBP ();
 		stageChoiceType = StageChoiceType.masterSingle;
 		stageNameFinal = "TestStage";
@@ -44,6 +45,15 @@ public class MasterStateData : ScriptableObject {
 
 	public void SetBattleModeBlueprint(BattleModeBlueprint bp){
 		this.battleModeBlueprint = bp;
+	}
+
+	public void SetGrandMode (GrandMode mode){
+		this.mode = mode;
+		if (this.mode == GrandMode.FFA) {
+			teams = false;
+		} else {
+			teams = true;
+		}
 	}
 
 	public void GoToBattle(){

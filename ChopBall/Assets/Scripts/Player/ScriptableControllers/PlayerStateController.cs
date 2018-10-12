@@ -28,11 +28,10 @@ public static class PlayerStateController {
 		PlayerStateData data = states [playerID-1];
 		if (data.characterChoice != characterID) {
 			data.characterChoice = characterID;
-			data.XYmovementLocked = true;
-
+			data.CharacterLocked = true;
 		} else {
 			data.characterChoice = -1;
-			data.XYmovementLocked = false;
+			data.CharacterLocked = false;
 		}
 	}
 
@@ -57,5 +56,38 @@ public static class PlayerStateController {
 	public static void SetStateActive(int stateIndex){
 		LoadStates ();
 		states [stateIndex].active = true;
+	}
+
+	public static int GetNumberOfTeams(){
+		LoadStates ();
+		List<int> teamList = new List<int> ();
+		foreach (var state in states) {
+			if (state.active) {
+				if (!teamList.Contains (state.team)) {
+					teamList.Add (state.team);
+				}
+			}
+		}
+		return teamList.Count;
+	}
+
+	public static int GetNumberOfActivePlayers(){
+		LoadStates ();
+		int activePlayers = 0;
+		foreach (var state in states) {
+			if (state.active) {
+				if (state.characterChoice > -1) {
+					activePlayers++;
+				}
+			}
+		}
+		return activePlayers;
+	}
+
+	public static void SetCharacterChoosing(bool bo){
+		LoadStates ();
+		foreach (var state in states) {
+			state.characterChoosing = bo;
+		}
 	}
 }

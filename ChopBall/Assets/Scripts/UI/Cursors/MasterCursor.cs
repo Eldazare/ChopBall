@@ -37,7 +37,9 @@ public class MasterCursor : _Cursor {
 		Movement (totalDirectionLeft,model.Dash);
 		ResetTotalAxes ();
 		ButtonCheck ();
-		CancelCheck ();
+		if (CancelCheck ()) {
+			OnCancel.Raise ();
+		}
 	}
 
 	void FixedUpdate(){

@@ -11,15 +11,19 @@ public class ChoiceCursor : _Cursor {
 	override
 	protected void Awake(){
 		base.Awake ();
-		stateData = (PlayerStateData) Resources.LoadAll ("Scriptables/Players/StateData", typeof(PlayerStateData)) [playerID - 1];
+		stateData = PlayerStateController.GetAState(playerID);
 	}
 
 	void Update(){
-		if (!stateData.XYmovementLocked) {
-			Movement (model.leftDirectionalInput, model.Dash);
-		}
+		Movement (model.leftDirectionalInput, model.Dash);
 		ButtonCheck ();
-		CancelCheck ();
+		if (CancelCheck ()) {
+			if (stateData.CharacterLocked && stateData.characterChoosing) {
+				PlayerStateController.ChooseCharacter (playerID, stateData.characterChoice);
+			} else {
+				OnCancel.Raise ();
+			}
+		}
 	}
 		
 	void FixedUpdate(){

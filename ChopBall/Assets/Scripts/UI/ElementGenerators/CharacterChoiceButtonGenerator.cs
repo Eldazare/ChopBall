@@ -11,6 +11,14 @@ public class CharacterChoiceButtonGenerator : MonoBehaviour {
 		InitializeButtonsFromPanel ();
 	}
 
+	void OnEnable(){
+		PlayerStateController.SetCharacterChoosing (true);
+	}
+
+	void OnDisable(){
+		PlayerStateController.SetCharacterChoosing(false);
+	}
+
 	public void InitializeButtonsFromPanel(){
 		CharacterAttributeData[] attributes = CharacterAttributeController.GetCharacters ();
 		CharacterChoiceButton[] buttons = characterButtonPanel.GetComponentsInChildren<CharacterChoiceButton> ();

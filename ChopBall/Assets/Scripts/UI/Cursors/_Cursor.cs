@@ -110,10 +110,8 @@ public abstract class _Cursor : MonoBehaviour {
 		}
 	}
 
-	protected void CancelCheck(){
-		if (IsButtonDown (out lateCancel, lateCancel, model.Cancel)) {
-			OnCancel.Raise ();
-		}
+	protected bool CancelCheck(){
+		return IsButtonDown (out lateCancel, lateCancel, model.Cancel);
 	}
 
 	protected bool IsButtonDown(out bool lateButtonRet, bool lateButton, bool currentButton){

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum ButtonCommand {None, PaddleLeft, PaddleRight, Dash, Submit, Cancel}
+public enum ButtonCommand {None, PaddleLeft, PaddleRight, Dash, Submit, Cancel, Start, Select}
 
 [CreateAssetMenu]
 public class InputStorage : ScriptableObject {
@@ -42,6 +42,12 @@ public class InputStorage : ScriptableObject {
 			break;
 		case ButtonCommand.Cancel:
 			Cancel = newButton;
+			break;
+		case ButtonCommand.Start:
+			Start = newButton;
+			break;
+		case ButtonCommand.Select:
+			Select = newButton;
 			break;
 		}
 	}

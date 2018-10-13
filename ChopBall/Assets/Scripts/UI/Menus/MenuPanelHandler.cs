@@ -12,6 +12,7 @@ public class MenuPanelHandler : MonoBehaviour
 	public void Back()
     {
 		if (currentPanel.previousPanel != null) {
+			SetCursors (currentPanel.previousPanel.masterZone);
 			currentPanel.gameObject.SetActive (false);
 			currentPanel.previousPanel.gameObject.SetActive (true);
 			currentPanel = currentPanel.previousPanel;

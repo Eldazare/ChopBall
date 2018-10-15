@@ -47,6 +47,13 @@ public abstract class _Cursor : MonoBehaviour {
 		ped = new PointerEventData (null);		
 	}
 
+	void OnEnable(){
+		lateSubmit = true;
+		lateCancel = true;
+		latePaddleRight = true;
+		laterPaddleLeft = true;
+	}
+
 	protected void GetBounds(){
 		float height = Screen.height;
 		float width = Screen.width;

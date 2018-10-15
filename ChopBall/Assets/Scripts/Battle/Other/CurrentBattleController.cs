@@ -34,7 +34,11 @@ public static class CurrentBattleController  {
 
 	public static ATime GetATime(){
 		LoadCurrentBattle ();
-		return new ATime (currentBattle.minutesLeft, currentBattle.secondsLeft);
+		ATime time = new ATime (currentBattle.minutesLeft, currentBattle.secondsLeft);
+		if (currentBattle.suddenDeath) {
+			time.str = "Sudden Death!";
+		}
+		return time;
 	}
 
 	public static List<CompetitorContainer> GetCompetitors(){

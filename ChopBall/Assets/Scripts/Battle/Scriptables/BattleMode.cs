@@ -11,9 +11,7 @@ public enum ScoringMode{WinnerOnly, PerPosition, Direct1to1}
 [CreateAssetMenu]
 public class BattleMode : ScriptableObject {
 
-	//
 	int MAXNUMBEROFTEAMS = 4;
-	//
 
 	public GameEvent EndOfRound;
 	public GameEvent EndOfMatch;
@@ -34,6 +32,7 @@ public class BattleMode : ScriptableObject {
 	public float secondsLeft;
 	public bool useTimer = false;
 	public int roundNumber;
+	public bool suddenDeath = false;
 
 	public List<CompetitorContainer> competitors;
 	public List<TeamContainer> teams;
@@ -104,22 +103,27 @@ public class BattleMode : ScriptableObject {
 		if (CheckRoundEndElimination (receiver)) {
 			EndRound ();
 		}
+		if (suddenDeath) {
+			EndRound ();
+		}
 		StatsUpdated.Raise ();
 	}
 
 	public void AdvanceTime(float deltaTime){
 		if (useTimer) {
-			secondsLeft -= deltaTime;
-			if (secondsLeft < 0) {
-				minutesLeft -= 1;
-				secondsLeft += 60;
-				if (minutesLeft < 0) {
-					if (roundEnd == RoundEnd.Timer) {
-						EndRound ();
+			if (!suddenDeath) {
+				secondsLeft -= deltaTime;
+				if (secondsLeft < 0) {
+					minutesLeft -= 1;
+					secondsLeft += 60;
+					if (minutesLeft < 0) {
+						if (roundEnd == RoundEnd.Timer) {
+							EndRound ();
+						}
 					}
 				}
+				TimerUpdated.Raise ();
 			}
-			TimerUpdated.Raise ();
 		}
 	}
 
@@ -152,6 +156,9 @@ public class BattleMode : ScriptableObject {
 		} else {
 			ScoreTheRound ();
 		}
+		if (suddenDeath) {
+			return;
+		}
 		if (!EndMatchCheck ()) {
 			foreach (CompetitorContainer competitor in competitors) {
 				competitor.Reset ();
@@ -168,7 +175,12 @@ public class BattleMode : ScriptableObject {
 
 	private void ScoreTheRound(){
 		List<int> indexOrder = GenerateIndexOrder(competitors.Cast<ICompetitor>().ToList());
-
+		if (roundEnd == RoundEnd.Timer && countObject == CountObject.Goals &&
+		    (competitors [indexOrder [0]].goalsScored == competitors [indexOrder [1]].goalsScored)) {
+			suddenDeath = true;
+			return;
+		}
+		suddenDeath = false;
 		for (int i = 0; i<competitors.Count;i++) {
 			switch (scoringMode) {
 			case ScoringMode.Direct1to1:
@@ -195,6 +207,12 @@ public class BattleMode : ScriptableObject {
 
 	private void ScoreTeams(){
 		List<int> indexOrder = GenerateIndexOrder (teams.Cast<ICompetitor>().ToList());
+		if (roundEnd == RoundEnd.Timer && countObject == CountObject.Goals &&
+			(teams [indexOrder [0]].goals == teams [indexOrder [1]].goals)) {
+			suddenDeath = true;
+			return;
+		}
+		suddenDeath = false;
 		for (int i = 0; i < teams.Count; i++) {
 			if (teams [i] != null) {
 				switch (scoringMode) {
@@ -494,17 +512,20 @@ public class ATime{
 	public bool used;
 	public int minutes;
 	public float seconds;
+	public string str;
 
 	public ATime(){
 		used = false;
 		minutes = 0;
 		seconds = 0;
+		str = "";
 	}
 
 	public ATime(int minutes, float seconds){
 		used = true;
 		this.minutes = minutes;
 		this.seconds = seconds;
+		str = "";
 	}
 
 	public int GetScale(int secondsPerIndex){
@@ -517,6 +538,10 @@ public class ATime{
 	}
 
 	public string GetAsString(){
-		return string.Format ("{0}:{1:F1}", minutes, seconds);
+		if (str == "") {
+			return string.Format ("{0}:{1:F1}", minutes, seconds);
+		} else {
+			return str;
+		}
 	}
 }

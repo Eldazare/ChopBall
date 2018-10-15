@@ -9,9 +9,11 @@ public class GameBlueprintMenu : MonoBehaviour {
 
 	public List<BlueprintChangeButton> blueprintButtons;
 	BattleModeBlueprint blueprint;
+	MasterStateData masterState;
 
 	void Awake(){
-		blueprint = MasterStateController.GetTheMasterData ().battleModeBlueprint;
+		masterState = MasterStateController.GetTheMasterData ();
+		blueprint = masterState.battleModeBlueprint;
 		if (blueprint == null) {
 			MasterStateController.GetTheMasterData ().SetDefaults ();
 			blueprint = MasterStateController.GetTheMasterData().battleModeBlueprint;
@@ -52,6 +54,9 @@ public class GameBlueprintMenu : MonoBehaviour {
 
 		blueprintButtons [5].Initialize (IncDecScoringMode);
 		blueprintButtons [5].SetString (blueprint.scoringMode.ToString ());
+
+		blueprintButtons [6].Initialize (IncDecGrandMode);
+		blueprintButtons [6].SetString (masterState.mode.ToString ());
 	}
 
 	private int CheckIndex(int currentIndex, int length, bool incDec){
@@ -113,6 +118,12 @@ public class GameBlueprintMenu : MonoBehaviour {
 		int nextIndex = CheckIndex ((int)blueprint.scoringMode, Enum.GetValues (typeof(ScoringMode)).Length, incDec);
 		blueprint.scoringMode = (ScoringMode)nextIndex;
 		blueprintButtons [5].SetString (blueprint.scoringMode.ToString ());
+	}
+
+	private void IncDecGrandMode(bool incDec){
+		int nextIndex = CheckIndex ((int)masterState.mode, Enum.GetValues (typeof(GrandMode)).Length, incDec);
+		masterState.SetGrandMode ((GrandMode)nextIndex);
+		blueprintButtons [6].SetString (masterState.mode.ToString ());
 	}
 
 	void OnDisable(){

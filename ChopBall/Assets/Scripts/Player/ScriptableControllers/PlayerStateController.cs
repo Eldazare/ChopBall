@@ -90,4 +90,19 @@ public static class PlayerStateController {
 			state.characterChoosing = bo;
 		}
 	}
+
+	public static int GetNumberOfPlayersInATeam(){
+		LoadStates ();
+		int maxNumber = 0;
+		List<int> inTeam = new List<int>(4) {0,0,0,0};
+		foreach (var state in states) {
+			if (state.active) {
+				inTeam [state.team]++;
+				if (maxNumber < inTeam [state.team]) {
+					maxNumber = inTeam [state.team];
+				}
+			}
+		}
+		return maxNumber;
+	}
 }

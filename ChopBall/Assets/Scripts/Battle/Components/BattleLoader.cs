@@ -5,6 +5,10 @@ using System.Linq;
 
 public class BattleLoader : MonoBehaviour {
 
+
+	// Currently Initializes shared goals as last player's goal in team list.
+	// TODO: Properly organize players around spawnpoint.
+
 	public GameObject characterTest;
 	public GameObject ball;
 	//Reads StateData and initializes components, then invokes startGame
@@ -20,6 +24,7 @@ public class BattleLoader : MonoBehaviour {
 
 	void Start () {
 		CurrentBattleController.InitializeCurrentData ();
+		GrandMode mode = MasterStateController.GetTheMasterData ().mode;
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates ();
 		GameObject goalMaster = GameObject.FindGameObjectWithTag ("GoalMaster");
 		List<Transform> ballSpawns = GameObject.FindGameObjectWithTag ("BallSpawnMaster").GetComponentsInChildren<Transform>().ToList();
@@ -37,13 +42,23 @@ public class BattleLoader : MonoBehaviour {
 		ballComponent.Initialize (ballSpawns);
 		ballComponent.ResetBallPosition ();
 
-		// TODO: 
+
+
+		// TeamVSTeam Predistribution
+
+
+
+
+
+		// TODO: Predistribution
+		List<int> activeStates = new List<int>();
 		int nextPlayerStateIndex = 0;
 		bool areAnyActive = false;
-		for(int i = 0; i < goals.Length; i++){
-			while(nextPlayerStateIndex<playerStates.Length){
+		while (true) {
+			while (nextPlayerStateIndex < playerStates.Length) {
 				if (playerStates [nextPlayerStateIndex].active) {
 					areAnyActive = true;
+					activeStates.Add (nextPlayerStateIndex);
 					break;
 				} else {
 					nextPlayerStateIndex++;
@@ -53,23 +68,86 @@ public class BattleLoader : MonoBehaviour {
 				Debug.LogError ("Not enough active states found");
 				if (!areAnyActive) {
 					Debug.Log ("Loading defaults...");
-				} else {
-					break;
-				}
-			}
-			if (!areAnyActive) {
-				MakeACharacter (goals [i], null, playerBaseData, i);
-			} else {
-				MakeACharacter (goals[i], playerStates[nextPlayerStateIndex],playerBaseData, nextPlayerStateIndex);
-				nextPlayerStateIndex++;
+				} 
+				break;
 			}
 		}
 
+		// Team Predistribution
+		List<List<int>> teams = new List<List<int>>();
+		for (int i = 0; i < 4; i++) {
+			teams.Add (new List<int> ());
+		}
+		foreach (var indexi in activeStates) {
+			teams [playerStates [indexi].team].Add (indexi);
+		}
+		foreach (var team in teams) {
+			if (team.Count == 0) {
+				teams.Remove (team);
+			}
+		}
+
+		// TEAMVSTEAM Predistribution
+		List<List<int>> playersInSpawnPoints = new List<List<int>> ();
+		if (mode == GrandMode.TeamVSTeam) {
+			for (int i = 0; i < goals.Length;i++){
+				playersInSpawnPoints.Add (new List<int> ());
+			}
+			int half = goals.Length / 2;
+			foreach (var ind in teams[0]) {
+				for (int i = 0; i < half; i++) {
+					int previous = i - 1;
+					if (previous == (0-1)){
+						previous = half-1;
+					}
+					if (playersInSpawnPoints [i].Count == playersInSpawnPoints [previous].Count) {
+						playersInSpawnPoints [i].Add (ind);
+						break;
+					}
+				}
+			}
+			foreach (var ind in teams[1]) {
+				for (int i = half; i < (half*2); i++) {
+					int previous = i - 1;
+					if (previous == (half-1)){
+						previous = (half*2)-1;
+					}
+					if (playersInSpawnPoints [i].Count == playersInSpawnPoints [previous].Count) {
+						playersInSpawnPoints [i].Add (ind);
+						break;
+					}
+				}
+			}
+		}
+
+
+		// TODO: 
+		for(int i = 0; i < goals.Length; i++){
+			if (activeStates.Count == i) {
+				break;
+			}
+			if (!areAnyActive) {
+				MakeACharacter (goals [i], null, new Color32(255,255,255,255), i);
+			} else if (mode == GrandMode.FFA) {
+				MakeACharacter (goals [i], playerStates [activeStates[i]], playerBaseData.playerColors[activeStates[i]], activeStates[i]);
+			} else if (mode == GrandMode.TEAMFFA) {
+				foreach (var ind in teams[i]) {
+					Color32 color = playerBaseData.teamColors [playerStates [ind].team];
+					MakeACharacter (goals [i], playerStates[ind], color, ind);
+				}
+			} else if (mode == GrandMode.TeamVSTeam) {
+				foreach (var ind in playersInSpawnPoints[i]) {
+					Color32 color = playerBaseData.teamColors [playerStates [ind].team];
+					MakeACharacter (goals [i], playerStates [ind], color, ind);
+				}
+			}
+			nextPlayerStateIndex++;
+		}
 		StartGame.Raise();
 	}
 
-	private void MakeACharacter(Goal goal, PlayerStateData stateData, PlayerBaseData baseData, int playerIndex){
-		goal.Initialize (playerIndex + 1, baseData.playerColors [playerIndex]);
+	private void MakeACharacter(Goal goal, PlayerStateData stateData, Color32 theColor, int playerIndex){
+		goal.Initialize (playerIndex + 1, theColor);
 		Vector3 charSpawnPos = goal.GetComponentInChildren<CharacterSpawnIndicator>().GetPosition();
 		GameObject prefab = null;
 		CharacterAttributeData charAttributes = null;
@@ -91,7 +169,7 @@ public class BattleLoader : MonoBehaviour {
 			MeshRenderer[] renderers = charHand.GetComponentsInChildren<MeshRenderer> ();
 			foreach (var renderer in renderers) {
 				renderer.material = charMaterials [playerIndex];
-				renderer.material.color = baseData.playerColors [playerIndex];
+				renderer.material.color = theColor;
 			}
 		}
 		charHand.Initialize ();

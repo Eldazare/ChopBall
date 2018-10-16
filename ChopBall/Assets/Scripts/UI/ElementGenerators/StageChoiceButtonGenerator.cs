@@ -4,41 +4,39 @@ using UnityEngine;
 
 public class StageChoiceButtonGenerator : MonoBehaviour {
 
-	public GameObject stageButtonPrefab;
+	// EDITOR BUG: Editor start: OnEnable triggers earlier than button Awake.
+	// Interestingly, it works properly when enabling the panel in runtime.
 	public GameObject stageButtonPanel; // Should contain N-amount of buttons. Optional.
 
+	private List<StageChoiceButton> buttonList;
+	private List<StageData> stages;
 
-	// TODO: Comment/Remove, FOR DEBUGGING ONLY
-	void Start(){
-		InitializeButtonsFromPanel (StageTag.T1v1);
+
+	void Awake(){
+		buttonList = new List<StageChoiceButton>(stageButtonPanel.GetComponentsInChildren<StageChoiceButton> ());
+		stages = new List<StageData>(StageDataController.GetStages ());
 	}
 
-
-	public void GenerateButtons(StageTag primaryTag){
-		StageData[] stages = StageDataController.GetStages ();
-		foreach (StageData stage in stages) {
-			StageChoiceButton button = Instantiate (stageButtonPrefab, gameObject.transform).GetComponent<StageChoiceButton>();
-			button.Initialize (stage);
-			button.CheckPrimaryTag (primaryTag);
-		}
+	void OnEnable(){
+		//InitializeButtonsFromPanel (StageTag.T1v1); // Debug
+		InitializeButtonsFromPanel(StageTagHandler.GetTagsFromCurrentPlayers());
 	}
 
 	public void InitializeButtonsFromPanel(StageTag primaryTag){
-		StageData[] stages = StageDataController.GetStages ();
-		StageChoiceButton[] buttons = stageButtonPanel.GetComponentsInChildren<StageChoiceButton> ();
 		int indexCap;
-		if (stages.Length > buttons.Length) {
-			indexCap = buttons.Length;
+		if (stages.Count> buttonList.Count) {
+			indexCap = buttonList.Count;
 		} else {
-			indexCap = stages.Length;
+			indexCap = stages.Count;
 		}
-		Debug.Log ("Stages found: " + stages.Length + " | Buttons found: " + buttons.Length);
+		Debug.Log ("Stages found: " + stages.Count + " | Buttons found: " + buttonList.Count);
+		Debug.Log ("Index cap: " + indexCap);
 		for (int i = 0; i < indexCap; i++) {
-			buttons [i].Initialize (stages [i]);
-			buttons [i].CheckPrimaryTag (primaryTag);
+			buttonList [i].Initialize (stages [i]);
+			buttonList [i].CheckPrimaryTag (primaryTag);
 		}
-		for (int i = indexCap; i<buttons.Length;i++){
-			buttons [i].gameObject.SetActive (false);
+		for (int i = indexCap; i<buttonList.Count;i++){
+			buttonList [i].gameObject.SetActive (false);
 		}
 	}
 }

@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ac3c7e320d2db42b364c46d2416b72, type: 3}
   m_Name: 3-TestStage2v2
   m_EditorClassIdentifier: 
-  stageName: 2v2
-  stageSceneName: 
+  stageName: 2v2 Test
+  stageSceneName: 2v2Scene
   previewImage: {fileID: 21300000, guid: ddf5ec761c8d47944b754f602aeb57e2, type: 3}
-  PrimaryTag: 1
-  SecondaryTags: 0000000003000000
+  PrimaryTag: 2
+  SecondaryTags: 0400000001000000

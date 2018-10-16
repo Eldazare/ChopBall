@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerStateData : ScriptableObject {
 
+	private GameEvent OnCharacterChosen;
+
 	public bool active = false;
 	public bool CharacterLocked = false;
 	public bool characterChoosing = false;
@@ -15,6 +17,7 @@ public class PlayerStateData : ScriptableObject {
 
 
 	public void SetDefaultValues(){
+		OnCharacterChosen = ((PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData))).OnCharacterChosen;
 		active = false;
 		CharacterLocked = false;
 		characterChoosing = false;
@@ -22,5 +25,18 @@ public class PlayerStateData : ScriptableObject {
 		team = -1;
 		stageNameChoice = "";
 		// TODO add as they come
+	}
+
+	public void ChooseCharacter(int charID){
+		if (characterChoice != 1 && characterChoice != charID) {
+			characterChoice = charID;
+			CharacterLocked = true;
+			active = true;
+		} else {
+			characterChoice = -1;
+			CharacterLocked = false;
+			active = false;
+		}
+		OnCharacterChosen.Raise ();
 	}
 }

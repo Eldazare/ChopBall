@@ -5,6 +5,8 @@ using System.Linq;
 
 public static class PlayerStateController {
 
+	// TODO: Active check vs CharChosenCheck?
+
 	static PlayerStateData[] states;
 
 	private static void LoadStates(){
@@ -29,9 +31,11 @@ public static class PlayerStateController {
 		if (data.characterChoice != characterID) {
 			data.characterChoice = characterID;
 			data.CharacterLocked = true;
+			data.active = true;
 		} else {
 			data.characterChoice = -1;
 			data.CharacterLocked = false;
+			data.active = false;
 		}
 	}
 

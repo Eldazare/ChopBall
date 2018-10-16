@@ -6,7 +6,6 @@ public class CharacterChoiceButtonGenerator : MonoBehaviour {
 
 	public GameObject characterButtonPanel;
 
-
 	void Awake(){
 		InitializeButtonsFromPanel ();
 	}

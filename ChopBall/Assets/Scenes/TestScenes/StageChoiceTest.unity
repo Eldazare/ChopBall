@@ -1553,6 +1553,10 @@ Prefab:
       propertyPath: ResponseToClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 1998943441984626, guid: 20aadf652d991624e955fdf5a9e5202e, type: 2}
+      propertyPath: m_Name
+      value: GoToBattleButton
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20aadf652d991624e955fdf5a9e5202e, type: 2}
   m_IsPrefabAsset: 0

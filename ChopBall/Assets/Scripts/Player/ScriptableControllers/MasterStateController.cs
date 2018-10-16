@@ -53,9 +53,7 @@ public static class MasterStateController {
 		default:
 			Debug.LogError ("Undefined StageChoiceType used: " + masterData.stageChoiceType);
 			return false;
-
 		}
-
 	}
 
 	private static bool RandomizeStageSelectFromPlayers(){
@@ -86,6 +84,13 @@ public static class MasterStateController {
 		} else {
 			Debug.LogError ("RandomStagePreset is null.");
 			return false;
+		}
+	}
+
+	public static void GoToBattle(){
+		LoadMasterData ();
+		if (ChooseStage()) {
+			masterData.GoToBattle ();
 		}
 	}
 }

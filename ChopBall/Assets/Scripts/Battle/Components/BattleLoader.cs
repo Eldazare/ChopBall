@@ -43,10 +43,15 @@ public class BattleLoader : MonoBehaviour {
 		inputEvents = Resources.LoadAll ("Scriptables/Input/Events/", typeof(InputEvent)).Cast<InputEvent>().ToArray ();
 		charMaterials = Resources.LoadAll ("Materials", typeof(Material)).Cast<Material>().ToArray ();
 		Goal[] goals = goalMaster.GetComponentsInChildren<Goal> ();
-
-		Ball ballComponent = Instantiate (ball, Vector3.zero, Quaternion.identity).GetComponent<Ball>();
-		ballComponent.Initialize (ballSpawns);
-		ballComponent.ResetBallPosition ();
+		int balls = goals.Length / 2;
+		if (balls < 1) {
+			balls = 1;
+		}
+		for (int i = 0; i<balls;i++){
+			Ball ballComponent = Instantiate (ball, Vector3.zero, Quaternion.identity).GetComponent<Ball>();
+			ballComponent.Initialize (ballSpawns);
+			ballComponent.ResetBallPosition ();
+		}
 
 
 
@@ -121,9 +126,7 @@ public class BattleLoader : MonoBehaviour {
 				}
 			}
 		}
-
-
-		// TODO: Check for null reference in activeStates, teams or such
+					
 		for(int i = 0; i < goals.Length; i++){
 			if (!areAnyActive) {
 				MakeACharacter (goals [i], Vector2.zero, null, new Color32(255,255,255,255), i);

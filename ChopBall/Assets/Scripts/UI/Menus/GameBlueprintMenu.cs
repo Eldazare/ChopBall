@@ -7,6 +7,9 @@ public class GameBlueprintMenu : MonoBehaviour {
 
 	int SECONDSPERCLICK = 15;
 
+
+	// TODO: Maybe transform logic to masterState?
+
 	public List<BlueprintChangeButton> blueprintButtons;
 	BattleModeBlueprint blueprint;
 	MasterStateData masterState;
@@ -74,9 +77,11 @@ public class GameBlueprintMenu : MonoBehaviour {
 	}
 
 	private void IncDecCountObject(bool incDec){
-		int nextIndex = CheckIndex ((int)blueprint.countObject, Enum.GetValues (typeof(CountObject)).Length, incDec);
-		blueprint.countObject = (CountObject)nextIndex;
-		blueprintButtons [0].SetString (blueprint.countObject.ToString ());
+		if (!masterState.teams) {
+			int nextIndex = CheckIndex ((int)blueprint.countObject, Enum.GetValues (typeof(CountObject)).Length, incDec);
+			blueprint.countObject = (CountObject)nextIndex;
+			blueprintButtons [0].SetString (blueprint.countObject.ToString ());
+		}
 	}
 
 	private void IncDecRoundEnd(bool incDec){
@@ -124,6 +129,7 @@ public class GameBlueprintMenu : MonoBehaviour {
 		int nextIndex = CheckIndex ((int)masterState.mode, Enum.GetValues (typeof(GrandMode)).Length, incDec);
 		masterState.SetGrandMode ((GrandMode)nextIndex);
 		blueprintButtons [6].SetString (masterState.mode.ToString ());
+		blueprintButtons [0].SetString (blueprint.countObject.ToString ());
 	}
 
 	void OnDisable(){

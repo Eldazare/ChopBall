@@ -53,6 +53,7 @@ public class MasterStateData : ScriptableObject {
 			teams = false;
 		} else {
 			teams = true;
+			battleModeBlueprint.countObject = CountObject.Goals;
 		}
 	}
 

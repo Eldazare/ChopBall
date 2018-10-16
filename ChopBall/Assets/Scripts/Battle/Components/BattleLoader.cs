@@ -22,6 +22,12 @@ public class BattleLoader : MonoBehaviour {
 	public InputEvent[] inputEvents;
 	public Material[] charMaterials;
 
+	public static float distanceFromCenter = 2;
+
+	private Vector2[] modifierPositions = {new Vector2 (distanceFromCenter, distanceFromCenter), new Vector2 (distanceFromCenter, -distanceFromCenter),
+		new Vector2 (-distanceFromCenter, -distanceFromCenter), new Vector2 (-distanceFromCenter, distanceFromCenter),
+	};
+
 	void Start () {
 		CurrentBattleController.InitializeCurrentData ();
 		GrandMode mode = MasterStateController.GetTheMasterData ().mode;
@@ -81,11 +87,7 @@ public class BattleLoader : MonoBehaviour {
 		foreach (var indexi in activeStates) {
 			teams [playerStates [indexi].team].Add (indexi);
 		}
-		foreach (var team in teams) {
-			if (team.Count == 0) {
-				teams.Remove (team);
-			}
-		}
+		teams.RemoveAll (r => r.Count == 0);
 
 		// TEAMVSTEAM Predistribution
 		List<List<int>> playersInSpawnPoints = new List<List<int>> ();
@@ -121,46 +123,53 @@ public class BattleLoader : MonoBehaviour {
 		}
 
 
-		// TODO: 
+		// TODO: Check for null reference in activeStates, teams or such
 		for(int i = 0; i < goals.Length; i++){
-			if (activeStates.Count == i) {
-				break;
-			}
 			if (!areAnyActive) {
-				MakeACharacter (goals [i], null, new Color32(255,255,255,255), i);
+				MakeACharacter (goals [i], Vector2.zero, null, new Color32(255,255,255,255), i);
 			} else if (mode == GrandMode.FFA) {
-				MakeACharacter (goals [i], playerStates [activeStates[i]], playerBaseData.playerColors[activeStates[i]], activeStates[i]);
+				MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates[i]], playerBaseData.playerColors[activeStates[i]], activeStates[i]);
 			} else if (mode == GrandMode.TEAMFFA) {
-				foreach (var ind in teams[i]) {
-					Color32 color = playerBaseData.teamColors [playerStates [ind].team];
-					MakeACharacter (goals [i], playerStates[ind], color, ind);
-				}
+				Color32 color = playerBaseData.teamColors [playerStates [teams[i][0]].team];
+				MakeMultipleCharacters (goals [i], teams [i], playerStates, color);
 			} else if (mode == GrandMode.TeamVSTeam) {
-				foreach (var ind in playersInSpawnPoints[i]) {
-					Color32 color = playerBaseData.teamColors [playerStates [ind].team];
-					MakeACharacter (goals [i], playerStates [ind], color, ind);
-				}
+				Color32 color = playerBaseData.teamColors [playerStates[playersInSpawnPoints[i][0]].team];
+				MakeMultipleCharacters(goals[i], playersInSpawnPoints[i], playerStates, color);
 			}
 			nextPlayerStateIndex++;
 		}
 		StartGame.Raise();
 	}
 
-	private void MakeACharacter(Goal goal, PlayerStateData stateData, Color32 theColor, int playerIndex){
+	private void MakeMultipleCharacters (Goal goal, List<int> stateIndexes, PlayerStateData[] stateDatas, Color32 theColor){
+		for (int i = 0; i < stateIndexes.Count; i++) {
+			Vector2 modPos = modifierPositions [i];
+			if (stateIndexes.Count == 1) {
+				modPos = Vector2.zero;
+			} else if (stateIndexes.Count == 2) {
+				modPos.x -= distanceFromCenter;
+			}
+			MakeACharacter (goal, modPos, stateDatas [stateIndexes[i]], theColor, stateIndexes[i]);
+		}
+	}
+
+	private void MakeACharacter(Goal goal, Vector2 relativePos, PlayerStateData stateData, Color32 theColor, int playerIndex){
 		goal.Initialize (playerIndex + 1, theColor);
-		Vector3 charSpawnPos = goal.GetComponentInChildren<CharacterSpawnIndicator>().GetPosition();
+		Vector3 charSpawnPos = goal.GetComponentInChildren<CharacterSpawnIndicator> ().GetPosition ();
 		GameObject prefab = null;
 		CharacterAttributeData charAttributes = null;
 		if (stateData != null) {
 			charAttributes = CharacterAttributeController.GetACharacter (stateData.characterChoice);
 			if (charAttributes != null) {
-				prefab = (GameObject)Resources.Load (CharacterAttributeController.GetCharacterPrefabPreString() + charAttributes.CharacterPrefabName);
+				prefab = (GameObject)Resources.Load (CharacterAttributeController.GetCharacterPrefabPreString () + charAttributes.CharacterPrefabName);
 			}
 		}
 		if (prefab == null) {
 			prefab = characterTest;
 		}
-		CharacterHandler charHand = Instantiate (prefab, charSpawnPos, Quaternion.identity).GetComponent<CharacterHandler>();
+		CharacterHandler charHand = Instantiate (prefab, charSpawnPos, goal.transform.rotation).GetComponent<CharacterHandler> ();
+		charHand.transform.Translate (relativePos);
+		charHand.transform.Rotate(new Vector3(0,0,-90)); // Difference between default goal and default character rotations
 		charHand.PlayerID = (playerIndex+1);
 		InputEventListener charIEListener = charHand.GetComponent<InputEventListener> ();
 		charIEListener.Event = inputEvents [playerIndex];

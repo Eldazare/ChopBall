@@ -13,8 +13,8 @@ public class MasterStateData : ScriptableObject {
 	// TODO: Presets in the UI component. Might be stored as scriptable themselves.
 
 	public GrandMode mode;
-	public int numberOfPlayers; // TODO: Define how this is read / input by player?
 	public bool teams; // Wether the game is Free-For-All or Teams
+	public int maxTeams;
 	public BattleModeBlueprint battleModeBlueprint;
 
 	public StageChoiceType stageChoiceType;
@@ -24,7 +24,6 @@ public class MasterStateData : ScriptableObject {
 
 	public void SetDefaults(){
 		// Should contain every field
-		numberOfPlayers = 1;
 		SetGrandMode (GrandMode.FFA);
 		battleModeBlueprint = DefaultBP ();
 		stageChoiceType = StageChoiceType.masterSingle;
@@ -51,9 +50,15 @@ public class MasterStateData : ScriptableObject {
 		this.mode = mode;
 		if (this.mode == GrandMode.FFA) {
 			teams = false;
+			maxTeams = 0;
 		} else {
 			teams = true;
 			battleModeBlueprint.countObject = CountObject.Goals;
+			if (this.mode == GrandMode.TEAMFFA) {
+				maxTeams = 4;
+			} else if (this.mode == GrandMode.TeamVSTeam) {
+				maxTeams = 2;
+			}
 		}
 	}
 

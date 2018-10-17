@@ -93,4 +93,9 @@ public static class MasterStateController {
 			masterData.GoToBattle ();
 		}
 	}
+
+	public static int GetMaxNumberOfTeams(){
+		LoadMasterData();
+		return masterData.maxTeams;
+	}
 }

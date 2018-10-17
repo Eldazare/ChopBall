@@ -27,16 +27,7 @@ public static class PlayerStateController {
 
 	public static void ChooseCharacter(int playerID, int characterID){
 		LoadStates ();
-		PlayerStateData data = states [playerID-1];
-		if (data.characterChoice != characterID) {
-			data.characterChoice = characterID;
-			data.CharacterLocked = true;
-			data.active = true;
-		} else {
-			data.characterChoice = -1;
-			data.CharacterLocked = false;
-			data.active = false;
-		}
+		states [playerID-1].ChooseCharacter(characterID);
 	}
 
 	public static void ChooseStage(int playerID, string stageName){
@@ -57,9 +48,9 @@ public static class PlayerStateController {
 		states [playerID - 1].SetDefaultValues ();
 	}
 
-	public static void SetStateActive(int stateIndex){
+	public static void SetStateActive(int stateIndex, bool active){
 		LoadStates ();
-		states [stateIndex].active = true;
+		states [stateIndex].active = active;
 	}
 
 	public static int GetNumberOfTeams(){
@@ -86,6 +77,18 @@ public static class PlayerStateController {
 			}
 		}
 		return activePlayers;
+	}
+
+	public static bool CheckIfAllHaveChosenCharacter(){
+		LoadStates ();
+		foreach (var state in states) {
+			if (state.active) {
+				if (!state.CharacterLocked) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public static void SetCharacterChoosing(bool bo){

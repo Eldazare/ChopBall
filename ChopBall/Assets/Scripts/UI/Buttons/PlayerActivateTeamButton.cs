@@ -13,36 +13,74 @@ public class PlayerActivateTeamButton : _CursorButton {
 	private string teamPart;
 	private string characterChoicePart;
 
-	void Start(){
+
+	private bool latePRight;
+	private bool latePLeft;
+	private bool lateStart;
+
+	override
+	protected void Awake(){
+		base.Awake ();
 		text = GetComponentInChildren<Text> ();
 		stateData = PlayerStateController.GetAState (playerID);
 		baseStr = "Player: " + playerID + "\n";
-		teamPart = "\n";
-		SetCharChoiceStr ();
 	}
 
-	// TODO: Check continous button input
+	void OnEnable(){
+		bool latePRight = true;
+		bool latePLeft = true;
+		bool lateStart = true;
+		SetTeamPart ();
+		SetCharChoiceStr ();
+		stateData.CheckTeamConstraints ();
+	}
+
 	public void GetInput(InputModel model){
-		if (model.PaddleRight) {
+		if (IsButtonTrue(model.PaddleRight, latePRight,out latePRight)) {
 			ChangeTeam (true);
 			SetTeamPart ();
 		}
-		if (model.PaddleLeft) {
+		if (IsButtonTrue(model.PaddleLeft, latePLeft,out latePLeft)) {
 			ChangeTeam (false);
 			SetTeamPart ();
-		} if (model.Start) {
-			PlayerStateController.SetStateActive (playerID - 1);
-			GetComponent<Image>().enabled = true;
-			text.enabled = true;
+		} 
+		if (IsButtonTrue(model.Start, lateStart,out lateStart)) {
+			if (stateData.active) {
+				ActivateState(false);
+			} else {
+				ActivateState (true);
+			}
 		}
 	}
 
+	private bool IsButtonTrue(bool button, bool late, out bool lateOut){
+		if (button && !late) {
+			lateOut = true;
+			return true;
+		} else if (!button && late) {
+			lateOut = false;
+		} else {
+			lateOut = late;
+		}
+		return false;
+	}
+
+	private void ActivateState(bool active){
+		PlayerStateController.SetStateActive (playerID - 1, active);
+		GetComponent<Image>().enabled = active;
+		text.enabled = active;
+	}
+
 	private void ChangeTeam(bool incDec){
-		// TODO:
+		stateData.ChangeTeam (incDec);
 	}
 
 	public void SetTeamPart(){
-		teamPart = "Team: " + stateData.team + "\n";
+		if (stateData.team != -1) {
+			teamPart = "Team: " + stateData.team + "\n";
+		} else {
+			teamPart = "\n";
+		}
 		SetString ();
 	}
 

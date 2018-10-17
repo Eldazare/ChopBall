@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerStateData : ScriptableObject {
 
+	private PlayerBaseData playerBaseData;
 	private GameEvent OnCharacterChosen;
+	private GameEvent OnTeamChanged;
 
 	public bool active = false;
 	public bool CharacterLocked = false;
@@ -17,7 +19,9 @@ public class PlayerStateData : ScriptableObject {
 
 
 	public void SetDefaultValues(){
-		OnCharacterChosen = ((PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData))).OnCharacterChosen;
+		playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
+		OnCharacterChosen = playerBaseData.OnCharacterChosen;
+		OnTeamChanged = playerBaseData.OnTeamChanged;
 		active = false;
 		CharacterLocked = false;
 		characterChoosing = false;
@@ -28,15 +32,40 @@ public class PlayerStateData : ScriptableObject {
 	}
 
 	public void ChooseCharacter(int charID){
-		if (characterChoice != 1 && characterChoice != charID) {
-			characterChoice = charID;
-			CharacterLocked = true;
-			active = true;
-		} else {
-			characterChoice = -1;
-			CharacterLocked = false;
-			active = false;
+		if (active) {
+			if (characterChoice != 1 && characterChoice != charID) {
+				characterChoice = charID;
+				CharacterLocked = true;
+				//active = true;
+			} else {
+				characterChoice = -1;
+				CharacterLocked = false;
+				//active = false;
+			}
+			OnCharacterChosen.Raise ();
 		}
-		OnCharacterChosen.Raise ();
+	}
+
+	public void ChangeTeam(bool incDec){
+		if (active) {
+			if (incDec) {
+				team++;
+				if (team >= MasterStateController.GetMaxNumberOfTeams ()) {
+					team = 0;
+				}
+			} else {
+				team--;
+				if (team < 0) {
+					team = MasterStateController.GetMaxNumberOfTeams () - 1;
+				}
+			}
+			OnTeamChanged.Raise ();
+		}
+	}
+
+	public void CheckTeamConstraints(){
+		if (team >= MasterStateController.GetMaxNumberOfTeams ()) {
+			team = MasterStateController.GetMaxNumberOfTeams () - 1;
+		}
 	}
 }

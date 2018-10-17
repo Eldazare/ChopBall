@@ -16,7 +16,7 @@ public class TestStageLoading : MonoBehaviour {
 
 	public void GetInput(InputModel model){
 		if (model.Submit) {
-			PlayerStateController.SetStateActive (model.playerID - 1);
+			PlayerStateController.SetStateActive (model.playerID - 1, true);
 			imageList [model.playerID - 1].color = playerBaseData.playerColors [model.playerID - 1];
 			imageList[model.playerID-1].gameObject.SetActive (true);
 			Debug.Log ("State set active: " + model.playerID);

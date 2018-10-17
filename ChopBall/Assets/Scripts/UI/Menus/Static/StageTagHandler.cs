@@ -40,17 +40,19 @@ public static class StageTagHandler {
 
 	public static bool CanContinueFromPlayerSelect(){
 		if (PlayerStateController.GetNumberOfActivePlayers () >= 2) {
-			if (MasterStateController.GetTheMasterData ().teams) {
-				if (PlayerStateController.GetNumberOfTeams () >= 2) {
-					if (MasterStateController.GetTheMasterData ().mode == GrandMode.TEAMFFA) {
-						if (PlayerStateController.GetNumberOfPlayersInATeam() > 4) {
-							return false;
+			if (PlayerStateController.CheckIfAllHaveChosenCharacter ()) {
+				if (MasterStateController.GetTheMasterData ().teams) {
+					if (PlayerStateController.GetNumberOfTeams () >= 2) {
+						if (MasterStateController.GetTheMasterData ().mode == GrandMode.TEAMFFA) {
+							if (PlayerStateController.GetNumberOfPlayersInATeam () > 4) {
+								return false;
+							}
 						}
+						return true;
 					}
+				} else {
 					return true;
 				}
-			} else {
-				return true;
 			}
 		}
 		return false;

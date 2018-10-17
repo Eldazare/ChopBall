@@ -60,6 +60,10 @@ public class GameBlueprintMenu : MonoBehaviour {
 
 		blueprintButtons [6].Initialize (IncDecGrandMode);
 		blueprintButtons [6].SetString (masterState.mode.ToString ());
+
+		blueprintButtons [7].Initialize (IncDecStageChoosingMode);
+		blueprintButtons [7].SetString (masterState.stageChoiceType.ToString ());
+
 	}
 
 	private int CheckIndex(int currentIndex, int length, bool incDec){
@@ -130,6 +134,12 @@ public class GameBlueprintMenu : MonoBehaviour {
 		masterState.SetGrandMode ((GrandMode)nextIndex);
 		blueprintButtons [6].SetString (masterState.mode.ToString ());
 		blueprintButtons [0].SetString (blueprint.countObject.ToString ());
+	}
+
+	private void IncDecStageChoosingMode(bool incDec){
+		int nextIndex = CheckIndex ((int)masterState.stageChoiceType, Enum.GetValues (typeof(StageChoiceType)).Length, incDec);
+		masterState.stageChoiceType = (StageChoiceType)nextIndex;
+		blueprintButtons [7].SetString (masterState.stageChoiceType.ToString ());
 	}
 
 	void OnDisable(){

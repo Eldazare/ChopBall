@@ -18,7 +18,7 @@ public class GameBlueprintMenu : MonoBehaviour {
 		masterState = MasterStateController.GetTheMasterData ();
 		blueprint = masterState.battleModeBlueprint;
 		if (blueprint == null) {
-			MasterStateController.GetTheMasterData ().SetDefaults ();
+			MasterStateController.GetTheMasterData ().SetBattleDefaults ();
 			blueprint = MasterStateController.GetTheMasterData().battleModeBlueprint;
 		}
 		SetAllButtons ();

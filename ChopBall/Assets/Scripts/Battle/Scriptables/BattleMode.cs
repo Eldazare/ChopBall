@@ -66,7 +66,7 @@ public class BattleMode : ScriptableObject {
 		}
 		roundNumber = 1;
 		if (masterData.battleModeBlueprint == null) { // TODO: Debug code
-			masterData.SetDefaults ();
+			masterData.SetBattleDefaults ();
 		}
 		if (!ReceiveBlueprint (masterData.battleModeBlueprint)) {
 			throw new UnityException ("CUSTOM: Blueprint not valid, game cannot be loaded.");

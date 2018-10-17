@@ -31,9 +31,9 @@ public static class MasterStateController {
 		masterData.randomStagePreset = preset;
 	}
 
-	public static void WriteStageName(string mapName){
+	public static void WriteStageName(string stageName){
 		LoadMasterData ();
-		masterData.stageNameFinal = mapName;
+		masterData.stageNameFinal = stageName;
 	}
 
 	public static bool ChooseStage(){

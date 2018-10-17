@@ -38,10 +38,10 @@ public class MenuPanelHandler : MonoBehaviour
 		currentPanel = nextPanel;
 	}
 
-	private void SetCursors(bool way){
-		masterCursors.gameObject.SetActive (way);
+	public void SetCursors(bool isMaster){
+		masterCursors.gameObject.SetActive (isMaster);
 		foreach (ChoiceCursor cursor in playerCursors) {
-			cursor.gameObject.SetActive (!way);
+			cursor.gameObject.SetActive (!isMaster);
 		}
 	}
 

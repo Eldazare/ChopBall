@@ -11,7 +11,7 @@ public class TestStageLoading : MonoBehaviour {
 	// testing relevance between StageData and scene transition + battle scene initialization
 	void Start () {
 		PlayerStateController.SetDefaultsAll ();
-		MasterStateController.GetTheMasterData ().SetDefaults ();
+		MasterStateController.GetTheMasterData ().SetBattleDefaults ();
 	}
 
 	public void GetInput(InputModel model){

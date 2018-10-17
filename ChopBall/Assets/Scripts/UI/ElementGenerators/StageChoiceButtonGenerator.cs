@@ -6,7 +6,8 @@ public class StageChoiceButtonGenerator : MonoBehaviour {
 
 	// EDITOR BUG: Editor start: OnEnable triggers earlier than button Awake.
 	// Interestingly, it works properly when enabling the panel in runtime.
-	public GameObject stageButtonPanel; // Should contain N-amount of buttons. Optional.
+	public GameObject stageButtonPanel; // Should contain N-amount of buttons.
+	public MenuPanelHandler menuPanelHandler;
 
 	private List<StageChoiceButton> buttonList;
 	private List<StageData> stages;
@@ -20,6 +21,17 @@ public class StageChoiceButtonGenerator : MonoBehaviour {
 	void OnEnable(){
 		//InitializeButtonsFromPanel (StageTag.T1v1); // Debug
 		InitializeButtonsFromPanel(StageTagHandler.GetTagsFromCurrentPlayers());
+		switch (MasterStateController.GetTheMasterData ().stageChoiceType) {
+		case StageChoiceType.individualRandom:
+			menuPanelHandler.SetCursors (false);
+			break;
+		case StageChoiceType.masterSingle:
+			menuPanelHandler.SetCursors (true);
+			break;
+		case StageChoiceType.randomPreset:
+			MasterStateController.GoToBattle ();
+			break;
+		}
 	}
 
 	public void InitializeButtonsFromPanel(StageTag primaryTag){

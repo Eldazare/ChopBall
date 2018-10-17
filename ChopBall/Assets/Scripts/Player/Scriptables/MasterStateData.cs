@@ -22,10 +22,13 @@ public class MasterStateData : ScriptableObject {
 
 	public List<string> randomStagePreset;
 
-	public void SetDefaults(){
+	public void SetBattleDefaults(){
 		// Should contain every field
 		SetGrandMode (GrandMode.FFA);
 		battleModeBlueprint = DefaultBP ();
+	}
+
+	public void SetMenuDefaults(){
 		stageChoiceType = StageChoiceType.masterSingle;
 		stageNameFinal = "TestStage";
 	}

@@ -53,6 +53,7 @@ public class StageChoiceButton : _CursorButton {
 				PlayerStateController.ChooseStage (playerID, stageData.stageName);
 			} else if (playerID == 0) {
 				MasterStateController.WriteStageName (stageData.stageName);
+				MasterStateController.GoToBattle ();
 			} else {
 				Debug.LogError ("Invalid playerID given :" + playerID);
 			}

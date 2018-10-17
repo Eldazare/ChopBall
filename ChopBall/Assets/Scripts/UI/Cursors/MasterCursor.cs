@@ -24,7 +24,7 @@ public class MasterCursor : _Cursor {
 		if (controllerChosen == false) {
 			if (model.Submit == true) {
 				EnableOnlyListener (model.playerID-1);
-				this.playerID = model.playerID;
+				//this.playerID = model.playerID;
 			}
 		}
 	}

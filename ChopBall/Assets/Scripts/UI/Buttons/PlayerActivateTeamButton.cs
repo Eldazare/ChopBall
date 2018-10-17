@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerActivateTeamButton : _CursorButton {
 
+	// TODO?: Press start to press proceed button?
+
+
 	public int playerID;
 
 	private PlayerStateData stateData;
@@ -16,7 +19,7 @@ public class PlayerActivateTeamButton : _CursorButton {
 
 	private bool latePRight;
 	private bool latePLeft;
-	private bool lateStart;
+	private bool lateSelect;
 
 	override
 	protected void Awake(){
@@ -44,7 +47,7 @@ public class PlayerActivateTeamButton : _CursorButton {
 			ChangeTeam (false);
 			SetTeamPart ();
 		} 
-		if (IsButtonTrue(model.Start, lateStart,out lateStart)) {
+		if (IsButtonTrue(model.Select, lateSelect,out lateSelect)) {
 			if (stateData.active) {
 				ActivateState(false);
 			} else {
@@ -86,9 +89,9 @@ public class PlayerActivateTeamButton : _CursorButton {
 
 	public void SetCharChoiceStr(){
 		if (stateData.characterChoice == -1) {
-			characterChoicePart = "Character not chosen.";
+			characterChoicePart = "No Character";
 		} else {
-			characterChoicePart = "Char choice: "+stateData.characterChoice;
+			characterChoicePart = "Character: "+stateData.characterChoice;
 		}
 		characterChoicePart += "\n";
 		SetString ();

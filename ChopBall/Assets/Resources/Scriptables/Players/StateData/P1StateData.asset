@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Name: P1StateData
   m_EditorClassIdentifier: 
   active: 0
-  characterChoice: 0
-  stageChoice: 0
+  CharacterLocked: 0
+  characterChoosing: 0
+  characterChoice: -1
+  team: -1
+  stageNameChoice: 

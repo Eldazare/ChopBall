@@ -41,14 +41,12 @@ public class PlayerStateData : ScriptableObject {
 	public void ChooseCharacter(int charID){
 		GetBaseDataInfo ();
 		if (active) {
-			if (characterChoice != 1 && characterChoice != charID) {
+			if (charID != -1 && characterChoice != charID) {
 				characterChoice = charID;
 				CharacterLocked = true;
-				//active = true;
 			} else {
 				characterChoice = -1;
 				CharacterLocked = false;
-				//active = false;
 			}
 			OnCharacterChosen.Raise ();
 		}

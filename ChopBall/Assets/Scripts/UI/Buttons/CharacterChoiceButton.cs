@@ -13,12 +13,13 @@ public class CharacterChoiceButton : _CursorButton {
 		this.characterID = characterID;
 		this.gameObject.SetActive (true);
 		GetComponentInChildren<Text> ().text = name;
+		Debug.Log ("initialized");
 	}
 
 	override
 	public void Click(int playerID){
 		if (playerID > 0) {
-			if (characterID > 0) { // playerCursor
+			if (characterID >= 0) { // playerCursor
 				PlayerStateController.ChooseCharacter (playerID, characterID);
 				Debug.Log ("Character chosen");
 			} else {

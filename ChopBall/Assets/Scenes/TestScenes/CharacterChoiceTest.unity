@@ -3438,6 +3438,10 @@ Prefab:
       propertyPath: movementMultiplier
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 1989657258411372, guid: 0f8c95af91adf744cbcf82b22ce2fb34, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f8c95af91adf744cbcf82b22ce2fb34, type: 2}
   m_IsPrefabAsset: 0
@@ -3620,6 +3624,10 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1907249354988360, guid: 25a3290ac7925e04190f2c2830fc1e51, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25a3290ac7925e04190f2c2830fc1e51, type: 2}

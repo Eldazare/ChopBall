@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerStateData : ScriptableObject {
 
+	private bool loaded = false;
 	private PlayerBaseData playerBaseData;
 	private GameEvent OnCharacterChosen;
 	private GameEvent OnTeamChanged;
@@ -19,9 +20,6 @@ public class PlayerStateData : ScriptableObject {
 
 
 	public void SetDefaultValues(){
-		playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
-		OnCharacterChosen = playerBaseData.OnCharacterChosen;
-		OnTeamChanged = playerBaseData.OnTeamChanged;
 		active = false;
 		CharacterLocked = false;
 		characterChoosing = false;
@@ -31,7 +29,17 @@ public class PlayerStateData : ScriptableObject {
 		// TODO add as they come
 	}
 
+	private void GetBaseDataInfo(){
+		if (!loaded) {
+			playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
+			OnCharacterChosen = playerBaseData.OnCharacterChosen;
+			OnTeamChanged = playerBaseData.OnTeamChanged;
+			loaded = true;
+		}
+	}
+
 	public void ChooseCharacter(int charID){
+		GetBaseDataInfo ();
 		if (active) {
 			if (characterChoice != 1 && characterChoice != charID) {
 				characterChoice = charID;
@@ -47,6 +55,7 @@ public class PlayerStateData : ScriptableObject {
 	}
 
 	public void ChangeTeam(bool incDec){
+		GetBaseDataInfo ();
 		if (active) {
 			if (incDec) {
 				team++;

@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 402175ce49ad9ad4f838b8a06419f6ca, type: 3}
   m_Name: PlayerBaseData
   m_EditorClassIdentifier: 
+  OnCharacterChosen: {fileID: 11400000, guid: 8233bda848eec2a46ab8ee8c2b698329, type: 2}
+  OnTeamChanged: {fileID: 11400000, guid: efac5552437b9db418c87d35f0de9547, type: 2}
   playerColors:
   - serializedVersion: 2
     rgba: 4278190335

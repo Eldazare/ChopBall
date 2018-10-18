@@ -24,13 +24,14 @@ public class MasterStateData : ScriptableObject {
 
 	public void SetBattleDefaults(){
 		// Should contain every field
-		SetGrandMode (GrandMode.FFA);
+		//SetGrandMode (GrandMode.FFA);
 		battleModeBlueprint = DefaultBP ();
+		SetGrandMode (GrandMode.TeamVSTeam);
 	}
 
 	public void SetMenuDefaults(){
 		stageChoiceType = StageChoiceType.masterSingle;
-		stageNameFinal = "TestStage";
+		stageNameFinal = "1v1 Test";
 	}
 
 	private BattleModeBlueprint DefaultBP(){

@@ -21,7 +21,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 				return;
 			}
 			Debug.Log ("Height :" + Screen.height + " Width: " + Screen.width);
-			float yPos = (float)Screen.height * -0.475f;
+			float yPos = (float)Screen.height * -0.435f;
 			float relativeX = Screen.width / displayTextList.Count;
 			float xPos = Screen.width * -0.5f+ relativeX / 2.0f;
 			for (int i = 0; i < displayTextList.Count; i++) {
@@ -51,10 +51,10 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 			foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors ()) {
 				displayTextList [i].text = "Player " + competitor.playerID;
 				displayTextList [i].text += "\nGoals: " + competitor.goalsScored;
-				displayTextList [i].text += "\nScore: " + competitor.score;
 				if (competitor.stock != 0) {
 					displayTextList [i].text += "\nStocks: " + competitor.stock;
 				}
+				displayTextList [i].text += "\nScore: " + competitor.score;
 				i++;
 			}
 		}

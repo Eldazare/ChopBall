@@ -26,7 +26,7 @@ public class MasterStateData : ScriptableObject {
 		// Should contain every field
 		//SetGrandMode (GrandMode.FFA);
 		battleModeBlueprint = DefaultBP ();
-		SetGrandMode (GrandMode.TeamVSTeam);
+		SetGrandMode (GrandMode.FFA);
 	}
 
 	public void SetMenuDefaults(){
@@ -36,13 +36,13 @@ public class MasterStateData : ScriptableObject {
 
 	private BattleModeBlueprint DefaultBP(){
 		BattleModeBlueprint newBP = new BattleModeBlueprint ();
-		newBP.countObject = CountObject.Goals;
+		newBP.countObject = CountObject.Stocks;
 		newBP.roundEnd = RoundEnd.Timer;
-		//newBP.roundEndCap = 0; // Starting stock or goalCap, per round
-		newBP.timer = new ATime(1, 0f);
+		newBP.roundEndCap = 3; // Starting stock or goalCap, per round
+		newBP.timer = new ATime(0, 30f);
 		newBP.endCriteria = MatchEnd.ScoreCap; // For ending the match
-		newBP.endValue = 3;
-		newBP.scoringMode = ScoringMode.WinnerOnly; // How do goals/Stocks/etc relate to score at end of round
+		newBP.endValue = 10;
+		newBP.scoringMode = ScoringMode.Direct1to1; // How do goals/Stocks/etc relate to score at end of round
 		return newBP;
 	}
 

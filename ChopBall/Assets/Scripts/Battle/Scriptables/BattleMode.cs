@@ -41,6 +41,15 @@ public class BattleMode : ScriptableObject {
 		MasterStateData masterData = MasterStateController.GetTheMasterData ();
 
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates();
+
+		if (masterData.battleModeBlueprint == null) { // TODO: Debug code
+			masterData.SetBattleDefaults ();
+		}
+		if (!ReceiveBlueprint (masterData.battleModeBlueprint)) {
+			throw new UnityException ("CUSTOM: Blueprint not valid, game cannot be loaded.");
+		}
+
+
 		if (masterData.teams) {
 			teams = new List<TeamContainer> (MAXNUMBEROFTEAMS);
 		} else {
@@ -65,12 +74,7 @@ public class BattleMode : ScriptableObject {
 			}
 		}
 		roundNumber = 1;
-		if (masterData.battleModeBlueprint == null) { // TODO: Debug code
-			masterData.SetBattleDefaults ();
-		}
-		if (!ReceiveBlueprint (masterData.battleModeBlueprint)) {
-			throw new UnityException ("CUSTOM: Blueprint not valid, game cannot be loaded.");
-		}
+		StatsUpdated.Raise ();
 	}
 
 	public void DoGoal(GoalData gd){
@@ -138,7 +142,7 @@ public class BattleMode : ScriptableObject {
 				competitor.roundScoreValue = competitor.goalsScored;
 				break;
 			case CountObject.Stocks:
-				if (competitor.roundScoreValue != 0) {
+				if (competitor.roundScoreValue == 0) {
 					competitor.roundScoreValue = competitor.stock;
 				}
 				break;
@@ -335,12 +339,11 @@ public class BattleMode : ScriptableObject {
 				TimerUpdated.Raise ();
 			} else {
 				useTimer = false;
-				roundEndCap = blueprint.roundEndCap;
 			}
+			roundEndCap = blueprint.roundEndCap;
 			matchEndCriteria = blueprint.endCriteria;
 			matchEndValue = blueprint.endValue;
 			scoringMode = blueprint.scoringMode;
-			StatsUpdated.Raise ();
 			return true;
 		} else {
 			return false;
@@ -469,6 +472,7 @@ public class CompetitorContainer : ICompetitor{
 	}
 
 	public void SetStock(int value){
+		Debug.Log (value);
 		stock = value;
 		maxStock = value;
 	}

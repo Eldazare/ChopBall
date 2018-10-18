@@ -71,28 +71,32 @@ public class BattleLoader : MonoBehaviour {
 					areAnyActive = true;
 					activeStates.Add (nextPlayerStateIndex);
 					break;
-				} else {
-					nextPlayerStateIndex++;
 				}
+				nextPlayerStateIndex++;
 			}
 			if (nextPlayerStateIndex >= playerStates.Length) {
-				Debug.LogError ("Not enough active states found");
+				//Debug.LogError ("Not enough active states found");
 				if (!areAnyActive) {
 					Debug.Log ("Loading defaults...");
 				} 
 				break;
 			}
+			nextPlayerStateIndex++;
 		}
 
+		Debug.Log ("Active states found: " + activeStates.Count);
+
 		// Team Predistribution
-		List<List<int>> teams = new List<List<int>>();
-		for (int i = 0; i < 4; i++) {
-			teams.Add (new List<int> ());
+		List<List<int>> teams = new List<List<int>> ();
+		if (mode == GrandMode.TEAMFFA || mode == GrandMode.TEAMFFA) {
+			for (int i = 0; i < 4; i++) {
+				teams.Add (new List<int> ());
+			}
+			foreach (var indexi in activeStates) {
+				teams [playerStates [indexi].team].Add (indexi);
+			}
+			teams.RemoveAll (r => r.Count == 0);
 		}
-		foreach (var indexi in activeStates) {
-			teams [playerStates [indexi].team].Add (indexi);
-		}
-		teams.RemoveAll (r => r.Count == 0);
 
 		// TEAMVSTEAM Predistribution
 		List<List<int>> playersInSpawnPoints = new List<List<int>> ();
@@ -136,6 +140,7 @@ public class BattleLoader : MonoBehaviour {
 				Color32 color = playerBaseData.teamColors [playerStates [teams[i][0]].team];
 				MakeMultipleCharacters (goals [i], teams [i], playerStates, color);
 			} else if (mode == GrandMode.TeamVSTeam) {
+				Debug.Log ("i: " + i + " | spawpoints: " + playersInSpawnPoints [i].Count);
 				Color32 color = playerBaseData.teamColors [playerStates[playersInSpawnPoints[i][0]].team];
 				MakeMultipleCharacters(goals[i], playersInSpawnPoints[i], playerStates, color);
 			}

@@ -33,7 +33,27 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 
 	public void StatsUpdated(){
 		if (CurrentBattleController.GetTeams () != null) {
-		
+			if (displayTextList == null) {
+				displayTextList = new List<Text> ();
+				PlayerBaseData pBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
+				int j = 0;
+				foreach (TeamContainer team in CurrentBattleController.GetTeams()) {
+					displayTextList.Add (allTextList [j]);
+					displayTextList [j].gameObject.SetActive (true);
+					displayTextList [j].color = pBaseData.teamColors[team.teamID];
+					j++;
+				}
+				ResolutionChangeUpdatePositions ();
+			}
+
+			int i = 0;
+			foreach (TeamContainer team in CurrentBattleController.GetTeams()) {
+				displayTextList [i].text = "Team " + team.teamID;
+				displayTextList [i].text += "\nGoals: " + team.goals;
+				displayTextList [i].text += "\nScore: " + team.score;
+				i++;
+			}
+
 		} else {
 			if (displayTextList == null) {
 				displayTextList = new List<Text> ();
@@ -47,6 +67,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 				}
 				ResolutionChangeUpdatePositions ();
 			}
+
 			int i = 0;
 			foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors ()) {
 				displayTextList [i].text = "Player " + competitor.playerID;

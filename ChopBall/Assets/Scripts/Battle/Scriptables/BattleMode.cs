@@ -64,8 +64,9 @@ public class BattleMode : ScriptableObject {
 				}
 				if (masterData.teams) {
 					newCompCont.teamIndex = playerStates[i].team;
-					if (teams.SingleOrDefault (s => s.teamID == playerStates[i].team) != null) {
+					if (teams.SingleOrDefault (s => s.teamID == playerStates[i].team) == null) {
 						teams.Add (new TeamContainer (playerStates [i].team));
+						Debug.Log ("Added team");
 					}
 				} else {
 					newCompCont.teamIndex = -1;

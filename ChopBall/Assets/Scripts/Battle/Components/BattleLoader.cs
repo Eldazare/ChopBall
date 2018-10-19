@@ -7,7 +7,6 @@ public class BattleLoader : MonoBehaviour {
 
 
 	// Currently Initializes shared goals as last player's goal in team list.
-	// TODO: Properly organize players around spawnpoint.
 
 	public GameObject characterTest;
 	public GameObject ball;
@@ -88,7 +87,7 @@ public class BattleLoader : MonoBehaviour {
 
 		// Team Predistribution
 		List<List<int>> teams = new List<List<int>> ();
-		if (mode == GrandMode.TEAMFFA || mode == GrandMode.TEAMFFA) {
+		if (mode == GrandMode.TEAMFFA || mode == GrandMode.TeamVSTeam) {
 			for (int i = 0; i < 4; i++) {
 				teams.Add (new List<int> ());
 			}
@@ -107,11 +106,15 @@ public class BattleLoader : MonoBehaviour {
 			int half = goals.Length / 2;
 			foreach (var ind in teams[0]) {
 				for (int i = 0; i < half; i++) {
-					int previous = i - 1;
-					if (previous == (0-1)){
-						previous = half-1;
+					int next = i + 1;
+					if (next == half){
+						next = 0;
 					}
-					if (playersInSpawnPoints [i].Count == playersInSpawnPoints [previous].Count) {
+					if (playersInSpawnPoints [i].Count == playersInSpawnPoints [next].Count) {
+						playersInSpawnPoints [i].Add (ind);
+						break;
+					}
+					if (i == half-1 && playersInSpawnPoints[i].Count == playersInSpawnPoints[next].Count-1){
 						playersInSpawnPoints [i].Add (ind);
 						break;
 					}
@@ -119,11 +122,15 @@ public class BattleLoader : MonoBehaviour {
 			}
 			foreach (var ind in teams[1]) {
 				for (int i = half; i < (half*2); i++) {
-					int previous = i - 1;
-					if (previous == (half-1)){
-						previous = (half*2)-1;
+					int next = i + 1;
+					if (next == half*2){
+						next = half;
 					}
-					if (playersInSpawnPoints [i].Count == playersInSpawnPoints [previous].Count) {
+					if (playersInSpawnPoints [i].Count == playersInSpawnPoints [next].Count) {
+						playersInSpawnPoints [i].Add (ind);
+						break;
+					}
+					if (i == (half*2)-1 && playersInSpawnPoints[i].Count == playersInSpawnPoints[next].Count-1){
 						playersInSpawnPoints [i].Add (ind);
 						break;
 					}

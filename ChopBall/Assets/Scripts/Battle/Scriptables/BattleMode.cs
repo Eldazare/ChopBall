@@ -180,33 +180,40 @@ public class BattleMode : ScriptableObject {
 
 	private void ScoreTheRound(){
 		List<int> indexOrder = GenerateIndexOrder(competitors.Cast<ICompetitor>().ToList());
-		if (roundEnd == RoundEnd.Timer && countObject == CountObject.Goals &&
+		if (roundEnd == RoundEnd.Timer && countObject == CountObject.Goals && scoringMode != ScoringMode.Direct1to1 &&
 		    (competitors [indexOrder [0]].goalsScored == competitors [indexOrder [1]].goalsScored)) {
 			suddenDeath = true;
 			return;
 		}
-		suddenDeath = false;
-		for (int i = 0; i<competitors.Count;i++) {
-			switch (scoringMode) {
-			case ScoringMode.Direct1to1:
-				competitors[i].score += competitors[i].roundScoreValue;
-				break;
-			case ScoringMode.PerPosition:
-				competitors [i].score += (indexOrder.Count - indexOrder.IndexOf(i) - 1);
-				Debug.Log("Competitor "+i+" got " + (indexOrder.Count - indexOrder.IndexOf(i) - 1) + " score ");
-				break;
-			case ScoringMode.WinnerOnly:
-				if (indexOrder.IndexOf (i) == 0) {
+
+		for (int i = 0; i < competitors.Count; i++) {
+			if (!suddenDeath) {
+				switch (scoringMode) {
+				case ScoringMode.Direct1to1:
+					competitors [i].score += competitors [i].roundScoreValue;
+					break;
+				case ScoringMode.PerPosition:
+					competitors [i].score += (indexOrder.Count - indexOrder.IndexOf (i) - 1);
+					Debug.Log ("Competitor " + i + " got " + (indexOrder.Count - indexOrder.IndexOf (i) - 1) + " score ");
+					break;
+				case ScoringMode.WinnerOnly:
+					if (competitors[i].roundScoreValue == competitors[indexOrder[0]].roundScoreValue) {
+						competitors [i].score += 1;
+					}
+					break;
+				default:
+					Debug.LogError ("No defined scoringMode: " + scoringMode);
+					break;
+				}
+				competitors [i].eliminated = false;
+				competitors [i].roundScoreValue = 0;
+			} else {
+				if (competitors[i].roundScoreValue == competitors[indexOrder[0]].roundScoreValue) {
 					competitors [i].score += 1;
 				}
-				break;
-			default:
-				Debug.LogError ("No defined scoringMode: " + scoringMode);
-				break;
 			}
-			competitors[i].eliminated = false;
-			competitors[i].roundScoreValue = 0;
 		}
+		suddenDeath = false;
 	}
 
 
@@ -217,28 +224,34 @@ public class BattleMode : ScriptableObject {
 			suddenDeath = true;
 			return;
 		}
-		suddenDeath = false;
 		for (int i = 0; i < teams.Count; i++) {
 			if (teams [i] != null) {
-				switch (scoringMode) {
-				case ScoringMode.Direct1to1:
-					teams [i].score += teams [i].roundScoreValue;
-					break;
-				case ScoringMode.PerPosition:
-					teams [i].score += (indexOrder.Count - indexOrder.IndexOf(i) - 1);
-					Debug.Log ("Team " + i + " got " + (indexOrder.Count - indexOrder.IndexOf(i) - 1) + " score ");
-					break;
-				case ScoringMode.WinnerOnly:
-					if (indexOrder.IndexOf (i) == 0) {
+				if (!suddenDeath) {
+					switch (scoringMode) {
+					case ScoringMode.Direct1to1:
+						teams [i].score += teams [i].roundScoreValue;
+						break;
+					case ScoringMode.PerPosition:
+						teams [i].score += (indexOrder.Count - indexOrder.IndexOf (i) - 1);
+						Debug.Log ("Team " + i + " got " + (indexOrder.Count - indexOrder.IndexOf (i) - 1) + " score ");
+						break;
+					case ScoringMode.WinnerOnly:
+						if (teams[i].roundScoreValue == teams[indexOrder[0]].roundScoreValue) {
+							teams [i].score += 1;
+						}
+						break;
+					default:
+						Debug.LogError ("No defined scorinMode: " + scoringMode);
+						break;
+					}
+				} else {
+					if (teams[i].roundScoreValue == teams[indexOrder[0]].roundScoreValue) {
 						teams [i].score += 1;
 					}
-					break;
-				default:
-					Debug.LogError ("No defined scorinMode: " + scoringMode);
-					break;
 				}
 			}
 		}
+		suddenDeath = false;
 	}
 
 	private List<int> GenerateIndexOrder(List<ICompetitor> compList){
@@ -292,17 +305,23 @@ public class BattleMode : ScriptableObject {
 	}
 
 	private bool MatchEndCalls(){
+		bool isMatchSuddenDeath = false;
 		if (teams != null) {
-			SetTeamOrder ();
+			isMatchSuddenDeath = SetTeamOrder ();
 		} else {
-			SetCompetitorOrder ();
+			isMatchSuddenDeath = SetCompetitorOrder ();
 		}
-		EndOfMatch.Raise ();
-		Debug.Log ("Match has ended");
-		return true;
+		if (isMatchSuddenDeath) {
+			suddenDeath = true;
+
+		} else {
+			EndOfMatch.Raise ();
+			Debug.Log ("Match has ended");
+		}
+		return !isMatchSuddenDeath;
 	}
 
-	private void SetCompetitorOrder(){
+	private bool SetCompetitorOrder(){
 		foreach (CompetitorContainer competitor in competitors) {
 			competitor.roundScoreValue = competitor.score;
 		}
@@ -310,9 +329,10 @@ public class BattleMode : ScriptableObject {
 		for (int i = 0; i < competitors.Count; i++) {
 			competitors [i].endPosition = (IndexOrder.IndexOf (i) + 1);
 		}
+		return (competitors.Single (c => c.endPosition == 0).score != competitors.Single (c => c.endPosition == 1).score);
 	}
 
-	private void SetTeamOrder(){
+	private bool SetTeamOrder(){
 		foreach (TeamContainer team in teams) {
 			team.roundScoreValue = team.score;
 		}
@@ -320,6 +340,7 @@ public class BattleMode : ScriptableObject {
 		for (int i = 0; i < teams.Count; i++) {
 			teams [i].endPosition = (IndexOrder.IndexOf (i) + 1);
 		}
+		return (teams.Single (t => t.endPosition == 0).score != teams.Single (t => t.endPosition == 1).score);
 	}
 
 	private bool ReceiveBlueprint(BattleModeBlueprint blueprint){

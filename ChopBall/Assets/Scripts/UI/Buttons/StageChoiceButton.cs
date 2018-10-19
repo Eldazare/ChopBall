@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class StageChoiceButton : _CursorButton {
 
 	private StageData stageData;
-	private Image overlay;
+	protected Image overlay;
 	private Outline outline;
-	private bool clickable;
+	protected bool clickable;
 
 	public void Initialize(StageData stageData){
 		overlay = transform.GetChild(0).GetComponent<Image>();

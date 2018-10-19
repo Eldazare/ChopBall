@@ -335,7 +335,7 @@ public class BattleMode : ScriptableObject {
 	private bool SetTeamOrder(){
 		foreach (TeamContainer team in teams) {
 			team.roundScoreValue = team.score;
-		}
+		} 
 		List<int> IndexOrder = GenerateIndexOrder (teams.Cast<ICompetitor>().ToList());
 		for (int i = 0; i < teams.Count; i++) {
 			teams [i].endPosition = (IndexOrder.IndexOf (i) + 1);

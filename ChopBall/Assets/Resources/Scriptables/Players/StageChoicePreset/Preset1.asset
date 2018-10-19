@@ -8,12 +8,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 079a070337e95e946bb3ba0d9d4eabc3, type: 3}
-  m_Name: P4StateData
+  m_Script: {fileID: 11500000, guid: 89765cd68cda1654d9335ab6c674ed16, type: 3}
+  m_Name: Preset1
   m_EditorClassIdentifier: 
-  active: 0
-  CharacterLocked: 0
-  characterChoosing: 0
-  characterChoice: -1
-  team: -1
-  stageNameChoice: 
+  preset: 0000000001000000

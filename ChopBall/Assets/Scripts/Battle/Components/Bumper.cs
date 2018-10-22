@@ -19,6 +19,7 @@ public class Bumper : MonoBehaviour {
                 float appliedForce = collision.relativeVelocity.magnitude * ForceAmount;
                 appliedForce = Mathf.Clamp(appliedForce, MinForce, Mathf.Infinity);
 
+                ballBody.velocity = Vector2.zero;
                 ballBody.AddForceAtPosition(-collision.contacts[0].normal * ballBody.mass * appliedForce, collision.contacts[0].point);
             }
         }

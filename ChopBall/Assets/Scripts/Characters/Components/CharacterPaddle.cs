@@ -151,6 +151,7 @@ public class CharacterPaddle : MonoBehaviour {
 
                     //Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);
 
+                    hitBody.velocity = Vector2.zero;
                     hitBody.AddForceAtPosition(hitNormal * characterBase.PaddleForceAmount * hitBody.mass, hitBody.position - hitNormal * ballRadius, ForceMode2D.Impulse);
 
                     Ball hitBall = hitBody.GetComponent<Ball>();

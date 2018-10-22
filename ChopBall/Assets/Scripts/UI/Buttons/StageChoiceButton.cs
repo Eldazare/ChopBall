@@ -18,7 +18,7 @@ public class StageChoiceButton : _CursorButton {
 		overlay.sprite = stageData.previewImage;
 	}
 
-	public void CheckPrimaryTag(StageTag primaryTag){
+	virtual public void CheckPrimaryTag(StageTag primaryTag){
 		if (primaryTag == stageData.PrimaryTag) {
 			Hilight ();
 		} else if (stageData.SecondaryTags.Contains (primaryTag)) {

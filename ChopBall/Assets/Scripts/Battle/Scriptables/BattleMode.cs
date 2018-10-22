@@ -329,7 +329,7 @@ public class BattleMode : ScriptableObject {
 		for (int i = 0; i < competitors.Count; i++) {
 			competitors [i].endPosition = (IndexOrder.IndexOf (i) + 1);
 		}
-		return (competitors.Single (c => c.endPosition == 0).score != competitors.Single (c => c.endPosition == 1).score);
+		return (competitors.Single (c => c.endPosition == 1).score == competitors.Single (c => c.endPosition == 2).score);
 	}
 
 	private bool SetTeamOrder(){
@@ -340,7 +340,7 @@ public class BattleMode : ScriptableObject {
 		for (int i = 0; i < teams.Count; i++) {
 			teams [i].endPosition = (IndexOrder.IndexOf (i) + 1);
 		}
-		return (teams.Single (t => t.endPosition == 0).score != teams.Single (t => t.endPosition == 1).score);
+		return (teams.Single (t => t.endPosition == 1).score == teams.Single (t => t.endPosition == 2).score);
 	}
 
 	private bool ReceiveBlueprint(BattleModeBlueprint blueprint){

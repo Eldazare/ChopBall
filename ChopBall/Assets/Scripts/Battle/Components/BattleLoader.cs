@@ -27,6 +27,8 @@ public class BattleLoader : MonoBehaviour {
 		new Vector2 (-distanceFromCenter, -distanceFromCenter), new Vector2 (-distanceFromCenter, distanceFromCenter),
 	};
 
+	private List<List<int>> playersInSpawnPoints;
+
 	void Start () {
 		CurrentBattleController.InitializeCurrentData ();
 		GrandMode mode = MasterStateController.GetTheMasterData ().mode;
@@ -52,15 +54,7 @@ public class BattleLoader : MonoBehaviour {
 			ballComponent.ResetBallPosition ();
 		}
 
-
-
-		// TeamVSTeam Predistribution
-
-
-
-
-
-		// TODO: Predistribution
+		// Predistribution
 		List<int> activeStates = new List<int>();
 		int nextPlayerStateIndex = 0;
 		bool areAnyActive = false;
@@ -98,43 +92,18 @@ public class BattleLoader : MonoBehaviour {
 		}
 
 		// TEAMVSTEAM Predistribution
-		List<List<int>> playersInSpawnPoints = new List<List<int>> ();
 		if (mode == GrandMode.TeamVSTeam) {
-			for (int i = 0; i < goals.Length;i++){
-				playersInSpawnPoints.Add (new List<int> ());
-			}
-			int half = goals.Length / 2;
-			foreach (var ind in teams[0]) {
-				for (int i = 0; i < half; i++) {
-					int next = i + 1;
-					if (next == half){
-						next = 0;
-					}
-					if (playersInSpawnPoints [i].Count == playersInSpawnPoints [next].Count) {
-						playersInSpawnPoints [i].Add (ind);
-						break;
-					}
-					if (i == half-1 && playersInSpawnPoints[i].Count == playersInSpawnPoints[next].Count-1){
-						playersInSpawnPoints [i].Add (ind);
-						break;
-					}
+			playersInSpawnPoints = new List<List<int>> ();
+			if (teams.Count == 2) {
+				for (int i = 0; i < goals.Length; i++) {
+					playersInSpawnPoints.Add (new List<int> ());
 				}
-			}
-			foreach (var ind in teams[1]) {
-				for (int i = half; i < (half*2); i++) {
-					int next = i + 1;
-					if (next == half*2){
-						next = half;
-					}
-					if (playersInSpawnPoints [i].Count == playersInSpawnPoints [next].Count) {
-						playersInSpawnPoints [i].Add (ind);
-						break;
-					}
-					if (i == (half*2)-1 && playersInSpawnPoints[i].Count == playersInSpawnPoints[next].Count-1){
-						playersInSpawnPoints [i].Add (ind);
-						break;
-					}
-				}
+				int half = goals.Length / 2;
+				DivideTeamIntoSpawnPoints (teams [0], 0, half);
+				DivideTeamIntoSpawnPoints (teams [1], half, half * 2);
+			} else {
+				Debug.LogError ("Incorrect team amount for TeamVSTeam: " + teams.Count);
+				return;
 			}
 		}
 					
@@ -142,18 +111,45 @@ public class BattleLoader : MonoBehaviour {
 			if (!areAnyActive) {
 				MakeACharacter (goals [i], Vector2.zero, null, new Color32(255,255,255,255), i);
 			} else if (mode == GrandMode.FFA) {
-				MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates[i]], playerBaseData.playerColors[activeStates[i]], activeStates[i]);
+				if (activeStates.Count > i) {
+					MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates [i]], playerBaseData.playerColors [activeStates [i]], activeStates [i]);
+				}
 			} else if (mode == GrandMode.TEAMFFA) {
-				Color32 color = playerBaseData.teamColors [playerStates [teams[i][0]].team];
-				MakeMultipleCharacters (goals [i], teams [i], playerStates, color);
+				if (teams.Count > i) {
+					Color32 color = playerBaseData.teamColors [playerStates [teams [i] [0]].team];
+					MakeMultipleCharacters (goals [i], teams [i], playerStates, color);
+				}
 			} else if (mode == GrandMode.TeamVSTeam) {
-				Debug.Log ("i: " + i + " | spawpoints: " + playersInSpawnPoints [i].Count);
-				Color32 color = playerBaseData.teamColors [playerStates[playersInSpawnPoints[i][0]].team];
-				MakeMultipleCharacters(goals[i], playersInSpawnPoints[i], playerStates, color);
+				if (playersInSpawnPoints.Count > i) {
+					if (playersInSpawnPoints [i].Count > 0) {
+						Debug.Log ("i: " + i + " | spawpoints: " + playersInSpawnPoints [i].Count);
+						Color32 color = playerBaseData.teamColors [playerStates [playersInSpawnPoints [i] [0]].team];
+						MakeMultipleCharacters (goals [i], playersInSpawnPoints [i], playerStates, color);
+					}
+				}
 			}
 			nextPlayerStateIndex++;
 		}
 		StartGame.Raise();
+	}
+
+	private void DivideTeamIntoSpawnPoints(List<int> team, int bas, int cap){
+		foreach (var ind in team) {
+			for (int i = bas; i < cap; i++) {
+				int next = i + 1;
+				if (next == cap) {
+					next = bas;
+				}
+				if (playersInSpawnPoints [i].Count == playersInSpawnPoints [next].Count) {
+					playersInSpawnPoints [i].Add (ind);
+					break;
+				}
+				if (i == cap - 1 && playersInSpawnPoints [i].Count == playersInSpawnPoints [next].Count - 1) {
+					playersInSpawnPoints [i].Add (ind);
+					break;
+				}
+			}
+		}
 	}
 
 	private void MakeMultipleCharacters (Goal goal, List<int> stateIndexes, PlayerStateData[] stateDatas, Color32 theColor){

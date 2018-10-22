@@ -12,13 +12,20 @@ public class StageChoicePresetHandler : MonoBehaviour {
 	public void ToggleStage(int index){
 		if (currentPreset.preset.Contains (index)) {
 			currentPreset.preset.Remove (index);
+			buttons [index].Toggled (true);
 		} else {
 			currentPreset.preset.Add (index);
+			buttons [index].Toggled (false);
 		}
 	}
 
 	void Awake(){
 		stages = new List<StageData>(StageDataController.GetStages ());
+	}
+
+	public void ChoosePresetForEdit(int storageIndex){
+		// TODO: Get storage from manager and initialize also the StageTagType choice
+		InitializeButtonsFromPanel(currentPreset.tagForPreset);
 	}
 
 
@@ -40,5 +47,4 @@ public class StageChoicePresetHandler : MonoBehaviour {
 			buttons [i].gameObject.SetActive (false);
 		}
 	}
-
 }

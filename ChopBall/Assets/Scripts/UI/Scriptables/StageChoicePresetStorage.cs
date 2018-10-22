@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class StageChoicePresetStorage : ScriptableObject {
 
+	public StageTag tagForPreset;
 	public List<int> preset;
 
 	public void DefaultAllStages(){

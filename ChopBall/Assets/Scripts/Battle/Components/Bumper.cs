@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bumper : MonoBehaviour {
 
     public float ForceAmount;
+    public float MinForce;
 
 	private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -15,12 +16,15 @@ public class Bumper : MonoBehaviour {
             if (ballBody)
             {
                 //Debug.Log("Ball hit bumper");
-                ballBody.AddForceAtPosition(-collision.contacts[0].normal * collision.relativeVelocity.magnitude * ForceAmount * ballBody.mass, collision.contacts[0].point);
+                float appliedForce = collision.relativeVelocity.magnitude * ForceAmount;
+                appliedForce = Mathf.Clamp(appliedForce, MinForce, Mathf.Infinity);
+
+                ballBody.AddForceAtPosition(-collision.contacts[0].normal * ballBody.mass * appliedForce, collision.contacts[0].point);
             }
         }
-        else if (collision.collider.CompareTag("Character"))
-        {
+        //else if (collision.collider.CompareTag("Character"))
+        //{
 
-        }
+        //}
     }
 }

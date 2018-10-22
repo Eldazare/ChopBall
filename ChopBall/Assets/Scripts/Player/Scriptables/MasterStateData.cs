@@ -26,7 +26,7 @@ public class MasterStateData : ScriptableObject {
 		// Should contain every field
 		//SetGrandMode (GrandMode.FFA);
 		battleModeBlueprint = DefaultBP ();
-		SetGrandMode (GrandMode.TeamVSTeam);
+		SetGrandMode (GrandMode.FFA);
 	}
 
 	public void SetMenuDefaults(){

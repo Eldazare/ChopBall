@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class TitleScreenHelper : MonoBehaviour {
 
-	public GameObject masterCursor;
+	public MasterCursor masterCursor;
 
 	void OnEnable(){
-		masterCursor.GetComponent<MasterCursor> ().EnabelAllListeners ();
+		masterCursor.EnabelAllListeners ();
 	}
 }

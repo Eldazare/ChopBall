@@ -62,9 +62,11 @@ public class MasterCursor : _Cursor {
 	}
 
 	public void EnabelAllListeners(){
-		foreach (InputEventListener listener in listeners) {
-			listener.enabled = true;
+		if (listeners != null) {
+			foreach (InputEventListener listener in listeners) {
+				listener.enabled = true;
+			}
+			controllerChosen = false;
 		}
-		controllerChosen = false;
 	}
 }

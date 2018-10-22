@@ -9,11 +9,19 @@ public abstract class _CursorButton : MonoBehaviour {
 	protected Image buttonImage;
 	protected CursorButtonBaseData baseData;
 
+	protected bool awaken = false;
+
 	protected virtual void Awake(){
-		hoveringPlayers = new List<int> ();
-		buttonImage = GetComponent<Image> ();
-		baseData = (CursorButtonBaseData) Resources.Load ("Scriptables/_BaseDatas/CursorButtonBaseData", (typeof(CursorButtonBaseData)));
-		buttonImage.color = baseData.NeutralHilightColor;
+		Awaken ();
+	}
+
+	protected void Awaken(){
+		if (!awaken) {
+			hoveringPlayers = new List<int> ();
+			buttonImage = GetComponent<Image> ();
+			baseData = (CursorButtonBaseData)Resources.Load ("Scriptables/_BaseDatas/CursorButtonBaseData", (typeof(CursorButtonBaseData)));
+			buttonImage.color = baseData.NeutralHilightColor;
+		}
 	}
 
 	public virtual void Click(int playerID){

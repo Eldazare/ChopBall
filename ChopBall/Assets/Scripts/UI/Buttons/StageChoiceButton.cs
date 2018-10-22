@@ -11,6 +11,9 @@ public class StageChoiceButton : _CursorButton {
 	protected bool clickable;
 
 	public void Initialize(StageData stageData){
+		if (!awaken) {
+			Awaken ();
+		}
 		overlay = transform.GetChild(0).GetComponent<Image>();
 		outline = GetComponent<Outline> ();
 		outline.effectColor = baseData.ScbOutlineColor;

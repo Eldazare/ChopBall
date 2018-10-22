@@ -21,16 +21,20 @@ public class StageChoiceButtonGenerator : MonoBehaviour {
 	void OnEnable(){
 		//InitializeButtonsFromPanel (StageTag.T1v1); // Debug
 		InitializeButtonsFromPanel(StageTagHandler.GetTagsFromCurrentPlayers());
-		switch (MasterStateController.GetTheMasterData ().stageChoiceType) {
-		case StageChoiceType.individualRandom:
-			menuPanelHandler.SetCursors (false);
-			break;
-		case StageChoiceType.masterSingle:
-			menuPanelHandler.SetCursors (true);
-			break;
-		case StageChoiceType.randomPreset:
-			MasterStateController.GoToBattle ();
-			break;
+		if (menuPanelHandler != null) {
+			switch (MasterStateController.GetTheMasterData ().stageChoiceType) {
+			case StageChoiceType.individualRandom:
+				menuPanelHandler.SetCursors (false);
+				break;
+			case StageChoiceType.masterSingle:
+				menuPanelHandler.SetCursors (true);
+				break;
+			case StageChoiceType.randomPreset:
+				MasterStateController.GoToBattle ();
+				break;
+			}
+		} else {
+			Debug.LogWarning ("menuPanelHandler reference missing");
 		}
 	}
 

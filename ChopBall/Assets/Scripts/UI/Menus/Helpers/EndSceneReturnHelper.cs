@@ -7,7 +7,7 @@ public class EndSceneReturnHelper : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		ReturnToMenu (5.0f);
+		StartCoroutine(ReturnToMenu (5.0f));
 	}
 	
 	private IEnumerator ReturnToMenu(float delay){

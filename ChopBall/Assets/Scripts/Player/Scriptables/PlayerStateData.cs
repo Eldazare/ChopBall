@@ -42,6 +42,7 @@ public class PlayerStateData : ScriptableObject {
 		GetBaseDataInfo ();
 		if (active) {
 			if (charID != -1 && characterChoice != charID) {
+				Debug.Log ("Worked?");
 				characterChoice = charID;
 				CharacterLocked = true;
 			} else {
@@ -55,24 +56,30 @@ public class PlayerStateData : ScriptableObject {
 	public void ChangeTeam(bool incDec){
 		GetBaseDataInfo ();
 		if (active) {
-			if (incDec) {
-				team++;
-				if (team >= MasterStateController.GetMaxNumberOfTeams ()) {
-					team = 0;
+			if (MasterStateController.GetMaxNumberOfTeams () > 0) {
+				if (incDec) {
+					team++;
+					if (team >= MasterStateController.GetMaxNumberOfTeams ()) {
+						team = 0;
+					}
+				} else {
+					team--;
+					if (team < 0) {
+						team = MasterStateController.GetMaxNumberOfTeams () - 1;
+					}
 				}
 			} else {
-				team--;
-				if (team < 0) {
-					team = MasterStateController.GetMaxNumberOfTeams () - 1;
-				}
+				team = -1;
 			}
 			OnTeamChanged.Raise ();
 		}
 	}
 
 	public void CheckTeamConstraints(){
-		if (team >= MasterStateController.GetMaxNumberOfTeams ()) {
+		GetBaseDataInfo ();
+		if (team >= MasterStateController.GetMaxNumberOfTeams () || team < 0) {
 			team = MasterStateController.GetMaxNumberOfTeams () - 1;
+			OnTeamChanged.Raise ();
 		}
 	}
 }

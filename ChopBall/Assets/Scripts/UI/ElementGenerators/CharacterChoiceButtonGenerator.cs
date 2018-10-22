@@ -5,8 +5,11 @@ using UnityEngine;
 public class CharacterChoiceButtonGenerator : MonoBehaviour {
 
 	public GameObject characterButtonPanel;
+	public PlayerBaseData pBaseData;
 
 	void Awake(){
+		pBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData");
+		//InitializeColors ();
 		InitializeButtonsFromPanel ();
 	}
 
@@ -16,6 +19,20 @@ public class CharacterChoiceButtonGenerator : MonoBehaviour {
 
 	void OnDisable(){
 		PlayerStateController.SetCharacterChoosing(false);
+	}
+
+	public void InitializeColors(){
+		PlayerActivateTeamButton[] buttons = characterButtonPanel.GetComponentsInChildren<PlayerActivateTeamButton> ();
+		if (MasterStateController.GetTheMasterData ().teams) {
+			PlayerStateData[] states = PlayerStateController.GetAllStates ();
+			for (int i = 0; i < buttons.Length; i++) {
+				buttons [i].SetColor (pBaseData.teamColors [states [i].team]);
+			}
+		} else {
+			for(int i = 0;i<buttons.Length;i++) {
+				buttons[i].SetColor (pBaseData.playerColors [i]);
+			}
+		}
 	}
 
 	public void InitializeButtonsFromPanel(){

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerActivateTeamButton : _CursorButton {
+public class PlayerActivateTeamButton : MonoBehaviour {
 
 	// TODO?: Press start to press proceed button?
 
 
 	public int playerID;
 
+	private PlayerBaseData playerBaseData;
 	private PlayerStateData stateData;
 	private Text text;
+	private Image image;
 	private string baseStr;
 	private string teamPart;
 	private string characterChoicePart;
@@ -21,11 +23,12 @@ public class PlayerActivateTeamButton : _CursorButton {
 	private bool latePLeft;
 	private bool lateSelect;
 
-	override
 	protected void Awake(){
-		base.Awake ();
+		//base.Awake ();
+		image = GetComponent<Image> ();
 		text = GetComponentInChildren<Text> ();
 		stateData = PlayerStateController.GetAState (playerID);
+		playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData");
 		baseStr = "Player: " + playerID + "\n";
 	}
 
@@ -34,7 +37,7 @@ public class PlayerActivateTeamButton : _CursorButton {
 		bool latePLeft = true;
 		bool lateStart = true;
 		SetTeamPart ();
-		SetCharChoiceStr ();
+		SetCharChoicePart ();
 		stateData.CheckTeamConstraints ();
 	}
 
@@ -81,13 +84,15 @@ public class PlayerActivateTeamButton : _CursorButton {
 	public void SetTeamPart(){
 		if (stateData.team != -1) {
 			teamPart = "Team: " + stateData.team + "\n";
+			SetColor (playerBaseData.teamColors [stateData.team]);
 		} else {
 			teamPart = "\n";
+			SetColor (playerBaseData.playerColors [playerID-1]);
 		}
 		SetString ();
 	}
 
-	public void SetCharChoiceStr(){
+	public void SetCharChoicePart(){
 		if (stateData.characterChoice == -1) {
 			characterChoicePart = "No Character";
 		} else {
@@ -99,5 +104,9 @@ public class PlayerActivateTeamButton : _CursorButton {
 
 	private void SetString(){
 		text.text = baseStr + teamPart + characterChoicePart;
+	}
+
+	public void SetColor(Color32 color){
+		this.image.color = color;
 	}
 }

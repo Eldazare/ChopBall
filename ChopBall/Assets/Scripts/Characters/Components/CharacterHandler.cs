@@ -77,22 +77,18 @@ public class CharacterHandler : MonoBehaviour {
     {
         if (input != null)
         {
-            if (input.PaddleLeft && !leftPaddleTriggeredLastFrame) leftPaddle.Hit();
-            if (input.PaddleRight && !rightPaddleTriggeredLastFrame) rightPaddle.Hit();
-
             if (input.Dash && !dashTriggeredLastFrame)
             {
                 movement.Dash(input.leftDirectionalInput);
             }
 
-            if (input.leftDirectionalInput != Vector2.zero)
-            {
-                movement.Move(input.leftDirectionalInput);
-            }
+            movement.Move(input.leftDirectionalInput);
+            movement.Rotate(input.rightDirectionalInput);
 
-            if (input.rightDirectionalInput != Vector2.zero)
+            if (!movement.isDashing)
             {
-                movement.Rotate(input.rightDirectionalInput);
+                if (input.PaddleLeft && !leftPaddleTriggeredLastFrame) leftPaddle.Hit();
+                if (input.PaddleRight && !rightPaddleTriggeredLastFrame) rightPaddle.Hit();
             }
 
             leftPaddle.UpdatePaddle();

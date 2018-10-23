@@ -98,4 +98,9 @@ public static class MasterStateController {
 		LoadMasterData();
 		return masterData.maxTeams;
 	}
+
+	public static bool IsBlueprintLoaded(){
+		LoadMasterData ();
+		return (masterData.battleModeBlueprint != null);
+	}
 }

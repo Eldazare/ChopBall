@@ -77,6 +77,9 @@ public class PlayerStateData : ScriptableObject {
 
 	public void CheckTeamConstraints(){
 		GetBaseDataInfo ();
+		if (!MasterStateController.IsBlueprintLoaded ()) {
+			MasterStateController.GetTheMasterData ().SetBattleDefaults ();
+		}
 		if (team >= MasterStateController.GetMaxNumberOfTeams () || team < 0) {
 			team = MasterStateController.GetMaxNumberOfTeams () - 1;
 			OnTeamChanged.Raise ();

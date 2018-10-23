@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a91c082e3039eb7438288e4cf1ac4221, type: 3}
   m_Name: XBOX360 Razer
   m_EditorClassIdentifier: 
-  ControllerName: XBOX360 GAMEPAD
+  ControllerName: Controller (XBOX360 GAMEPAD)
   XAxisLeft: 1
   YAxisLeft: 2
   XAxisRight: 4

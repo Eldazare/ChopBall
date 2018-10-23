@@ -14,3 +14,17 @@ MonoBehaviour:
   CharacterName: 
   CharacterPrefabName: 
   CharacterPortrait: {fileID: 0}
+  PaddleLengthMultiplier: 1
+  PaddleThicknessMultiplier: 1
+  PaddleUpperAngleMultiplier: 1
+  PaddleLowerAngleMultiplier: 1
+  PaddleSpeedUpMultiplier: 1
+  PaddleSpeedDownMultiplier: 1
+  PaddleForceMultiplier: 1
+  MovementSpeedMultiplier: 1
+  RotationSpeedMultiplier: 1
+  DashDistanceMultiplier: 1
+  DashTimeMultiplier: 1
+  DashCoolDownMultiplier: 1
+  BodyMassMultiplier: 1
+  LinearDragMultiplier: 1

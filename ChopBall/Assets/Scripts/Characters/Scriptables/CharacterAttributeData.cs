@@ -27,4 +27,6 @@ public class CharacterAttributeData : ScriptableObject {
     public float DashDistanceMultiplier = 1f;
     public float DashTimeMultiplier = 1f;
     public float DashCoolDownMultiplier = 1f;
+    public float BodyMassMultiplier = 1f;
+    public float LinearDragMultiplier = 1f;
 }

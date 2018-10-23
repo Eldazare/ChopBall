@@ -23,4 +23,6 @@ public class CharacterBaseData : ScriptableObject {
     public float DashDistance;
 	public float DashTime;
     public float DashCoolDown;
+    public float BodyMass;
+    public float LinearDrag;
 }

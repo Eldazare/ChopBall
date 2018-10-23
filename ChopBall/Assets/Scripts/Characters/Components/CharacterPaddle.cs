@@ -50,11 +50,11 @@ public class CharacterPaddle : MonoBehaviour {
         if (!Pivot) Pivot = transform;
         pivotPoint = Pivot.position;
 
-        currentRotation = characterBase.PaddleLowerAngle * (float)Side;
+        currentRotation = characterBase.PaddleLowerAngle * characterAttributes.PaddleLowerAngleMultiplier * (float)Side;
         targetRotation = currentRotation;
         paddleVector = Rotate(masterTransform.up, targetRotation);
 
-        paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle - currentRotation);
+        paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier - currentRotation);
     }
 
     public void Hit()
@@ -73,7 +73,9 @@ public class CharacterPaddle : MonoBehaviour {
 
         if (hitActive)
         {
-            float paddleSpeed = (currentAngularDirection > 0) ? characterBase.PaddleSpeedUp : characterBase.PaddleSpeedDown;
+            float paddleSpeed = (currentAngularDirection > 0) ?
+                                characterBase.PaddleSpeedUp * characterAttributes.PaddleSpeedUpMultiplier : 
+                                characterBase.PaddleSpeedDown * characterAttributes.PaddleSpeedDownMultiplier;
 
             hitElapsed += paddleSpeed * currentAngularDirection * Time.deltaTime;
 
@@ -88,7 +90,8 @@ public class CharacterPaddle : MonoBehaviour {
                 hitActive = false;
             }
 
-            targetRotation = Mathf.Lerp(characterBase.PaddleLowerAngle * (float)Side, characterBase.PaddleUpperAngle, hitElapsed);
+            targetRotation = Mathf.Lerp(characterBase.PaddleLowerAngle * characterAttributes.PaddleLowerAngleMultiplier * (float)Side,
+                                        characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier, hitElapsed);
             currentRotation = targetRotation;
 
             paddleVector = Rotate(masterTransform.up, targetRotation);
@@ -106,7 +109,12 @@ public class CharacterPaddle : MonoBehaviour {
     // Checks if paddle has collided with anything in collision layers
     private void CheckPaddleCollisions()
     {
-        int paddleHits = Physics2D.CircleCastNonAlloc(pivotPoint, characterBase.PaddleThickness / 2, paddleVector, hitBuffer, characterBase.PaddleLength, characterBase.PaddleCollisionLayers);
+        int paddleHits = Physics2D.CircleCastNonAlloc(pivotPoint,
+                                                    (characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier) / 2,
+                                                    paddleVector,
+                                                    hitBuffer,
+                                                    characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier,
+                                                    characterBase.PaddleCollisionLayers);
 
         // If any colliders are found -> proceed
         if (paddleHits > 0)
@@ -133,7 +141,7 @@ public class CharacterPaddle : MonoBehaviour {
                     // Calculate the hit normal based on the direction of the hit
                     Vector2 hitNormal;
 
-                    Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength;
+                    Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier;
                     Vector2 distanceFromTip = (hitBody.position - tipPoint);
 
                     //Vector2 distanceFromPivot = (hitBody.position - pivotPoint);
@@ -142,7 +150,7 @@ public class CharacterPaddle : MonoBehaviour {
 
                     float ballRadius = hitBody.GetComponent<CircleCollider2D>().radius * hitBuffer[i].transform.localScale.y;
 
-                    if (distanceFromTip.magnitude <= ballRadius + characterBase.PaddleThickness / 2 && Vector2.Dot(distanceFromTip, paddleVector) > 0f)
+                    if (distanceFromTip.magnitude <= ballRadius + (characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier) / 2 && Vector2.Dot(distanceFromTip, paddleVector) > 0f)
                     {
                         //Debug.Log("tip hit");
                         hitNormal = distanceFromTip.normalized;
@@ -152,7 +160,9 @@ public class CharacterPaddle : MonoBehaviour {
                     //Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);
 
                     hitBody.velocity = Vector2.zero;
-                    hitBody.AddForceAtPosition(hitNormal * characterBase.PaddleForceAmount * hitBody.mass, hitBody.position - hitNormal * ballRadius, ForceMode2D.Impulse);
+                    hitBody.AddForceAtPosition(hitNormal * characterBase.PaddleForceAmount * characterAttributes.PaddleForceMultiplier * hitBody.mass,
+                                                hitBuffer[i].point,
+                                                ForceMode2D.Impulse);
 
                     Ball hitBall = hitBody.GetComponent<Ball>();
                     if (hitBall) hitBall.GetPlayerPaddleTouch(playerID);
@@ -170,12 +180,14 @@ public class CharacterPaddle : MonoBehaviour {
 
         for (int i = 0; i < 10; i++)
         {
-            Gizmos.DrawSphere(pivotPoint + ((characterBase.PaddleLength / 10) * i * paddleVector), characterBase.PaddleThickness / 2);
+            Gizmos.DrawSphere(pivotPoint + ((characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier / 10) * i * paddleVector),
+                                            characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier / 2);
         }
 
         Gizmos.color = new Color(0, 255, 0, 0.5f);
 
-        Gizmos.DrawSphere(pivotPoint + characterBase.PaddleLength * paddleVector, characterBase.PaddleThickness / 2);
+        Gizmos.DrawSphere(pivotPoint + characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier * paddleVector,
+                          characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier / 2);
     }
 
     // Helper function to rotate a 2d vector -> change to an extension method later

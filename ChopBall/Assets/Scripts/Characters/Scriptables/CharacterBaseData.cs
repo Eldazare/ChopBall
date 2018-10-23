@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterBaseData : ScriptableObject {
 
     // BASE DATA
+
     [Header("Paddles")]
     public float PaddleLength;
     public float PaddleThickness;
@@ -15,6 +16,7 @@ public class CharacterBaseData : ScriptableObject {
 	public float PaddleSpeedDown;
     public float PaddleForceAmount;
     public LayerMask PaddleCollisionLayers;
+
     [Header("Movement")]
 	public float MovementSpeed;
     public float RotationSpeed;

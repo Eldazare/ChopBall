@@ -50,8 +50,8 @@ public class CharacterMovement : MonoBehaviour {
         if (dashTimerElapsed <= 0)
         {
             isDashing = false;
-            velocity.x = inputAxis.x * characterBase.MovementSpeed * characterRigidbody.drag * Time.deltaTime;
-            velocity.y = inputAxis.y * characterBase.MovementSpeed * characterRigidbody.drag * Time.deltaTime;
+            velocity.x = inputAxis.x * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * Time.deltaTime;
+            velocity.y = inputAxis.y * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * Time.deltaTime;
         }
         else
         {
@@ -76,7 +76,7 @@ public class CharacterMovement : MonoBehaviour {
 
         float angle = Vector2.SignedAngle(transform.up, lookDirection);
 
-        angularVelocity = characterBase.RotationSpeed * rotationAnalogMultiplier;
+        angularVelocity = characterBase.RotationSpeed * characterAttributes.RotationSpeedMultiplier * rotationAnalogMultiplier;
 
         angularVelocity = Mathf.Clamp(angularVelocity, 0, Mathf.Abs(angle)) * Mathf.Sign(angle);
 
@@ -98,9 +98,9 @@ public class CharacterMovement : MonoBehaviour {
                 dashDirection = transform.up;
             }
 
-            dashSpeed = characterBase.DashDistance / characterBase.DashTime;
-            dashTimerElapsed = characterBase.DashTime;
-            dashCoolDownElapsed = characterBase.DashTime + characterBase.DashCoolDown;
+            dashSpeed = (characterBase.DashDistance * characterAttributes.DashDistanceMultiplier) / (characterBase.DashTime * characterAttributes.DashTimeMultiplier);
+            dashTimerElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier;
+            dashCoolDownElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier + characterBase.DashCoolDown * characterAttributes.DashCoolDownMultiplier;
         }
     }
 }

@@ -95,6 +95,7 @@ public class BattleMode : ScriptableObject {
 			if (playerID != gd.goalPlayerID) {
 				giver = competitors.Single (s => s.playerID == playerID);
 				giver.DidAGoal ();
+				break;
 			}
 		}
 		CompetitorContainer receiver = competitors.Single(s=>s.playerID == gd.goalPlayerID);

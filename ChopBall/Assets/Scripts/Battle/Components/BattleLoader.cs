@@ -11,6 +11,7 @@ public class BattleLoader : MonoBehaviour {
 	public GameObject characterTest;
 	public GameObject goalDefenseTarget;
 	public GameObject ball;
+	public int betweenTargets;
 	//Reads StateData and initializes components, then invokes startGame
 
 	// TODO: TEST: PlayerState.CharID => CharName (CharAttributeData) => Load prefab with name
@@ -193,5 +194,9 @@ public class BattleLoader : MonoBehaviour {
 		}
 		charHand.CharacterAttributes = charAttributes;
 		charHand.Initialize ();
+	}
+
+	private void GenerateTargets(Goal goal){
+		
 	}
 }

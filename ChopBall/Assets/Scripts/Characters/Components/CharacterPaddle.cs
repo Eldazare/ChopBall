@@ -136,7 +136,11 @@ public class CharacterPaddle : MonoBehaviour {
                     Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength;
                     Vector2 distanceFromTip = (hitBody.position - tipPoint);
 
-                    float ballRadius = 0.75f;
+                    //Vector2 distanceFromPivot = (hitBody.position - pivotPoint);
+                    //float distanceMultiplier = distanceFromPivot.magnitude;
+                    //if (Vector2.Dot(distanceFromPivot, paddleVector) < 0) distanceMultiplier = 0;
+
+                    float ballRadius = hitBody.GetComponent<CircleCollider2D>().radius * hitBuffer[i].transform.localScale.y;
 
                     if (distanceFromTip.magnitude <= ballRadius + characterBase.PaddleThickness / 2 && Vector2.Dot(distanceFromTip, paddleVector) > 0f)
                     {
@@ -147,6 +151,7 @@ public class CharacterPaddle : MonoBehaviour {
 
                     //Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);
 
+                    hitBody.velocity = Vector2.zero;
                     hitBody.AddForceAtPosition(hitNormal * characterBase.PaddleForceAmount * hitBody.mass, hitBody.position - hitNormal * ballRadius, ForceMode2D.Impulse);
 
                     Ball hitBall = hitBody.GetComponent<Ball>();

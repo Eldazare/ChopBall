@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CharacterMovement : MonoBehaviour {
 
+    internal bool isDashing = false;
+
     private Vector2 velocity;
     private float angularVelocity;
 
@@ -47,11 +49,13 @@ public class CharacterMovement : MonoBehaviour {
     {
         if (dashTimerElapsed <= 0)
         {
+            isDashing = false;
             velocity.x = inputAxis.x * characterBase.MovementSpeed * characterRigidbody.drag * Time.deltaTime;
             velocity.y = inputAxis.y * characterBase.MovementSpeed * characterRigidbody.drag * Time.deltaTime;
         }
         else
         {
+            isDashing = true;
             velocity.x = dashDirection.x * dashSpeed * characterRigidbody.drag * Time.deltaTime;
             velocity.y = dashDirection.y * dashSpeed * characterRigidbody.drag * Time.deltaTime;
 

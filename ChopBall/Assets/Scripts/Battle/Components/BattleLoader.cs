@@ -80,13 +80,10 @@ public class BattleLoader : MonoBehaviour {
 		Debug.Log ("Active states found: " + activeStates.Count);
 
 		// Team Predistribution
-		List<List<int>> teams = new List<List<int>> ();
+		List<List<int>> teams = new List<List<int>> (4);
 		if (mode == GrandMode.TEAMFFA || mode == GrandMode.TeamVSTeam) {
-			for (int i = 0; i < 4; i++) {
-				teams.Add (new List<int> ());
-			}
-			foreach (var indexi in activeStates) {
-				teams [playerStates [indexi].team].Add (indexi);
+			foreach (var team in CurrentBattleController.GetTeams()) {
+				teams.Add (team.playerIndexes);
 			}
 			teams.RemoveAll (r => r.Count == 0);
 		}

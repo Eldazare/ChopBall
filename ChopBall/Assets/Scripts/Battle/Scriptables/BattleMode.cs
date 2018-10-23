@@ -68,6 +68,7 @@ public class BattleMode : ScriptableObject {
 						teams.Add (new TeamContainer (playerStates [i].team));
 						Debug.Log ("Added team");
 					}
+					teams.Single (s => s.teamID == playerStates [i].team).playerIndexes.Add (i);
 				} else {
 					newCompCont.teamIndex = -1;
 				}
@@ -431,6 +432,7 @@ public class TeamContainer : ICompetitor{
 		goals = 0;
 		score = 0;
 		roundScoreValue = 0;
+		playerIndexes = new List<int> ();
 	}
 
 	public int GetRoundScoreValue(){
@@ -455,6 +457,7 @@ public class TeamContainer : ICompetitor{
 	public int score;
 	public int roundScoreValue;
 	public int endPosition;
+	public List<int> playerIndexes;
 }
 
 public class CompetitorContainer : ICompetitor{

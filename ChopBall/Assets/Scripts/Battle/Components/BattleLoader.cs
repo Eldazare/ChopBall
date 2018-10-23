@@ -191,7 +191,7 @@ public class BattleLoader : MonoBehaviour {
 				renderer.material.color = theColor;
 			}
 		}
-		charHand.Initialize ();
 		charHand.CharacterAttributes = charAttributes;
+		charHand.Initialize ();
 	}
 }

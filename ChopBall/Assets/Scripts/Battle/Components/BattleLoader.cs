@@ -9,6 +9,7 @@ public class BattleLoader : MonoBehaviour {
 	// Currently Initializes shared goals as last player's goal in team list.
 
 	public GameObject characterTest;
+	public GameObject goalDefenseTarget;
 	public GameObject ball;
 	//Reads StateData and initializes components, then invokes startGame
 
@@ -174,6 +175,7 @@ public class BattleLoader : MonoBehaviour {
 		}
 		if (prefab == null) {
 			prefab = characterTest;
+			charAttributes = CharacterAttributeController.GetDefaultChar ();
 		}
 		CharacterHandler charHand = Instantiate (prefab, charSpawnPos, goal.transform.rotation).GetComponent<CharacterHandler> ();
 		charHand.transform.Translate (relativePos);

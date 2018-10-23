@@ -36,15 +36,15 @@ public class CharacterChoiceButtonGenerator : MonoBehaviour {
 	}
 
 	public void InitializeButtonsFromPanel(){
-		CharacterAttributeData[] attributes = CharacterAttributeController.GetCharacters ();
+		List<CharacterAttributeData> attributes = CharacterAttributeController.GetCharacters ();
 		CharacterChoiceButton[] buttons = characterButtonPanel.GetComponentsInChildren<CharacterChoiceButton> ();
 		int indexCap;
-		if (attributes.Length > buttons.Length) {
+		if (attributes.Count > buttons.Length) {
 			indexCap = buttons.Length;
 		} else {
-			indexCap = attributes.Length;
+			indexCap = attributes.Count;
 		}
-		Debug.Log ("Attributes found: " + attributes.Length + " | Buttons found: " + buttons.Length);
+		Debug.Log ("Attributes found: " + attributes.Count + " | Buttons found: " + buttons.Length);
 		for (int i = 0; i < indexCap; i++) {
 			buttons [i].Initialize (i, attributes[i].CharacterPortrait, attributes[i].CharacterName);
 		}

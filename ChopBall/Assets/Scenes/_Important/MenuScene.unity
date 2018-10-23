@@ -396,10 +396,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 1121436739880196, guid: e7bf235e5cf30d44d9151f7e86a50a78, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 114251314262320560, guid: e7bf235e5cf30d44d9151f7e86a50a78,
+        type: 2}
+      propertyPath: previousPanel
+      value: 
+      objectReference: {fileID: 1303799583}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e7bf235e5cf30d44d9151f7e86a50a78, type: 2}
   m_IsPrefabAsset: 0
@@ -1990,7 +1991,6 @@ GameObject:
   - component: {fileID: 197495242}
   - component: {fileID: 197495241}
   - component: {fileID: 197495243}
-  - component: {fileID: 197495244}
   - component: {fileID: 197495245}
   m_Layer: 5
   m_Name: TitleScreen
@@ -2065,33 +2065,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 0}
   masterZone: 1
---- !u!114 &197495244
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 197495239}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35a05154986ce6842a68e08e0e99068a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ResponseToClick:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2029561352}
-        m_MethodName: Forward
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1303799583}
-          m_ObjectArgumentAssemblyTypeName: PanelScript, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!114 &197495245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9616,24 +9589,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224758308860044864, guid: 66ee4e8780be97f46904e98038682390,
     type: 2}
   m_PrefabInternal: {fileID: 1533243719}
---- !u!1 &1563305376 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1121436739880196, guid: e7bf235e5cf30d44d9151f7e86a50a78,
+--- !u!114 &1563305377 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114251314262320560, guid: e7bf235e5cf30d44d9151f7e86a50a78,
     type: 2}
   m_PrefabInternal: {fileID: 22199948}
---- !u!114 &1563305377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1563305376}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c594359c2a917364f9e5c174da2529a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  previousPanel: {fileID: 1303799583}
-  masterZone: 0
 --- !u!224 &1563305381 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224023791148632412, guid: e7bf235e5cf30d44d9151f7e86a50a78,

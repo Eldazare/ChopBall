@@ -329,7 +329,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1813958437218548, guid: 5db5f0a4e9788e34eb2c1872734fa402, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5db5f0a4e9788e34eb2c1872734fa402, type: 2}
@@ -463,7 +463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableMegaTranslators: 1
   numberOfAxes: 6
-  numberOfPlayers: 2
+  numberOfPlayers: 4
   remapButtonPrefab: {fileID: 0}
 --- !u!4 &818321297
 Transform:

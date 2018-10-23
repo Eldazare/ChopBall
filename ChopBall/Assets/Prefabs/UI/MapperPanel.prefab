@@ -22,13 +22,14 @@ GameObject:
   - component: {fileID: 222833281853492252}
   - component: {fileID: 114856374368909696}
   - component: {fileID: 114417716519690964}
+  - component: {fileID: 114251314262320560}
   m_Layer: 5
   m_Name: MapperPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1638746816153808
 GameObject:
   m_ObjectHideFlags: 0
@@ -74,6 +75,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114251314262320560
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1121436739880196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c594359c2a917364f9e5c174da2529a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  previousPanel: {fileID: 0}
+  masterZone: 0
 --- !u!114 &114417716519690964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -87,10 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enableMegaTranslators: 0
   numberOfAxes: 6
-  numberOfPlayers: 2
+  numberOfPlayers: 4
   remapButtonPrefab: {fileID: 1724093830192156, guid: 46ab58c52979fdd4aa60e9dd97c13672,
     type: 2}
-  remapNoneBottomReference: {fileID: 0}
 --- !u!114 &114856374368909696
 MonoBehaviour:
   m_ObjectHideFlags: 1

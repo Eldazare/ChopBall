@@ -39,14 +39,14 @@ public class CharacterHandler : MonoBehaviour {
     private void InitializeComponentData()
     {
         movement.SetCharacterBaseData(characterBase);
-        //movement.SetCharacterAttributeData(CharacterAttributes);
+        movement.SetCharacterAttributeData(CharacterAttributes);
 
         leftPaddle.SetCharacterBaseData(characterBase);
-        //leftPaddle.SetCharacterAttributeData(CharacterAttributes);
+        leftPaddle.SetCharacterAttributeData(CharacterAttributes);
         leftPaddle.SetPlayerID(PlayerID);
 
         rightPaddle.SetCharacterBaseData(characterBase);
-        //rightPaddle.SetCharacterAttributeData(CharacterAttributes);
+        rightPaddle.SetCharacterAttributeData(CharacterAttributes);
         rightPaddle.SetPlayerID(PlayerID);
     }
 

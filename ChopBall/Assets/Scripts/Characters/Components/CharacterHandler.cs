@@ -96,14 +96,22 @@ public class CharacterHandler : MonoBehaviour {
 
                 trail.emitting = false;
             }
-            else trail.emitting = true;
+            else
+            {
+                trail.startWidth = 1f + Mathf.Abs(Vector2.Dot(transform.up, movement.velocity.normalized));
+                trail.endWidth = trail.startWidth;
+                trail.emitting = true;
+            }
 
-            leftPaddle.UpdatePaddle();
-            rightPaddle.UpdatePaddle();
+            //leftPaddle.UpdatePaddle();
+            //rightPaddle.UpdatePaddle();
 
             leftPaddleTriggeredLastFrame = input.PaddleLeft;
             rightPaddleTriggeredLastFrame = input.PaddleRight;
             dashTriggeredLastFrame = input.Dash;
         }
+
+        leftPaddle.UpdatePaddle();
+        rightPaddle.UpdatePaddle();
     }
 }

@@ -193,6 +193,7 @@ public class BattleLoader : MonoBehaviour {
 			}
 		}
 		charHand.CharacterAttributes = charAttributes;
+		//charHand.CharRuntimeMods = RuntimeModifierController.GetAMod (playerIndex + 1);
 		charHand.Initialize ();
 	}
 

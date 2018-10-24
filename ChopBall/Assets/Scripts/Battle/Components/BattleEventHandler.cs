@@ -28,12 +28,14 @@ public class BattleEventHandler : MonoBehaviour {
 	void Update(){
 		if (startGame) {
 			if (!paused) {
+				BuffController.ProgressTime (Time.deltaTime);
 				CurrentBattleController.AdvanceTime (Time.deltaTime);
 			}
 		}
 	}
 
 	public void EndMatch(){
+		BuffController.EndAllBuffs ();
 		SceneManager.LoadScene ("MatchEndScene");
 	}
 }

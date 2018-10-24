@@ -8,6 +8,7 @@ public class CharacterMovement : MonoBehaviour {
 
     private Vector2 velocity;
     private float angularVelocity;
+    private Vector2 appliedForce;
 
     private float rotationAnalogMultiplier;
     private Vector2 lookDirection;
@@ -43,6 +44,8 @@ public class CharacterMovement : MonoBehaviour {
             dashCoolDownElapsed -= Time.deltaTime;
         }
         else dashCoolDownElapsed = 0;
+
+        ApplyDrag();
     }
 
     public void Move(Vector2 inputAxis)
@@ -61,6 +64,8 @@ public class CharacterMovement : MonoBehaviour {
 
             dashTimerElapsed -= Time.deltaTime;
         }
+
+        velocity += appliedForce * characterRigidbody.drag * Time.deltaTime;
 
         characterRigidbody.AddForce(velocity - characterRigidbody.velocity, ForceMode2D.Impulse);
     }
@@ -87,6 +92,8 @@ public class CharacterMovement : MonoBehaviour {
     {
         if (dashCoolDownElapsed <= 0 && dashTimerElapsed <= 0)
         {
+            appliedForce = Vector2.zero;
+
             if (inputAxis.sqrMagnitude > 0)
             {
                 dashDirection.x = inputAxis.x;
@@ -101,6 +108,33 @@ public class CharacterMovement : MonoBehaviour {
             dashSpeed = (characterBase.DashDistance * characterAttributes.DashDistanceMultiplier) / (characterBase.DashTime * characterAttributes.DashTimeMultiplier);
             dashTimerElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier;
             dashCoolDownElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier + characterBase.DashCoolDown * characterAttributes.DashCoolDownMultiplier;
+        }
+    }
+
+    public void AddForce(Vector2 force)
+    {
+        float mass = characterBase.BodyMass * characterAttributes.BodyMassMultiplier;
+        if (mass <= 0f) mass = 0.01f;
+        appliedForce += force / mass;
+    }
+
+    private void ApplyDrag()
+    {
+        if (appliedForce != Vector2.zero)
+        {
+            Vector2 forceBeforeDrag = appliedForce;
+            appliedForce -= characterBase.LinearDrag * characterAttributes.LinearDragMultiplier * Time.deltaTime * appliedForce.normalized;
+            if (Vector2.Dot(forceBeforeDrag, appliedForce) <= 0) appliedForce = Vector2.zero;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isDashing)
+        {
+            isDashing = false;
+            dashTimerElapsed = 0;
+            AddForce(collision.contacts[0].normal * 10f);
         }
     }
 }

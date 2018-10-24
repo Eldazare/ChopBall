@@ -26,3 +26,5 @@ MonoBehaviour:
   DashDistance: 4
   DashTime: 0.1
   DashCoolDown: 1
+  BodyMass: 1
+  LinearDrag: 80

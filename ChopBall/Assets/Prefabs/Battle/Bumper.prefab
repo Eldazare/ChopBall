@@ -68,8 +68,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab53fd209e2395b4590ad37b4fbd4efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ForceAmount: 100
-  MinForce: 2000
+  BallForceAmount: 100
+  BallMinForce: 2000
+  PlayerForceAmount: 20
 --- !u!212 &212899636187107066
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -8,7 +8,10 @@ public class Goal : MonoBehaviour {
 	public GoalEvent goalEvent;
 	public SpriteRenderer goalMarker;
 
+
 	public int goalPlayerID;
+
+	private List<GoalTarget> targets;
 
 	public void Initialize(int playerID, Color32 color){
 		gameObject.GetComponent<BoxCollider2D> ().enabled = true;
@@ -27,6 +30,20 @@ public class Goal : MonoBehaviour {
 			gd.giverPlayerIDs = ball.touchedPlayers;
 			goalEvent.Raise (gd);
 			ball.ResetBallPosition ();
+			ResetGoalTargets ();
+		}
+	}
+
+	public void AddTargetToGoal(GoalTarget target){
+		if (targets == null) {
+			targets = new List<GoalTarget> ();
+		}
+		targets.Add (target);
+	}
+
+	private void ResetGoalTargets(){
+		foreach(var target in targets){
+			target.Activate ();
 		}
 	}
 }

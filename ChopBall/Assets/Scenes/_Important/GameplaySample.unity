@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311918, g: 0.3807398, b: 0.35872716, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -945,6 +945,11 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: 6.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114056829238270820, guid: fd4c9b7c0adaf4441aaa2b7a456df2a0,
+        type: 2}
+      propertyPath: goalPlayerID
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd4c9b7c0adaf4441aaa2b7a456df2a0, type: 2}
   m_IsPrefabAsset: 0
@@ -1258,7 +1263,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1086534036
 Transform:
   m_ObjectHideFlags: 0
@@ -1545,7 +1550,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1471652476
 Transform:
   m_ObjectHideFlags: 0
@@ -2345,6 +2350,11 @@ Prefab:
     - target: {fileID: 4191171895375856, guid: 19ffcf86dfca8b54697986f0e39097cd, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114401007802925684, guid: 19ffcf86dfca8b54697986f0e39097cd,
+        type: 2}
+      propertyPath: betweenTargets
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19ffcf86dfca8b54697986f0e39097cd, type: 2}

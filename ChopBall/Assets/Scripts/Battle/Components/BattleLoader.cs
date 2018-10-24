@@ -11,7 +11,7 @@ public class BattleLoader : MonoBehaviour {
 	public GameObject characterTest;
 	public GameObject goalDefenseTarget;
 	public GameObject ball;
-	public int betweenTargets;
+	public float betweenTargets;
 	//Reads StateData and initializes components, then invokes startGame
 
 	// TODO: TEST: PlayerState.CharID => CharName (CharAttributeData) => Load prefab with name
@@ -107,26 +107,30 @@ public class BattleLoader : MonoBehaviour {
 		}
 					
 		for(int i = 0; i < goals.Length; i++){
+			Color32 theColor = new Color32(0,0,0,0);
 			if (!areAnyActive) {
+				theColor.a = 0;
 				MakeACharacter (goals [i], Vector2.zero, null, new Color32(255,255,255,255), i);
 			} else if (mode == GrandMode.FFA) {
 				if (activeStates.Count > i) {
-					MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates [i]], playerBaseData.playerColors [activeStates [i]], activeStates [i]);
+					theColor = playerBaseData.playerColors [activeStates [i]];
+					MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates [i]], theColor , activeStates [i]);
 				}
 			} else if (mode == GrandMode.TEAMFFA) {
 				if (teams.Count > i) {
-					Color32 color = playerBaseData.teamColors [playerStates [teams [i] [0]].team];
-					MakeMultipleCharacters (goals [i], teams [i], playerStates, color);
+					theColor = playerBaseData.teamColors [playerStates [teams [i] [0]].team];
+					MakeMultipleCharacters (goals [i], teams [i], playerStates, theColor);
 				}
 			} else if (mode == GrandMode.TeamVSTeam) {
 				if (playersInSpawnPoints.Count > i) {
 					if (playersInSpawnPoints [i].Count > 0) {
 						Debug.Log ("i: " + i + " | spawpoints: " + playersInSpawnPoints [i].Count);
-						Color32 color = playerBaseData.teamColors [playerStates [playersInSpawnPoints [i] [0]].team];
-						MakeMultipleCharacters (goals [i], playersInSpawnPoints [i], playerStates, color);
+						theColor = playerBaseData.teamColors [playerStates [playersInSpawnPoints [i] [0]].team];
+						MakeMultipleCharacters (goals [i], playersInSpawnPoints [i], playerStates, theColor);
 					}
 				}
 			}
+			GenerateTargets (goals [i], theColor);
 			nextPlayerStateIndex++;
 		}
 		StartGame.Raise();
@@ -197,7 +201,22 @@ public class BattleLoader : MonoBehaviour {
 		charHand.Initialize ();
 	}
 
-	private void GenerateTargets(Goal goal){
-		
+	private void GenerateTargets(Goal goal, Color32 theColor){
+		Vector3 middlePos = goal.GetComponentInChildren<DefenseTargetSpawnIndicatior> ().GetPosition ();
+		float ySizeTarget = goalDefenseTarget.GetComponent<Renderer>().bounds.size.y + betweenTargets;
+		float ySizeGoal = goal.GetComponent<BoxCollider2D> ().bounds.size.y / 2;
+		int targetCount = Mathf.FloorToInt((ySizeGoal * 2) / ySizeTarget);
+		Vector3 leftPos = middlePos + goal.transform.up  * (ySizeTarget / 2f)*(targetCount-1);
+		Vector3 currentPos = leftPos;
+		for (int i = 0; i < targetCount; i++) {
+			GameObject theTarget = (GameObject)Instantiate (goalDefenseTarget, currentPos, goal.transform.rotation);
+			currentPos += goal.transform.up * -1 * ySizeTarget;
+			if (theColor.a != 0) {
+				theTarget.GetComponent<SpriteRenderer> ().color = theColor;
+				//MeshRenderer renderer = theTarget.GetComponent<MeshRenderer> ();
+				//renderer.material.color = theColor;
+			}
+			goal.AddTargetToGoal (theTarget.GetComponent<GoalTarget>());
+		}
 	}
 }

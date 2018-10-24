@@ -15,7 +15,7 @@ MonoBehaviour:
   PaddleThickness: 0.6
   PaddleUpperAngle: 0
   PaddleLowerAngle: 90
-  PaddleSpeedUp: 15
+  PaddleSpeedUp: 20
   PaddleSpeedDown: 5
   PaddleForceAmount: 25
   PaddleCollisionLayers:

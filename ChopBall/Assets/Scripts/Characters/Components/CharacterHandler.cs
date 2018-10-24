@@ -12,6 +12,8 @@ public class CharacterHandler : MonoBehaviour {
     private CharacterPaddle rightPaddle;
     private InputModel input;
 
+    private TrailRenderer trail;
+
     private bool leftPaddleTriggeredLastFrame = false;
     private bool rightPaddleTriggeredLastFrame = false;
     private bool dashTriggeredLastFrame = false;
@@ -69,6 +71,8 @@ public class CharacterHandler : MonoBehaviour {
 
         movement = GetComponent<CharacterMovement>();
 
+        trail = GetComponentInChildren<TrailRenderer>();
+
         LoadCharacterBase();
         InitializeComponentData();
     }
@@ -89,7 +93,10 @@ public class CharacterHandler : MonoBehaviour {
             {
                 if (input.PaddleLeft && !leftPaddleTriggeredLastFrame) leftPaddle.Hit();
                 if (input.PaddleRight && !rightPaddleTriggeredLastFrame) rightPaddle.Hit();
+
+                trail.emitting = false;
             }
+            else trail.emitting = true;
 
             leftPaddle.UpdatePaddle();
             rightPaddle.UpdatePaddle();

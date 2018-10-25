@@ -8,6 +8,13 @@ public class Bumper : MonoBehaviour {
     public float BallMinForce;
     public float PlayerForceAmount;
 
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
+
 	private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Ball"))
@@ -33,5 +40,7 @@ public class Bumper : MonoBehaviour {
                 charMovement.AddForce(-collision.contacts[0].normal * PlayerForceAmount);
             }
         }
+
+        animator.Play("Bump");
     }
 }

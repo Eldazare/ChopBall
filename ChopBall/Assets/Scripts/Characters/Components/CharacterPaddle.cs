@@ -59,11 +59,15 @@ public class CharacterPaddle : MonoBehaviour {
 
     public void Hit()
     {
-        if (!hitActive)
-        {
-            currentAngularDirection = 1;
-            hitActive = true;
-        }
+        //if (!hitActive)
+        //{
+        //    currentAngularDirection = 1;
+        //    hitActive = true;
+        //}
+        hitObjectIDs.Clear();
+        hitElapsed = 0;
+        currentAngularDirection = 1;
+        hitActive = true;
     }
 
     // Updates the paddles state and transform
@@ -98,7 +102,7 @@ public class CharacterPaddle : MonoBehaviour {
 
             if (currentAngularDirection > 0) CheckPaddleCollisions();
 
-            if (hitActive == false) hitObjectIDs.Clear();
+            //if (hitActive == false) hitObjectIDs.Clear();
         }
         else paddleVector = Rotate(masterTransform.up, targetRotation);
 

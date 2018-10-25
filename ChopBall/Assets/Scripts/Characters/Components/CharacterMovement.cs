@@ -6,8 +6,9 @@ public class CharacterMovement : MonoBehaviour {
 
     internal bool isDashing = false;
 
-    private Vector2 velocity;
-    private float angularVelocity;
+    internal Vector2 velocity;
+    internal float angularVelocity;
+
     private Vector2 appliedForce;
 
     private float rotationAnalogMultiplier;

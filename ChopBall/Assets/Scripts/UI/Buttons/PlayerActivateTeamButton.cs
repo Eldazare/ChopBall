@@ -34,9 +34,9 @@ public class PlayerActivateTeamButton : MonoBehaviour {
 
 	void OnEnable(){
 		stateData.CheckTeamConstraints ();
-		bool latePRight = true;
-		bool latePLeft = true;
-		bool lateStart = true;
+		latePRight = true;
+		latePLeft = true;
+		lateSelect = true;
 		SetTeamPart ();
 		SetCharChoicePart ();
 	}

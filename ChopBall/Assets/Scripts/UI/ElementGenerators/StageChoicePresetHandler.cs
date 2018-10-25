@@ -6,6 +6,7 @@ public class StageChoicePresetHandler : MonoBehaviour {
 
 	public List<ToggleStageButton> buttons;
 
+	public StageTag currentTag;
 	private StageChoicePresetStorage currentPreset;
 	private List<StageData> stages;
 
@@ -20,12 +21,18 @@ public class StageChoicePresetHandler : MonoBehaviour {
 	}
 
 	void Awake(){
+		
 		stages = new List<StageData>(StageDataController.GetStages ());
 	}
 
 	public void ChoosePresetForEdit(int storageIndex){
 		// TODO: Get storage from manager and initialize also the StageTagType choice
 		InitializeButtonsFromPanel(currentPreset.tagForPreset);
+	}
+
+
+	public void SavePreset(int storageIndex){
+		// TODO:
 	}
 
 

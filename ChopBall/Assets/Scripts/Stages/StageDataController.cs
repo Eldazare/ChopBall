@@ -9,7 +9,7 @@ public static class StageDataController {
 
 	private static void LoadStages(){
 		if (stages == null) {
-			stages = Resources.LoadAll ("Scriptables/Stages").Cast<StageData> ().ToArray ();
+			stages = Resources.LoadAll ("Scriptables/Stages/StageData/").Cast<StageData> ().ToArray ();
 		}
 	}
 

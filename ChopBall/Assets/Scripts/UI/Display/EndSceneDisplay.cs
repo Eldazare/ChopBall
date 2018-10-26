@@ -42,9 +42,11 @@ public class EndSceneDisplay : MonoBehaviour {
 		if (displayTextList != null){
 			if (displayTextList.Count > 0) {
 				//Debug.Log ("Height :" + Screen.height + " Width: " + Screen.width);
+				int width = 1920;
+				//int height = 1080;
 				float yPos = 0f;
-				float relativeX = Screen.width / displayTextList.Count;
-				float xPos = Screen.width * -0.5f + relativeX / 2.0f;
+				float relativeX = width / displayTextList.Count;
+				float xPos = width * -0.5f + relativeX / 2.0f;
 				for (int i = 0; i < displayTextList.Count; i++) {
 					displayTextList [i].GetComponent<RectTransform> ().anchoredPosition = new Vector2 (xPos, yPos);
 					xPos += relativeX;

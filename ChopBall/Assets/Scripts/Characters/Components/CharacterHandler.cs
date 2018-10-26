@@ -46,29 +46,29 @@ public class CharacterHandler : MonoBehaviour {
         leftPaddle.SetCharacterBaseData(characterBase);
         leftPaddle.SetCharacterAttributeData(CharacterAttributes);
         leftPaddle.SetPlayerID(PlayerID);
+		leftPaddle.Initialize ();
 
         rightPaddle.SetCharacterBaseData(characterBase);
         rightPaddle.SetCharacterAttributeData(CharacterAttributes);
         rightPaddle.SetPlayerID(PlayerID);
+		rightPaddle.Initialize ();
     }
 
 	public void Initialize()
     {
         CharacterPaddle[] paddles = new CharacterPaddle[2];
         paddles = GetComponents<CharacterPaddle>();
-
-        for (int i = 0; i < paddles.Length; i++)
-        {
-            if (paddles[i].Side == CharacterPaddle.PaddleSide.Left)
-            {
-                leftPaddle = paddles[i];
-            }
-            else
-            {
-                rightPaddle = paddles[i];
-            }
-        }
-
+		for (int i = 0; i < paddles.Length; i++)
+		{
+			if (paddles[i].Side == CharacterPaddle.PaddleSide.Left)
+			{
+				leftPaddle = paddles[i];
+			}
+			else
+			{
+				rightPaddle = paddles[i];
+			}
+		}
         movement = GetComponent<CharacterMovement>();
 
         trail = GetComponentInChildren<TrailRenderer>();

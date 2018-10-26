@@ -20,11 +20,15 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 			if (displayTextList.Count == 0) {
 				return;
 			}
+			int height = 1080;
+			int width = 1920;
 			Debug.Log ("Height :" + Screen.height + " Width: " + Screen.width);
-			float yPos = (float)Screen.height * -0.435f;
-			float relativeX = Screen.width / displayTextList.Count;
-			float xPos = Screen.width * -0.5f+ relativeX / 2.0f;
+
+			float yPos = (float)height * -0.5f+120f;
+			float relativeX = (float)width / displayTextList.Count;
+			float xPos = (float)width * -0.5f + relativeX / 2.0f;
 			for (int i = 0; i < displayTextList.Count; i++) {
+				Debug.Log (xPos + "   " + yPos);
 				displayTextList [i].GetComponent<RectTransform> ().anchoredPosition = new Vector2 (xPos, yPos);
 				xPos += relativeX;
 			}

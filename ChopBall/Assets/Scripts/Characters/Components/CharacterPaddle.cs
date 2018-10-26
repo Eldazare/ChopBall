@@ -42,7 +42,7 @@ public class CharacterPaddle : MonoBehaviour {
         characterAttributes = attributeData;
     }
 
-    private void Start()
+	public void Initialize()
     {
         masterTransform = transform.parent;
         if (!masterTransform) masterTransform = transform;
@@ -75,36 +75,34 @@ public class CharacterPaddle : MonoBehaviour {
     {
         pivotPoint = Pivot.position;
 
-        if (hitActive)
-        {
-            float paddleSpeed = (currentAngularDirection > 0) ?
+		if (hitActive) {
+			float paddleSpeed = (currentAngularDirection > 0) ?
                                 characterBase.PaddleSpeedUp * characterAttributes.PaddleSpeedUpMultiplier : 
                                 characterBase.PaddleSpeedDown * characterAttributes.PaddleSpeedDownMultiplier;
 
-            hitElapsed += paddleSpeed * currentAngularDirection * Time.deltaTime;
+			hitElapsed += paddleSpeed * currentAngularDirection * Time.deltaTime;
 
-            if (hitElapsed >= 1)
-            {
-                hitElapsed = 1;
-                currentAngularDirection = -1;
-            }
-            else if (hitElapsed <= 0 && currentAngularDirection == -1)
-            {
-                hitElapsed = 0;
-                hitActive = false;
-            }
+			if (hitElapsed >= 1) {
+				hitElapsed = 1;
+				currentAngularDirection = -1;
+			} else if (hitElapsed <= 0 && currentAngularDirection == -1) {
+				hitElapsed = 0;
+				hitActive = false;
+			}
 
-            targetRotation = Mathf.Lerp(characterBase.PaddleLowerAngle * characterAttributes.PaddleLowerAngleMultiplier * (float)Side,
-                                        characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier, hitElapsed);
-            currentRotation = targetRotation;
+			targetRotation = Mathf.Lerp (characterBase.PaddleLowerAngle * characterAttributes.PaddleLowerAngleMultiplier * (float)Side,
+				characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier, hitElapsed);
+			currentRotation = targetRotation;
 
-            paddleVector = Rotate(masterTransform.up, targetRotation);
+			paddleVector = Rotate (masterTransform.up, targetRotation);
 
-            if (currentAngularDirection > 0) CheckPaddleCollisions();
+			if (currentAngularDirection > 0)
+				CheckPaddleCollisions ();
 
-            //if (hitActive == false) hitObjectIDs.Clear();
-        }
-        else paddleVector = Rotate(masterTransform.up, targetRotation);
+			//if (hitActive == false) hitObjectIDs.Clear();
+		} else {
+			paddleVector = Rotate (masterTransform.up, targetRotation);
+		}
 
         //Debug.DrawLine(pivotPoint, pivotPoint + paddleVector * characterBase.PaddleLength, Color.green);
         //Debug.DrawLine(pivotPoint - (characterBase.PaddleThickness / 2) * paddleVector, pivotPoint + (characterBase.PaddleLength + characterBase.PaddleThickness / 2) * paddleVector, Color.green);

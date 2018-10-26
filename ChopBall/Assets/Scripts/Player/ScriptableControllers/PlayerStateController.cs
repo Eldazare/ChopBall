@@ -104,9 +104,13 @@ public static class PlayerStateController {
 		List<int> inTeam = new List<int>(4) {0,0,0,0};
 		foreach (var state in states) {
 			if (state.active) {
-				inTeam [state.team]++;
-				if (maxNumber < inTeam [state.team]) {
-					maxNumber = inTeam [state.team];
+				if (state.team >= 0) {
+					inTeam [state.team]++;
+					if (maxNumber < inTeam [state.team]) {
+						maxNumber = inTeam [state.team];
+					}
+				} else {
+					return 1;
 				}
 			}
 		}

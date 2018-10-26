@@ -15,4 +15,4 @@ MonoBehaviour:
   stageSceneName: 2v2Scene
   previewImage: {fileID: 21300000, guid: ddf5ec761c8d47944b754f602aeb57e2, type: 3}
   PrimaryTag: 2
-  SecondaryTags: 0400000001000000
+  SecondaryTags: 040000000100000003000000

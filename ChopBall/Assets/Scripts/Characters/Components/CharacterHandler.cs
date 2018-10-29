@@ -25,6 +25,11 @@ public class CharacterHandler : MonoBehaviour {
         this.input = model;
     }
 
+    public void SetPositionAndRotation(Vector2 position, float rotation)
+    {
+        movement.SetPositionAndRotation(position, rotation);
+    }
+
     private void LoadCharacterBase()
     {
         if (characterBase == null)

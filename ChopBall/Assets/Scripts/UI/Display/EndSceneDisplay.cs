@@ -18,7 +18,7 @@ public class EndSceneDisplay : MonoBehaviour {
 			for (int i = 0; i < teams.Count; i++) {
 				displayTextList.Add (textList [i]);
 				displayTextList [i].gameObject.SetActive (true);
-				displayTextList [i].color = pBaseData.playerColors [competitors [i].playerID - 1];
+				displayTextList [i].color = pBaseData.teamColors [teams [i].teamID];
 				displayTextList [i].text = "Team " + teams [i].teamID + ":\n"
 				+ "Position: " + teams [i].endPosition + "\n"
 				+ "Score: " + teams [i].score + "\n";

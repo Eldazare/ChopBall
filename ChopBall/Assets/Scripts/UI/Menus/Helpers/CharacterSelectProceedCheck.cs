@@ -5,11 +5,11 @@ using UnityEngine.UI;
 
 public class CharacterSelectProceedCheck : MonoBehaviour {
 
-	private Image image;
+	private Image[] image;
 	private Text text;
 
 	void Awake(){
-		image = GetComponent<Image> ();
+		image = GetComponentsInChildren<Image> ();
 		text = GetComponentInChildren<Text> ();
 		CheckProceedState ();
 	}
@@ -23,7 +23,9 @@ public class CharacterSelectProceedCheck : MonoBehaviour {
 	}
 
 	private void EnableObject(bool active){
-		image.enabled = active;
+		foreach (var imag in image) {
+			imag.enabled = active;
+		}
 		text.enabled = active;
 	}
 }

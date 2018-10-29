@@ -13,4 +13,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Royston
   CharacterPrefabName: GenericCharacter
-  CharacterPortrait: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  CharacterPortrait: {fileID: 21300000, guid: 3db78b1a2b780dd4980c07d916d5aa3e, type: 3}
+  PaddleLengthMultiplier: 1
+  PaddleThicknessMultiplier: 1
+  PaddleUpperAngleMultiplier: 1
+  PaddleLowerAngleMultiplier: 1
+  PaddleSpeedUpMultiplier: 1
+  PaddleSpeedDownMultiplier: 1
+  PaddleForceMultiplier: 1
+  MovementSpeedMultiplier: 1
+  RotationSpeedMultiplier: 1
+  DashDistanceMultiplier: 1
+  DashTimeMultiplier: 1
+  DashCoolDownMultiplier: 1
+  BodyMassMultiplier: 1
+  LinearDragMultiplier: 1

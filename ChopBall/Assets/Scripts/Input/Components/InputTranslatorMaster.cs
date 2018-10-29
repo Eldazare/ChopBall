@@ -9,6 +9,7 @@ public class InputTranslatorMaster : MonoBehaviour {
 	private bool CheckForControllers = false;
 	private InputTranslator[] translators;
 	private bool[] connectedControllers = { false, false, false, false };
+	private static bool[] modelsPut = { false, false, false, false };
 
 	public void StartChecking (){
 		CheckForControllers = true;
@@ -19,14 +20,20 @@ public class InputTranslatorMaster : MonoBehaviour {
 		string[] JoyNames = Input.GetJoystickNames ();
 		for (int i = 0; i < JoyNames.Length; i++) {
 			if (!string.IsNullOrEmpty (JoyNames [i])) {
-				if (connectedControllers [i] == false) {
-					Debug.Log ("Trying: "+ JoyNames [i]);
-					if (InputStorageController.SetModelToStorage ((i + 1), JoyNames [i])) {
-						connectedControllers [i] = true;
-						Debug.Log ("Joystick " + i + " Connected");
+				if (!connectedControllers [i]) {
+					if (!modelsPut [i]) {
+						Debug.Log ("Trying: " + JoyNames [i]);
+						if (InputStorageController.SetModelToStorage ((i + 1), JoyNames [i])) {
+							modelsPut [i] = true;
+							Debug.Log ("Joystick " + i + " Connected");
+							connectedControllers [i] = true;
+							translators [i].enabled = true;
+						}
+					} else {
 						translators [i].enabled = true;
+						connectedControllers [i] = true;
 					}
-				}
+				} 
 			} else {
 				if (connectedControllers[i] == true) {
 					Debug.Log ("Joystick " + i + " Disconnected");

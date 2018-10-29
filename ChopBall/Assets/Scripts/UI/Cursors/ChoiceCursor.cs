@@ -11,6 +11,7 @@ public class ChoiceCursor : _Cursor {
 	override
 	protected void Awake(){
 		base.Awake ();
+		GetComponent<Image> ().color = ((PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData")).playerColors [playerID - 1];
 		stateData = PlayerStateController.GetAState(playerID);
 	}
 

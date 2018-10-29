@@ -36,7 +36,7 @@ public class MasterStateData : ScriptableObject {
 
 	private BattleModeBlueprint DefaultBP(){
 		BattleModeBlueprint newBP = new BattleModeBlueprint ();
-		newBP.countObject = CountObject.Stocks;
+		newBP.countObject = CountObject.Lives;
 		newBP.roundEnd = RoundEnd.Timer;
 		newBP.roundEndCap = 3; // Starting stock or goalCap, per round
 		newBP.timer = new ATime(0, 30f);

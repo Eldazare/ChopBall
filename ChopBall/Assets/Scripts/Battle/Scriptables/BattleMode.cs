@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public enum CountObject{Stocks, Goals}
+public enum CountObject{Lives, Goals}
 public enum RoundEnd{Elimination, Cap, Timer}
 public enum MatchEnd{Rounds, ScoreCap}
 public enum ScoringMode{WinnerOnly, PerPosition, Direct1to1}
@@ -59,7 +59,7 @@ public class BattleMode : ScriptableObject {
 		for (int i = 0; i<playerStates.Length; i++) {
 			if (playerStates[i].active) {
 				CompetitorContainer newCompCont = new CompetitorContainer (i+1);
-				if (countObject == CountObject.Stocks) {
+				if (countObject == CountObject.Lives) {
 					newCompCont.SetStock (roundEndCap);
 				}
 				if (masterData.teams) {
@@ -82,11 +82,9 @@ public class BattleMode : ScriptableObject {
 	public void DoGoal(GoalData gd){
 		if (teams != null) {
 			foreach (var playerID in gd.giverPlayerIDs) {
-				foreach (CompetitorContainer competitor in competitors) {
-					if (competitors.Single(s=>s.playerID == playerID).teamIndex != competitors.Single(s=>s.playerID == gd.goalPlayerID).teamIndex) {
-						teams.Single(t=>t.teamID == competitors.Single(s=>s.playerID == playerID).teamIndex).TeamDidAGoal ();
-							break;
-						}
+				if (competitors.Single(s=>s.playerID == playerID).teamIndex != competitors.Single(s=>s.playerID == gd.goalPlayerID).teamIndex) {
+					teams.Single(t=>t.teamID == competitors.Single(s=>s.playerID == playerID).teamIndex).TeamDidAGoal ();
+					break;
 				}
 			}
 		}
@@ -144,7 +142,7 @@ public class BattleMode : ScriptableObject {
 			case CountObject.Goals:
 				competitor.roundScoreValue = competitor.goalsScored;
 				break;
-			case CountObject.Stocks:
+			case CountObject.Lives:
 				if (competitor.roundScoreValue == 0) {
 					competitor.roundScoreValue = competitor.stock;
 				}
@@ -390,7 +388,7 @@ public class BattleMode : ScriptableObject {
 	}
 
 	public bool CheckRoundEndElimination(CompetitorContainer goalReceiver){
-		if (roundEnd == RoundEnd.Elimination && countObject == CountObject.Stocks) {
+		if (roundEnd == RoundEnd.Elimination && countObject == CountObject.Lives) {
 			if (teams != null) {
 				foreach (CompetitorContainer competitor in competitors) {
 					if (competitor.teamIndex == goalReceiver.teamIndex) {

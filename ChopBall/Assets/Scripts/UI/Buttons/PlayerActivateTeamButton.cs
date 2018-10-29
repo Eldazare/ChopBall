@@ -73,8 +73,9 @@ public class PlayerActivateTeamButton : MonoBehaviour {
 
 	private void ActivateState(bool active){
 		PlayerStateController.SetStateActive (playerID - 1, active);
-		GetComponent<Image>().enabled = active;
-		text.enabled = active;
+		//GetComponent<Image>().enabled = active;
+		//text.enabled = active;
+		SetString ();
 	}
 
 	private void ChangeTeam(bool incDec){
@@ -103,7 +104,11 @@ public class PlayerActivateTeamButton : MonoBehaviour {
 	}
 
 	private void SetString(){
-		text.text = baseStr + teamPart + characterChoicePart;
+		if (stateData.active) {
+			text.text = baseStr + teamPart + characterChoicePart;
+		} else {
+			text.text = "Press SELECT to join!";
+		}
 	}
 
 	public void SetColor(Color32 color){

@@ -33,7 +33,7 @@ public class CharacterMovement : MonoBehaviour {
         characterAttributes = attributeData;
     }
 
-    public void Reset()
+    public void ResetMovement()
     {
         isDashing = false;
         velocity = Vector2.zero;
@@ -46,7 +46,7 @@ public class CharacterMovement : MonoBehaviour {
 
     public void SetPositionAndRotation(Vector2 position, float rotation)
     {
-        Reset();
+        ResetMovement();
         characterRigidbody.position = position;
         characterRigidbody.rotation = rotation;
     }

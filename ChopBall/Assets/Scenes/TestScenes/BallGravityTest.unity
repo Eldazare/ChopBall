@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44949424, g: 0.4964906, b: 0.5591459, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -183,13 +183,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1613418862}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: -25}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -10, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!1001 &1623188277
 Prefab:
   m_ObjectHideFlags: 0
@@ -236,20 +236,25 @@ Prefab:
     - target: {fileID: 114092949199241912, guid: 1d73ec1043c5c7d4c901d0a183048efa,
         type: 2}
       propertyPath: Gravity
-      value: 2
+      value: 9.81
       objectReference: {fileID: 0}
     - target: {fileID: 114092949199241912, guid: 1d73ec1043c5c7d4c901d0a183048efa,
         type: 2}
       propertyPath: Bounce
-      value: 0.5
+      value: 0.9
       objectReference: {fileID: 0}
     - target: {fileID: 4720787706483268, guid: 1d73ec1043c5c7d4c901d0a183048efa, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 114092949199241912, guid: 1d73ec1043c5c7d4c901d0a183048efa,
         type: 2}
       propertyPath: MaxHeight
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114092949199241912, guid: 1d73ec1043c5c7d4c901d0a183048efa,
+        type: 2}
+      propertyPath: StartHeight
       value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -314,10 +319,10 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1994964101}
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.16773126, y: 0.044943444, z: -0.25488698, w: 0.95125127}
+  m_LocalPosition: {x: 0, y: 20, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: -30.000002}

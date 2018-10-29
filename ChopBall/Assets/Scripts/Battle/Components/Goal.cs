@@ -11,13 +11,20 @@ public class Goal : MonoBehaviour {
 
 	public int goalPlayerID;
 
+    private Vector2 characterSpawnPoint;
+
 	private List<GoalTarget> targets;
+    private List<CharacterHandler> charactersInArea;
+    private GoalAreaCheck areaCheck;
 
 	public void Initialize(int playerID, Color32 color){
 		gameObject.GetComponent<BoxCollider2D> ().enabled = true;
 		goalMarker.enabled = true;
 		goalMarker.color = color;
 		goalPlayerID = playerID;
+        characterSpawnPoint = GetComponentInChildren<CharacterSpawnIndicator>().transform.position;
+        charactersInArea = new List<CharacterHandler>(16);
+        areaCheck = GetComponentInChildren<GoalAreaCheck>();
 	}
 
 	// Dunno if this is good way to do this
@@ -31,6 +38,7 @@ public class Goal : MonoBehaviour {
 			goalEvent.Raise (gd);
 			ball.ResetBallPosition ();
 			ResetGoalTargets ();
+            EvictCharactersFromArea();
 		}
 	}
 
@@ -46,4 +54,15 @@ public class Goal : MonoBehaviour {
 			target.Activate ();
 		}
 	}
+
+    private void EvictCharactersFromArea()
+    {
+        charactersInArea.Clear();
+        charactersInArea = areaCheck.GetCharactersInArea();
+
+        foreach (CharacterHandler c in charactersInArea)
+        {
+            c.SetPositionAndRotation(characterSpawnPoint, 0f);
+        }
+    }
 }

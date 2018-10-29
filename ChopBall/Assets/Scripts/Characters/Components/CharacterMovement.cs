@@ -33,6 +33,24 @@ public class CharacterMovement : MonoBehaviour {
         characterAttributes = attributeData;
     }
 
+    public void Reset()
+    {
+        isDashing = false;
+        velocity = Vector2.zero;
+        angularVelocity = 0f;
+        characterRigidbody.velocity = Vector2.zero;
+        characterRigidbody.angularVelocity = 0f;
+        appliedForce = Vector2.zero;
+        dashTimerElapsed = 0f;
+    }
+
+    public void SetPositionAndRotation(Vector2 position, float rotation)
+    {
+        Reset();
+        characterRigidbody.position = position;
+        characterRigidbody.rotation = rotation;
+    }
+
     private void Awake()
     {
         characterRigidbody = GetComponent<Rigidbody2D>();

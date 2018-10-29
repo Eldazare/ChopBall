@@ -8,6 +8,7 @@ public class BattleEventHandler : MonoBehaviour {
 	public GameEvent GameEndEvent;
 	private bool paused = false;
 	private bool startGame = false;
+	float time;
 
 	public void PauseGame(){
 		if (paused == true) {
@@ -28,8 +29,10 @@ public class BattleEventHandler : MonoBehaviour {
 	void Update(){
 		if (startGame) {
 			if (!paused) {
-				BuffController.ProgressTime (Time.deltaTime);
-				CurrentBattleController.AdvanceTime (Time.deltaTime);
+				time = Time.deltaTime;
+				BuffController.ProgressTime (time);
+				CurrentBattleController.ProgressTime (time);
+				RuntimeModifierController.ProgressTime (time);
 			}
 		}
 	}

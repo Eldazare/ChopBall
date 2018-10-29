@@ -114,7 +114,7 @@ public class BattleMode : ScriptableObject {
 		StatsUpdated.Raise ();
 	}
 
-	public void AdvanceTime(float deltaTime){
+	public void ProgressTime(float deltaTime){
 		if (useTimer) {
 			if (!suddenDeath) {
 				secondsLeft -= deltaTime;

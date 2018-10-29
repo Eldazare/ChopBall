@@ -27,9 +27,9 @@ public static class CurrentBattleController  {
 		currentBattle.DoGoal (goalData);
 	}
 		
-	public static void AdvanceTime(float deltaTime){
+	public static void ProgressTime(float deltaTime){
 		LoadCurrentBattle ();
-		currentBattle.AdvanceTime (deltaTime);
+		currentBattle.ProgressTime (deltaTime);
 	}
 
 	public static ATime GetATime(){

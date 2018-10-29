@@ -32,6 +32,7 @@ public class BattleLoader : MonoBehaviour {
 	private List<List<int>> playersInSpawnPoints;
 
 	void Start () {
+		RuntimeModifierController.ClearAttributeDatas ();
 		CurrentBattleController.InitializeCurrentData ();
 		GrandMode mode = MasterStateController.GetTheMasterData ().mode;
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates ();
@@ -175,6 +176,7 @@ public class BattleLoader : MonoBehaviour {
 		if (stateData != null) {
 			charAttributes = CharacterAttributeController.GetACharacter (stateData.characterChoice);
 			if (charAttributes != null) {
+				RuntimeModifierController.AddAttributeData (charAttributes, playerIndex);
 				prefab = (GameObject)Resources.Load (CharacterAttributeController.GetCharacterPrefabPreString () + charAttributes.CharacterPrefabName);
 			}
 		}

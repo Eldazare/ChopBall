@@ -7,6 +7,10 @@ public class CharacterBaseData : ScriptableObject {
 
     // BASE DATA
 
+	[Header("General")]
+	public float StaminaMax;
+	public float StaminaRegen;
+
     [Header("Paddles")]
     public float PaddleLength;
     public float PaddleThickness;

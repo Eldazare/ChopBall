@@ -12,6 +12,10 @@ public class CharacterAttributeData : ScriptableObject {
 	public string CharacterPrefabName;
 	public Sprite CharacterPortrait;
 
+	[Header("General")]
+	public float StaminaMax = 1f;
+	public float StaminaRegen = 1f; 
+
     [Header("Paddles")]
     public float PaddleLengthMultiplier = 1f;
     public float PaddleThicknessMultiplier = 1f;

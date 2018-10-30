@@ -9,6 +9,9 @@ public class CharacterPaddle : MonoBehaviour {
     public PaddleSide Side = PaddleSide.Left;
     public Transform Pivot;
 
+    internal bool isCharging = false;
+    internal bool hitActive = false;
+
     private float currentRotation;
     private float targetRotation;
     private float currentAngularDirection;
@@ -17,8 +20,8 @@ public class CharacterPaddle : MonoBehaviour {
     private Vector2 pivotPoint;
     private Transform masterTransform;
 
-    private bool hitActive = false;
     private float hitElapsed = 0f;
+    private bool hitIsCharged = false;
 
     private RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     private List<int> hitObjectIDs = new List<int>(16);
@@ -57,17 +60,16 @@ public class CharacterPaddle : MonoBehaviour {
         paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier - currentRotation);
     }
 
-    public void Hit()
+    public void Hit(bool charged = false)
     {
-        //if (!hitActive)
-        //{
-        //    currentAngularDirection = 1;
-        //    hitActive = true;
-        //}
-        hitObjectIDs.Clear();
-        hitElapsed = 0;
-        currentAngularDirection = 1;
-        hitActive = true;
+        if (!hitActive || !hitIsCharged)
+        {
+            hitObjectIDs.Clear();
+            hitElapsed = 0;
+            hitIsCharged = charged;
+            currentAngularDirection = 1;
+            hitActive = true;
+        }
     }
 
     // Updates the paddles state and transform
@@ -88,6 +90,7 @@ public class CharacterPaddle : MonoBehaviour {
 			} else if (hitElapsed <= 0 && currentAngularDirection == -1) {
 				hitElapsed = 0;
 				hitActive = false;
+                hitIsCharged = false;
 			}
 
 			targetRotation = Mathf.Lerp (characterBase.PaddleLowerAngle * characterAttributes.PaddleLowerAngleMultiplier * (float)Side,
@@ -143,21 +146,29 @@ public class CharacterPaddle : MonoBehaviour {
                     // Calculate the hit normal based on the direction of the hit
                     Vector2 hitNormal;
 
-                    Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier;
-                    Vector2 distanceFromTip = (hitBody.position - tipPoint);
-
-                    //Vector2 distanceFromPivot = (hitBody.position - pivotPoint);
-                    //float distanceMultiplier = distanceFromPivot.magnitude;
-                    //if (Vector2.Dot(distanceFromPivot, paddleVector) < 0) distanceMultiplier = 0;
-
-                    float ballRadius = hitBody.GetComponent<CircleCollider2D>().radius * hitBuffer[i].transform.localScale.y;
-
-                    if (distanceFromTip.magnitude <= ballRadius + (characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier) / 2 && Vector2.Dot(distanceFromTip, paddleVector) > 0f)
+                    if (!hitIsCharged)
                     {
-                        //Debug.Log("tip hit");
-                        hitNormal = distanceFromTip.normalized;
+                        Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier;
+                        Vector2 distanceFromTip = (hitBody.position - tipPoint);
+
+                        //Vector2 distanceFromPivot = (hitBody.position - pivotPoint);
+                        //float distanceMultiplier = distanceFromPivot.magnitude;
+                        //if (Vector2.Dot(distanceFromPivot, paddleVector) < 0) distanceMultiplier = 0;
+
+                        float ballRadius = hitBody.GetComponent<CircleCollider2D>().radius * hitBuffer[i].transform.localScale.y;
+
+                        if (distanceFromTip.magnitude <= ballRadius + (characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier) / 2 && Vector2.Dot(distanceFromTip, paddleVector) > 0f)
+                        {
+                            //Debug.Log("tip hit");
+                            hitNormal = distanceFromTip.normalized;
+                        }
+                        else hitNormal = new Vector2(-paddleVector.y, paddleVector.x).normalized * paddleHitDirection;
                     }
-                    else hitNormal = new Vector2(-paddleVector.y, paddleVector.x).normalized * paddleHitDirection;
+                    else
+                    {
+                        //Debug.Log("Charge shot");
+                        hitNormal = masterTransform.up;
+                    }
 
                     //Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);
 
@@ -167,7 +178,7 @@ public class CharacterPaddle : MonoBehaviour {
                                                 ForceMode2D.Impulse);
 
                     Ball hitBall = hitBody.GetComponent<Ball>();
-                    if (hitBall) hitBall.GetPlayerPaddleTouch(playerID);
+                    if (hitBall) hitBall.GetPlayerPaddleTouch(playerID, hitIsCharged);
 
                     hitObjectIDs.Add(hitObjectID);
                 }

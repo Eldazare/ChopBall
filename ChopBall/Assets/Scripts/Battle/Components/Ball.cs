@@ -9,8 +9,9 @@ public class Ball : MonoBehaviour {
 	public List<Vector3> startPositions;
 	public List<int> touchedPlayers = new List<int>(16);
 
-	private GameObject preSpawnIndicatorInstance;
+    private bool charged = false;
 
+	private GameObject preSpawnIndicatorInstance;
 
 	public void ResetBallPosition(){
 		StartCoroutine (ResetEnumerator ());
@@ -26,11 +27,12 @@ public class Ball : MonoBehaviour {
 		preSpawnIndicatorInstance.SetActive (false);
 	}
 
-	public void GetPlayerPaddleTouch(int playerID){
+	public void GetPlayerPaddleTouch(int playerID, bool chargeShot = false){
 		if (touchedPlayers.Contains(playerID)) {
 			touchedPlayers.Remove (playerID);
 		}
 		touchedPlayers.Insert (0, playerID);
+        charged = chargeShot;
 	}
 
 	private IEnumerator ResetEnumerator(){

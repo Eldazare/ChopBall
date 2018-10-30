@@ -15,8 +15,8 @@ public class CharacterHandler : MonoBehaviour {
 
     private TrailRenderer trail;
 
-    private bool leftPaddleTriggeredLastFrame = false;
-    private bool rightPaddleTriggeredLastFrame = false;
+    private bool leftPaddleInputLastFrame = false;
+    private bool rightPaddleInputLastFrame = false;
     private bool dashTriggeredLastFrame = false;
 
     private CharacterBaseData characterBase;
@@ -66,6 +66,7 @@ public class CharacterHandler : MonoBehaviour {
 	private void LoadCharacterStates(){
 		characterStates = CharacterStateController.GetCharStates ();
 		currentState = characterStates [0];
+        currentState.OnStateEnter(PlayerID);
 	}
 
 	public void Initialize()
@@ -118,8 +119,46 @@ public class CharacterHandler : MonoBehaviour {
 			}
 			else if (currentState.canPaddle)
             {
-                if (input.PaddleLeft && !leftPaddleTriggeredLastFrame) leftPaddle.Hit();
-                if (input.PaddleRight && !rightPaddleTriggeredLastFrame) rightPaddle.Hit();
+                if (input.PaddleLeft)
+                {
+                    if (!leftPaddleInputLastFrame) leftPaddle.Hit();
+                    else if (!leftPaddle.hitActive)
+                    {
+                        //Debug.Log("Charging left");
+                        leftPaddle.isCharging = true;
+                        if (!rightPaddle.isCharging) TransitionToState(CharacterStateEnum.Charge);
+                    }
+                }
+                else
+                {
+                    if (leftPaddleInputLastFrame && leftPaddle.isCharging)
+                    {
+                        //Debug.Log("Charge shot left");
+                        leftPaddle.Hit(true);
+                        leftPaddle.isCharging = false;
+                        if (!rightPaddle.isCharging) TransitionToState(CharacterStateEnum.Default);
+                    }
+                }
+                if(input.PaddleRight)
+                {
+                    if (!rightPaddleInputLastFrame) rightPaddle.Hit();
+                    else if (!rightPaddle.hitActive)
+                    {
+                        //Debug.Log("Charging right");
+                        rightPaddle.isCharging = true;
+                        if (!leftPaddle.isCharging) TransitionToState(CharacterStateEnum.Charge);
+                    }
+                }
+                else
+                {
+                    if (rightPaddleInputLastFrame && rightPaddle.isCharging)
+                    {
+                        //Debug.Log("Charge shot right");
+                        rightPaddle.Hit(true);
+                        rightPaddle.isCharging = false;
+                        if (!leftPaddle.isCharging) TransitionToState(CharacterStateEnum.Default);
+                    }
+                }
 
                 trail.emitting = false;
             }
@@ -130,9 +169,11 @@ public class CharacterHandler : MonoBehaviour {
             //leftPaddle.UpdatePaddle();
             //rightPaddle.UpdatePaddle();
 
-            leftPaddleTriggeredLastFrame = input.PaddleLeft;
-            rightPaddleTriggeredLastFrame = input.PaddleRight;
+            leftPaddleInputLastFrame = input.PaddleLeft;
+            rightPaddleInputLastFrame = input.PaddleRight;
             dashTriggeredLastFrame = input.Dash;
+
+            //Debug.Log("State: " + currentState);
         }
 
         leftPaddle.UpdatePaddle();

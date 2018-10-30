@@ -6,6 +6,7 @@ public class CharacterHandler : MonoBehaviour {
 
     public int PlayerID;
     public CharacterAttributeData CharacterAttributes;
+	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
 
     private CharacterMovement movement;
     private CharacterPaddle leftPaddle;
@@ -19,6 +20,9 @@ public class CharacterHandler : MonoBehaviour {
     private bool dashTriggeredLastFrame = false;
 
     private CharacterBaseData characterBase;
+
+	private CharacterState currentState;
+	private CharacterState[] characterStates;
 
     public void SetInputModel(InputModel model)
     {
@@ -59,6 +63,11 @@ public class CharacterHandler : MonoBehaviour {
 		rightPaddle.Initialize ();
     }
 
+	private void LoadCharacterStates(){
+		characterStates = CharacterStateController.GetCharStates ();
+		currentState = characterStates [0];
+	}
+
 	public void Initialize()
     {
         CharacterPaddle[] paddles = new CharacterPaddle[2];
@@ -80,33 +89,39 @@ public class CharacterHandler : MonoBehaviour {
 
         LoadCharacterBase();
         InitializeComponentData();
+		LoadCharacterStates ();
     }
 
     private void FixedUpdate()
     {
         if (input != null)
         {
-            if (input.Dash && !dashTriggeredLastFrame)
+			if (input.Dash && !dashTriggeredLastFrame && currentState.canDash)
             {
                 movement.Dash(input.leftDirectionalInput);
             }
 
-            movement.Move(input.leftDirectionalInput);
+			movement.Move(input.leftDirectionalInput*currentState.stateMovementModifier);
             movement.Rotate(input.rightDirectionalInput);
 
-            if (!movement.isDashing)
+			if (movement.isDashing)
+			{
+				trail.startWidth = 1f + Mathf.Abs(Vector2.Dot(transform.up, movement.velocity.normalized));
+				trail.endWidth = trail.startWidth;
+				trail.emitting = true;
+			}
+			else if (currentState.canPaddle)
             {
                 if (input.PaddleLeft && !leftPaddleTriggeredLastFrame) leftPaddle.Hit();
                 if (input.PaddleRight && !rightPaddleTriggeredLastFrame) rightPaddle.Hit();
 
                 trail.emitting = false;
             }
-            else
-            {
-                trail.startWidth = 1f + Mathf.Abs(Vector2.Dot(transform.up, movement.velocity.normalized));
-                trail.endWidth = trail.startWidth;
-                trail.emitting = true;
-            }
+
+			// TODO: Implement currentState.blocking;
+			// TODO: Implement state changes. Example:
+			// currentState = characterStates[(int)CharacterStateEnum.Block];
+			// can assume that characterStates are indexed according to the enum (check CharacterStateController for the check)
 
             //leftPaddle.UpdatePaddle();
             //rightPaddle.UpdatePaddle();

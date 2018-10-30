@@ -92,6 +92,12 @@ public class CharacterHandler : MonoBehaviour {
 		LoadCharacterStates ();
     }
 
+	private void TransitionToState(CharacterStateEnum enu){
+		currentState.OnStateExit (PlayerID);
+		currentState = characterStates [(int)enu];
+		currentState.OnStateEnter (PlayerID);
+	}
+
     private void FixedUpdate()
     {
         if (input != null)
@@ -119,9 +125,7 @@ public class CharacterHandler : MonoBehaviour {
             }
 
 			// TODO: Implement currentState.blocking;
-			// TODO: Implement state changes. Example:
-			// currentState = characterStates[(int)CharacterStateEnum.Block];
-			// can assume that characterStates are indexed according to the enum (check CharacterStateController for the check)
+			// TODO: Implement state changes. (Transition method is done)
 
             //leftPaddle.UpdatePaddle();
             //rightPaddle.UpdatePaddle();

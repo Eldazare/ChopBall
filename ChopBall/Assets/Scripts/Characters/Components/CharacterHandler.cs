@@ -66,6 +66,7 @@ public class CharacterHandler : MonoBehaviour {
 	private void LoadCharacterStates(){
 		characterStates = CharacterStateController.GetCharStates ();
 		currentState = characterStates [0];
+		currentState.OnStateEnter (PlayerID);
 	}
 
 	public void Initialize()

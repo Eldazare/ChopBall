@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterRuntimeModifiers : ScriptableObject {
 
 	[Header("NonMultipliers")]
-	public float stamina = 100;
+	public float stamina = 0;
 
 	[Header("Multipliers")]
 	public float movespeedMod = 1;
@@ -15,7 +15,7 @@ public class CharacterRuntimeModifiers : ScriptableObject {
 
 
 	public void SetDefaults(){
-		stamina = 100;
+		stamina = 0;
 		movespeedMod = 1;
 		staminaRegen = 1;
 	}

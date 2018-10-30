@@ -31,7 +31,11 @@ public class BattleLoader : MonoBehaviour {
 
 	private List<List<int>> playersInSpawnPoints;
 
+
+	CharacterBaseData charBaseData;
+
 	void Start () {
+		charBaseData = (CharacterBaseData)Resources.Load ("Scriptables/_BaseDatas/CharacterBaseData");
 		RuntimeModifierController.ClearAttributeDatas ();
 		CurrentBattleController.InitializeCurrentData ();
 		GrandMode mode = MasterStateController.GetTheMasterData ().mode;
@@ -183,6 +187,7 @@ public class BattleLoader : MonoBehaviour {
 		if (prefab == null) {
 			prefab = characterTest;
 			charAttributes = CharacterAttributeController.GetDefaultChar ();
+			RuntimeModifierController.AddAttributeData (charAttributes, playerIndex);
 		}
 		CharacterHandler charHand = Instantiate (prefab, charSpawnPos, goal.transform.rotation).GetComponent<CharacterHandler> ();
 		charHand.transform.Translate (relativePos);
@@ -201,6 +206,13 @@ public class BattleLoader : MonoBehaviour {
 		charHand.CharacterAttributes = charAttributes;
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);
 		charHand.Initialize ();
+
+		// DEBUG
+		float staminaMax = charBaseData.StaminaMax;
+		if (charAttributes != null) {
+			staminaMax *= charAttributes.StaminaMax;
+		}
+		charHand.GetComponent<StaminaDisplay> ().Initialize (RuntimeModifierController.GetAMod (playerIndex + 1), staminaMax);
 	}
 
 	private void GenerateTargets(Goal goal, Color32 theColor){

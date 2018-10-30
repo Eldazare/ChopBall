@@ -55,6 +55,10 @@ public static class RuntimeModifierController {
 		for (int i = 1; i < modControllers.Length; i++) {
 			if (charAttributeList [i - 1] != null) {
 				modControllers [i].stamina += deltaTimeBase * charAttributeList [i - 1].StaminaRegen * modControllers[i].staminaRegen;
+				Debug.Log (deltaTimeBase * charAttributeList [i - 1].StaminaRegen * modControllers [i].staminaRegen);
+				if (modControllers [i].stamina > charBaseData.StaminaMax * charAttributeList [i - 1].StaminaMax) {
+					modControllers [i].stamina = charBaseData.StaminaMax * charAttributeList [i - 1].StaminaMax;
+				}
 			}
 		}
 	}

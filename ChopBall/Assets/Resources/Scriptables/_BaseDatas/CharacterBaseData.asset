@@ -11,6 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a84c1bc7ec2480f48911f918b1f301d0, type: 3}
   m_Name: CharacterBaseData
   m_EditorClassIdentifier: 
+  StaminaMax: 100
+  StaminaRegen: 33
   PaddleLength: 1.5
   PaddleThickness: 0.6
   PaddleUpperAngle: 0

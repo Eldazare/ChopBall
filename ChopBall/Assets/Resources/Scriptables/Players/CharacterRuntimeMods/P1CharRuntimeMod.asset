@@ -11,4 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ac55fcb719c2b34487e2a1e03ec2b1f, type: 3}
   m_Name: P1CharRuntimeMod
   m_EditorClassIdentifier: 
+  stamina: 100
   movespeedMod: 1
+  staminaRegen: 1

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   identifier: 0
   stateMovementModifier: 1
+  staminaRegenBuffMagnitude: 1
   canPaddle: 1
   canDash: 1
   blocking: 0

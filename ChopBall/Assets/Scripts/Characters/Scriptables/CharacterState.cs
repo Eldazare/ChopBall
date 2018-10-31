@@ -13,7 +13,7 @@ public class CharacterState : ScriptableObject {
 	public bool canDash;
 	public bool blocking;
 
-	private StaminaRegenBuff stamBuff; 
+	private StaminaRegenBuff stamBuff;
 
 	private void Initialize(){
 		if (stamBuff == null) {

@@ -44,7 +44,8 @@ public class Ball : MonoBehaviour {
 		}
 		GetComponent<MeshRenderer> ().enabled = false;
 		GetComponent<CircleCollider2D> ().enabled = false;
-		GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+        GetComponent<TrailRenderer>().enabled = false;
+        GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
 		preSpawnIndicatorInstance.transform.position = spawnPos;
 		preSpawnIndicatorInstance.SetActive (true);
 		yield return new WaitForSeconds(3f);
@@ -52,5 +53,6 @@ public class Ball : MonoBehaviour {
 		transform.position = spawnPos;
 		GetComponent<MeshRenderer> ().enabled = true;
 		GetComponent<CircleCollider2D> ().enabled = true;
-	}
+        GetComponent<TrailRenderer>().enabled = true;
+    }
 }

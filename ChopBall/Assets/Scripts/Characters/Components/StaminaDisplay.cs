@@ -19,7 +19,7 @@ public class StaminaDisplay : MonoBehaviour {
 		}
 		this.maxStamina = maxStamina;
 		initialized = true;
-		Debug.Log (maxStamina);
+		//Debug.Log (maxStamina);
 	}
 
 	void Update(){

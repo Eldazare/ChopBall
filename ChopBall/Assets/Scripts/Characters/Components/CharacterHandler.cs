@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CharacterHandler : MonoBehaviour {
 
+	public SoundEvent SFXEvent;
     public int PlayerID;
     public CharacterAttributeData CharacterAttributes;
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
@@ -121,7 +122,10 @@ public class CharacterHandler : MonoBehaviour {
             {
                 if (input.PaddleLeft)
                 {
-                    if (!leftPaddleInputLastFrame) leftPaddle.Hit();
+					if (!leftPaddleInputLastFrame) {
+						leftPaddle.Hit ();
+						SFXEvent.Raise(new SoundInfo("ChopBall_grunt-01"));
+					}
                     else if (!leftPaddle.hitActive)
                     {
                         //Debug.Log("Charging left");
@@ -141,7 +145,10 @@ public class CharacterHandler : MonoBehaviour {
                 }
                 if(input.PaddleRight)
                 {
-                    if (!rightPaddleInputLastFrame) rightPaddle.Hit();
+					if (!rightPaddleInputLastFrame) {
+						rightPaddle.Hit ();
+						SFXEvent.Raise (new SoundInfo ("ChopBall_grunt-01"));
+					}
                     else if (!rightPaddle.hitActive)
                     {
                         //Debug.Log("Charging right");

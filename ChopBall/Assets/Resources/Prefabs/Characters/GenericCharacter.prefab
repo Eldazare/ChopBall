@@ -555,6 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 651bc233330cc7c4fbc628d6943180c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SFXEvent: {fileID: 11400000, guid: 40200252453990f499ebc8afef7f8e45, type: 2}
   PlayerID: 0
   CharacterAttributes: {fileID: 0}
   CharacterRuntimeModifiers: {fileID: 0}
@@ -582,6 +583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0062ca36a09b8042970fdee88d39e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  image: {fileID: 0}
 --- !u!114 &114472812785657492
 MonoBehaviour:
   m_ObjectHideFlags: 1

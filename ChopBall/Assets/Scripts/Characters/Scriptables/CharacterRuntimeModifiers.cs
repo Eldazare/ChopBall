@@ -15,7 +15,7 @@ public class CharacterRuntimeModifiers : ScriptableObject {
 
 
 	public void SetDefaults(){
-		stamina = 0;
+		stamina = 100;
 		movespeedMod = 1;
 		staminaRegen = 1;
 	}

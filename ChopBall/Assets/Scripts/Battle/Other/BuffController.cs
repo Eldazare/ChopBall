@@ -22,8 +22,12 @@ public static class BuffController {
 
 	public static void AddBuff(int playerID, _Buff buff){
 		LoadInitialize ();
-		buff.GiveMods (RuntimeModifierController.GetAMod (playerID));
-		buffMasters [playerID - 1].AddBuff (buff);
+		if (buff.magnitude > 0) {
+			buff.GiveMods (RuntimeModifierController.GetAMod (playerID));
+			buffMasters [playerID - 1].AddBuff (buff);
+		} else {
+			Debug.LogError ("Buff with magnitude 0 (or less) given");
+		}
 	}
 
 	public static void EndBuff(int playerID, _Buff buff){

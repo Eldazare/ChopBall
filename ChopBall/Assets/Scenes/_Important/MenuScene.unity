@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -10126,7 +10126,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1487236564}
   - component: {fileID: 1487236563}
-  - component: {fileID: 1487236562}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -10134,24 +10133,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1487236562
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1487236561}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &1487236563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12805,6 +12786,7 @@ GameObject:
   - component: {fileID: 2029561350}
   - component: {fileID: 2029561353}
   - component: {fileID: 2029561352}
+  - component: {fileID: 2029561354}
   m_Layer: 0
   m_Name: MenuNavigator
   m_TagString: Untagged
@@ -12871,6 +12853,34 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2029561352}
         m_MethodName: Back
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+--- !u!114 &2029561354
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029561349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706fc1cd12f49bc459f85a68485279b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: c0124638df04f58499d7f3f37963fc31, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2029561352}
+        m_MethodName: SetCursorsActiveFromCurrentAndStates
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -13257,6 +13267,23 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25a3290ac7925e04190f2c2830fc1e51, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &2099925939 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1121436739880196, guid: e7bf235e5cf30d44d9151f7e86a50a78,
+    type: 2}
+  m_PrefabInternal: {fileID: 22199948}
+--- !u!114 &2099925943
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2099925939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cd0a66cbf02aef49b475957cf6092ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mph: {fileID: 2029561352}
 --- !u!1 &2115531130
 GameObject:
   m_ObjectHideFlags: 0

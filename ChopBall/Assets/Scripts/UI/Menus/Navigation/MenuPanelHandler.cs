@@ -38,10 +38,21 @@ public class MenuPanelHandler : MonoBehaviour
 		currentPanel = nextPanel;
 	}
 
+	public void SetCursorsActiveFromCurrentAndStates(){
+		if (!currentPanel.masterZone) {
+			foreach (ChoiceCursor cursor in playerCursors) {
+				cursor.CheckActiveState ();
+			}
+		}
+	}
+
 	public void SetCursors(bool isMaster){
 		masterCursors.gameObject.SetActive (isMaster);
 		foreach (ChoiceCursor cursor in playerCursors) {
 			cursor.gameObject.SetActive (!isMaster);
+			if (!isMaster) {
+				cursor.CheckActiveState ();
+			}
 		}
 	}
 

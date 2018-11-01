@@ -5,13 +5,13 @@ using System.Linq;
 
 public static class PlayerStateController {
 
-	// TODO: Active check vs CharChosenCheck?
-
+	static GameEvent stateActiveCheck;
 	static PlayerStateData[] states;
 
 	private static void LoadStates(){
 		if (states == null) {
 			states = Resources.LoadAll ("Scriptables/Players/StateData", typeof(PlayerStateData)).Cast<PlayerStateData> ().ToArray ();
+			stateActiveCheck = (GameEvent)Resources.Load ("Scriptables/UI/Events/OnPlayerStateActivate", typeof(GameEvent));
 		}
 	}
 
@@ -51,6 +51,7 @@ public static class PlayerStateController {
 	public static void SetStateActive(int stateIndex, bool active){
 		LoadStates ();
 		states [stateIndex].active = active;
+		stateActiveCheck.Raise ();
 	}
 
 	public static int GetNumberOfTeams(){

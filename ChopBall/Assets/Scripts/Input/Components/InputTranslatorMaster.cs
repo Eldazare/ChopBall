@@ -9,7 +9,7 @@ public class InputTranslatorMaster : MonoBehaviour {
 	private bool CheckForControllers = false;
 	private InputTranslator[] translators;
 	private bool[] connectedControllers = { false, false, false, false };
-	private static bool[] modelsPut = { false, false, false, false };
+	public static bool[] modelsPut = { false, false, false, false }; // Preferably get only
 
 	public void StartChecking (){
 		CheckForControllers = true;

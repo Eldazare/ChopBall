@@ -15,6 +15,10 @@ public class ChoiceCursor : _Cursor {
 		stateData = PlayerStateController.GetAState(playerID);
 	}
 
+	public void CheckActiveState(){
+		gameObject.SetActive (stateData.active);
+	}
+
 	void Update(){
 		Movement (model.leftDirectionalInput, model.Dash);
 		ButtonCheck ();

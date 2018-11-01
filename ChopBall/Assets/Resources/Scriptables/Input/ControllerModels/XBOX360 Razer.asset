@@ -20,6 +20,7 @@ MonoBehaviour:
   PaddleLeft: 4
   PaddleRight: 5
   Dash: 9
+  Block: 8
   Submit: 0
   Cancel: 1
   Start: 7

@@ -14,6 +14,11 @@ public class BlueprintChangeButton : _CursorButton {
 	}
 
 	override
+	public void Click(int playerID){
+		blueprintIncrement.Invoke (true);
+	}
+
+	override
 	public void OnClickRight(){
 		blueprintIncrement.Invoke (true);
 	}

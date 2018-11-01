@@ -11,8 +11,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90cb6b29f73969d46a4f2db31babe5cb, type: 3}
   m_Name: MasterStateData
   m_EditorClassIdentifier: 
-  numberOfPlayers: 0
+  OnGrandModeChanged: {fileID: 11400000, guid: 34f05fd534bfb23418e1495d9cc671c7, type: 2}
+  mode: 0
   teams: 0
-  stageChoiceType: 0
-  stageNameFinal: 
+  maxTeams: 0
+  stageChoiceType: 1
+  stageNameFinal: 1v1 Test
   randomStagePreset: []

@@ -12,7 +12,10 @@ public class MasterStateData : ScriptableObject {
 
 	// TODO: Presets in the UI component. Might be stored as scriptable themselves.
 
+	public GameEvent OnGrandModeChanged;
+
 	public GrandMode mode;
+	public int quickBpIndex = 0;
 	public bool teams; // Wether the game is Free-For-All or Teams
 	public int maxTeams;
 	public BattleModeBlueprint battleModeBlueprint;
@@ -27,11 +30,13 @@ public class MasterStateData : ScriptableObject {
 		//SetGrandMode (GrandMode.FFA);
 		battleModeBlueprint = DefaultBP ();
 		SetGrandMode (GrandMode.FFA);
+		Debug.Log ("Defaults loaded");
 	}
 
 	public void SetMenuDefaults(){
 		stageChoiceType = StageChoiceType.masterSingle;
 		stageNameFinal = "1v1 Test";
+		quickBpIndex = 0;
 	}
 
 	private BattleModeBlueprint DefaultBP(){
@@ -57,13 +62,14 @@ public class MasterStateData : ScriptableObject {
 			maxTeams = 0;
 		} else {
 			teams = true;
-			battleModeBlueprint.countObject = CountObject.Goals;
+			//battleModeBlueprint.countObject = CountObject.Goals;
 			if (this.mode == GrandMode.TEAMFFA) {
 				maxTeams = 4;
 			} else if (this.mode == GrandMode.TeamVSTeam) {
 				maxTeams = 2;
 			}
 		}
+		OnGrandModeChanged.Raise ();
 	}
 
 	public void GoToBattle(){

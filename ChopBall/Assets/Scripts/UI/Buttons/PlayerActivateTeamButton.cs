@@ -30,15 +30,19 @@ public class PlayerActivateTeamButton : MonoBehaviour {
 		stateData = PlayerStateController.GetAState (playerID);
 		playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData");
 		baseStr = "Player: " + playerID + "\n";
+		UpdatePerGrandMode ();
+	}
+
+	public void UpdatePerGrandMode(){
+		stateData.CheckTeamConstraints ();
+		SetTeamPart ();
+		SetCharChoicePart ();
 	}
 
 	void OnEnable(){
-		stateData.CheckTeamConstraints ();
 		latePRight = true;
 		latePLeft = true;
 		lateSelect = true;
-		SetTeamPart ();
-		SetCharChoicePart ();
 	}
 
 	public void GetInput(InputModel model){

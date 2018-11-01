@@ -16,8 +16,12 @@ public class GameBlueprintMenu : MonoBehaviour {
 
 	void Awake(){
 		masterState = MasterStateController.GetTheMasterData ();
+	}
+
+	void OnEnable(){
 		blueprint = masterState.battleModeBlueprint;
 		if (blueprint == null) {
+			Debug.Log ("BP was null");
 			MasterStateController.GetTheMasterData ().SetBattleDefaults ();
 			blueprint = MasterStateController.GetTheMasterData().battleModeBlueprint;
 		}
@@ -58,11 +62,8 @@ public class GameBlueprintMenu : MonoBehaviour {
 		blueprintButtons [5].Initialize (IncDecScoringMode);
 		blueprintButtons [5].SetString (blueprint.scoringMode.ToString ());
 
-		blueprintButtons [6].Initialize (IncDecGrandMode);
-		blueprintButtons [6].SetString (masterState.mode.ToString ());
-
-		blueprintButtons [7].Initialize (IncDecStageChoosingMode);
-		blueprintButtons [7].SetString (masterState.stageChoiceType.ToString ());
+		blueprintButtons [6].Initialize (IncDecStageChoosingMode);
+		blueprintButtons [6].SetString (masterState.stageChoiceType.ToString ());
 
 	}
 
@@ -86,6 +87,7 @@ public class GameBlueprintMenu : MonoBehaviour {
 			blueprint.countObject = (CountObject)nextIndex;
 			blueprintButtons [0].SetString (blueprint.countObject.ToString ());
 		}
+		SetCustomQuickBpIndex ();
 	}
 
 	private void IncDecRoundEnd(bool incDec){
@@ -97,6 +99,7 @@ public class GameBlueprintMenu : MonoBehaviour {
 		} else {
 			blueprintButtons [2].SetString (blueprint.roundEndCap.ToString());
 		}
+		SetCustomQuickBpIndex ();
 	}
 
 	private void IncDecRoundEndCapOrTimer(bool incDec){
@@ -109,37 +112,34 @@ public class GameBlueprintMenu : MonoBehaviour {
 			blueprint.roundEndCap = nextIndex;
 			blueprintButtons [2].SetString (blueprint.roundEndCap.ToString());
 		}
+		SetCustomQuickBpIndex ();
 	}
 
 	private void IncDecEndCriteria(bool incDec){
 		int nextIndex = CheckIndex ((int)blueprint.endCriteria, Enum.GetValues (typeof(MatchEnd)).Length, incDec);
 		blueprint.endCriteria = (MatchEnd)nextIndex;
 		blueprintButtons [3].SetString (blueprint.endCriteria.ToString ());
+		SetCustomQuickBpIndex ();
 	}
 
 	private void IncDecMatchEndValue(bool incDec){
 		int nextIndex = CheckIndex (blueprint.endValue, 999, incDec);
 		blueprint.endValue = nextIndex;
 		blueprintButtons [4].SetString (blueprint.endValue.ToString());
+		SetCustomQuickBpIndex ();
 	}
 
 	private void IncDecScoringMode(bool incDec){
 		int nextIndex = CheckIndex ((int)blueprint.scoringMode, Enum.GetValues (typeof(ScoringMode)).Length, incDec);
 		blueprint.scoringMode = (ScoringMode)nextIndex;
 		blueprintButtons [5].SetString (blueprint.scoringMode.ToString ());
+		SetCustomQuickBpIndex ();
 	}
-
-	private void IncDecGrandMode(bool incDec){
-		int nextIndex = CheckIndex ((int)masterState.mode, Enum.GetValues (typeof(GrandMode)).Length, incDec);
-		masterState.SetGrandMode ((GrandMode)nextIndex);
-		blueprintButtons [6].SetString (masterState.mode.ToString ());
-		blueprintButtons [0].SetString (blueprint.countObject.ToString ());
-	}
-
+		
 	private void IncDecStageChoosingMode(bool incDec){
 		int nextIndex = CheckIndex ((int)masterState.stageChoiceType, Enum.GetValues (typeof(StageChoiceType)).Length, incDec);
 		masterState.stageChoiceType = (StageChoiceType)nextIndex;
-		blueprintButtons [7].SetString (masterState.stageChoiceType.ToString ());
+		blueprintButtons [6].SetString (masterState.stageChoiceType.ToString ());
 	}
 
 	void OnDisable(){
@@ -148,5 +148,9 @@ public class GameBlueprintMenu : MonoBehaviour {
 
 	public void SaveBlueprint(){
 		MasterStateController.GetTheMasterData ().SetBattleModeBlueprint (blueprint);
+	}
+
+	private void SetCustomQuickBpIndex(){
+		masterState.quickBpIndex = -1;
 	}
 }

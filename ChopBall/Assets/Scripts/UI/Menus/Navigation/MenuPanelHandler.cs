@@ -34,12 +34,12 @@ public class MenuPanelHandler : MonoBehaviour
 
 	public void Forward(PanelScript nextPanel){
 		SetCursors (nextPanel.masterZone);
-		nextPanel.gameObject.SetActive (true);
 		if (currentPanel == null) {
 			currentPanel = firstPanel;
 		}
 		currentPanel.gameObject.SetActive (false);
 		currentPanel = nextPanel;
+		currentPanel.gameObject.SetActive (true);
 	}
 
 	public void SetCursorsActiveFromCurrentAndStates(){

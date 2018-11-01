@@ -9,6 +9,10 @@ public class MenuPanelHandler : MonoBehaviour
 	public List<ChoiceCursor> playerCursors;
 	public MasterCursor masterCursors;
 
+	void Awake(){
+		currentPanel = firstPanel;
+	}
+
 	public void Back()
     {
 		if (currentPanel.previousPanel != null) {

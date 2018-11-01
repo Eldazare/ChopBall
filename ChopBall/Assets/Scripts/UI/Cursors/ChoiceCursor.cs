@@ -25,7 +25,12 @@ public class ChoiceCursor : _Cursor {
 		if (CancelCheck ()) {
 			if (stateData.CharacterLocked && stateData.characterChoosing) {
 				PlayerStateController.ChooseCharacter (playerID, stateData.characterChoice);
-			} else {
+			} else if (raycastIfNull (clickButton) == null) {
+				OnCancel.Raise ();
+			} else if (raycastIfNull (clickButton).GetType () == typeof(RemapCursorButton)) {
+				// Do nothing, Button mapper is mapping button
+			}
+			else {
 				OnCancel.Raise ();
 			}
 		}

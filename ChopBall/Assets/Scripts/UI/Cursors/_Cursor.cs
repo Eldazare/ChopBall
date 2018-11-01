@@ -93,7 +93,7 @@ public abstract class _Cursor : MonoBehaviour {
 		rect.position = new Vector2 (newX, newY);
 	}
 
-	protected void ButtonCheck(){
+	protected _CursorButton ButtonCheck(){
 		clickButton = null;
 		if (IsButtonDown (out lateSubmit, lateSubmit, model.Submit)) {
 			clickButton = raycastIfNull(clickButton);
@@ -115,6 +115,7 @@ public abstract class _Cursor : MonoBehaviour {
 				clickButton.OnClickLeft();
 			}
 		}
+		return clickButton;
 	}
 
 	protected bool CancelCheck(){

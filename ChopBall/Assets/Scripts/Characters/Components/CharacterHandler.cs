@@ -170,6 +170,10 @@ public class CharacterHandler : MonoBehaviour {
                 trail.emitting = false;
             }
 
+			if (input.Block) {
+				Debug.Log ("Block Registered");
+			}
+
 			// TODO: Implement currentState.blocking;
 			// TODO: Implement state changes. (Transition method is done)
 

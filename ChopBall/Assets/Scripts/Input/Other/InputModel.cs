@@ -11,6 +11,7 @@ public class InputModel {
 	public bool PaddleLeft;
 	public bool PaddleRight;
 	public bool Dash;
+	public bool Block;
 
 	public bool Submit;
 	public bool Cancel;
@@ -26,6 +27,7 @@ public class InputModel {
 		PaddleLeft = false;
 		PaddleRight = false;
 		Dash = false;
+		Block = false;
 
 		Submit = false;
 		Cancel = false;

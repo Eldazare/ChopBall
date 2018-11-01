@@ -18,6 +18,7 @@ public class ControllerModel : ScriptableObject{
 	public int PaddleLeft;
 	public int PaddleRight;
 	public int Dash;
+	public int Block;
 	public int Submit;
 	public int Cancel;
 	public int Start;

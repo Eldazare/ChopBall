@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum ButtonCommand {None, PaddleLeft, PaddleRight, Dash, Submit, Cancel, Start, Select}
+public enum ButtonCommand {None, PaddleLeft, PaddleRight, Dash, Block, Submit, Cancel, Start, Select}
 
 [CreateAssetMenu]
 public class InputStorage : ScriptableObject {
@@ -20,6 +20,7 @@ public class InputStorage : ScriptableObject {
 	public int playerNo;
 	public KeyCode PaddleLeft;
 	public KeyCode PaddleRight;
+	public KeyCode Block;
 	public KeyCode Dash;
 	public KeyCode Submit; // For menus and such
 	public KeyCode Cancel; // -||-
@@ -36,6 +37,9 @@ public class InputStorage : ScriptableObject {
 			break;
 		case ButtonCommand.Dash:
 			Dash = newButton;
+			break;
+		case ButtonCommand.Block:
+			Block = newButton;
 			break;
 		case ButtonCommand.Submit:
 			Submit = newButton;
@@ -76,6 +80,7 @@ public class InputStorage : ScriptableObject {
 		PaddleLeft = GetButtonCode (model.PaddleLeft);
 		PaddleRight = GetButtonCode (model.PaddleRight);
 		Dash = GetButtonCode (model.Dash);
+		Block = GetButtonCode (model.Block);
 		Submit = GetButtonCode (model.Submit);
 		Cancel = GetButtonCode (model.Cancel);
 		Start = GetButtonCode (model.Start);

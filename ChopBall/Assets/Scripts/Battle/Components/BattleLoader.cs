@@ -189,9 +189,9 @@ public class BattleLoader : MonoBehaviour {
 			charAttributes = CharacterAttributeController.GetDefaultChar ();
 			RuntimeModifierController.AddAttributeData (charAttributes, playerIndex);
 		}
-		CharacterHandler charHand = Instantiate (prefab, charSpawnPos, goal.transform.rotation).GetComponent<CharacterHandler> ();
-		charHand.transform.Translate (relativePos);
-		charHand.transform.Rotate(new Vector3(0,0,-90)); // Difference between default goal and default character rotations
+		CharacterHandler charHand = Instantiate (prefab, new Vector3(0,0,0), Quaternion.identity).GetComponent<CharacterHandler> ();
+		//charHand.transform.Translate (relativePos);
+		//charHand.transform.Rotate(new Vector3(0,0,-90)); // Difference between default goal and default character rotations
 		charHand.PlayerID = (playerIndex+1);
 		InputEventListener charIEListener = charHand.GetComponent<InputEventListener> ();
 		charIEListener.Event = inputEvents [playerIndex];
@@ -206,6 +206,7 @@ public class BattleLoader : MonoBehaviour {
 		charHand.CharacterAttributes = charAttributes;
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);
 		charHand.Initialize ();
+		goal.SetCharPosAndRot (charHand, relativePos);
 
 		// DEBUG
 		float staminaMax = charBaseData.StaminaMax;

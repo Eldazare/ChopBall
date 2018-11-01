@@ -62,7 +62,11 @@ public class Goal : MonoBehaviour {
 
         foreach (CharacterHandler c in charactersInArea)
         {
-            c.SetPositionAndRotation(characterSpawnPoint, 0f);
+			SetCharPosAndRot (c, Vector2.zero);
         }
     }
+
+	public void SetCharPosAndRot(CharacterHandler handler, Vector2 relativePos){
+		handler.SetPositionAndRotation ((Vector2)characterSpawnPoint + relativePos, gameObject.transform.rotation.eulerAngles.z - 90);
+	}
 }

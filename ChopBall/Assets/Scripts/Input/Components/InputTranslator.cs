@@ -17,6 +17,7 @@ public class InputTranslator : MonoBehaviour {
 
 	private Vector2 smoothVelocityLeft;
 	private Vector2 smoothVelocityRight;
+	private InputModel model;
 
 	void Awake(){
 		customInputs = InputStorageController.GetAStorage(controllerNumber);
@@ -29,6 +30,7 @@ public class InputTranslator : MonoBehaviour {
 		}
 		previousDirectionalInputLeft = Vector2.zero;
 		previousDirectinalInputRight = Vector2.zero;
+		model = new InputModel ();
 		/*
 		stateData = PlayerStateController.GetAState (controllerNumber);
 		if (stateData == null) {
@@ -38,7 +40,6 @@ public class InputTranslator : MonoBehaviour {
 	}
 
 	void Update(){
-		InputModel model = new InputModel ();
 		model.playerID = controllerNumber;
 		model.leftDirectionalInput.x = Input.GetAxisRaw (customInputs.XAxisLeft);
 		model.rightDirectionalInput.x = Input.GetAxisRaw (customInputs.XAxisRight);

@@ -156,4 +156,9 @@ public class CharacterMovement : MonoBehaviour {
             AddForce(collision.contacts[0].normal * 10f);
         }
     }
+
+
+	public void SetRigidbodyMass(float value){
+		characterRigidbody.mass = value;
+	}
 }

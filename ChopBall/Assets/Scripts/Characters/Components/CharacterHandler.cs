@@ -66,8 +66,7 @@ public class CharacterHandler : MonoBehaviour {
 
 	private void LoadCharacterStates(){
 		characterStates = CharacterStateController.GetCharStates ();
-		currentState = characterStates [0];
-		currentState.OnStateEnter (PlayerID);
+		TransitionToState (CharacterStateEnum.Default);
 	}
 
 	public void Initialize()
@@ -95,9 +94,12 @@ public class CharacterHandler : MonoBehaviour {
     }
 
 	private void TransitionToState(CharacterStateEnum enu){
-		currentState.OnStateExit (PlayerID);
+		if (currentState != null) {
+			currentState.OnStateExit (PlayerID);
+		}
 		currentState = characterStates [(int)enu];
 		currentState.OnStateEnter (PlayerID);
+		movement.SetRigidbodyMass (currentState.stateMassModifier * characterBase.BodyMass);
 	}
 
     private void FixedUpdate()

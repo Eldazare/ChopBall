@@ -8,6 +8,7 @@ public enum CharacterStateEnum{Default, Block, Charge}
 public class CharacterState : ScriptableObject {
 	public CharacterStateEnum identifier;
 	public float stateMovementModifier;
+	public float stateMassModifier;
 	public float staminaRegenBuffMagnitude;
 	public bool canPaddle;
 	public bool canDash;

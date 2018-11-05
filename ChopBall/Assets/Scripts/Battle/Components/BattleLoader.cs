@@ -86,17 +86,13 @@ public class BattleLoader : MonoBehaviour {
 
 		Debug.Log ("Active states found: " + activeStates.Count);
 
-		// Team Predistribution
+		// TEAMVSTEAM Predistribution
 		List<List<int>> teams = new List<List<int>> (4);
-		if (mode == GrandMode.TEAMFFA || mode == GrandMode.TeamVSTeam) {
+		if (mode == GrandMode.TeamVSTeam) {
 			foreach (var team in CurrentBattleController.GetTeams()) {
 				teams.Add (team.playerIndexes);
 			}
 			teams.RemoveAll (r => r.Count == 0);
-		}
-
-		// TEAMVSTEAM Predistribution
-		if (mode == GrandMode.TeamVSTeam) {
 			playersInSpawnPoints = new List<List<int>> ();
 			if (teams.Count == 2) {
 				for (int i = 0; i < goals.Length; i++) {
@@ -121,12 +117,15 @@ public class BattleLoader : MonoBehaviour {
 					theColor = playerBaseData.playerColors [activeStates [i]];
 					MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates [i]], theColor , activeStates [i]);
 				}
-			} else if (mode == GrandMode.TEAMFFA) {
+			} 
+			/*else if (mode == GrandMode.TEAMFFA) {
 				if (teams.Count > i) {
 					theColor = playerBaseData.teamColors [playerStates [teams [i] [0]].team];
 					MakeMultipleCharacters (goals [i], teams [i], playerStates, theColor);
 				}
-			} else if (mode == GrandMode.TeamVSTeam) {
+
+			}*/ 
+			else if (mode == GrandMode.TeamVSTeam) {
 				if (playersInSpawnPoints.Count > i) {
 					if (playersInSpawnPoints [i].Count > 0) {
 						Debug.Log ("i: " + i + " | spawpoints: " + playersInSpawnPoints [i].Count);

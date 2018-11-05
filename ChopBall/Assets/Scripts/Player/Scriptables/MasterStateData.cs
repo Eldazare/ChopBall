@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum StageChoiceType {individualRandom, masterSingle, randomPreset}
-public enum GrandMode{ FFA , TEAMFFA , TeamVSTeam}
+public enum GrandMode{ FFA, TeamVSTeam } //TEAMFFA
 
 [CreateAssetMenu]
 public class MasterStateData : ScriptableObject {
@@ -63,9 +63,11 @@ public class MasterStateData : ScriptableObject {
 		} else {
 			teams = true;
 			//battleModeBlueprint.countObject = CountObject.Goals;
+			/*
 			if (this.mode == GrandMode.TEAMFFA) {
 				maxTeams = 4;
-			} else if (this.mode == GrandMode.TeamVSTeam) {
+			} else*/
+			if (this.mode == GrandMode.TeamVSTeam) {
 				maxTeams = 2;
 			}
 		}

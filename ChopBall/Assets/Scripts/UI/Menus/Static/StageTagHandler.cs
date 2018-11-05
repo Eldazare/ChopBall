@@ -42,12 +42,7 @@ public static class StageTagHandler {
 		if (PlayerStateController.GetNumberOfActivePlayers () >= 2) {
 			if (PlayerStateController.CheckIfAllHaveChosenCharacter ()) {
 				if (MasterStateController.GetTheMasterData ().teams) {
-					if (PlayerStateController.GetNumberOfTeams () >= 2) {
-						if (MasterStateController.GetTheMasterData ().mode == GrandMode.TEAMFFA) {
-							if (PlayerStateController.GetNumberOfPlayersInATeam () > 4) {
-								return false;
-							}
-						}
+					if (PlayerStateController.GetNumberOfTeams () == 2) {
 						return true;
 					}
 				} else {

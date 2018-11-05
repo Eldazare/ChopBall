@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MenuPanelHandler : MonoBehaviour
 {
+	// TODO: ControlCursor positionSet event
 	public PanelScript firstPanel;
 	public static PanelScript currentPanel;
 	public List<ChoiceCursor> playerCursors;
@@ -20,6 +21,7 @@ public class MenuPanelHandler : MonoBehaviour
 			currentPanel.previousPanel.gameObject.SetActive (true);
 			currentPanel = currentPanel.previousPanel;
 			SetCursors (currentPanel.masterZone);
+			currentPanel.OnPanelEnter.Invoke ();
 		} else {
 			Debug.Log ("previousPanel was null. Are we at start panel?");
 		}
@@ -40,6 +42,7 @@ public class MenuPanelHandler : MonoBehaviour
 		currentPanel.gameObject.SetActive (false);
 		currentPanel = nextPanel;
 		currentPanel.gameObject.SetActive (true);
+		currentPanel.OnPanelEnter.Invoke ();
 	}
 
 	public void SetCursorsActiveFromCurrentAndStates(){
@@ -60,8 +63,57 @@ public class MenuPanelHandler : MonoBehaviour
 		}
 	}
 
+
+	// CONTROL
+
+	public _ControlButton GoAnywhere(DPosition currentPos, out DPosition pos){
+		int x = currentPos.x; int y = currentPos.y;
+		if (currentPanel.buttonList[currentPos.y].Count <= currentPos.x) {
+			x = 0;
+		} else if (currentPos.x < 0) {
+			x = currentPanel.buttonList[currentPos.y].Count-1;
+		}
+		if (currentPanel.buttonList.Count <= currentPos.y) {
+			y = 0;
+		} else if (currentPos.y < 0) {
+			y = currentPanel.buttonList.Count - 1;
+		}
+		if (currentPanel.buttonList [y].Count <= currentPos.x) {
+			x = currentPanel.buttonList [y].Count;
+		}
+		pos = new DPosition (x, y);
+		return currentPanel.buttonList [y] [x];
+	}
+
+	public void SetCharactersPerPlayerChoice(){
+		//??
+	}
+
 	public static void SetCurrentPanel(PanelScript currentPan){
 		currentPanel = currentPan;
 		Debug.Log ("Current panel = " + currentPanel.name);
+	}
+}
+
+
+public class DPosition{
+	public int x;
+	public int y;
+
+	public DPosition(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+
+	public static Vector2 operator*(Vector2 vec, DPosition dpos){
+		vec.x *= dpos.x;
+		vec.y *= dpos.y;
+		return vec;
+	}
+
+	public static DPosition operator+(DPosition dpos1, DPosition dpos2){
+		dpos1.x += dpos2.x;
+		dpos1.y += dpos2.y;
+		return dpos1;
 	}
 }

@@ -45,6 +45,27 @@ public class MenuPanelHandler : MonoBehaviour
 		currentPanel.OnPanelEnter.Invoke ();
 	}
 
+
+	public void Close(int tier, int index){
+		if (currentPanel.subPanels.Count > tier) {
+			if (currentPanel.subPanels [tier].Count > index) {
+				currentPanel.subPanels [tier] [index].gameObject.SetActive (false);
+				return;
+			}
+		}
+		Debug.LogError ("False Close panel call with: " + tier + " & " + index);
+	}
+
+	public void Open(int tier, int index){
+		if (currentPanel.subPanels.Count > tier) {
+			if (currentPanel.subPanels [tier].Count > index) {
+				currentPanel.subPanels [tier] [index].gameObject.SetActive (true);
+				return;
+			}
+		}
+		Debug.LogError ("False Open panel call with: " + tier + " & " + index);
+	}
+
 	public void SetCursorsActiveFromCurrentAndStates(){
 		if (!currentPanel.masterZone) {
 			foreach (ChoiceCursor cursor in playerCursors) {

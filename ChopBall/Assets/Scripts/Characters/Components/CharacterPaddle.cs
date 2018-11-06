@@ -29,6 +29,7 @@ public class CharacterPaddle : MonoBehaviour {
     private int playerID;
     private CharacterBaseData characterBase;
     private CharacterAttributeData characterAttributes;
+	private GradientColorKey[] theColors;
 
     public void SetPlayerID(int id)
     {
@@ -45,13 +46,15 @@ public class CharacterPaddle : MonoBehaviour {
         characterAttributes = attributeData;
     }
 
-	public void Initialize()
+	public void Initialize(Color32 theColor)
     {
         masterTransform = transform.parent;
         if (!masterTransform) masterTransform = transform;
 
         if (!Pivot) Pivot = transform;
         pivotPoint = Pivot.position;
+
+		this.theColors = new GradientColorKey[]{new GradientColorKey(theColor, 0f), new GradientColorKey(theColor, 1f)};
 
         currentRotation = characterBase.PaddleLowerAngle * characterAttributes.PaddleLowerAngleMultiplier * (float)Side;
         targetRotation = currentRotation;
@@ -178,7 +181,7 @@ public class CharacterPaddle : MonoBehaviour {
                                                 ForceMode2D.Impulse);
 
                     Ball hitBall = hitBody.GetComponent<Ball>();
-                    if (hitBall) hitBall.GetPlayerPaddleTouch(playerID, hitIsCharged);
+					if (hitBall) hitBall.GetPlayerPaddleTouch(playerID, theColors, hitIsCharged);
 
                     hitObjectIDs.Add(hitObjectID);
                 }

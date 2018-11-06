@@ -48,7 +48,7 @@ public class CharacterHandler : MonoBehaviour {
         }
     }
 
-    private void InitializeComponentData()
+	private void InitializeComponentData(Color32 theColor)
     {
         movement.SetCharacterBaseData(characterBase);
         movement.SetCharacterAttributeData(CharacterAttributes);
@@ -56,12 +56,12 @@ public class CharacterHandler : MonoBehaviour {
         leftPaddle.SetCharacterBaseData(characterBase);
         leftPaddle.SetCharacterAttributeData(CharacterAttributes);
         leftPaddle.SetPlayerID(PlayerID);
-		leftPaddle.Initialize ();
+		leftPaddle.Initialize (theColor);
 
         rightPaddle.SetCharacterBaseData(characterBase);
         rightPaddle.SetCharacterAttributeData(CharacterAttributes);
         rightPaddle.SetPlayerID(PlayerID);
-		rightPaddle.Initialize ();
+		rightPaddle.Initialize (theColor);
     }
 
 	private void LoadCharacterStates(){
@@ -69,7 +69,7 @@ public class CharacterHandler : MonoBehaviour {
 		TransitionToState (CharacterStateEnum.Default);
 	}
 
-	public void Initialize()
+	public void Initialize(Color32 theColor)
     {
         CharacterPaddle[] paddles = new CharacterPaddle[2];
         paddles = GetComponents<CharacterPaddle>();
@@ -89,7 +89,7 @@ public class CharacterHandler : MonoBehaviour {
         trail = GetComponentInChildren<TrailRenderer>();
 
         LoadCharacterBase();
-        InitializeComponentData();
+		InitializeComponentData(theColor);
 		LoadCharacterStates ();
     }
 

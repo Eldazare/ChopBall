@@ -13,6 +13,8 @@ public class Ball : MonoBehaviour {
 	CircleCollider2D circleCollider;
 	TrailRenderer trailRenderer;
 	Rigidbody2D rigid2D;
+	Gradient gradient;
+	GradientAlphaKey[] gradAlphKey;
 
     private bool charged = false;
 
@@ -35,14 +37,33 @@ public class Ball : MonoBehaviour {
 		circleCollider = GetComponent<CircleCollider2D>();
 		trailRenderer = GetComponent<TrailRenderer> ();
 		rigid2D = GetComponent<Rigidbody2D> ();
+		gradient = new Gradient();
+		gradAlphKey = new GradientAlphaKey[] { new GradientAlphaKey(1f,0f), new GradientAlphaKey(0f,1f) };
+		gradient.SetKeys (
+			new GradientColorKey[] {new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
+			gradAlphKey
+		);
 	}
 
-	public void GetPlayerPaddleTouch(int playerID, bool chargeShot = false){
+	public void GetPlayerPaddleTouch(int playerID,  GradientColorKey[] colorKeys, bool chargeShot = false){
 		if (touchedPlayers.Contains(playerID)) {
 			touchedPlayers.Remove (playerID);
 		}
 		touchedPlayers.Insert (0, playerID);
         charged = chargeShot;
+		gradient.SetKeys (
+			colorKeys,
+			gradAlphKey
+		);
+
+		/*
+		gradient.SetKeys (
+			new GradientColorKey[] {new GradientColorKey(color, 0f),new GradientColorKey(color, 1f) },
+			gradAlphKey
+		);
+		*/
+
+		trailRenderer.colorGradient = gradient;
 	}
 
 	private IEnumerator ResetEnumerator(){

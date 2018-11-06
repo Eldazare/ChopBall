@@ -204,15 +204,16 @@ public class BattleLoader : MonoBehaviour {
 		}
 		charHand.CharacterAttributes = charAttributes;
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);
-		charHand.Initialize ();
+		charHand.Initialize (theColor);
 		goal.SetCharPosAndRot (charHand, relativePos);
+
 
 		// DEBUG
 		float staminaMax = charBaseData.StaminaMax;
 		if (charAttributes != null) {
 			staminaMax *= charAttributes.StaminaMax;
 		}
-		charHand.GetComponent<StaminaDisplay> ().Initialize (RuntimeModifierController.GetAMod (playerIndex + 1), staminaMax);
+		charHand.GetComponent<StaminaDisplay> ().Initialize (RuntimeModifierController.GetAMod (playerIndex + 1), staminaMax, theColor);
 	}
 
 	private void GenerateTargets(Goal goal, Color32 theColor){

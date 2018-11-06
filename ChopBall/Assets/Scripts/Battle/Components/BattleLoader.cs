@@ -37,10 +37,11 @@ public class BattleLoader : MonoBehaviour {
 	void Start () {
 		charBaseData = (CharacterBaseData)Resources.Load ("Scriptables/_BaseDatas/CharacterBaseData");
 		RuntimeModifierController.ClearAttributeDatas ();
-		CurrentBattleController.InitializeCurrentData ();
 		GrandMode mode = MasterStateController.GetTheMasterData ().mode;
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates ();
 		GameObject goalMaster = GameObject.FindGameObjectWithTag ("GoalMaster");
+		Goal[] goals = goalMaster.GetComponentsInChildren<Goal> ();
+		CurrentBattleController.InitializeCurrentData (goals.Length);
 		List<Transform> ballSpawns = GameObject.FindGameObjectWithTag ("BallSpawnMaster").GetComponentsInChildren<Transform>().ToList();
 		ballSpawns.RemoveAt (0);
 		PlayerBaseData playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
@@ -50,7 +51,6 @@ public class BattleLoader : MonoBehaviour {
 		}
 		inputEvents = Resources.LoadAll ("Scriptables/Input/Events/", typeof(InputEvent)).Cast<InputEvent>().ToArray ();
 		charMaterials = Resources.LoadAll ("Materials", typeof(Material)).Cast<Material>().ToArray ();
-		Goal[] goals = goalMaster.GetComponentsInChildren<Goal> ();
 		int balls = goals.Length / 2;
 		if (balls < 1) {
 			balls = 1;
@@ -202,7 +202,7 @@ public class BattleLoader : MonoBehaviour {
 				renderer.material.color = theColor;
 			}
 		}
-		charHand.CharacterAttributes = new CharacterAttributeData (); // BIG: Change this to get "real" stats
+		charHand.CharacterAttributes = CharacterAttributeController.GetDefaultChar(); // BIG: Change this to get "real" stats
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);
 		charHand.Initialize (theColor);
 		goal.SetCharPosAndRot (charHand, relativePos);

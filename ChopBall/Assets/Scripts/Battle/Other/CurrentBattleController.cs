@@ -12,9 +12,9 @@ public static class CurrentBattleController  {
 		}
 	}
 
-	public static void InitializeCurrentData(){
+	public static void InitializeCurrentData(int numberOfGoals){
 		LoadCurrentBattle ();
-		currentBattle.InitializeFromMasterStateData ();
+		currentBattle.InitializeFromMasterStateData (numberOfGoals);
 	}
 		
 	public static void AddGoal(GoalData goalData){

@@ -13,6 +13,8 @@ public class BattleMode : ScriptableObject {
 
 	int MAXNUMBEROFTEAMS = 4;
 
+	public int numberOfGoals;
+
 	public GameEvent EndOfRound;
 	public GameEvent EndOfMatch;
 
@@ -37,7 +39,8 @@ public class BattleMode : ScriptableObject {
 	public List<CompetitorContainer> competitors;
 	public List<TeamContainer> teams;
 
-	public void InitializeFromMasterStateData(){
+	public void InitializeFromMasterStateData(int numberOfGoals){
+		this.numberOfGoals = numberOfGoals;
 		MasterStateData masterData = MasterStateController.GetTheMasterData ();
 
 		PlayerStateData[] playerStates = PlayerStateController.GetAllStates();
@@ -65,7 +68,11 @@ public class BattleMode : ScriptableObject {
 				if (masterData.teams) {
 					newCompCont.teamIndex = playerStates[i].team;
 					if (teams.SingleOrDefault (s => s.teamID == playerStates[i].team) == null) {
-						teams.Add (new TeamContainer (playerStates [i].team));
+						TeamContainer tem = new TeamContainer (playerStates [i].team);
+						if (countObject == CountObject.Lives) {
+							tem.SetStock (roundEndCap, numberOfGoals/2);
+						}
+						teams.Add (tem);
 						Debug.Log ("Added team");
 					}
 					teams.Single (s => s.teamID == playerStates [i].team).playerIndexes.Add (i);
@@ -87,6 +94,8 @@ public class BattleMode : ScriptableObject {
 					break;
 				}
 			}
+
+
 		}
 		CompetitorContainer giver = null;
 		foreach (var playerID in gd.giverPlayerIDs) {
@@ -426,10 +435,37 @@ public interface ICompetitor{
 }
 
 public class TeamContainer : ICompetitor{
+	public int teamID;
+	public int goals;
+	public List<int> stocks;
+	private int maxStock;
+	public int score;
+	public int roundScoreValue;
+	public int endPosition;
+	public List<int> playerIndexes;
+
+	public void RemoveStock(int goalIndex){
+		stocks[goalIndex] -= 1;
+		if (stocks[goalIndex] < 0) {
+			stocks[goalIndex] = 0;
+		}
+	}
+
+	public void SetStock(int value, int numberOfGoals){
+		Debug.Log (value);
+		stocks = new List<int> ();
+		for (int i = 0; i < numberOfGoals;i++){
+			stocks.Add (value);
+		}
+		maxStock = value;
+	}
+
 	public TeamContainer(int teamID){
 		this.teamID = teamID;
 		goals = 0;
 		score = 0;
+		stocks = new List<int>();
+		maxStock = 0;
 		roundScoreValue = 0;
 		playerIndexes = new List<int> ();
 	}
@@ -450,13 +486,6 @@ public class TeamContainer : ICompetitor{
 		goals = 0;
 		roundScoreValue = 0;
 	}
-
-	public int teamID;
-	public int goals;
-	public int score;
-	public int roundScoreValue;
-	public int endPosition;
-	public List<int> playerIndexes;
 }
 
 public class CompetitorContainer : ICompetitor{

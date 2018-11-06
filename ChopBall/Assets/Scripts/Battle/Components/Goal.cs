@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class Goal : MonoBehaviour {
 
+	public int goalNumber; // Begins from 0
 	public GoalEvent goalEvent;
 	public SpriteRenderer goalMarker;
 
 
-	public int goalPlayerID;
+	private int goalPlayerID;
 
     private Vector2 characterSpawnPoint;
 
@@ -35,6 +36,7 @@ public class Goal : MonoBehaviour {
 			Ball ball = collider.gameObject.GetComponent<Ball> ();
 			gd.goalPlayerID = goalPlayerID;
 			gd.giverPlayerIDs = ball.touchedPlayers;
+			gd.goalNumber = goalNumber;
 			goalEvent.Raise (gd);
 			ball.ResetBallPosition ();
 			ResetGoalTargets ();

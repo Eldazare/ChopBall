@@ -5,4 +5,5 @@ using UnityEngine;
 public class GoalData{
 	public List<int> giverPlayerIDs;
 	public int goalPlayerID;
+	public int goalNumber;
 }

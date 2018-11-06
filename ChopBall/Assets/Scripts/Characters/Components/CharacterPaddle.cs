@@ -29,6 +29,8 @@ public class CharacterPaddle : MonoBehaviour {
     private int playerID;
     private CharacterBaseData characterBase;
     private CharacterAttributeData characterAttributes;
+	private CharacterRuntimeModifiers characterRuntimeModifiers;
+	private SoundEvent sfxEvent;
 	private GradientColorKey[] theColors;
 
     public void SetPlayerID(int id)
@@ -45,6 +47,14 @@ public class CharacterPaddle : MonoBehaviour {
     {
         characterAttributes = attributeData;
     }
+
+	public void SetRuntimeModifiers(CharacterRuntimeModifiers runtimeMods){
+		characterRuntimeModifiers = runtimeMods;
+	}
+
+	public void SetSFXEvent(SoundEvent se){
+		sfxEvent = se;
+	}
 
 	public void Initialize(Color32 theColor)
     {
@@ -67,11 +77,20 @@ public class CharacterPaddle : MonoBehaviour {
     {
         if (!hitActive || !hitIsCharged)
         {
-            hitObjectIDs.Clear();
-            hitElapsed = 0;
-            hitIsCharged = charged;
-            currentAngularDirection = 1;
-            hitActive = true;
+			if (characterRuntimeModifiers == null) {
+				Debug.LogWarning ("1");
+			}
+			if (characterBase == null) {
+				Debug.LogWarning ("2");
+			}
+			if (characterRuntimeModifiers.UseStamina (characterBase.PaddleStaminaCost)) {
+				sfxEvent.Raise (new SoundInfo ("ChopBall_grunt-01"));
+				hitObjectIDs.Clear ();
+				hitElapsed = 0;
+				hitIsCharged = charged;
+				currentAngularDirection = 1;
+				hitActive = true;
+			}
         }
     }
 

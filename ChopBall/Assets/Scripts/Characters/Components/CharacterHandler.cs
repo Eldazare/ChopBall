@@ -43,6 +43,7 @@ public class CharacterHandler : MonoBehaviour {
             
             if (characterBase == null)
             {
+				Debug.LogWarning ("FFUUU");
                 characterBase = new CharacterBaseData();
             }
         }
@@ -55,11 +56,15 @@ public class CharacterHandler : MonoBehaviour {
 
         leftPaddle.SetCharacterBaseData(characterBase);
         leftPaddle.SetCharacterAttributeData(CharacterAttributes);
+		leftPaddle.SetRuntimeModifiers (CharacterRuntimeModifiers);
+		leftPaddle.SetSFXEvent (SFXEvent);
         leftPaddle.SetPlayerID(PlayerID);
 		leftPaddle.Initialize (theColor);
 
         rightPaddle.SetCharacterBaseData(characterBase);
         rightPaddle.SetCharacterAttributeData(CharacterAttributes);
+		rightPaddle.SetRuntimeModifiers (CharacterRuntimeModifiers);
+		rightPaddle.SetSFXEvent (SFXEvent);
         rightPaddle.SetPlayerID(PlayerID);
 		rightPaddle.Initialize (theColor);
     }
@@ -126,8 +131,6 @@ public class CharacterHandler : MonoBehaviour {
                 {
 					if (!leftPaddleInputLastFrame) {
 						leftPaddle.Hit ();
-						SFXEvent.Raise(new SoundInfo("ChopBall_grunt-01"));
-						CharacterRuntimeModifiers.UseStamina(characterBase.PaddleStaminaCost);
 					}
                     else if (!leftPaddle.hitActive)
                     {
@@ -150,8 +153,6 @@ public class CharacterHandler : MonoBehaviour {
                 {
 					if (!rightPaddleInputLastFrame) {
 						rightPaddle.Hit ();
-						SFXEvent.Raise (new SoundInfo ("ChopBall_grunt-01"));
-						CharacterRuntimeModifiers.UseStamina(characterBase.PaddleStaminaCost);
 					}
                     else if (!rightPaddle.hitActive)
                     {

@@ -202,7 +202,7 @@ public class BattleLoader : MonoBehaviour {
 				renderer.material.color = theColor;
 			}
 		}
-		charHand.CharacterAttributes = charAttributes;
+		charHand.CharacterAttributes = new CharacterAttributeData (); // BIG: Change this to get "real" stats
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);
 		charHand.Initialize (theColor);
 		goal.SetCharPosAndRot (charHand, relativePos);

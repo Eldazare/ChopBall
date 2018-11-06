@@ -127,6 +127,7 @@ public class CharacterHandler : MonoBehaviour {
 					if (!leftPaddleInputLastFrame) {
 						leftPaddle.Hit ();
 						SFXEvent.Raise(new SoundInfo("ChopBall_grunt-01"));
+						CharacterRuntimeModifiers.UseStamina(characterBase.PaddleStaminaCost);
 					}
                     else if (!leftPaddle.hitActive)
                     {
@@ -150,6 +151,7 @@ public class CharacterHandler : MonoBehaviour {
 					if (!rightPaddleInputLastFrame) {
 						rightPaddle.Hit ();
 						SFXEvent.Raise (new SoundInfo ("ChopBall_grunt-01"));
+						CharacterRuntimeModifiers.UseStamina(characterBase.PaddleStaminaCost);
 					}
                     else if (!rightPaddle.hitActive)
                     {

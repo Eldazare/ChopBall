@@ -11,6 +11,9 @@ public class CharacterBaseData : ScriptableObject {
 	public float StaminaMax;
 	public float StaminaRegen;
 
+	public float PaddleStaminaCost;
+	public float DashStaminaCost;
+
     [Header("Paddles")]
     public float PaddleLength;
     public float PaddleThickness;

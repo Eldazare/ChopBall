@@ -13,6 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StaminaMax: 100
   StaminaRegen: 33
+  PaddleStaminaCost: 10
+  DashStaminaCost: 25
   PaddleLength: 1.5
   PaddleThickness: 0.6
   PaddleUpperAngle: 0

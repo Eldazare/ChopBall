@@ -19,4 +19,13 @@ public class CharacterRuntimeModifiers : ScriptableObject {
 		movespeedMod = 1;
 		staminaRegen = 1;
 	}
+
+	public bool UseStamina(float staminaAmount){
+		if (stamina >= staminaAmount) {
+			stamina -= staminaAmount;
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

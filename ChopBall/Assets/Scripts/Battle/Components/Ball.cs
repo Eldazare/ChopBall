@@ -9,6 +9,11 @@ public class Ball : MonoBehaviour {
 	public List<Vector3> startPositions;
 	public List<int> touchedPlayers = new List<int>(16);
 
+	MeshRenderer meshRenderer;
+	CircleCollider2D circleCollider;
+	TrailRenderer trailRenderer;
+	Rigidbody2D rigid2D;
+
     private bool charged = false;
 
 	private GameObject preSpawnIndicatorInstance;
@@ -25,6 +30,11 @@ public class Ball : MonoBehaviour {
 		}
 		preSpawnIndicatorInstance = Instantiate (preSpawnIndicator, Vector3.zero, Quaternion.identity);
 		preSpawnIndicatorInstance.SetActive (false);
+
+		meshRenderer = GetComponent<MeshRenderer>();
+		circleCollider = GetComponent<CircleCollider2D>();
+		trailRenderer = GetComponent<TrailRenderer> ();
+		rigid2D = GetComponent<Rigidbody2D> ();
 	}
 
 	public void GetPlayerPaddleTouch(int playerID, bool chargeShot = false){
@@ -42,17 +52,17 @@ public class Ball : MonoBehaviour {
 		} else {
 			spawnPos = startPosition;
 		}
-		GetComponent<MeshRenderer> ().enabled = false;
-		GetComponent<CircleCollider2D> ().enabled = false;
-        GetComponent<TrailRenderer>().enabled = false;
-        GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
+		meshRenderer.enabled = false;
+		circleCollider.enabled = false;
+		trailRenderer.enabled = false;
+		rigid2D.velocity = Vector2.zero;
 		preSpawnIndicatorInstance.transform.position = spawnPos;
 		preSpawnIndicatorInstance.SetActive (true);
 		yield return new WaitForSeconds(3f);
 		preSpawnIndicatorInstance.SetActive(false);
 		transform.position = spawnPos;
-		GetComponent<MeshRenderer> ().enabled = true;
-		GetComponent<CircleCollider2D> ().enabled = true;
-        GetComponent<TrailRenderer>().enabled = true;
+		meshRenderer.enabled = true;
+		circleCollider.enabled = true;
+		trailRenderer.enabled = true;
     }
 }

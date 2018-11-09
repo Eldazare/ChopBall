@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{edc4267f-3b65-48d6-a665-4c57a32354a7}">
+        <property name="assetPath">
+            <value>ChopBall_whoohs-05.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>0.27530612244897962</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{1e4777b8-87ac-4cea-9d3d-3e8b1bdc65da}</destination>
+        </relationship>
+    </object>
+</objects>

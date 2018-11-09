@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{a253dff1-2ef0-45f3-96a8-092201216069}">
+        <property name="assetPath">
+            <value>ChopBall_whoosh-06.ogg</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>0.61532879818594099</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{1e4777b8-87ac-4cea-9d3d-3e8b1bdc65da}</destination>
+        </relationship>
+    </object>
+</objects>

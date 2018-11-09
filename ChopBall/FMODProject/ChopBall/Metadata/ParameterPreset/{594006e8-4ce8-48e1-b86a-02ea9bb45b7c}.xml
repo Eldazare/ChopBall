@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{594006e8-4ce8-48e1-b86a-02ea9bb45b7c}">
+        <property name="name">
+            <value>WallHit</value>
+        </property>
+        <relationship name="folder">
+            <destination>{4e5a02c4-4876-4f13-abd4-e45b4c014d0d}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{4d1cb5e5-9f02-4e47-aa5a-e88924b338f1}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{4d1cb5e5-9f02-4e47-aa5a-e88924b338f1}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+    </object>
+</objects>

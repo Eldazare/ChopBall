@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{8bd62dcf-fcaf-442f-ac81-b3f073307d0b}">
+        <property name="name">
+            <value>Calm</value>
+        </property>
+        <relationship name="folder">
+            <destination>{4e5a02c4-4876-4f13-abd4-e45b4c014d0d}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{7996e739-ce75-46cf-be75-4caa82a353e9}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{7996e739-ce75-46cf-be75-4caa82a353e9}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+    </object>
+</objects>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="AudioFile" id="{c933c0aa-0919-4d4e-a95b-11829e1fa0b5}">
+        <property name="assetPath">
+            <value>ChopBall_ballHitSounds_character-03.wav</value>
+        </property>
+        <property name="frequencyInKHz">
+            <value>44.0999985</value>
+        </property>
+        <property name="channelCount">
+            <value>1</value>
+        </property>
+        <property name="length">
+            <value>0.82882086167800451</value>
+        </property>
+        <relationship name="masterAssetFolder">
+            <destination>{1e4777b8-87ac-4cea-9d3d-3e8b1bdc65da}</destination>
+        </relationship>
+    </object>
+</objects>

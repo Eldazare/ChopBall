@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.01.10.00">
+    <object class="ParameterPreset" id="{55861b4d-c2a3-4be7-9c22-9033fddcc8e1}">
+        <property name="name">
+            <value>BumberHit</value>
+        </property>
+        <relationship name="folder">
+            <destination>{4e5a02c4-4876-4f13-abd4-e45b4c014d0d}</destination>
+        </relationship>
+        <relationship name="parameter">
+            <destination>{2aff36bb-4dc8-4716-a0a5-391f6961a958}</destination>
+        </relationship>
+    </object>
+    <object class="GameParameter" id="{2aff36bb-4dc8-4716-a0a5-391f6961a958}">
+        <property name="initialValue">
+            <value>0</value>
+        </property>
+    </object>
+</objects>

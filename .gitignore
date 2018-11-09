@@ -34,3 +34,8 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+#FMOD
+ChopBall/FMODProject/ChopBall/.cache/
+ChopBall/FMODProject/ChopBall/.user/
+ChopBall/FMODProject/ChopBall/.unsaved/

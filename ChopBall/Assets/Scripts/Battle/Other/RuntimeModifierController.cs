@@ -16,7 +16,7 @@ public static class RuntimeModifierController {
 			foreach (var mod in modControllers) {
 				mod.SetDefaults ();
 			}
-			charAttributeList = new List<CharacterAttributeData> ();
+			charAttributeList = new List<CharacterAttributeData> (4);
 			charBaseData = (CharacterBaseData)Resources.Load ("Scriptables/_BaseDatas/CharacterBaseData");
 		}
 	}
@@ -49,16 +49,15 @@ public static class RuntimeModifierController {
 		charAttributeList[playerIndex] = (attributeData);
 	}
 
+    // No effect from attribute data
 	public static void ProgressTime(float deltaTime){
 		LoadMods ();
 		float deltaTimeBase = deltaTime * charBaseData.StaminaRegen;
 		for (int i = 1; i < modControllers.Length; i++) {
-			if (charAttributeList [i - 1] != null) {
-				modControllers [i].stamina += deltaTimeBase * charAttributeList [i - 1].StaminaRegen * modControllers[i].staminaRegen;
-				//Debug.Log (deltaTimeBase * charAttributeList [i - 1].StaminaRegen * modControllers [i].staminaRegen);
-				if (modControllers [i].stamina > charBaseData.StaminaMax * charAttributeList [i - 1].StaminaMax) {
-					modControllers [i].stamina = charBaseData.StaminaMax * charAttributeList [i - 1].StaminaMax;
-				}
+			modControllers [i].stamina += deltaTimeBase * modControllers[i].staminaRegen;
+			//Debug.Log (deltaTimeBase * charAttributeList [i - 1].StaminaRegen * modControllers [i].staminaRegen);
+			if (modControllers [i].stamina > charBaseData.StaminaMax) {
+				modControllers [i].stamina = charBaseData.StaminaMax;
 			}
 		}
 	}

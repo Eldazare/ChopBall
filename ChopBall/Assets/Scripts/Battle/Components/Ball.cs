@@ -12,6 +12,7 @@ public class Ball : MonoBehaviour {
 	MeshRenderer meshRenderer;
 	CircleCollider2D circleCollider;
 	TrailRenderer trailRenderer;
+    //BallGravity gravity;
 	Rigidbody2D rigid2D;
 	Gradient gradient;
 	GradientAlphaKey[] gradAlphKey;
@@ -27,15 +28,23 @@ public class Ball : MonoBehaviour {
 
 	public void Initialize(List<Transform> ballSpawns){
 		startPositions = new List<Vector3> ();
-		foreach (var spawn in ballSpawns) {
-			startPositions.Add (spawn.position);
-		}
+        if (ballSpawns != null)
+        {
+            foreach (var spawn in ballSpawns)
+            {
+                startPositions.Add(spawn.position);
+            }
+        }
+        else {
+            startPositions.Add(Vector3.zero);
+        }
 		preSpawnIndicatorInstance = Instantiate (preSpawnIndicator, Vector3.zero, Quaternion.identity);
 		preSpawnIndicatorInstance.SetActive (false);
 
 		meshRenderer = GetComponent<MeshRenderer>();
 		circleCollider = GetComponent<CircleCollider2D>();
-		trailRenderer = GetComponent<TrailRenderer> ();
+		trailRenderer = GetComponentInChildren<TrailRenderer>();
+        //gravity = GetComponentInChildren<BallGravity>();
 		rigid2D = GetComponent<Rigidbody2D> ();
 		gradient = new Gradient();
 		gradAlphKey = new GradientAlphaKey[] { new GradientAlphaKey(1f,0f), new GradientAlphaKey(0f,1f) };
@@ -64,6 +73,8 @@ public class Ball : MonoBehaviour {
 		*/
 
 		trailRenderer.colorGradient = gradient;
+
+        //gravity.AddUpwardsVelocity(4f);
 	}
 
 	private IEnumerator ResetEnumerator(){
@@ -76,6 +87,7 @@ public class Ball : MonoBehaviour {
 		meshRenderer.enabled = false;
 		circleCollider.enabled = false;
 		trailRenderer.enabled = false;
+        //gravity.enabled = false;
 		rigid2D.velocity = Vector2.zero;
 		preSpawnIndicatorInstance.transform.position = spawnPos;
 		preSpawnIndicatorInstance.SetActive (true);
@@ -85,5 +97,6 @@ public class Ball : MonoBehaviour {
 		meshRenderer.enabled = true;
 		circleCollider.enabled = true;
 		trailRenderer.enabled = true;
+        //gravity.enabled = true;
     }
 }

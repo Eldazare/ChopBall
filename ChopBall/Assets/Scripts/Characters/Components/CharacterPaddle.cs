@@ -9,6 +9,9 @@ public class CharacterPaddle : MonoBehaviour {
     public PaddleSide Side = PaddleSide.Left;
     public Transform Pivot;
 
+	[FMODUnity.EventRef]
+	public string hitSfxPath;
+
     internal bool isCharging = false;
     internal bool hitActive = false;
 
@@ -30,7 +33,7 @@ public class CharacterPaddle : MonoBehaviour {
     private CharacterBaseData characterBase;
     private CharacterAttributeData characterAttributes;
 	private CharacterRuntimeModifiers characterRuntimeModifiers;
-	private SoundEvent sfxEvent;
+	//private SoundEvent sfxEvent;
 	private GradientColorKey[] theColors;
 
     public void SetPlayerID(int id)
@@ -50,10 +53,6 @@ public class CharacterPaddle : MonoBehaviour {
 
 	public void SetRuntimeModifiers(CharacterRuntimeModifiers runtimeMods){
 		characterRuntimeModifiers = runtimeMods;
-	}
-
-	public void SetSFXEvent(SoundEvent se){
-		sfxEvent = se;
 	}
 
 	public void Initialize(Color32 theColor)
@@ -84,7 +83,8 @@ public class CharacterPaddle : MonoBehaviour {
 				Debug.LogWarning ("2");
 			}
 			if (characterRuntimeModifiers.UseStamina (characterBase.PaddleStaminaCost)) {
-				sfxEvent.Raise (new SoundInfo ("ChopBall_grunt-01"));
+				//sfxEvent.Raise (new SoundInfo ("ChopBall_grunt-01"));
+				FMODUnity.RuntimeManager.PlayOneShotAttached (hitSfxPath, gameObject);
 				hitObjectIDs.Clear ();
 				hitElapsed = 0;
 				hitIsCharged = charged;

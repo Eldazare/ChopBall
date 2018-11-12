@@ -528,6 +528,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Side: -1
   Pivot: {fileID: 4719229573426736}
+  hitSfxPath: event:/Characters/General/Chop
 --- !u!114 &114195443527137888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -572,6 +573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Side: 1
   Pivot: {fileID: 4880309762545822}
+  hitSfxPath: event:/Characters/General/PlayerHit
 --- !u!114 &114415241819815326
 MonoBehaviour:
   m_ObjectHideFlags: 1

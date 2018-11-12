@@ -57,14 +57,12 @@ public class CharacterHandler : MonoBehaviour {
         leftPaddle.SetCharacterBaseData(characterBase);
         leftPaddle.SetCharacterAttributeData(CharacterAttributes);
 		leftPaddle.SetRuntimeModifiers (CharacterRuntimeModifiers);
-		leftPaddle.SetSFXEvent (SFXEvent);
         leftPaddle.SetPlayerID(PlayerID);
 		leftPaddle.Initialize (theColor);
 
         rightPaddle.SetCharacterBaseData(characterBase);
         rightPaddle.SetCharacterAttributeData(CharacterAttributes);
 		rightPaddle.SetRuntimeModifiers (CharacterRuntimeModifiers);
-		rightPaddle.SetSFXEvent (SFXEvent);
         rightPaddle.SetPlayerID(PlayerID);
 		rightPaddle.Initialize (theColor);
     }

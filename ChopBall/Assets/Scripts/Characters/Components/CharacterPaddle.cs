@@ -213,6 +213,9 @@ public class CharacterPaddle : MonoBehaviour {
     {
         Gizmos.color = new Color(255, 255, 255, 0.5f);
 
+        if (characterBase == null) Debug.Log("CHAR BASE");
+        if (characterAttributes == null) Debug.Log("Char attr");
+        if (paddleVector == null) Debug.Log("PADDLE VECTOR");
         for (int i = 0; i < 10; i++)
         {
             Gizmos.DrawSphere(pivotPoint + ((characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier / 10) * i * paddleVector),

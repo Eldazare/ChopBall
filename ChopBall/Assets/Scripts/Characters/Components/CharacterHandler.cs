@@ -95,7 +95,7 @@ public class CharacterHandler : MonoBehaviour {
 
         LoadCharacterBase();
 		InitializeComponentData(theColor);
-		LoadCharacterStates ();
+		LoadCharacterStates();
     }
 
 	private void TransitionToState(CharacterStateEnum enu){

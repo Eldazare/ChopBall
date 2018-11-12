@@ -158,6 +158,7 @@ GameObject:
   - component: {fileID: 114280669518121150}
   - component: {fileID: 114472812785657492}
   - component: {fileID: 114415241819815326}
+  - component: {fileID: 114600618966269066}
   m_Layer: 10
   m_Name: GenericCharacter
   m_TagString: Character
@@ -556,7 +557,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 651bc233330cc7c4fbc628d6943180c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SFXEvent: {fileID: 11400000, guid: 40200252453990f499ebc8afef7f8e45, type: 2}
   PlayerID: 0
   CharacterAttributes: {fileID: 0}
   CharacterRuntimeModifiers: {fileID: 0}
@@ -614,6 +614,28 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityInputEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
       PublicKeyToken=null
+--- !u!114 &114600618966269066
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1973047356847882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Characters/General/Chop
+  PlayEvent: 0
+  StopEvent: 0
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &114821842832629552
 MonoBehaviour:
   m_ObjectHideFlags: 1

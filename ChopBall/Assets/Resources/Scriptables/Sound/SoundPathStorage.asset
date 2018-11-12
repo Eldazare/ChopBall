@@ -8,6 +8,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2951c66114c69854581971368e713242, type: 3}
-  m_Name: SoundEffectEvent
+  m_Script: {fileID: 11500000, guid: 431e17145207db041a7352a807dde5f9, type: 3}
+  m_Name: SoundPathStorage
   m_EditorClassIdentifier: 
+  pathData:
+  - key: 
+    path: 
+  - key: 
+    path: 

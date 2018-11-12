@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using FMODUnity;
 
 public class CharacterPaddle : MonoBehaviour {
 
@@ -35,6 +36,7 @@ public class CharacterPaddle : MonoBehaviour {
 	private CharacterRuntimeModifiers characterRuntimeModifiers;
 	//private SoundEvent sfxEvent;
 	private GradientColorKey[] theColors;
+	private StudioEventEmitter soundEmitter;
 
     public void SetPlayerID(int id)
     {
@@ -70,6 +72,7 @@ public class CharacterPaddle : MonoBehaviour {
         paddleVector = Rotate(masterTransform.up, targetRotation);
 
         paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier - currentRotation);
+		soundEmitter = GetComponent<StudioEventEmitter> ();
     }
 
     public void Hit(bool charged = false)
@@ -85,6 +88,7 @@ public class CharacterPaddle : MonoBehaviour {
 			if (characterRuntimeModifiers.UseStamina (characterBase.PaddleStaminaCost)) {
 				//sfxEvent.Raise (new SoundInfo ("ChopBall_grunt-01"));
 				FMODUnity.RuntimeManager.PlayOneShotAttached (hitSfxPath, gameObject);
+				//soundEmitter.SendMessage("Play");
 				hitObjectIDs.Clear ();
 				hitElapsed = 0;
 				hitIsCharged = charged;

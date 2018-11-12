@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CharacterHandler : MonoBehaviour {
 
-	public SoundEvent SFXEvent;
     public int PlayerID;
     public CharacterAttributeData CharacterAttributes;
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;

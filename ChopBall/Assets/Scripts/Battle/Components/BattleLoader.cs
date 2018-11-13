@@ -134,7 +134,9 @@ public class BattleLoader : MonoBehaviour {
 					}
 				}
 			}
-			GenerateTargets (goals [i], theColor);
+			Material mat = new Material (Shader.Find ("Standard"));
+			goals [i].Initialize (theColor, mat);
+			GenerateTargets (goals [i], mat);
 			nextPlayerStateIndex++;
 		}
 		StartGame.Raise();
@@ -172,7 +174,7 @@ public class BattleLoader : MonoBehaviour {
 	}
 
 	private void MakeACharacter(Goal goal, Vector2 relativePos, PlayerStateData stateData, Color32 theColor, int playerIndex){
-		goal.Initialize (playerIndex + 1, theColor);
+		goal.InitializeID (playerIndex + 1);
 		Vector3 charSpawnPos = goal.GetComponentInChildren<CharacterSpawnIndicator> ().GetPosition ();
 		GameObject prefab = null;
 		CharacterAttributeData charAttributes = null;
@@ -195,11 +197,11 @@ public class BattleLoader : MonoBehaviour {
 		InputEventListener charIEListener = charHand.GetComponent<InputEventListener> ();
 		charIEListener.Event = inputEvents [playerIndex];
 		charIEListener.enabled = true;
+		charMaterials [playerIndex].color = theColor;
 		if (stateData != null) {
-			MeshRenderer[] renderers = charHand.GetComponentsInChildren<MeshRenderer> ();
+			MeshRenderer[] renderers = charHand.bodyRenderers;
 			foreach (var renderer in renderers) {
 				renderer.material = charMaterials [playerIndex];
-				renderer.material.color = theColor;
 			}
 		}
 		charHand.CharacterAttributes = CharacterAttributeController.GetDefaultChar(); // BIG: Change this to get "real" stats
@@ -216,15 +218,13 @@ public class BattleLoader : MonoBehaviour {
 		charHand.GetComponent<StaminaDisplay> ().Initialize (RuntimeModifierController.GetAMod (playerIndex + 1), staminaMax, theColor);
 	}
 
-	private void GenerateTargets(Goal goal, Color32 theColor){
+	private void GenerateTargets(Goal goal, Material targetMat){
 		Vector3 middlePos = goal.GetComponentInChildren<DefenseTargetSpawnIndicatior> ().GetPosition ();
 		float ySizeTarget = goalDefenseTarget.GetComponentInChildren<Renderer>().bounds.size.y + betweenTargets;
 		float ySizeGoal = goal.GetComponent<BoxCollider2D> ().bounds.size.y / 2;
 		int targetCount = Mathf.FloorToInt((ySizeGoal * 2) / ySizeTarget);
 		Vector3 leftPos = middlePos + goal.transform.up  * (ySizeTarget / 2f)*(targetCount-1);
 		Vector3 currentPos = leftPos;
-		Material targetMat = new Material (Shader.Find("Standard"));
-		targetMat.color = theColor;
 		for (int i = 0; i < targetCount; i++) {
 			GameObject theTarget = (GameObject)Instantiate (goalDefenseTarget, currentPos, goal.transform.rotation);
 			theTarget.GetComponentInChildren<MeshRenderer> ().material = targetMat;

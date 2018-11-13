@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Name: Royston
   m_EditorClassIdentifier: 
   CharacterName: Royston
-  CharacterPrefabName: GenericCharacter
+  CharacterPrefabName: GenericCharacter3D
   CharacterPortrait: {fileID: 21300000, guid: 3db78b1a2b780dd4980c07d916d5aa3e, type: 3}
+  StaminaMax: 1
+  StaminaRegen: 1
   PaddleLengthMultiplier: 1
   PaddleThicknessMultiplier: 1
   PaddleUpperAngleMultiplier: 1

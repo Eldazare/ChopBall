@@ -7,6 +7,7 @@ public class CharacterHandler : MonoBehaviour {
     public int PlayerID;
     public CharacterAttributeData CharacterAttributes;
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
+	public MeshRenderer[] bodyRenderers;
 
     private CharacterMovement movement;
     private CharacterPaddle leftPaddle;
@@ -152,10 +153,9 @@ public class CharacterHandler : MonoBehaviour {
 						if (CharacterRuntimeModifiers.UseStamina (characterBase.PaddleChargedStaminaCost)) {
 							//Debug.Log("Charge shot left");
 							leftPaddle.Hit (leftPaddleCharge<0);
-							leftPaddle.isCharging = false;
-							TransitionToState (CharacterStateEnum.Default);
 						}
-
+						leftPaddle.isCharging = false;
+						TransitionToState (CharacterStateEnum.Default);
 						rightPaddleCharge = 1f;
                     }
                 }
@@ -178,9 +178,9 @@ public class CharacterHandler : MonoBehaviour {
 						if (CharacterRuntimeModifiers.UseStamina (characterBase.PaddleChargedStaminaCost)) {
 							//Debug.Log("Charge shot right");
 							rightPaddle.Hit (rightPaddleCharge<0);
-							rightPaddle.isCharging = false;
-							TransitionToState (CharacterStateEnum.Default);
 						}
+						rightPaddle.isCharging = false;
+						TransitionToState (CharacterStateEnum.Default);
 						rightPaddleCharge = 1f;
                     }
                 }

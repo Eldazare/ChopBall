@@ -18,7 +18,7 @@ MonoBehaviour:
   DashStaminaCost: 25
   BlockStaminaCost: 35
   ChargeBlockStaminaCost: 50
-  PaddleLength: 1.5
+  PaddleLength: 1.2
   PaddleThickness: 0.6
   PaddleUpperAngle: 0
   PaddleLowerAngle: 90

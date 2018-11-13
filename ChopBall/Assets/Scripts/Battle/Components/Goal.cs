@@ -8,6 +8,7 @@ public class Goal : MonoBehaviour {
 	public int goalNumber; // Begins from 0
 	public GoalEvent goalEvent;
 	public SpriteRenderer goalMarker;
+	public MeshRenderer goalMarker3D;
 
 
 	private int goalPlayerID;
@@ -18,14 +19,21 @@ public class Goal : MonoBehaviour {
     private List<CharacterHandler> charactersInArea;
     private GoalAreaCheck areaCheck;
 
-	public void Initialize(int playerID, Color32 color){
+	public void Initialize( Color32 color, Material mat){
 		gameObject.GetComponent<BoxCollider2D> ().enabled = true;
 		goalMarker.enabled = true;
-		goalMarker.color = color;
-		goalPlayerID = playerID;
-        characterSpawnPoint = GetComponentInChildren<CharacterSpawnIndicator>().transform.position;
+		if (goalMarker != null) {
+			goalMarker.color = color;
+		} if (goalMarker3D != null) {
+			goalMarker3D.material = mat;
+		}
         charactersInArea = new List<CharacterHandler>(16);
         areaCheck = GetComponentInChildren<GoalAreaCheck>();
+	}
+
+	public void InitializeID(int playerID){
+		characterSpawnPoint = GetComponentInChildren<CharacterSpawnIndicator>().transform.position;
+		this.goalPlayerID = playerID;
 	}
 
 	// Dunno if this is good way to do this

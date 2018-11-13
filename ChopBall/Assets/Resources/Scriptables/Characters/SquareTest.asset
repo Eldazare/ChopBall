@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ef32ea94e76d34bb02cca6bc3154cc, type: 3}
   m_Name: SquareTest
   m_EditorClassIdentifier: 
-  CharacterName: NotRoyston
+  CharacterName: Stan
   CharacterPrefabName: GenericCharacter3D
   CharacterPortrait: {fileID: 21300000, guid: ddf5ec761c8d47944b754f602aeb57e2, type: 3}
   StaminaMax: 1

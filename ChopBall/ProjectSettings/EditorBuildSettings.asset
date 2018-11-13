@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/_Important/2v2Scene.unity
     guid: 58a0977cc203b3c4bb59ab6e5865e029
+  - enabled: 1
+    path: Assets/Scenes/_Important/GameplaySample3D.unity
+    guid: cad6816570c485f4d840b6be3bcd74f0
   m_configObjects: {}

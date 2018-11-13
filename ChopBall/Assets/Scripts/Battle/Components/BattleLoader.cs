@@ -135,6 +135,7 @@ public class BattleLoader : MonoBehaviour {
 				}
 			}
 			Material mat = new Material (Shader.Find ("Standard"));
+			mat.color = theColor;
 			goals [i].Initialize (theColor, mat);
 			GenerateTargets (goals [i], mat);
 			nextPlayerStateIndex++;

@@ -21,8 +21,8 @@ public class Goal : MonoBehaviour {
 
 	public void Initialize( Color32 color, Material mat){
 		gameObject.GetComponent<BoxCollider2D> ().enabled = true;
-		goalMarker.enabled = true;
 		if (goalMarker != null) {
+			goalMarker.enabled = true;
 			goalMarker.color = color;
 		} if (goalMarker3D != null) {
 			goalMarker3D.material = mat;

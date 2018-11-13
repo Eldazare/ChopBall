@@ -4,14 +4,13 @@ using UnityEngine;
 
 public class GoalTarget : MonoBehaviour {
     
-    public float RespawnTime;
     public float MinVelocity;
 
     private Collider2D targetCollider;
-    private SpriteRenderer sprite;
+    //private SpriteRenderer sprite;
+	private MeshRenderer meshRenderer;
 
     private bool active = true;
-    private float t = 0f;
 
 	private string soundTarget1Path;
 
@@ -19,23 +18,24 @@ public class GoalTarget : MonoBehaviour {
     {
         active = true;
         targetCollider.enabled = true;
-        sprite.enabled = true;
+		meshRenderer.enabled = true;
     }
 
     public void DeActivate()
     {
         active = false;
         targetCollider.enabled = false;
-        sprite.enabled = false;
+		meshRenderer.enabled = false;
     }
 
     private void Awake()
     {
         targetCollider = GetComponent<Collider2D>();
-        sprite = GetComponent<SpriteRenderer>();
+		meshRenderer = GetComponentInChildren<MeshRenderer> ();
 		soundTarget1Path = SoundPathController.GetPath ("Target1");
     }
 
+	/*
     private void Update()
     {
         if (RespawnTime > 0f)
@@ -47,7 +47,7 @@ public class GoalTarget : MonoBehaviour {
                 sprite.enabled = true;
             }
         }
-    }
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -55,9 +55,7 @@ public class GoalTarget : MonoBehaviour {
         {
             if (collision.relativeVelocity.magnitude >= MinVelocity)
             {
-                targetCollider.enabled = false;
-                sprite.enabled = false;
-                t = RespawnTime;
+				DeActivate ();
             }
 
 			FMODUnity.RuntimeManager.PlayOneShot (soundTarget1Path, gameObject.transform.position);

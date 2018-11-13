@@ -54,11 +54,12 @@ public class BallGravity : MonoBehaviour {
         float maxVelocity = (distanceToCeiling > 0f && distanceToCeiling <= MaxHeight) ? Mathf.Sqrt(2f * Gravity * distanceToCeiling) : 0f;
         return Mathf.Min(maxVelocity, velocity);
     }
-
+	/*
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere((transform.localScale.z / 2 + MaxHeight) * -transform.forward, transform.localScale.z / 2);
         Gizmos.DrawWireSphere(transform.localScale.z / 2 * -transform.forward, transform.localScale.z / 2);
     }
+    */
 }

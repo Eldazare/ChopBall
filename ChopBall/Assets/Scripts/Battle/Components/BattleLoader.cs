@@ -218,19 +218,17 @@ public class BattleLoader : MonoBehaviour {
 
 	private void GenerateTargets(Goal goal, Color32 theColor){
 		Vector3 middlePos = goal.GetComponentInChildren<DefenseTargetSpawnIndicatior> ().GetPosition ();
-		float ySizeTarget = goalDefenseTarget.GetComponent<Renderer>().bounds.size.y + betweenTargets;
+		float ySizeTarget = goalDefenseTarget.GetComponentInChildren<Renderer>().bounds.size.y + betweenTargets;
 		float ySizeGoal = goal.GetComponent<BoxCollider2D> ().bounds.size.y / 2;
 		int targetCount = Mathf.FloorToInt((ySizeGoal * 2) / ySizeTarget);
 		Vector3 leftPos = middlePos + goal.transform.up  * (ySizeTarget / 2f)*(targetCount-1);
 		Vector3 currentPos = leftPos;
+		Material targetMat = new Material (Shader.Find("Standard"));
+		targetMat.color = theColor;
 		for (int i = 0; i < targetCount; i++) {
 			GameObject theTarget = (GameObject)Instantiate (goalDefenseTarget, currentPos, goal.transform.rotation);
+			theTarget.GetComponentInChildren<MeshRenderer> ().material = targetMat;
 			currentPos += goal.transform.up * -1 * ySizeTarget;
-			if (theColor.a != 0) {
-				theTarget.GetComponent<SpriteRenderer> ().color = theColor;
-				//MeshRenderer renderer = theTarget.GetComponent<MeshRenderer> ();
-				//renderer.material.color = theColor;
-			}
 			goal.AddTargetToGoal (theTarget.GetComponent<GoalTarget>());
 		}
 	}

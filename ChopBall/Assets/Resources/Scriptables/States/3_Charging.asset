@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Name: 3_Charging
   m_EditorClassIdentifier: 
   identifier: 2
-  stateMovementModifier: 0.6
+  stateMovementModifier: 0.7
   stateMassModifier: 2
-  staminaRegenBuffMagnitude: 0.01
   canPaddle: 1
   canDash: 0
   blocking: 0

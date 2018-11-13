@@ -226,13 +226,16 @@ public class CharacterHandler : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D collision){
 		if (collision.collider.CompareTag ("Ball") && currentState.blocking) {
 			Ball ball = collision.collider.GetComponent<Ball> ();
-			if (ball.IsCharged()) {
-				if (CharacterRuntimeModifiers.UseStamina(characterBase.ChargeBlockStaminaCost)){
-					ball.OnBlocked (collision.contacts[0].normal, characterBase.BlockForceDampModifier);
+			if (ball.GetComponent<Rigidbody2D> ().velocity.magnitude > characterBase.MinimumVelocityStamina) {
+				if (ball.IsCharged ()) {
+					if (CharacterRuntimeModifiers.UseStamina (characterBase.ChargeBlockStaminaCost)) {
+						ball.OnBlocked (collision.contacts [0].normal, characterBase.BlockForceDampModifier);
+					}
+				} else if (CharacterRuntimeModifiers.UseStamina (characterBase.BlockStaminaCost)) {
+					ball.OnBlocked (collision.contacts [0].normal, characterBase.BlockForceDampModifier);
 				}
-			}
-			else if (CharacterRuntimeModifiers.UseStamina (characterBase.BlockStaminaCost)) {
-				ball.OnBlocked (collision.contacts[0].normal, characterBase.BlockForceDampModifier);
+			} else {
+				ball.OnBlocked (collision.contacts [0].normal, characterBase.BlockForceDampModifier);
 			}
 			FMODUnity.RuntimeManager.PlayOneShotAttached (soundPlayerHit, gameObject);
 		}

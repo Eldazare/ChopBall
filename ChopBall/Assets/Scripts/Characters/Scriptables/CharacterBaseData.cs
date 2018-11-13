@@ -39,4 +39,5 @@ public class CharacterBaseData : ScriptableObject {
 
 	[Header("Blocking")]
 	public float BlockForceDampModifier;
+	public float MinimumVelocityStamina;
 }

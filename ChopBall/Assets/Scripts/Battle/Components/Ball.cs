@@ -115,6 +115,7 @@ public class Ball : MonoBehaviour {
 	public void OnBlocked(Vector2 normal, float blockModifier){
 		charged = false;
 		Vector2 velo = rigid2D.velocity;
+		//Debug.LogWarning ("Mag: " + velo.magnitude);
 		rigid2D.velocity = Vector2.zero;
 		rigid2D.AddForce (Vector2.Reflect (velo.normalized, normal) * rigid2D.mass * velo * blockModifier, ForceMode2D.Impulse);
 	}

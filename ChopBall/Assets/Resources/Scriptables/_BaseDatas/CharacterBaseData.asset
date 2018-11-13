@@ -15,8 +15,8 @@ MonoBehaviour:
   StaminaRegen: 33
   PaddleStaminaCost: 10
   PaddleChargedStaminaCost: 20
-  DashStaminaCost: 25
-  BlockStaminaCost: 35
+  DashStaminaCost: 35
+  BlockStaminaCost: 30
   ChargeBlockStaminaCost: 50
   PaddleLength: 1.2
   PaddleThickness: 0.6
@@ -37,3 +37,4 @@ MonoBehaviour:
   BodyMass: 1
   LinearDrag: 80
   BlockForceDampModifier: 0.1
+  MinimumVelocityStamina: 2.5

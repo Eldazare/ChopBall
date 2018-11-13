@@ -19,6 +19,8 @@ public class Goal : MonoBehaviour {
     private List<CharacterHandler> charactersInArea;
     private GoalAreaCheck areaCheck;
 
+	private string soundGoalPath;
+
 	public void Initialize( Color32 color, Material mat){
 		gameObject.GetComponent<BoxCollider2D> ().enabled = true;
 		if (goalMarker != null) {
@@ -29,6 +31,7 @@ public class Goal : MonoBehaviour {
 		}
         charactersInArea = new List<CharacterHandler>(16);
         areaCheck = GetComponentInChildren<GoalAreaCheck>();
+		soundGoalPath = SoundPathController.GetPath ("Goal1");
 	}
 
 	public void InitializeID(int playerID){
@@ -49,6 +52,7 @@ public class Goal : MonoBehaviour {
 			ball.ResetBallPosition ();
 			ResetGoalTargets ();
             EvictCharactersFromArea();
+			FMODUnity.RuntimeManager.PlayOneShot (soundGoalPath, gameObject.transform.position);
 		}
 	}
 

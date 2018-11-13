@@ -5,22 +5,33 @@ using System.Linq;
 
 public static class SoundPathController {
 
-	private static SoundPathStorage storage;
+	private static List<SoundPathStorage> storages;
+	private static Dictionary<string,string> data;
 
 	private static void LoadSoundPaths(){
-		if (storage == null) {
-			storage = (SoundPathStorage)Resources.Load ("Scriptables/Sound/SoundPathStorage/", typeof(SoundPathStorage));
+		if (storages == null) {
+			storages = Resources.LoadAll ("Scriptables/Sound/", typeof(SoundPathStorage)).Cast<SoundPathStorage>().ToList();
+			data = new Dictionary<string, string> ();
+			foreach (var storage in storages) {
+				foreach (var listObj in storage.pathData) {
+					data.Add (listObj.key, listObj.path);
+				}
+			}
 			// TODO: Check for duplicate keys / paths?
 		}
 	}
 
 	public static string GetPath(string key){
 		LoadSoundPaths ();
-		SoundPathData data = storage.pathData.SingleOrDefault (s=> s.key == key);
-		if (data == null) {
-			Debug.LogWarning ("SoundPathStorage null data found with key: " + key);
+		if (!data.ContainsKey(key)) {
+			Debug.LogWarning ("SoundPathStorage no key found: " + key);
 			return "";
 		}
-		return data.path;
+		return data[key];
+	}
+
+	public static string[] GetKeys(){
+		LoadSoundPaths ();
+		return data.Keys.ToArray ();
 	}
 }

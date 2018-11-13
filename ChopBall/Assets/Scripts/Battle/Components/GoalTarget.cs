@@ -13,6 +13,8 @@ public class GoalTarget : MonoBehaviour {
     private bool active = true;
     private float t = 0f;
 
+	private string soundTarget1Path;
+
     public void Activate()
     {
         active = true;
@@ -31,6 +33,7 @@ public class GoalTarget : MonoBehaviour {
     {
         targetCollider = GetComponent<Collider2D>();
         sprite = GetComponent<SpriteRenderer>();
+		soundTarget1Path = SoundPathController.GetPath ("Target1");
     }
 
     private void Update()
@@ -56,6 +59,8 @@ public class GoalTarget : MonoBehaviour {
                 sprite.enabled = false;
                 t = RespawnTime;
             }
+
+			FMODUnity.RuntimeManager.PlayOneShot (soundTarget1Path, gameObject.transform.position);
         }
     }
 }

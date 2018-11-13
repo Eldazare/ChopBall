@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4191171895375856}
   - component: {fileID: 114401007802925684}
+  - component: {fileID: 114921155645051386}
   m_Layer: 0
   m_Name: BattleLoader
   m_TagString: Untagged
@@ -56,7 +57,29 @@ MonoBehaviour:
   goalDefenseTarget: {fileID: 1574686170650268, guid: 351c1d55fbfd0644688e49bf53b49f9a,
     type: 2}
   ball: {fileID: 1915898121159630, guid: 78eea9a9f25989541827e93cafb1f0ef, type: 2}
-  betweenTargets: 1
+  betweenTargets: 0.25
   StartGame: {fileID: 11400000, guid: 18e22cd5b3d520b45bf2463457ee6c49, type: 2}
   inputEvents: []
   charMaterials: []
+--- !u!114 &114921155645051386
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1963654865892444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Music/ChopTaiko
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0

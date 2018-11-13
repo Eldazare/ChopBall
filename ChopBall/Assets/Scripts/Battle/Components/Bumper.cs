@@ -10,9 +10,12 @@ public class Bumper : MonoBehaviour {
 
     private Animator animator;
 
+	private string soundBumper1Path;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
+		soundBumper1Path = SoundPathController.GetPath ("Bumper1");
     }
 
 	private void OnCollisionEnter2D(Collision2D collision)
@@ -42,5 +45,6 @@ public class Bumper : MonoBehaviour {
         }
 
         animator.Play("Bump");
+		FMODUnity.RuntimeManager.PlayOneShotAttached (soundBumper1Path, gameObject);
     }
 }

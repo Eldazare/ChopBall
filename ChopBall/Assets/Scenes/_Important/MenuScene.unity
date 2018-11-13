@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2266,6 +2266,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 0}
   masterZone: 1
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &197495245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3414,6 +3420,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1341578927}
   masterZone: 1
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &355319719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4502,6 +4514,7 @@ GameObject:
   - component: {fileID: 534669905}
   - component: {fileID: 534669904}
   - component: {fileID: 534669903}
+  - component: {fileID: 534669906}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: Untagged
@@ -4569,6 +4582,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &534669906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 534669902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ListenerNumber: 0
 --- !u!1 &541294203
 GameObject:
   m_ObjectHideFlags: 0
@@ -7119,6 +7144,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1341578927}
   masterZone: 1
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &910090963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7495,6 +7526,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
   masterZone: 1
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &957914684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8479,6 +8516,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
   masterZone: 1
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &1135467200
 GameObject:
   m_ObjectHideFlags: 0
@@ -9145,6 +9188,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 197495243}
   masterZone: 1
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1303893670 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114031556622608800, guid: 0f8c95af91adf744cbcf82b22ce2fb34,
@@ -9240,6 +9289,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
   masterZone: 0
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1341578928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11381,6 +11436,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
   masterZone: 0
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!114 &1731109945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13006,6 +13067,7 @@ GameObject:
   - component: {fileID: 2029561353}
   - component: {fileID: 2029561352}
   - component: {fileID: 2029561354}
+  - component: {fileID: 2029561355}
   m_Layer: 0
   m_Name: MenuNavigator
   m_TagString: Untagged
@@ -13111,6 +13173,28 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &2029561355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2029561349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: event:/Music/ChopMenu
+  PlayEvent: 1
+  StopEvent: 2
+  CollisionTag: 
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 0
+  OverrideMaxDistance: 0
 --- !u!1 &2054374729
 GameObject:
   m_ObjectHideFlags: 0
@@ -13386,6 +13470,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1731109944}
   masterZone: 0
+  cursorActiveStatus: 0
+  OnPanelEnter:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1001 &2070154489
 Prefab:
   m_ObjectHideFlags: 0

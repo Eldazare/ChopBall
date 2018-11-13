@@ -17,9 +17,14 @@ public class Ball : MonoBehaviour {
 	Gradient gradient;
 	GradientAlphaKey[] gradAlphKey;
 
+
     private bool charged = false;
 
 	private GameObject preSpawnIndicatorInstance;
+
+	private string soundBall1Path;
+
+
 
 	public void ResetBallPosition(){
 		StartCoroutine (ResetEnumerator ());
@@ -38,6 +43,7 @@ public class Ball : MonoBehaviour {
         else {
             startPositions.Add(Vector3.zero);
         }
+		soundBall1Path = SoundPathController.GetPath ("Ball1");
 		preSpawnIndicatorInstance = Instantiate (preSpawnIndicator, Vector3.zero, Quaternion.identity);
 		preSpawnIndicatorInstance.SetActive (false);
 
@@ -73,7 +79,7 @@ public class Ball : MonoBehaviour {
 		*/
 
 		trailRenderer.colorGradient = gradient;
-
+		FMODUnity.RuntimeManager.PlayOneShot (soundBall1Path, gameObject.transform.position);
         //gravity.AddUpwardsVelocity(4f);
 	}
 

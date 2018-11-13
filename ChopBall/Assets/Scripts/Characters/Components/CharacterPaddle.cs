@@ -10,9 +10,6 @@ public class CharacterPaddle : MonoBehaviour {
     public PaddleSide Side = PaddleSide.Left;
     public Transform Pivot;
 
-	[FMODUnity.EventRef]
-	public string hitSfxPath;
-
     internal bool isCharging = false;
     internal bool hitActive = false;
 
@@ -34,9 +31,10 @@ public class CharacterPaddle : MonoBehaviour {
     private CharacterBaseData characterBase;
     private CharacterAttributeData characterAttributes;
 	private CharacterRuntimeModifiers characterRuntimeModifiers;
-	//private SoundEvent sfxEvent;
 	private GradientColorKey[] theColors;
-	private StudioEventEmitter soundEmitter;
+
+	private string soundPaddlePath;
+	private string soundHitPath;
 
     public void SetPlayerID(int id)
     {
@@ -72,7 +70,9 @@ public class CharacterPaddle : MonoBehaviour {
         paddleVector = Rotate(masterTransform.up, targetRotation);
 
         paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier - currentRotation);
-		soundEmitter = GetComponent<StudioEventEmitter> ();
+
+		soundPaddlePath = SoundPathController.GetPath ("Chop");
+		soundHitPath = SoundPathController.GetPath ("Hit");
     }
 
     public void Hit(bool charged = false)
@@ -86,8 +86,7 @@ public class CharacterPaddle : MonoBehaviour {
 				Debug.LogWarning ("2");
 			}
 			if (characterRuntimeModifiers.UseStamina (characterBase.PaddleStaminaCost)) {
-				//sfxEvent.Raise (new SoundInfo ("ChopBall_grunt-01"));
-				FMODUnity.RuntimeManager.PlayOneShotAttached (hitSfxPath, gameObject);
+				FMODUnity.RuntimeManager.PlayOneShotAttached (soundPaddlePath, gameObject);
 				//soundEmitter.SendMessage("Play");
 				hitObjectIDs.Clear ();
 				hitElapsed = 0;
@@ -216,10 +215,6 @@ public class CharacterPaddle : MonoBehaviour {
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(255, 255, 255, 0.5f);
-
-        if (characterBase == null) Debug.Log("CHAR BASE");
-        if (characterAttributes == null) Debug.Log("Char attr");
-        if (paddleVector == null) Debug.Log("PADDLE VECTOR");
         for (int i = 0; i < 10; i++)
         {
             Gizmos.DrawSphere(pivotPoint + ((characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier / 10) * i * paddleVector),

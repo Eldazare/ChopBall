@@ -21,11 +21,11 @@ public class GoalAreaCheck : MonoBehaviour {
 
         return charactersInArea;
     }
-	/*
+
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(1f, 1f, 0f, 1f);
         Gizmos.DrawWireCube(transform.position, transform.localScale);
     }
-    */
+
 }

@@ -15,7 +15,7 @@ MonoBehaviour:
   StaminaRegen: 33
   PaddleStaminaCost: 10
   DashStaminaCost: 25
-  PaddleLength: 1.5
+  PaddleLength: 1.2
   PaddleThickness: 0.6
   PaddleUpperAngle: 0
   PaddleLowerAngle: 90

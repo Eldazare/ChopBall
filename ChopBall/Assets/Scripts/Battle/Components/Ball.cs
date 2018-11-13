@@ -12,8 +12,8 @@ public class Ball : MonoBehaviour {
 	MeshRenderer meshRenderer;
 	CircleCollider2D circleCollider;
 	TrailRenderer trailRenderer;
-    //BallGravity gravity;
-	Rigidbody2D rigid2D;
+    BallGravity gravity;
+    Rigidbody2D rigid2D;
 	Gradient gradient;
 	GradientAlphaKey[] gradAlphKey;
 
@@ -50,8 +50,8 @@ public class Ball : MonoBehaviour {
 		meshRenderer = GetComponent<MeshRenderer>();
 		circleCollider = GetComponent<CircleCollider2D>();
 		trailRenderer = GetComponentInChildren<TrailRenderer>();
-        //gravity = GetComponentInChildren<BallGravity>();
-		rigid2D = GetComponent<Rigidbody2D> ();
+        gravity = GetComponentInChildren<BallGravity>();
+        rigid2D = GetComponent<Rigidbody2D> ();
 		gradient = new Gradient();
 		gradAlphKey = new GradientAlphaKey[] { new GradientAlphaKey(1f,0f), new GradientAlphaKey(0f,1f) };
 		gradient.SetKeys (
@@ -80,8 +80,7 @@ public class Ball : MonoBehaviour {
 
 		trailRenderer.colorGradient = gradient;
 		FMODUnity.RuntimeManager.PlayOneShot (soundBall1Path, gameObject.transform.position);
-        //gravity.AddUpwardsVelocity(4f);
-	}
+    }
 
 	private IEnumerator ResetEnumerator(){
 		Vector3 spawnPos;
@@ -93,8 +92,8 @@ public class Ball : MonoBehaviour {
 		meshRenderer.enabled = false;
 		circleCollider.enabled = false;
 		trailRenderer.enabled = false;
-        //gravity.enabled = false;
-		rigid2D.velocity = Vector2.zero;
+        gravity.enabled = false;
+        rigid2D.velocity = Vector2.zero;
 		preSpawnIndicatorInstance.transform.position = spawnPos;
 		preSpawnIndicatorInstance.SetActive (true);
 		yield return new WaitForSeconds(3f);
@@ -103,6 +102,6 @@ public class Ball : MonoBehaviour {
 		meshRenderer.enabled = true;
 		circleCollider.enabled = true;
 		trailRenderer.enabled = true;
-        //gravity.enabled = true;
+        gravity.enabled = true;
     }
 }

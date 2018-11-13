@@ -32,6 +32,7 @@ public class Bumper : MonoBehaviour {
 
                 ballBody.velocity = Vector2.zero;
                 ballBody.AddForceAtPosition(-collision.contacts[0].normal * ballBody.mass * appliedForce, collision.contacts[0].point);
+                ballBody.GetComponentInChildren<BallGravity>().AddUpwardsVelocity(4f);
             }
         }
         else if (collision.collider.CompareTag("Character"))

@@ -68,6 +68,7 @@ public class CharacterPaddle : MonoBehaviour {
         currentRotation = characterBase.PaddleLowerAngle * characterAttributes.PaddleLowerAngleMultiplier * (float)Side;
         targetRotation = currentRotation;
         paddleVector = Rotate(masterTransform.up, targetRotation);
+        Pivot.localRotation = Quaternion.AngleAxis(currentRotation, transform.forward);
 
         paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier - currentRotation);
 
@@ -123,8 +124,9 @@ public class CharacterPaddle : MonoBehaviour {
 			currentRotation = targetRotation;
 
 			paddleVector = Rotate (masterTransform.up, targetRotation);
+            Pivot.localRotation = Quaternion.AngleAxis(currentRotation, transform.forward);
 
-			if (currentAngularDirection > 0)
+            if (currentAngularDirection > 0)
 				CheckPaddleCollisions ();
 
 			//if (hitActive == false) hitObjectIDs.Clear();
@@ -204,6 +206,8 @@ public class CharacterPaddle : MonoBehaviour {
 
                     Ball hitBall = hitBody.GetComponent<Ball>();
 					if (hitBall) hitBall.GetPlayerPaddleTouch(playerID, theColors, hitIsCharged);
+
+                    hitBody.GetComponentInChildren<BallGravity>().AddUpwardsVelocity(4f);
 
                     hitObjectIDs.Add(hitObjectID);
                 }

@@ -93,6 +93,7 @@ public class Ball : MonoBehaviour {
 		meshRenderer.enabled = false;
 		circleCollider.enabled = false;
 		trailRenderer.enabled = false;
+		charged = false;
         //gravity.enabled = false;
 		rigid2D.velocity = Vector2.zero;
 		preSpawnIndicatorInstance.transform.position = spawnPos;
@@ -105,4 +106,22 @@ public class Ball : MonoBehaviour {
 		trailRenderer.enabled = true;
         //gravity.enabled = true;
     }
+
+	void OnCollisionExit2D(Collision2D collision){
+		if (collision.collider.CompareTag("Wall")){
+			charged = false;
+		}
+	}
+
+	public void OnBlocked(Vector2 normal, float blockModifier){
+		charged = false;
+		Vector2 velo = rigid2D.velocity;
+		rigid2D.velocity = Vector2.zero;
+		rigid2D.AddForce (Vector2.Reflect (velo.normalized, normal) * rigid2D.mass * velo * blockModifier, ForceMode2D.Impulse);
+	}
+
+
+	public bool IsCharged(){
+		return charged;
+	}
 }

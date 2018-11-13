@@ -14,5 +14,5 @@ MonoBehaviour:
   pathData:
   - key: Chop
     path: event:/Characters/General/Chop
-  - key: Hit
+  - key: PlayerHit
     path: event:/Characters/General/PlayerHit

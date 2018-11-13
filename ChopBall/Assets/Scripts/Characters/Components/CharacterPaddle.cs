@@ -72,19 +72,13 @@ public class CharacterPaddle : MonoBehaviour {
         paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier - currentRotation);
 
 		soundPaddlePath = SoundPathController.GetPath ("Chop");
-		soundHitPath = SoundPathController.GetPath ("Hit");
+		soundHitPath = SoundPathController.GetPath ("PlayerHit");
     }
 
-    public void Hit(bool charged = false)
+	public void Hit(bool charged = false)
     {
         if (!hitActive || !hitIsCharged)
         {
-			if (characterRuntimeModifiers == null) {
-				Debug.LogWarning ("1");
-			}
-			if (characterBase == null) {
-				Debug.LogWarning ("2");
-			}
 			if (characterRuntimeModifiers.UseStamina (characterBase.PaddleStaminaCost)) {
 				FMODUnity.RuntimeManager.PlayOneShotAttached (soundPaddlePath, gameObject);
 				//soundEmitter.SendMessage("Play");
@@ -191,8 +185,9 @@ public class CharacterPaddle : MonoBehaviour {
                     }
                     else
                     {
-                        //Debug.Log("Charge shot");
+                        Debug.Log("Charge shot");
                         hitNormal = masterTransform.up;
+						hitNormal *= characterBase.PaddleChargedForceMultiplier;
                     }
 
                     //Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);

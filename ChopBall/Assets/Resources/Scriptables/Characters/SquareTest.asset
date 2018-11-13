@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Name: SquareTest
   m_EditorClassIdentifier: 
   CharacterName: NotRoyston
-  CharacterPrefabName: null
+  CharacterPrefabName: GenericCharacter3D
   CharacterPortrait: {fileID: 21300000, guid: ddf5ec761c8d47944b754f602aeb57e2, type: 3}
+  StaminaMax: 1
+  StaminaRegen: 1
   PaddleLengthMultiplier: 1
   PaddleThicknessMultiplier: 1
   PaddleUpperAngleMultiplier: 1

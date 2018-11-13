@@ -12,7 +12,10 @@ public class CharacterBaseData : ScriptableObject {
 	public float StaminaRegen;
 
 	public float PaddleStaminaCost;
+	public float PaddleChargedStaminaCost;
 	public float DashStaminaCost;
+	public float BlockStaminaCost;
+	public float ChargeBlockStaminaCost;
 
     [Header("Paddles")]
     public float PaddleLength;
@@ -22,6 +25,7 @@ public class CharacterBaseData : ScriptableObject {
 	public float PaddleSpeedUp;
 	public float PaddleSpeedDown;
     public float PaddleForceAmount;
+	public float PaddleChargedForceMultiplier;
     public LayerMask PaddleCollisionLayers;
 
     [Header("Movement")]
@@ -32,4 +36,7 @@ public class CharacterBaseData : ScriptableObject {
     public float DashCoolDown;
     public float BodyMass;
     public float LinearDrag;
+
+	[Header("Blocking")]
+	public float BlockForceDampModifier;
 }

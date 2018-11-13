@@ -9,19 +9,19 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 11987901a03fc1d4788ce4594e3861c6, type: 3}
-  m_Name: 2_GoalMatch
+  m_Name: 2_StockMatch
   m_EditorClassIdentifier: 
-  bpName: Goal match
-  descriptionLine1: '3 Minute match! '
-  descriptionLine2: Score the most goals to win!
-  descriptionLine3: 
-  descriptionLine4: 
+  bpName: Elimination match
+  descriptionLine1: Start each round with 3 lives.
+  descriptionLine2: Try to defend your goal!
+  descriptionLine3: Last one standing gets a point!
+  descriptionLine4: Score 2 points to win the match!
   descriptionLine5: 
-  countObject: 1
-  roundEnd: 2
-  roundEndCap: 0
-  timerMinutes: 3
+  countObject: 0
+  roundEnd: 0
+  roundEndCap: 3
+  timerMinutes: 0
   timerSeconds: 0
-  endCriteria: 0
-  endValue: 1
-  scoringMode: 2
+  endCriteria: 1
+  endValue: 2
+  scoringMode: 0

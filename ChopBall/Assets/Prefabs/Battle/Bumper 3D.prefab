@@ -232,6 +232,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab53fd209e2395b4590ad37b4fbd4efb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BallForceAmount: 100
-  BallMinForce: 2000
+  BallForceAmount: 1.1
+  BallMinForce: 7.5
   PlayerForceAmount: 20

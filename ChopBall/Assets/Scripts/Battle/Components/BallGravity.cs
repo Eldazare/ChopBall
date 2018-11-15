@@ -10,8 +10,18 @@ public class BallGravity : MonoBehaviour {
     public float MinBounce = 0.01f;
     public float StartHeight = 2f;
     public float MaxHeight = 2f;
+    public ParticleSystem BounceParticles;
 
     private float velocity;
+    [SerializeField]
+    private bool grounded = false;
+
+    private ParticleSystem.MainModule bParticleMain;
+
+    private void Awake()
+    {
+        bParticleMain = BounceParticles.main;
+    }
 
     private void OnEnable()
     {
@@ -30,22 +40,49 @@ public class BallGravity : MonoBehaviour {
 
     private void Update()
     {
-        velocity += Gravity * Time.deltaTime;
-        transform.localPosition += velocity * Vector3.forward * Time.deltaTime;
-
-        if (transform.localPosition.z >= 0f)
+        if (!grounded)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
-            if (velocity > MinBounce) velocity = -LimitVelocity(velocity * Bounce);
-            else velocity = 0f;
-        }
+            velocity += Gravity * Time.deltaTime;
+            transform.localPosition += velocity * Vector3.forward * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space)) AddUpwardsVelocity(8f);
+            if (transform.localPosition.z >= 0f)
+            {
+                ContactGround();
+            }
+        }
     }
 
     public void AddUpwardsVelocity(float amount)
     {
         velocity = -LimitVelocity(amount);
+        grounded = false;
+    }
+
+    private void ContactGround()
+    {
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
+        float bounce = LimitVelocity(velocity * Bounce);
+        float maxBounce = Mathf.Sqrt(2f * Gravity * MaxHeight);
+
+        if (bounce > MinBounce)
+        {
+            //Bounce
+            //Debug.Log("Bounce");
+            velocity = -bounce;
+            //Add sound or other bounce fx here
+            if (bounce > maxBounce / 3)
+            {
+                bParticleMain.startLifetime = (bounce / maxBounce) * 0.5f;
+                BounceParticles.Play();
+            }
+        }
+        else
+        {
+            //Grounded
+            //Debug.Log("Grounded");
+            grounded = true;
+            velocity = 0f;
+        }
     }
 
     private float LimitVelocity(float velocity)

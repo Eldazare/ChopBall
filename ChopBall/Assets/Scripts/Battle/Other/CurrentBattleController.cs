@@ -16,6 +16,11 @@ public static class CurrentBattleController  {
 		LoadCurrentBattle ();
 		currentBattle.InitializeFromMasterStateData (numberOfGoals);
 	}
+
+	public static bool IsStockActive(){
+		LoadCurrentBattle ();
+		return currentBattle.maxStock != -1;
+	}
 		
 	public static void AddGoal(GoalData goalData){
 		LoadCurrentBattle ();
@@ -49,5 +54,15 @@ public static class CurrentBattleController  {
 	public static List<TeamContainer> GetTeams(){
 		LoadCurrentBattle ();
 		return currentBattle.teams;
+	}
+
+	public static List<GoalInfo> GetGoalInfos(){
+		LoadCurrentBattle ();
+		return currentBattle.goalDatas;
+	}
+
+	public static bool InitializeGoalData(int playerID, int goalIndex){
+		LoadCurrentBattle ();
+		return currentBattle.InitializeGoal (playerID, goalIndex);
 	}
 }

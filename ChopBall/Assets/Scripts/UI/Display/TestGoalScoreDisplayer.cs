@@ -7,6 +7,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 
 	public List<Text> allTextList;
 	public Text timerDisplay;
+	public List<Text> goalStockDisplays;
 
 	private List<Text> displayTextList;
 
@@ -76,11 +77,17 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 			foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors ()) {
 				displayTextList [i].text = "Player " + competitor.playerID;
 				displayTextList [i].text += "\nGoals: " + competitor.goalsScored;
-				if (competitor.stock != 0) {
-					displayTextList [i].text += "\nStocks: " + competitor.stock;
-				}
 				displayTextList [i].text += "\nScore: " + competitor.score;
 				i++;
+			}
+		}
+		if (CurrentBattleController.IsStockActive ()) {
+			for (int i = 0; i < CurrentBattleController.GetGoalInfos ().Count; i++) {
+				goalStockDisplays [i].text = CurrentBattleController.GetGoalInfos () [i].stocks.ToString ();
+			}
+		} else {
+			foreach (var text in goalStockDisplays) {
+				text.text = "";
 			}
 		}
 	}

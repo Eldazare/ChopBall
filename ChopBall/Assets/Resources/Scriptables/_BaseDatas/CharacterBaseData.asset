@@ -25,7 +25,7 @@ MonoBehaviour:
   PaddleSpeedUp: 20
   PaddleSpeedDown: 5
   PaddleForceAmount: 25
-  PaddleChargedForceMultiplier: 1.5
+  PaddleChargedForceMultiplier: 3
   PaddleCollisionLayers:
     serializedVersion: 2
     m_Bits: 2048

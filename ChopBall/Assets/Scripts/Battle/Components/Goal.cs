@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class Goal : MonoBehaviour {
 
-	public int goalNumber; // Begins from 0
 	public GoalEvent goalEvent;
 	public SpriteRenderer goalMarker;
 	public MeshRenderer goalMarker3D;
 
 
 	private int goalPlayerID;
+	private int goalIndex;
 
     private Vector2 characterSpawnPoint;
 
@@ -21,7 +21,7 @@ public class Goal : MonoBehaviour {
 
 	private string soundGoalPath;
 
-	public void Initialize( Color32 color, Material mat){
+	public void Initialize( Color32 color, Material mat, int goalIndex){
 		gameObject.GetComponent<BoxCollider2D> ().enabled = true;
 		if (goalMarker != null) {
 			goalMarker.enabled = true;
@@ -32,6 +32,8 @@ public class Goal : MonoBehaviour {
         charactersInArea = new List<CharacterHandler>(16);
         areaCheck = GetComponentInChildren<GoalAreaCheck>();
 		soundGoalPath = SoundPathController.GetPath ("Goal1");
+		this.goalIndex = goalIndex;
+		CurrentBattleController.InitializeGoalData (goalPlayerID, goalIndex);
 	}
 
 	public void InitializeID(int playerID){
@@ -47,7 +49,7 @@ public class Goal : MonoBehaviour {
 			Ball ball = collider.gameObject.GetComponent<Ball> ();
 			gd.goalPlayerID = goalPlayerID;
 			gd.giverPlayerIDs = ball.touchedPlayers;
-			gd.goalNumber = goalNumber;
+			gd.goalIndex = goalIndex;
 			goalEvent.Raise (gd);
 			ball.ResetBallPosition ();
 			ResetGoalTargets ();

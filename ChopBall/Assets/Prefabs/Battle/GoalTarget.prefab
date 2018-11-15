@@ -163,4 +163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 475dfc797add1e74ea09768bfe75c081, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MinVelocity: 5
+  MinBreakVelocity: 5
+  BallForceAmount: 0.6
+  BallMinForce: 4

@@ -12,6 +12,7 @@ public class BallGravity : MonoBehaviour {
     public float MaxHeight = 2f;
 
     private float velocity;
+    public bool grounded = false;
 
     private void OnEnable()
     {
@@ -30,22 +31,43 @@ public class BallGravity : MonoBehaviour {
 
     private void Update()
     {
-        velocity += Gravity * Time.deltaTime;
-        transform.localPosition += velocity * Vector3.forward * Time.deltaTime;
-
-        if (transform.localPosition.z >= 0f)
+        if (!grounded)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
-            if (velocity > MinBounce) velocity = -LimitVelocity(velocity * Bounce);
-            else velocity = 0f;
-        }
+            velocity += Gravity * Time.deltaTime;
+            transform.localPosition += velocity * Vector3.forward * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space)) AddUpwardsVelocity(8f);
+            if (transform.localPosition.z >= 0f)
+            {
+                ContactGround();
+            }
+        }
     }
 
     public void AddUpwardsVelocity(float amount)
     {
         velocity = -LimitVelocity(amount);
+        grounded = false;
+    }
+
+    private void ContactGround()
+    {
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
+        float bounce = LimitVelocity(velocity * Bounce);
+
+        if (bounce > MinBounce)
+        {
+            //Bounce
+            //Debug.Log("Bounce");
+            velocity = -bounce;
+            //Add sound or other bounce fx here
+        }
+        else
+        {
+            //Grounded
+            //Debug.Log("Grounded");
+            grounded = true;
+            velocity = 0f;
+        }
     }
 
     private float LimitVelocity(float velocity)

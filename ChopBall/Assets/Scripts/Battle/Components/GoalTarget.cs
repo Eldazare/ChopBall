@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GoalTarget : MonoBehaviour {
     
-    public float MinVelocity;
+    public float MinBreakVelocity;
+    public float BallForceAmount;
+    public float BallMinForce;
 
     private Collider2D targetCollider;
     //private SpriteRenderer sprite;
@@ -53,12 +55,24 @@ public class GoalTarget : MonoBehaviour {
     {
         if (collision.collider.CompareTag("Ball"))
         {
-            if (collision.relativeVelocity.magnitude >= MinVelocity)
+            if (collision.relativeVelocity.magnitude >= MinBreakVelocity)
             {
 				DeActivate ();
             }
 
-			FMODUnity.RuntimeManager.PlayOneShot (soundTarget1Path, gameObject.transform.position);
+            Rigidbody2D ballBody = collision.collider.GetComponent<Rigidbody2D>();
+
+            if (ballBody)
+            {
+                float forceAmount = collision.relativeVelocity.magnitude * BallForceAmount;
+                forceAmount = Mathf.Clamp(forceAmount, BallMinForce, Mathf.Infinity);
+                Vector2 appliedForce = Vector2.Reflect(collision.relativeVelocity.normalized, collision.contacts[0].normal) * forceAmount;
+
+                ballBody.velocity = Vector2.zero;
+                ballBody.AddForce(ballBody.mass * appliedForce, ForceMode2D.Impulse);
+            }
+
+            FMODUnity.RuntimeManager.PlayOneShot (soundTarget1Path, gameObject.transform.position);
         }
     }
 }

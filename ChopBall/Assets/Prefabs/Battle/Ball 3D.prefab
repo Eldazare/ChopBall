@@ -166,7 +166,7 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!58 &58878748552379138
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -312,9 +312,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gravity: 15
   Bounce: 0.8
-  MinBounce: 0.01
+  MinBounce: 0.1
   StartHeight: 3
-  MaxHeight: 1.5
+  MaxHeight: 2
+  grounded: 0
 --- !u!119 &119814406184745172
 Projector:
   m_ObjectHideFlags: 1

@@ -81,7 +81,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 				i++;
 			}
 		}
-		if (CurrentBattleController.IsStockActive ()) {
+		if (CurrentBattleController.IsStockActive () && goalStockDisplays.Count > 0) {
 			for (int i = 0; i < CurrentBattleController.GetGoalInfos ().Count; i++) {
 				goalStockDisplays [i].text = CurrentBattleController.GetGoalInfos () [i].stocks.ToString ();
 			}

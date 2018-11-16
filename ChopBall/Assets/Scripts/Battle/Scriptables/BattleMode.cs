@@ -447,7 +447,7 @@ public class BattleMode : ScriptableObject {
 
 	public bool InitializeGoal(int playerID, int goalIndex){
 		goalDatas.Add(new GoalInfo(goalIndex, maxStock));
-		if (countObject == CountObject.Lives) {
+		if (countObject == CountObject.Lives && competitors.Count > 0) {
 			if (teams != null) {
 				teams.Single (s => s.teamID == competitors.Single (c => c.playerID == playerID).teamIndex).AddGoalIndex (goalIndex);
 			} else {

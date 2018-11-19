@@ -64,9 +64,11 @@ public class GoalTarget : MonoBehaviour {
 
             if (ballBody)
             {
+                ContactPoint2D contact = collision.GetContact(0);
+
                 float forceAmount = collision.relativeVelocity.magnitude * BallForceAmount;
                 forceAmount = Mathf.Clamp(forceAmount, BallMinForce, Mathf.Infinity);
-                Vector2 appliedForce = Vector2.Reflect(collision.relativeVelocity.normalized, collision.contacts[0].normal) * forceAmount;
+                Vector2 appliedForce = Vector2.Reflect(collision.relativeVelocity.normalized, contact.normal) * forceAmount;
 
                 ballBody.velocity = Vector2.zero;
                 ballBody.AddForce(ballBody.mass * appliedForce, ForceMode2D.Impulse);

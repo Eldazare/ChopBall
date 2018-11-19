@@ -72,14 +72,6 @@ public class Ball : MonoBehaviour {
 			colorKeys,
 			gradAlphKey
 		);
-
-		/*
-		gradient.SetKeys (
-			new GradientColorKey[] {new GradientColorKey(color, 0f),new GradientColorKey(color, 1f) },
-			gradAlphKey
-		);
-		*/
-
 		trailRenderer.colorGradient = gradient;
 		FMODUnity.RuntimeManager.PlayOneShot (soundBall1Path, gameObject.transform.position);
     }

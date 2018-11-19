@@ -13,6 +13,7 @@ public class BallGravity : MonoBehaviour {
     public ParticleSystem BounceParticles;
 
     private float velocity;
+	private string soundBouncePath;
     [SerializeField]
     private bool grounded = false;
 
@@ -21,6 +22,7 @@ public class BallGravity : MonoBehaviour {
     private void Awake()
     {
         bParticleMain = BounceParticles.main;
+		soundBouncePath = SoundPathController.GetPath ("BallBounce");
     }
 
     private void OnEnable()
@@ -67,13 +69,14 @@ public class BallGravity : MonoBehaviour {
         if (bounce > MinBounce)
         {
             //Bounce
-            //Debug.Log("Bounce");
+            Debug.Log("Bounce");
             velocity = -bounce;
-            //Add sound or other bounce fx here
             if (bounce > maxBounce / 3)
             {
+				Debug.Log ("MinBounce");
                 bParticleMain.startLifetime = (bounce / maxBounce) * 0.5f;
                 BounceParticles.Play();
+				FMODUnity.RuntimeManager.PlayOneShot (soundBouncePath, transform.position);
             }
         }
         else

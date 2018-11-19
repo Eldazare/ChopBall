@@ -20,3 +20,5 @@ MonoBehaviour:
     path: event:/Objects/Ball
   - key: Wall
     path: event:/Objects/Ball
+  - key: BallBounce
+    path: event:/Objects/Ball

@@ -30,6 +30,9 @@ public class CharacterHandler : MonoBehaviour {
 	private CharacterState[] characterStates;
 
 	private string soundPlayerHit;
+	private Vector3 startPosition;
+	private float startRot;
+	private bool startPosRotSet = false;
 
     public void SetInputModel(InputModel model)
     {
@@ -39,7 +42,21 @@ public class CharacterHandler : MonoBehaviour {
     public void SetPositionAndRotation(Vector2 position, float rotation)
     {
         movement.SetPositionAndRotation(position, rotation);
+		SetStartPosAndRot (position, rotation);
     }
+
+	public void SetStartPosAndRot (Vector3 startPosition, float startRot){
+		if (!startPosRotSet) {
+			this.startPosition = startPosition;
+			this.startRot = startRot;
+			startPosRotSet = true;
+		}
+	}
+
+	public void ResetToStartPosition(){
+		transform.position = startPosition;
+		transform.rotation = Quaternion.Euler(new Vector3(0,0, startRot));
+	}
 
     private void LoadCharacterBase()
     {
@@ -80,6 +97,9 @@ public class CharacterHandler : MonoBehaviour {
 
 	public void Initialize(Color32 theColor)
     {
+		this.startPosition = startPosition;
+		this.startRot = startRot;
+		ResetToStartPosition ();
         CharacterPaddle[] paddles = new CharacterPaddle[2];
         paddles = GetComponents<CharacterPaddle>();
 		for (int i = 0; i < paddles.Length; i++)

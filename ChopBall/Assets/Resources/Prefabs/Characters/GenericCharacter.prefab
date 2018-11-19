@@ -529,7 +529,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Side: -1
   Pivot: {fileID: 4719229573426736}
-  hitSfxPath: event:/Characters/General/Chop
 --- !u!114 &114195443527137888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -560,6 +559,7 @@ MonoBehaviour:
   PlayerID: 0
   CharacterAttributes: {fileID: 0}
   CharacterRuntimeModifiers: {fileID: 0}
+  bodyRenderers: []
 --- !u!114 &114318656289107948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -573,7 +573,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Side: 1
   Pivot: {fileID: 4880309762545822}
-  hitSfxPath: event:/Characters/General/PlayerHit
 --- !u!114 &114415241819815326
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -585,7 +584,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0062ca36a09b8042970fdee88d39e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 0}
+  staminaCircle: {fileID: 0}
+  arrow: {fileID: 0}
 --- !u!114 &114472812785657492
 MonoBehaviour:
   m_ObjectHideFlags: 1

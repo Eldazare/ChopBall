@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 50433893201213894}
   - component: {fileID: 58878748552379138}
   - component: {fileID: 114088668869361568}
+  - component: {fileID: 114212998917658326}
   m_Layer: 11
   m_Name: Ball 3D
   m_TagString: Ball
@@ -348,6 +349,34 @@ MonoBehaviour:
   MaxHeight: 2
   BounceParticles: {fileID: 198501423036574668}
   grounded: 0
+--- !u!114 &114212998917658326
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1915898121159630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706fc1cd12f49bc459f85a68485279b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 0119c844770d91340ac2106d114ee0f8, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114088668869361568}
+        m_MethodName: ResetBallPosition
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!119 &119814406184745172
 Projector:
   m_ObjectHideFlags: 1

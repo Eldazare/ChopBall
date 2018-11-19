@@ -65,7 +65,7 @@ public class Goal : MonoBehaviour {
 		targets.Add (target);
 	}
 
-	private void ResetGoalTargets(){
+	public void ResetGoalTargets(){
 		foreach(var target in targets){
 			target.Activate ();
 		}

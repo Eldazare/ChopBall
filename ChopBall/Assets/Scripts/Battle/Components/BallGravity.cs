@@ -46,6 +46,7 @@ public class BallGravity : MonoBehaviour {
     public void SetHeight(float height)
     {
         transform.localPosition = new Vector3(0, 0, -height);
+        if (height > 0) grounded = false;
     }
 
 	public void Pause(){

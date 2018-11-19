@@ -15,7 +15,7 @@ MonoBehaviour:
   StaminaRegen: 33
   PaddleStaminaCost: 10
   PaddleChargedStaminaCost: 20
-  DashStaminaCost: 35
+  DashStaminaCost: 30
   BlockStaminaCost: 30
   ChargeBlockStaminaCost: 50
   PaddleLength: 1.2
@@ -31,7 +31,7 @@ MonoBehaviour:
     m_Bits: 2048
   MovementSpeed: 8
   RotationSpeed: 4
-  DashDistance: 4
+  DashDistance: 6
   DashTime: 0.1
   DashCoolDown: 0.05
   BodyMass: 1

@@ -72,8 +72,8 @@ public class CharacterMovement : MonoBehaviour {
         if (dashTimerElapsed <= 0)
         {
             isDashing = false;
-            velocity.x = inputAxis.x * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * Time.deltaTime;
-            velocity.y = inputAxis.y * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * Time.deltaTime;
+			velocity.x = inputAxis.x * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * characterRigidbody.mass * Time.deltaTime;
+			velocity.y = inputAxis.y * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * characterRigidbody.mass * Time.deltaTime;
         }
         else
         {

@@ -10,7 +10,13 @@ public class BallGravity : MonoBehaviour {
     public float MinBounce = 0.01f;
     public float StartHeight = 2f;
     public float MaxHeight = 2f;
+    public float MaxHitHeight = 1.5f;
     public ParticleSystem BounceParticles;
+
+    public float currentHeight
+    {
+        get { return -transform.localPosition.z; }
+    }
 
     private float velocity;
 	private string soundBouncePath;

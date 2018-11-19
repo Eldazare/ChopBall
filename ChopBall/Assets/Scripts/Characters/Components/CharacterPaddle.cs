@@ -164,6 +164,10 @@ public class CharacterPaddle : MonoBehaviour {
                 {
                     //Debug.Log("Rigidbody found");
 
+                    BallGravity ballGravity = hitBody.GetComponentInChildren<BallGravity>();
+                    //Debug.Log(ballGravity.currentHeight);
+                    if (ballGravity && ballGravity.currentHeight > ballGravity.MaxHitHeight) continue;
+
                     // Calculate the hit normal based on the direction of the hit
                     Vector2 hitNormal;
 
@@ -214,13 +218,13 @@ public class CharacterPaddle : MonoBehaviour {
         Gizmos.color = new Color(255, 255, 255, 0.5f);
         for (int i = 0; i < 10; i++)
         {
-            Gizmos.DrawSphere(pivotPoint + ((characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier / 10) * i * paddleVector),
+            Gizmos.DrawSphere((Vector3)pivotPoint + -Vector3.forward * 1.25f + (Vector3)((characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier / 10) * i * paddleVector),
                                             characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier / 2);
         }
 
         Gizmos.color = new Color(0, 255, 0, 0.5f);
 
-        Gizmos.DrawSphere(pivotPoint + characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier * paddleVector,
+        Gizmos.DrawSphere((Vector3)pivotPoint + -Vector3.forward * 1.25f + (Vector3)(characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier * paddleVector),
                           characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier / 2);
     }
 

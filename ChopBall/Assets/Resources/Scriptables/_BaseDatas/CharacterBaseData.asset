@@ -19,7 +19,7 @@ MonoBehaviour:
   BlockStaminaCost: 30
   ChargeBlockStaminaCost: 50
   PaddleLength: 1.2
-  PaddleThickness: 0.6
+  PaddleThickness: 0.9
   PaddleUpperAngle: 0
   PaddleLowerAngle: 90
   PaddleSpeedUp: 20

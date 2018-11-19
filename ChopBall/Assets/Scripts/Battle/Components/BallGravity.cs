@@ -19,6 +19,8 @@ public class BallGravity : MonoBehaviour {
 
     private ParticleSystem.MainModule bParticleMain;
 
+	private bool paused = false;
+
     private void Awake()
     {
         bParticleMain = BounceParticles.main;
@@ -40,8 +42,19 @@ public class BallGravity : MonoBehaviour {
         transform.localPosition = new Vector3(0, 0, -height);
     }
 
+	public void Pause(){
+		if (paused) {
+			paused = false;
+		} else {
+			paused = true;
+		}
+	}
+
     private void Update()
     {
+		if (paused) {
+			return;
+		}
         if (!grounded)
         {
             velocity += Gravity * Time.deltaTime;

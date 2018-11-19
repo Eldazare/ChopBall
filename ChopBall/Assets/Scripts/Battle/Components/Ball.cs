@@ -25,6 +25,21 @@ public class Ball : MonoBehaviour {
 
 	private string soundBall1Path;
 
+	private bool paused = false;
+	private Vector2 savedVelocity = Vector2.zero;
+
+	public void Pause(){
+		if (paused) {
+			paused = false;
+			rigid2D.velocity = savedVelocity;
+			savedVelocity = Vector2.zero;
+		} else {
+			paused = true;
+			savedVelocity = rigid2D.velocity;
+			rigid2D.velocity = Vector2.zero;
+		}
+	}
+
 
 
 	public void ResetBallPosition(){

@@ -33,11 +33,20 @@ public class CharacterHandler : MonoBehaviour {
 	private Vector3 startPosition;
 	private float startRot;
 	private bool startPosRotSet = false;
+	private bool paused = false;
 
     public void SetInputModel(InputModel model)
     {
         this.input = model;
     }
+
+	public void Pause(){
+		if (paused) {
+			paused = false;
+		} else {
+			paused = true;
+		}
+	}
 
     public void SetPositionAndRotation(Vector2 position, float rotation)
     {
@@ -134,6 +143,10 @@ public class CharacterHandler : MonoBehaviour {
 
     private void FixedUpdate()
     {
+		if (paused) {
+			movement.Move (Vector2.zero);
+			return;
+		}
         if (input != null)
         {
 			if (input.Dash && !dashTriggeredLastFrame && currentState.canDash)

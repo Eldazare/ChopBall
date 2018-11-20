@@ -387,7 +387,7 @@ MonoBehaviour:
   MinBounce: 0.1
   StartHeight: 3
   MaxHeight: 2
-  MaxHitHeight: 1.5
+  MaxHitHeight: 2
   BounceParticles: {fileID: 198501423036574668}
   grounded: 0
 --- !u!114 &114212998917658326
@@ -505,7 +505,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 0
+  moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0

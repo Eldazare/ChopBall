@@ -10,6 +10,8 @@ public class CharacterAttributeData : ScriptableObject {
     [Header("External")]
 	public string CharacterName;
 	public string CharacterPrefabName;
+	public GameObject CharacterBattleModelPrefab;
+	public GameObject CharacterMenuModelPrefab;
 	public Sprite CharacterPortrait;
 
 	[Header("General")]

@@ -25,3 +25,5 @@ MonoBehaviour:
   Cancel: 1
   Start: 7
   Select: 6
+  DashAxis: 9
+  BlockAxis: 10

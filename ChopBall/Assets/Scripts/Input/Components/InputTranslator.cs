@@ -54,8 +54,8 @@ public class InputTranslator : MonoBehaviour {
 
 		model.PaddleLeft = Input.GetKey (customInputs.PaddleLeft);
 		model.PaddleRight = Input.GetKey (customInputs.PaddleRight);
-		model.Dash = Input.GetKey (customInputs.Dash);
-		model.Block = Input.GetKey (customInputs.Block);
+		model.Dash = (Input.GetKey (customInputs.Dash) || Input.GetAxisRaw(customInputs.DashAxis)>baseData.triggerTreshold);
+		model.Block = (Input.GetKey (customInputs.Block) || Input.GetAxisRaw(customInputs.BlockAxis)>baseData.triggerTreshold);
 		model.Submit = Input.GetKey (customInputs.Submit);
 		model.Cancel = Input.GetKey (customInputs.Cancel);
 		model.Start = Input.GetKey (customInputs.Start);

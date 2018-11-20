@@ -85,3 +85,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   inputSmoothing: 0.05
   gravityModifier: 1
+  triggerTreshold: 0.2

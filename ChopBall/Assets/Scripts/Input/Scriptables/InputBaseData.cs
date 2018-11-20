@@ -11,4 +11,7 @@ public class InputBaseData : ScriptableObject {
 	public AnimationCurve velocitySmoothingCurve;
 	public float inputSmoothing;
 	public float gravityModifier;
+
+	[Range(0.1f,0.99f)]
+	public float triggerTreshold = 0.5f;
 }

@@ -23,4 +23,7 @@ public class ControllerModel : ScriptableObject{
 	public int Cancel;
 	public int Start;
 	public int Select;
+
+	public int DashAxis;
+	public int BlockAxis;
 }

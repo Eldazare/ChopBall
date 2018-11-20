@@ -16,6 +16,9 @@ public class InputStorage : ScriptableObject {
 	public float deadZoneLeft;
 	public float deadZoneRight;
 
+	public string DashAxis;
+	public string BlockAxis;
+
 	public bool active = false;
 	public int playerNo;
 	public KeyCode PaddleLeft;
@@ -67,7 +70,6 @@ public class InputStorage : ScriptableObject {
 			usedModelName = model.ControllerName;
 			ReadModelDefaultButtons(model);
 		}
-
 	}
 
 	public void ReadDefaultButtonsFromCurrentModel(){
@@ -85,6 +87,9 @@ public class InputStorage : ScriptableObject {
 		Cancel = GetButtonCode (model.Cancel);
 		Start = GetButtonCode (model.Start);
 		Select = GetButtonCode (model.Select);
+
+		DashAxis = GetAxisString (model.DashAxis);
+		BlockAxis = GetAxisString (model.BlockAxis);
 	}
 
 	private KeyCode GetButtonCode(int buttonNumber){

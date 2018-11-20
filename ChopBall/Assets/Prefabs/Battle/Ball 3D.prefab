@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0, z: 0}
-  preSpawnIndicator: {fileID: 1133761555795408, guid: cd4de6414bdf7bd4ab66d0f160f56b83,
+  preSpawnIndicator: {fileID: 1864797035700468, guid: 309e9695d00011848afd9731e1c43d61,
     type: 2}
   startPositions: []
   touchedPlayers: 
@@ -387,6 +387,7 @@ MonoBehaviour:
   MinBounce: 0.1
   StartHeight: 3
   MaxHeight: 2
+  MaxHitHeight: 1.5
   BounceParticles: {fileID: 198501423036574668}
   grounded: 0
 --- !u!114 &114212998917658326

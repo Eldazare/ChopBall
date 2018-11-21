@@ -373,8 +373,7 @@ public class BattleMode : ScriptableObject {
 				useTimer = true;
 				minutes = blueprint.timer.minutes;
 				seconds = blueprint.timer.seconds;
-				timer.minutes = minutes;
-				timer.seconds = seconds;
+				timer = new ATime (minutes, seconds);
 				TimerUpdated.Raise ();
 			} else {
 				useTimer = false;

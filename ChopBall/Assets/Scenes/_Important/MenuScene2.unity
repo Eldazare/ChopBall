@@ -257,6 +257,11 @@ Prefab:
       propertyPath: modeIndex
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114070935422820022, guid: cde2b1a018a82484fb0c7018aed2c891,
+        type: 2}
+      propertyPath: descriptionText
+      value: 
+      objectReference: {fileID: 1781212018}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cde2b1a018a82484fb0c7018aed2c891, type: 2}
   m_IsPrefabAsset: 0
@@ -656,6 +661,11 @@ Prefab:
       propertyPath: modeIndex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114070935422820022, guid: cde2b1a018a82484fb0c7018aed2c891,
+        type: 2}
+      propertyPath: descriptionText
+      value: 
+      objectReference: {fileID: 1781212018}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cde2b1a018a82484fb0c7018aed2c891, type: 2}
   m_IsPrefabAsset: 0

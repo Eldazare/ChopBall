@@ -17,6 +17,7 @@ public class _ControlCursor : MonoBehaviour {
 	private bool lateCancel;
 	private bool latePaddleLeft;
 	private bool latePaddleRight;
+	private Vector2 vec;
 
 	private List<DPosition> dirList = new List<DPosition>() {new DPosition(1,0), new DPosition(-1,0), 
 		new DPosition(0,1), new DPosition(0,-1)};
@@ -34,16 +35,18 @@ public class _ControlCursor : MonoBehaviour {
 		triggered = false;
 		for (int i = 0; i < dirList.Count; i++) {
 			//Debug.Log ("Magnitude:" + (model.leftDirectionalInput * dirList [i]).magnitude);
-			if ((model.leftDirectionalInput * dirList [i]).magnitude > treshold) {
+			vec = model.leftDirectionalInput * dirList[i];
+			if ((vec.x+vec.y) > treshold) {
+				Debug.Log (dirList [i].x +"  "+ dirList[i].y);
 				triggered = true;
 				if (!inputDone) {
 					currentButton.OnButtonExit (playerID);
-					currentButton = menuPanelHandler.GoAnywhere (currentPosition + dirList [i], out currentPosition); 
+					SetPosition (currentPosition + dirList [i]);
 					inputDone = true;
 					currentButton.OnButtonEnter (playerID);
 					Debug.LogWarning ("Did");
-					break;
 				}
+				break;
 			}
 		}
 		if (!triggered) {

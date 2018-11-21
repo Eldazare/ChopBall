@@ -594,10 +594,15 @@ public class ATime{
 
 	public string GetAsString(){
 		if (str == "") {
-			return string.Format ("{0}:{1:F1}", minutes, seconds);
+			return minutes+":"+seconds.ToString("F1");
+			// return minutes+":"+RoundTo1Decim(seconds);
 		} else {
 			return str;
 		}
+	}
+
+	private float RoundTo1Decim(float flo){
+		return Mathf.Round (flo * 10.0f) / 10.0f;
 	}
 }
 

@@ -94,6 +94,9 @@ public class MenuPanelHandler : MonoBehaviour
 			y = 0;
 		} else if (currentPos.y < 0) {
 			y = currentPanel.buttonList.Count - 1;
+			if (y < 0) {
+				y = 0;
+			}
 		}
 		if (currentPanel.buttonList[currentPos.y].Count <= currentPos.x) {
 			x = 0;

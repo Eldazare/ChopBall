@@ -90,15 +90,15 @@ public class MenuPanelHandler : MonoBehaviour
 
 	public _ControlButton GoAnywhere(DPosition currentPos, out DPosition pos){
 		int x = currentPos.x; int y = currentPos.y;
-		if (currentPanel.buttonList[currentPos.y].Count <= currentPos.x) {
-			x = 0;
-		} else if (currentPos.x < 0) {
-			x = currentPanel.buttonList[currentPos.y].Count-1;
-		}
 		if (currentPanel.buttonList.Count <= currentPos.y) {
 			y = 0;
 		} else if (currentPos.y < 0) {
 			y = currentPanel.buttonList.Count - 1;
+		}
+		if (currentPanel.buttonList[currentPos.y].Count <= currentPos.x) {
+			x = 0;
+		} else if (currentPos.x < 0) {
+			x = currentPanel.buttonList[currentPos.y].Count-1;
 		}
 		if (currentPanel.buttonList [y].Count <= currentPos.x) {
 			x = currentPanel.buttonList [y].Count;

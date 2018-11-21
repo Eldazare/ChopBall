@@ -30,8 +30,7 @@ public class BattleMode : ScriptableObject {
 	private int matchEndValue;
 	private ScoringMode scoringMode; // How do goals/Stocks/etc relate to score at end of round
 
-	public int minutesLeft;
-	public float secondsLeft;
+	public ATime timer;
 	public bool useTimer = false;
 	public int roundNumber;
 	public bool suddenDeath = false;
@@ -125,11 +124,11 @@ public class BattleMode : ScriptableObject {
 	public void ProgressTime(float deltaTime){
 		if (useTimer) {
 			if (!suddenDeath) {
-				secondsLeft -= deltaTime;
-				if (secondsLeft < 0) {
-					minutesLeft -= 1;
-					secondsLeft += 60;
-					if (minutesLeft < 0) {
+				timer.seconds -= deltaTime;
+				if (timer.seconds < 0) {
+					timer.minutes -= 1;
+					timer.seconds += 60;
+					if (timer.minutes < 0) {
 						if (roundEnd == RoundEnd.Timer) {
 							EndRound ();
 						}
@@ -142,8 +141,8 @@ public class BattleMode : ScriptableObject {
 
 	public void EndRound(){
 		if (useTimer) {
-			minutesLeft = minutes;
-			secondsLeft = seconds;
+			timer.minutes = minutes;
+			timer.seconds = seconds;
 		}
 		foreach (CompetitorContainer competitor in competitors) {
 			switch (countObject) {
@@ -374,8 +373,8 @@ public class BattleMode : ScriptableObject {
 				useTimer = true;
 				minutes = blueprint.timer.minutes;
 				seconds = blueprint.timer.seconds;
-				minutesLeft = minutes;
-				secondsLeft = seconds;
+				timer.minutes = minutes;
+				timer.seconds = seconds;
 				TimerUpdated.Raise ();
 			} else {
 				useTimer = false;

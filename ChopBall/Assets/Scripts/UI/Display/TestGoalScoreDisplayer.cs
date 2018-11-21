@@ -11,9 +11,8 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 
 	private List<Text> displayTextList;
 
-	public void TimerUpdated(){
-		ATime timer =  CurrentBattleController.GetATime ();
-		timerDisplay.text = timer.GetAsString ();
+	public void TimerUpdated(){ 
+		timerDisplay.text = CurrentBattleController.GetATime ();
 	}
 
 	public void ResolutionChangeUpdatePositions(){

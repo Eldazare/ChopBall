@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MenuPanelHandler : MonoBehaviour
 {
@@ -116,7 +117,7 @@ public class MenuPanelHandler : MonoBehaviour
 	}
 }
 
-
+[Serializable]
 public class DPosition{
 	public int x;
 	public int y;

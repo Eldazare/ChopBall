@@ -1161,6 +1161,8 @@ MonoBehaviour:
   bodyRenderers:
   - {fileID: 23818831596123922}
   - {fileID: 23607579917189650}
+  CasualControls: 1
+  RotateToMoveDir: 1
 --- !u!114 &114318656289107948
 MonoBehaviour:
   m_ObjectHideFlags: 1

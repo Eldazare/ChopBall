@@ -66,10 +66,10 @@ public class CharacterHandler : MonoBehaviour {
 	}
 
 	public void ResetToStartPosition(){
-        TrailParticles.gameObject.SetActive(false);
+        TrailParticles.Stop();
 		transform.position = startPosition;
 		transform.rotation = Quaternion.Euler(new Vector3(0,0, startRot));
-        TrailParticles.gameObject.SetActive(true);
+        TrailParticles.Play();
     }
 
     private void LoadCharacterBase()

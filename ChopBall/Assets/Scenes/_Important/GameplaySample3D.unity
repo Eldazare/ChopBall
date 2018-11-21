@@ -2724,31 +2724,13 @@ GameObject:
   - component: {fileID: 998942472}
   - component: {fileID: 998942471}
   - component: {fileID: 998942470}
-  - component: {fileID: 998942469}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &998942469
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114380475741449460, guid: 16354143ad9fb9f4c9b9c0f90c069d02,
-    type: 2}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 998942468}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  m_IsActive: 0
 --- !u!114 &998942470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5390,7 +5372,6 @@ GameObject:
   - component: {fileID: 1902315819}
   - component: {fileID: 1902315822}
   - component: {fileID: 1902315821}
-  - component: {fileID: 1902315820}
   m_Layer: 0
   m_Name: CanvasWorldSpace
   m_TagString: Untagged
@@ -5417,22 +5398,6 @@ RectTransform:
   m_AnchoredPosition: {x: 18.4, y: 29.93}
   m_SizeDelta: {x: 20, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1902315820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1902315818}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &1902315821
 MonoBehaviour:
   m_ObjectHideFlags: 0

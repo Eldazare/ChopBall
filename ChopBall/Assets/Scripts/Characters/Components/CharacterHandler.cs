@@ -8,6 +8,7 @@ public class CharacterHandler : MonoBehaviour {
     public CharacterAttributeData CharacterAttributes;
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
 	public MeshRenderer[] bodyRenderers;
+    public ParticleSystem TrailParticles;
     public bool CasualControls = true;
     public bool RotateToMoveDir = true;
 
@@ -65,9 +66,11 @@ public class CharacterHandler : MonoBehaviour {
 	}
 
 	public void ResetToStartPosition(){
+        TrailParticles.gameObject.SetActive(false);
 		transform.position = startPosition;
 		transform.rotation = Quaternion.Euler(new Vector3(0,0, startRot));
-	}
+        TrailParticles.gameObject.SetActive(true);
+    }
 
     private void LoadCharacterBase()
     {
@@ -108,8 +111,6 @@ public class CharacterHandler : MonoBehaviour {
 
 	public void Initialize(Color32 theColor)
     {
-		this.startPosition = startPosition;
-		this.startRot = startRot;
 		ResetToStartPosition ();
         CharacterPaddle[] paddles = new CharacterPaddle[2];
         paddles = GetComponents<CharacterPaddle>();

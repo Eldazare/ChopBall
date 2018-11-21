@@ -91,10 +91,10 @@ public class BallGravity : MonoBehaviour {
             //Bounce
             //Debug.Log("Small bounce");
             velocity = -bounce;
-            if (bounce > maxBounce / 3)
+            if (bounce > maxBounce / 2)
             {
 				//Debug.Log ("Basic bounce");
-                bParticleMain.startLifetime = (bounce / maxBounce) * 0.5f;
+                bParticleMain.startLifetime = (bounce / maxBounce) * 0.8f;
                 BounceParticles.Play();
 				FMODUnity.RuntimeManager.PlayOneShot (soundBouncePath, transform.position);
             }

@@ -17,10 +17,27 @@ public class PanelScript : MonoBehaviour
 
 	public UnityEvent OnPanelEnter;
 
-	/*
-	void OnEnable(){
-		MenuPanelHandler.SetCurrentPanel (this);
+	void Awake(){
+		AssignToListList (GetComponentsInChildren<_ControlButton> ());
 	}
-	*/
 
+	private void AssignToListList(_ControlButton[] arr){
+		buttonList = new List<List<_ControlButton>> ();
+		foreach (var bu in arr) {
+			AssignSingle (bu);
+		}
+		foreach (var l in buttonList) {
+			Debug.Log ("C: "+l.Count);
+		}
+	}
+
+	private void AssignSingle(_ControlButton button){
+		while (buttonList.Count <= button.dpos.y) {
+			buttonList.Add (new List<_ControlButton> ());
+		}
+		while (buttonList [button.dpos.y].Count <= button.dpos.x) {
+			buttonList[button.dpos.y].Add (null);
+		}
+		buttonList [button.dpos.y] [button.dpos.x] = button;
+	}
 }

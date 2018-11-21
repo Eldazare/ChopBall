@@ -9,6 +9,8 @@ public static class RuntimeModifierController {
 	private static List<CharacterAttributeData> charAttributeList;
 	private static CharacterBaseData charBaseData;
 
+	private static float deltaTimeBase;
+
 	private static void LoadMods(){
 		if (modControllers == null) {
 			modControllers = Resources.LoadAll ("Scriptables/Players/CharacterRuntimeMods/", typeof(CharacterRuntimeModifiers))
@@ -52,7 +54,7 @@ public static class RuntimeModifierController {
     // No effect from attribute data
 	public static void ProgressTime(float deltaTime){
 		LoadMods ();
-		float deltaTimeBase = deltaTime * charBaseData.StaminaRegen;
+		deltaTimeBase = deltaTime * charBaseData.StaminaRegen;
 		for (int i = 1; i < modControllers.Length; i++) {
 			modControllers [i].stamina += deltaTimeBase * modControllers[i].staminaRegen;
 			//Debug.Log (deltaTimeBase * charAttributeList [i - 1].StaminaRegen * modControllers [i].staminaRegen);

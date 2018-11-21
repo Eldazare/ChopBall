@@ -13,16 +13,27 @@ public class _ControlCursor : MonoBehaviour {
 	private bool inputDone = false;
 	private bool triggered = false;
 
+	private bool lateSubmit;
+	private bool lateCancel;
+	private bool latePaddleLeft;
+	private bool latePaddleRight;
+
 	private List<DPosition> dirList = new List<DPosition>() {new DPosition(1,0), new DPosition(-1,0), 
 		new DPosition(0,1), new DPosition(0,-1)};
 
+	void Start(){
+		SetPosition (new DPosition (0, 0));
+	}
+
 	public void SetPosition(DPosition newPosition){
 		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);	
+		transform.position = currentButton.transform.position;
 	}
 
 	public void GetInput(InputModel model){
 		triggered = false;
 		for (int i = 0; i < dirList.Count; i++) {
+			//Debug.Log ("Magnitude:" + (model.leftDirectionalInput * dirList [i]).magnitude);
 			if ((model.leftDirectionalInput * dirList [i]).magnitude > treshold) {
 				triggered = true;
 				if (!inputDone) {
@@ -30,6 +41,7 @@ public class _ControlCursor : MonoBehaviour {
 					currentButton = menuPanelHandler.GoAnywhere (currentPosition + dirList [i], out currentPosition); 
 					inputDone = true;
 					currentButton.OnButtonEnter (playerID);
+					Debug.LogWarning ("Did");
 					break;
 				}
 			}
@@ -38,16 +50,16 @@ public class _ControlCursor : MonoBehaviour {
 			inputDone = false;
 		}
 
-		if (model.Submit) {
+		if (UIHelpMethods.IsButtonTrue(model.Submit, lateSubmit, out lateSubmit)) {
 			currentButton.OnButtonClick (playerID);
 		}
-		if (model.Cancel) {
-			// TODO: invoke cancel event
+		if (UIHelpMethods.IsButtonTrue(model.Cancel, lateCancel, out lateCancel)) {
+			menuPanelHandler.Back ();
 		}
-		if (model.PaddleLeft) {
+		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, latePaddleLeft, out latePaddleLeft)) {
 			currentButton.OnButtonLeftBumper (playerID);
 		}
-		if (model.PaddleRight) {
+		if (UIHelpMethods.IsButtonTrue(model.PaddleRight, latePaddleRight, out latePaddleRight)) {
 			currentButton.OnButtonRightBumper (playerID);
 		}
 	}

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class _ControlButton {
+public abstract class _ControlButton : MonoBehaviour {
 
-
+	public DPosition dpos;
 
 	virtual
 	public void OnButtonEnter(int playerID){

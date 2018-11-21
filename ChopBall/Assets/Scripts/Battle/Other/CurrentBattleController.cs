@@ -37,13 +37,12 @@ public static class CurrentBattleController  {
 		currentBattle.ProgressTime (deltaTime);
 	}
 
-	public static ATime GetATime(){
+	public static string GetATime(){
 		LoadCurrentBattle ();
-		ATime time = new ATime (currentBattle.minutesLeft, currentBattle.secondsLeft);
 		if (currentBattle.suddenDeath) {
-			time.str = "Sudden Death!";
+			return "Sudden Death!";
 		}
-		return time;
+		return currentBattle.timer.GetAsString();
 	}
 
 	public static List<CompetitorContainer> GetCompetitors(){

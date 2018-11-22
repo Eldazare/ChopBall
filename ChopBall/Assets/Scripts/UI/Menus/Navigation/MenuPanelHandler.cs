@@ -11,8 +11,11 @@ public class MenuPanelHandler : MonoBehaviour
 	public List<ChoiceCursor> playerCursors;
 	public MasterCursor masterCursors;
 
+	public _ControlCursor gridCursor;
+
 	void Awake(){
 		currentPanel = firstPanel;
+		SetControlCursor (currentPanel.masterZone);
 	}
 
 	public void Back()
@@ -22,6 +25,7 @@ public class MenuPanelHandler : MonoBehaviour
 			currentPanel.previousPanel.gameObject.SetActive (true);
 			currentPanel = currentPanel.previousPanel;
 			SetCursors (currentPanel.masterZone);
+			SetControlCursor (currentPanel.masterZone);
 			currentPanel.OnPanelEnter.Invoke ();
 		} else {
 			Debug.Log ("previousPanel was null. Are we at start panel?");
@@ -44,6 +48,7 @@ public class MenuPanelHandler : MonoBehaviour
 		currentPanel = nextPanel;
 		currentPanel.gameObject.SetActive (true);
 		currentPanel.OnPanelEnter.Invoke ();
+		SetControlCursor (nextPanel.masterZone);
 	}
 
 
@@ -76,7 +81,9 @@ public class MenuPanelHandler : MonoBehaviour
 	}
 
 	public void SetCursors(bool isMaster){
-		masterCursors.gameObject.SetActive (isMaster);
+		if (masterCursors != null) {
+			masterCursors.gameObject.SetActive (isMaster);
+		}
 		foreach (ChoiceCursor cursor in playerCursors) {
 			cursor.gameObject.SetActive (!isMaster);
 			if (!isMaster) {
@@ -84,6 +91,17 @@ public class MenuPanelHandler : MonoBehaviour
 			}
 		}
 	}
+
+	public void SetControlCursor(bool zone){
+		if (gridCursor != null) {
+			gridCursor.gameObject.SetActive (zone);
+			if (zone) {
+				gridCursor.OnEnableCursor ();
+			}
+		}
+	}
+
+
 
 
 	// CONTROL
@@ -98,13 +116,10 @@ public class MenuPanelHandler : MonoBehaviour
 				y = 0;
 			}
 		}
-		if (currentPanel.buttonList[currentPos.y].Count <= currentPos.x) {
+		if (currentPanel.buttonList[y].Count <= x) {
 			x = 0;
 		} else if (currentPos.x < 0) {
-			x = currentPanel.buttonList[currentPos.y].Count-1;
-		}
-		if (currentPanel.buttonList [y].Count <= currentPos.x) {
-			x = currentPanel.buttonList [y].Count;
+			x = currentPanel.buttonList[y].Count-1;
 		}
 		pos = new DPosition (x, y);
 		return currentPanel.buttonList [y] [x];

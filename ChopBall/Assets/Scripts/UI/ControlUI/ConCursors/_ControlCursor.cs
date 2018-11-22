@@ -22,7 +22,7 @@ public class _ControlCursor : MonoBehaviour {
 	private List<DPosition> dirList = new List<DPosition>() {new DPosition(1,0), new DPosition(-1,0), 
 		new DPosition(0,1), new DPosition(0,-1)};
 
-	void Start(){
+	public void OnEnableCursor(){
 		SetPosition (new DPosition (0, 0));
 	}
 
@@ -36,7 +36,7 @@ public class _ControlCursor : MonoBehaviour {
 		for (int i = 0; i < dirList.Count; i++) {
 			//Debug.Log ("Magnitude:" + (model.leftDirectionalInput * dirList [i]).magnitude);
 			vec = model.leftDirectionalInput * dirList[i];
-			if ((vec.x+vec.y) > treshold) {
+			if ((vec.x-vec.y) > treshold) {
 				Debug.Log (dirList [i].x +"  "+ dirList[i].y);
 				triggered = true;
 				if (!inputDone) {

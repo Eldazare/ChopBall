@@ -12,6 +12,8 @@ public class CharacterChooser : MonoBehaviour {
 
 	public Text baseText;
 	public Text nameText;
+	public Text readyText;
+	public GameEvent proceedInput;
 
 	public Transform gameObjectLocation;
 	private GameObject currentCharModel;
@@ -32,36 +34,45 @@ public class CharacterChooser : MonoBehaviour {
 	void OnEnable(){
 		playerStateData = PlayerStateController.GetAState (playerID);
 		characterAttributes = CharacterAttributeController.GetCharacters ();
-		// SET INPUT BOOLS TO TRUE
+		UpdateChosenText ();
+		lateStart = true;
+		lateSelect = true;
+		lateSubmit = true;
+		lateLeftPaddle = true;
+		lateRightPaddle = true;
 	}
 
 	public void GetInput(InputModel model){
-		if (UIHelpMethods.IsButtonTrue(model.Start, lateStart, out lateStart)){
-			// Go forward if possible
-		}
 		if (UIHelpMethods.IsButtonTrue(model.Select, lateSelect, out lateSelect)){
 			if (playerStateData.active) {
 				Enabled(false);
 				baseText.text = baseStr;
 				nameText.text = "";
+				playerStateData.CharacterLocked = false;
 			} else {
 				Enabled(true);
 				baseText.text = "";
 				LoadCharacterattributes (characterAttributes [currentChoice]);
 			}
+			UpdateChosenText ();
 		}
-		if (UIHelpMethods.IsButtonTrue(model.Submit, lateSubmit, out lateSubmit)) {
-			ConfirmChoice ();
-		}
-		if (!playerStateData.CharacterLocked) {
-			if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, lateLeftPaddle, out lateLeftPaddle)) {
-				IncDecCurrentChoice (false);
+		if (playerStateData.active) {
+			if (UIHelpMethods.IsButtonTrue (model.Submit, lateSubmit, out lateSubmit)) {
+				ConfirmChoice ();
 			}
-			if (UIHelpMethods.IsButtonTrue(model.PaddleRight, lateRightPaddle, out lateRightPaddle)) {
-				IncDecCurrentChoice (true);
+			if (!playerStateData.CharacterLocked) {
+				if (UIHelpMethods.IsButtonTrue (model.PaddleLeft, lateLeftPaddle, out lateLeftPaddle)) {
+					IncDecCurrentChoice (false);
+				}
+				if (UIHelpMethods.IsButtonTrue (model.PaddleRight, lateRightPaddle, out lateRightPaddle)) {
+					IncDecCurrentChoice (true);
+				}
+			} else if (model.Cancel) {
+				ConfirmChoice ();
 			}
-		} else if (model.Cancel) {
-			ConfirmChoice ();
+			if (UIHelpMethods.IsButtonTrue(model.Start, lateStart, out lateStart)){
+				proceedInput.Raise();
+			}
 		}
 	}
 
@@ -88,7 +99,10 @@ public class CharacterChooser : MonoBehaviour {
 	}
 
 	private void ConfirmChoice(){
-		PlayerStateController.ChooseCharacter (playerID, currentChoice);
+		if (playerStateData.active) {
+			PlayerStateController.ChooseCharacter (playerID, currentChoice);
+		}
+		UpdateChosenText();
 	}
 
 	private void SetCharacter(CharacterAttributeData data){
@@ -96,5 +110,17 @@ public class CharacterChooser : MonoBehaviour {
 			DestroyImmediate (currentCharModel);
 		}
 		currentCharModel = (GameObject)Instantiate(data.CharacterMenuModelPrefab, gameObjectLocation);
+	}
+
+	private void UpdateChosenText(){
+		if (playerStateData.active) {
+			if (playerStateData.CharacterLocked) {
+				readyText.text = "Ready!";
+			} else {
+				readyText.text = "Choosing....";
+			}
+		} else {
+			readyText.text = "";
+		}
 	}
 }

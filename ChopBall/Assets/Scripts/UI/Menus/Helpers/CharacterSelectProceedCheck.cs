@@ -2,15 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class CharacterSelectProceedCheck : MonoBehaviour {
 
+	public UnityEvent proceed;
 	private Image[] image;
 	private Text text;
+	private GameEventListener charProceedListener;
+
 
 	void Awake(){
 		image = GetComponentsInChildren<Image> ();
 		text = GetComponentInChildren<Text> ();
+		charProceedListener = GetComponent<GameEventListener> ();
 		CheckProceedState ();
 	}
 		
@@ -27,5 +32,10 @@ public class CharacterSelectProceedCheck : MonoBehaviour {
 			imag.enabled = active;
 		}
 		text.enabled = active;
+		charProceedListener.enabled = active;
+	}
+
+	public void Proceed(){
+		proceed.Invoke ();
 	}
 }

@@ -8,8 +8,16 @@ public enum CursorActiveStatus{None, PlayerCursors, MasterCursor}
 public class PanelScript : MonoBehaviour
 {
 	public PanelScript previousPanel;
+	public PanelScript nextPanel;
 	public bool masterZone;
 	public CursorActiveStatus cursorActiveStatus; // TODO: Implement instead of masterZone
+
+	[Header("Rows")]
+	public List<_ControlButton> row0;
+	public List<_ControlButton> row1;
+	public List<_ControlButton> row2;
+	public List<_ControlButton> row3;
+	public List<_ControlButton> row4;
 
 	public List<List<PanelScript>> subPanels;
 
@@ -18,9 +26,23 @@ public class PanelScript : MonoBehaviour
 	public UnityEvent OnPanelEnter;
 
 	void Awake(){
-		AssignToListList (GetComponentsInChildren<_ControlButton> ());
+		buttonList = new List<List<_ControlButton>> ();
+		AddIfNotEmpty (buttonList, row0);
+		AddIfNotEmpty (buttonList, row1);
+		AddIfNotEmpty (buttonList, row2);
+		AddIfNotEmpty (buttonList, row3);
+		AddIfNotEmpty (buttonList, row4);
+		//AssignToListList (GetComponentsInChildren<_ControlButton> ());
 	}
 
+	private List<List<_ControlButton>> AddIfNotEmpty(List<List<_ControlButton>> masterList, List<_ControlButton> list){
+		if (list.Count > 0) {
+			masterList.Add (list);
+		}
+		return masterList;
+	}
+
+	/*
 	private void AssignToListList(_ControlButton[] arr){
 		buttonList = new List<List<_ControlButton>> ();
 		foreach (var bu in arr) {
@@ -40,4 +62,5 @@ public class PanelScript : MonoBehaviour
 		}
 		buttonList [button.dpos.y] [button.dpos.x] = button;
 	}
+	*/
 }

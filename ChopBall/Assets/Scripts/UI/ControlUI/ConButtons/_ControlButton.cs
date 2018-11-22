@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class _ControlButton : MonoBehaviour {
 
-	public DPosition dpos;
+	//public DPosition dpos;
 
 	virtual
 	public void OnButtonEnter(int playerID){

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.22571328, b: 0.3069217, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2265,8 +2265,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 0}
+  nextPanel: {fileID: 0}
   masterZone: 1
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -3419,8 +3425,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1341578927}
+  nextPanel: {fileID: 0}
   masterZone: 1
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -7143,8 +7155,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1341578927}
+  nextPanel: {fileID: 0}
   masterZone: 1
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -7525,8 +7543,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
+  nextPanel: {fileID: 0}
   masterZone: 1
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -8515,8 +8539,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
+  nextPanel: {fileID: 0}
   masterZone: 1
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -9187,8 +9217,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 197495243}
+  nextPanel: {fileID: 0}
   masterZone: 1
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -9288,8 +9324,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
+  nextPanel: {fileID: 0}
   masterZone: 0
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -11373,7 +11415,7 @@ Canvas:
   m_GameObject: {fileID: 1698808873}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 534669904}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -11435,8 +11477,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1303799583}
+  nextPanel: {fileID: 0}
   masterZone: 0
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []
@@ -13117,6 +13165,7 @@ MonoBehaviour:
   - {fileID: 1862497318}
   - {fileID: 2144753044}
   masterCursors: {fileID: 1303893670}
+  gridCursor: {fileID: 0}
 --- !u!114 &2029561353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13469,8 +13518,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   previousPanel: {fileID: 1731109944}
+  nextPanel: {fileID: 0}
   masterZone: 0
   cursorActiveStatus: 0
+  row0: []
+  row1: []
+  row2: []
+  row3: []
+  row4: []
   OnPanelEnter:
     m_PersistentCalls:
       m_Calls: []

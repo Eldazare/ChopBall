@@ -55,6 +55,11 @@ public class GoalTarget : MonoBehaviour {
     {
         if (collision.collider.CompareTag("Ball"))
         {
+            if (collision.collider.GetComponent<Ball>().HasCollidedWithTarget)
+            {
+                return;
+            }
+
             if (collision.relativeVelocity.magnitude >= MinBreakVelocity)
             {
 				DeActivate ();
@@ -75,6 +80,8 @@ public class GoalTarget : MonoBehaviour {
             }
 
             FMODUnity.RuntimeManager.PlayOneShot (soundTarget1Path, gameObject.transform.position);
+
+            collision.collider.GetComponent<Ball>().ResetTargetHit();
         }
     }
 }

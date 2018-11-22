@@ -8,8 +8,9 @@ public class Ball : MonoBehaviour {
 	public GameObject preSpawnIndicator;
 	public List<Vector3> startPositions;
 	public List<int> touchedPlayers = new List<int>(16);
+    public bool HasCollidedWithTarget { get; set; }
 
-	MeshRenderer meshRenderer;
+    MeshRenderer meshRenderer;
 	CircleCollider2D circleCollider;
 	TrailRenderer trailRenderer;
     BallGravity gravity;
@@ -91,7 +92,19 @@ public class Ball : MonoBehaviour {
 		FMODUnity.RuntimeManager.PlayOneShot (soundBall1Path, gameObject.transform.position);
     }
 
-	private IEnumerator ResetEnumerator(){
+    public void ResetTargetHit()
+    {
+        StartCoroutine(ResetTargetHitENumerator());
+    }
+
+    private IEnumerator ResetTargetHitENumerator()
+    {
+        HasCollidedWithTarget = true;
+        yield return new WaitForSeconds(0.1f);
+        HasCollidedWithTarget = false;
+    }
+
+    private IEnumerator ResetEnumerator(){
 		Vector3 spawnPos;
 		if (startPositions != null) {
 			spawnPos = startPositions [Random.Range (0, startPositions.Count)];

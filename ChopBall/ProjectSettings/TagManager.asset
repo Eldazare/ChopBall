@@ -9,6 +9,7 @@ TagManager:
   - BallSpawnMaster
   - Character
   - Wall
+  - Target
   layers:
   - Default
   - TransparentFX

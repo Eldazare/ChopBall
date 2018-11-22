@@ -8,8 +8,11 @@ public class Ball : MonoBehaviour {
 	public GameObject preSpawnIndicator;
 	public List<Vector3> startPositions;
 	public List<int> touchedPlayers = new List<int>(16);
+    public ParticleSystem ChargedParticles;
 
-	MeshRenderer meshRenderer;
+    public bool HasCollidedWithTarget { get; set; }
+
+    MeshRenderer meshRenderer;
 	CircleCollider2D circleCollider;
 	TrailRenderer trailRenderer;
     BallGravity gravity;
@@ -75,15 +78,16 @@ public class Ball : MonoBehaviour {
 			new GradientColorKey[] {new GradientColorKey(Color.white, 0f), new GradientColorKey(Color.white, 1f) },
 			gradAlphKey
 		);
-	}
+        SetChargedStatus(false);
+    }
 
-	public void GetPlayerPaddleTouch(int playerID,  GradientColorKey[] colorKeys, bool chargeShot = false){
+    public void GetPlayerPaddleTouch(int playerID,  GradientColorKey[] colorKeys, bool chargeShot = false){
 		if (touchedPlayers.Contains(playerID)) {
 			touchedPlayers.Remove (playerID);
 		}
 		touchedPlayers.Insert (0, playerID);
-        charged = chargeShot;
-		gradient.SetKeys (
+        SetChargedStatus(chargeShot);
+        gradient.SetKeys (
 			colorKeys,
 			gradAlphKey
 		);
@@ -91,7 +95,19 @@ public class Ball : MonoBehaviour {
 		FMODUnity.RuntimeManager.PlayOneShot (soundBall1Path, gameObject.transform.position);
     }
 
-	private IEnumerator ResetEnumerator(){
+    public void ResetTargetHit()
+    {
+        StartCoroutine(ResetTargetHitENumerator());
+    }
+
+    private IEnumerator ResetTargetHitENumerator()
+    {
+        HasCollidedWithTarget = true;
+        yield return new WaitForSeconds(0.1f);
+        HasCollidedWithTarget = false;
+    }
+
+    private IEnumerator ResetEnumerator(){
 		Vector3 spawnPos;
 		if (startPositions != null) {
 			spawnPos = startPositions [Random.Range (0, startPositions.Count)];
@@ -101,9 +117,9 @@ public class Ball : MonoBehaviour {
 		meshRenderer.enabled = false;
 		circleCollider.enabled = false;
 		trailRenderer.enabled = false;
-		charged = false;
         gravity.enabled = false;
         blobShadow.enabled = false;
+        SetChargedStatus(false);
         rigid2D.velocity = Vector2.zero;
 		preSpawnIndicatorInstance.transform.position = spawnPos;
 		preSpawnIndicatorInstance.SetActive (true);
@@ -119,20 +135,29 @@ public class Ball : MonoBehaviour {
 
 	void OnCollisionExit2D(Collision2D collision){
 		if (collision.collider.CompareTag("Wall")){
-			charged = false;
-		}
-	}
+            SetChargedStatus(false);
+        }
+    }
 
 	public void OnBlocked(Vector2 normal, float blockModifier){
-		charged = false;
+        SetChargedStatus(false);
 		Vector2 velo = rigid2D.velocity;
 		//Debug.LogWarning ("Mag: " + velo.magnitude);
 		rigid2D.velocity = Vector2.zero;
 		rigid2D.AddForce (Vector2.Reflect (velo.normalized, normal) * rigid2D.mass * velo * blockModifier, ForceMode2D.Impulse);
 	}
 
-
 	public bool IsCharged(){
 		return charged;
 	}
+
+    public void SetChargedStatus(bool charged)
+    {
+        this.charged = charged;
+        if (charged)
+        {
+            ChargedParticles.Play();
+        }
+        else ChargedParticles.Stop();
+    }
 }

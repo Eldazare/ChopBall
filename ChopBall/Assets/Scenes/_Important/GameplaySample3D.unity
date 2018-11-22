@@ -397,7 +397,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &57828290
 RectTransform:
   m_ObjectHideFlags: 0
@@ -801,7 +801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &214704725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1165,10 +1165,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 410912314}
-  - component: {fileID: 410912315}
   - component: {fileID: 410912316}
   - component: {fileID: 410912318}
   - component: {fileID: 410912317}
+  - component: {fileID: 410912315}
   m_Layer: 0
   m_Name: Scoreboard
   m_TagString: Untagged
@@ -1207,7 +1207,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 410912313}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c63e71177005ac44b9cfcadaafda3984, type: 3}
+  m_Script: {fileID: 11500000, guid: bd59f588e456fa24497b26a9d831a80f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   allTextList:
@@ -1216,9 +1216,6 @@ MonoBehaviour:
   - {fileID: 214704727}
   - {fileID: 57828292}
   timerDisplay: {fileID: 145790005}
-  goalStockDisplays:
-  - {fileID: 85030134}
-  - {fileID: 1218747252}
 --- !u!114 &410912316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3245,7 +3242,6 @@ MonoBehaviour:
   - {fileID: 1485253386}
   - {fileID: 503898742}
   - {fileID: 971141416}
-  timerDisplay: {fileID: 479867189}
   goalStockDisplays:
   - {fileID: 85030134}
   - {fileID: 1218747252}
@@ -4627,7 +4623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1577600413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5770,7 +5766,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1995777457
 RectTransform:
   m_ObjectHideFlags: 0

@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class TestGoalScoreDisplayer : MonoBehaviour {
 
 	public List<Text> allTextList;
-	public Text timerDisplay;
+	//public Text timerDisplay;
 	public List<Text> goalStockDisplays;
 
 	private List<Text> displayTextList;
 
-	public void TimerUpdated(){ 
+	/*public void TimerUpdated(){ 
 		timerDisplay.text = CurrentBattleController.GetATime ();
-	}
+	}*/
 
 	public void ResolutionChangeUpdatePositions(){
 		if (displayTextList != null){
@@ -53,7 +53,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 			int i = 0;
 			foreach (TeamContainer team in CurrentBattleController.GetTeams()) {
 				displayTextList [i].text = "Team " + team.teamID;
-				displayTextList [i].text += "\nGoals: " + team.goals;
+				//displayTextList [i].text += "\nGoals: " + team.goals;
 				displayTextList [i].text += "\nScore: " + team.score;
 				i++;
 			}
@@ -75,7 +75,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour {
 			int i = 0;
 			foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors ()) {
 				displayTextList [i].text = "Player " + competitor.playerID;
-				displayTextList [i].text += "\nGoals: " + competitor.goalsScored;
+				//displayTextList [i].text += "\nGoals: " + competitor.goalsScored;
 				displayTextList [i].text += "\nScore: " + competitor.score;
 				i++;
 			}

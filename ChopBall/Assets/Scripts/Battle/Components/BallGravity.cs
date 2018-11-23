@@ -91,7 +91,7 @@ public class BallGravity : MonoBehaviour {
             //Bounce
             //Debug.Log("Small bounce");
             velocity = -bounce;
-            if (bounce > maxBounce / 2)
+            if (bounce > maxBounce / 3)
             {
 				//Debug.Log ("Basic bounce");
                 bParticleMain.startLifetime = (bounce / maxBounce) * 0.8f;

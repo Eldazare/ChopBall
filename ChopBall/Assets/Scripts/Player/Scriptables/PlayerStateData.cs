@@ -42,7 +42,6 @@ public class PlayerStateData : ScriptableObject {
 		GetBaseDataInfo ();
 		if (active) {
 			if (charID != -1 && characterChoice != charID) {
-				Debug.Log ("Worked?");
 				characterChoice = charID;
 				CharacterLocked = true;
 			} else {

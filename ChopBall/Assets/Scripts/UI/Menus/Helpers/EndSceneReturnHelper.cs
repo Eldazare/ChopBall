@@ -13,6 +13,6 @@ public class EndSceneReturnHelper : MonoBehaviour {
 	private IEnumerator ReturnToMenu(float delay){
 		Debug.Log ("Returning to menu in " + delay + " seconds...");
 		yield return new WaitForSeconds (delay);
-		SceneManager.LoadScene ("MenuScene");
+		SceneManager.LoadScene ("MenuScene2");
 	}
 }

@@ -11,8 +11,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3ac3c7e320d2db42b364c46d2416b72, type: 3}
   m_Name: 2-TestStage3D
   m_EditorClassIdentifier: 
-  stageName: 1v1 in 3D
+  stageMenuName: 1v1 - 3DTest
+  stageMenuModel: {fileID: 1100187412686960, guid: 7281e982cbdd00a4ca2594cfe6b5aa1c,
+    type: 2}
+  stageMenuOverviewImage: {fileID: 21300000, guid: c97640d8e143b374fb48076693bcb842,
+    type: 3}
   stageSceneName: GameplaySample3D
-  previewImage: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   PrimaryTag: 1
   SecondaryTags: 02000000

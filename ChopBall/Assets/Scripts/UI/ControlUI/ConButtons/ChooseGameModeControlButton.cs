@@ -6,24 +6,21 @@ using UnityEngine.UI;
 public class ChooseGameModeControlButton : _ControlButton {
 
 	public Text buttonText;
+	public GameEvent forward;
 
 	private int modeIndex;
 	private Text descriptionText;
-	private MenuPanelHandler mph;
-	private PanelScript nextPanel;
 
-	public void Initialize(int modeIndex, Text descriptionText, MenuPanelHandler mph, PanelScript nextPanel){
+	public void Initialize(int modeIndex, Text descriptionText){
 		this.modeIndex = modeIndex;
 		buttonText.text = QuickModeBPController.GetNamePerIndex (modeIndex);
 		this.descriptionText = descriptionText;
-		this.mph = mph;
-		this.nextPanel = nextPanel;
 	}
 
 	override
 	public void OnButtonClick(int playerID){
 		ChooseGamemode ();
-		mph.Forward (nextPanel);
+		forward.Raise ();
 	}
 
 	override

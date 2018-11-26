@@ -12,7 +12,7 @@ public class QuickModeChoosePanelInitializer : MonoBehaviour {
 	void Awake(){
 		ChooseGameModeControlButton[] buts = GetComponentsInChildren<ChooseGameModeControlButton> ();
 		for (int i = 0; i < buts.Length; i++) {
-			buts [i].Initialize (i, descriptionText, mph, nextPanel);
+			buts [i].Initialize (i, descriptionText);
 		}
 	}
 }

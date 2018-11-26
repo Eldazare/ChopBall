@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class CharacterSelectProceedCheck : MonoBehaviour {
 
-	public UnityEvent proceed;
+	public GameEvent forward;
 	private Image[] image;
 	private Text text;
 	private GameEventListener charProceedListener;
@@ -36,6 +36,6 @@ public class CharacterSelectProceedCheck : MonoBehaviour {
 	}
 
 	public void Proceed(){
-		proceed.Invoke ();
+		forward.Raise ();
 	}
 }

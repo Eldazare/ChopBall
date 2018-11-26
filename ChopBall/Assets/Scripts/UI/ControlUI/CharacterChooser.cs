@@ -40,7 +40,6 @@ public class CharacterChooser : MonoBehaviour {
 		playerStateData = PlayerStateController.GetAState (playerID);
 		characterAttributes = CharacterAttributeController.GetCharacters ();
 		playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
-		UpdateChosenText ();
 		lateStart = true;
 		lateSelect = true;
 		lateSubmit = true;
@@ -50,21 +49,16 @@ public class CharacterChooser : MonoBehaviour {
 		lateXDir = true;
 		playerStateData.CheckTeamConstraints ();
 		SetColor ();
+		UpdateChosenText ();
 	}
 
 	public void GetInput(InputModel model){
 		if (UIHelpMethods.IsButtonTrue(model.Select, lateSelect, out lateSelect)){
 			if (playerStateData.active) {
 				Enabled(false);
-				baseText.text = baseStr;
-				nameText.text = "";
-				playerStateData.CharacterLocked = false;
 			} else {
 				Enabled(true);
-				baseText.text = "";
-				LoadCharacterattributes (characterAttributes [currentChoice]);
 			}
-			UpdateChosenText ();
 		}
 		if (playerStateData.active) {
 			if (UIHelpMethods.IsButtonTrue (model.Submit, lateSubmit, out lateSubmit)) {
@@ -79,9 +73,6 @@ public class CharacterChooser : MonoBehaviour {
 				}
 				if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
 					Enabled (false);
-					baseText.text = baseStr;
-					nameText.text = "";
-					UpdateChosenText ();
 				}
 			} else if (UIHelpMethods.IsButtonTrue(model.Cancel, lateCancel, out lateCancel)) {
 				ConfirmChoice ();
@@ -106,8 +97,17 @@ public class CharacterChooser : MonoBehaviour {
 		if (currentCharModel != null) {
 			currentCharModel.SetActive (active);
 		}
+		if (active) {
+			baseText.text = "";
+			LoadCharacterattributes (characterAttributes [currentChoice]);		
+		} else {
+			baseText.text = baseStr;
+			nameText.text = "";
+			playerStateData.CharacterLocked = false;
+		}
 		nameText.enabled = active;
 		PlayerStateController.SetStateActive (playerID - 1, active);
+		UpdateChosenText ();
 	}
 
 	private void IncDecCurrentChoice(bool incDec){

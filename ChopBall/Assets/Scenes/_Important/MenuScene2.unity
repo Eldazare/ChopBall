@@ -512,22 +512,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b63e2c10d097f924e98e3ac7c08a72f0, type: 2}
   - {fileID: 11400000, guid: b67ef3a533cae5149a16053777b59350, type: 2}
   cursor: {fileID: 1939537124}
-  forward:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2036083777}
-        m_MethodName: Forward
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1895629069}
-          m_ObjectArgumentAssemblyTypeName: PanelScript, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  forward: {fileID: 11400000, guid: 27bbc6e3c2f0ca04eb3c1825ae1f706e, type: 2}
 --- !u!1001 &98450560
 Prefab:
   m_ObjectHideFlags: 0
@@ -827,16 +812,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 114070935422820022, guid: cde2b1a018a82484fb0c7018aed2c891,
-        type: 2}
-      propertyPath: descriptionText
-      value: 
-      objectReference: {fileID: 1781212018}
-    - target: {fileID: 114070935422820022, guid: cde2b1a018a82484fb0c7018aed2c891,
-        type: 2}
-      propertyPath: dpos.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cde2b1a018a82484fb0c7018aed2c891, type: 2}
   m_IsPrefabAsset: 0
@@ -1001,22 +976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c043a733015ff2947a663c6811bd0fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  proceed:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2036083777}
-        m_MethodName: Forward
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1911160487}
-          m_ObjectArgumentAssemblyTypeName: PanelScript, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  forward: {fileID: 11400000, guid: 27bbc6e3c2f0ca04eb3c1825ae1f706e, type: 2}
 --- !u!114 &262794915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1710,22 +1670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenMode: 1
   nameText: {fileID: 958373608}
-  forward:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2036083777}
-        m_MethodName: Forward
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 644900264}
-          m_ObjectArgumentAssemblyTypeName: PanelScript, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  forward: {fileID: 11400000, guid: 27bbc6e3c2f0ca04eb3c1825ae1f706e, type: 2}
 --- !u!1 &1112646465
 GameObject:
   m_ObjectHideFlags: 0
@@ -2848,22 +2793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chosenMode: 0
   nameText: {fileID: 2023055637}
-  forward:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2036083777}
-        m_MethodName: Forward
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 644900264}
-          m_ObjectArgumentAssemblyTypeName: PanelScript, Assembly-CSharp
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
+  forward: {fileID: 11400000, guid: 27bbc6e3c2f0ca04eb3c1825ae1f706e, type: 2}
 --- !u!114 &1999817650
 MonoBehaviour:
   m_ObjectHideFlags: 0

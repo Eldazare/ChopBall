@@ -57,12 +57,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d16264f6f6e0fe545969d2b69e011d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dpos:
-    x: 0
-    y: 0
-  modeIndex: 0
   buttonText: {fileID: 114803186934834232}
-  descriptionText: {fileID: 0}
+  forward: {fileID: 11400000, guid: 27bbc6e3c2f0ca04eb3c1825ae1f706e, type: 2}
 --- !u!114 &114224652432611622
 MonoBehaviour:
   m_ObjectHideFlags: 1

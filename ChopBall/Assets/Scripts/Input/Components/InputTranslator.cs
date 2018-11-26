@@ -8,6 +8,7 @@ public class InputTranslator : MonoBehaviour {
 	public int controllerNumber;
 	public UnityInputEvent UpdateInputs;
 	public bool invertYInput = true;
+	public bool translateDpad = false;
 	private string begin;
 	private InputStorage customInputs;
 	private PlayerStateData stateData;
@@ -51,7 +52,12 @@ public class InputTranslator : MonoBehaviour {
 			model.rightDirectionalInput.y = -Input.GetAxisRaw (customInputs.YAxisRight);
 		}
 		DeadZoneCheck (model, customInputs.deadZoneLeft, customInputs.deadZoneRight);
-
+		if (translateDpad) {
+			model.D_PadUp = Input.GetKey (customInputs.D_PadUP);
+			model.D_PadDown = Input.GetKey (customInputs.D_PadDown);
+			model.D_PadLeft = Input.GetKey (customInputs.D_PadLeft);
+			model.D_PadRight = Input.GetKey (customInputs.D_PadRight);
+		}
 		model.PaddleLeft = Input.GetKey (customInputs.PaddleLeft);
 		model.PaddleRight = Input.GetKey (customInputs.PaddleRight);
 		model.Dash = (Input.GetKey (customInputs.Dash) || Input.GetAxisRaw(customInputs.DashAxis)>baseData.triggerTreshold);

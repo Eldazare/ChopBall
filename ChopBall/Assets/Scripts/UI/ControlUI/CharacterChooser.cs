@@ -74,11 +74,11 @@ public class CharacterChooser : MonoBehaviour {
 				if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
 					Enabled (false);
 				}
-			} else if (UIHelpMethods.IsButtonTrue(model.Cancel, lateCancel, out lateCancel)) {
+			} else if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
 				ConfirmChoice ();
 			}
-			if (UIHelpMethods.IsButtonTrue(model.Start, lateStart, out lateStart)){
-				proceedInput.Raise();
+			if (UIHelpMethods.IsButtonTrue (model.Start, lateStart, out lateStart)) {
+				proceedInput.Raise ();
 			}
 			int stickDir = UIHelpMethods.IsAxisOverTreshold (model.leftDirectionalInput.x, 0.5f, ref lateXDir);
 			if (stickDir == 1) {
@@ -87,6 +87,8 @@ public class CharacterChooser : MonoBehaviour {
 			if (stickDir == -1) {
 				IncDecTeam (false);
 			}
+		} else if (UIHelpMethods.IsButtonTrue (model.Submit, lateSubmit, out lateSubmit)) {
+			Enabled (true);
 		}
 		if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
 			OnUICancel.Raise ();

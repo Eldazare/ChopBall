@@ -41,24 +41,11 @@ public class _ControlCursor : MonoBehaviour {
 	}
 
 	public void GetInput(InputModel model){
-		triggered = false;
-		for (int i = 0; i < dirList.Count; i++) {
-			//Debug.Log ("Magnitude:" + (model.leftDirectionalInput * dirList [i]).magnitude);
-			vec = model.leftDirectionalInput * dirList[i];
-			if ((vec.x-vec.y) > treshold) {
-				Debug.Log (dirList [i].x +"  "+ dirList[i].y);
-				triggered = true;
-				if (!inputDone) {
-					currentButton.OnButtonExit (playerID);
-					SetPosition (currentPosition + dirList [i]);
-					inputDone = true;
-					currentButton.OnButtonEnter (playerID);
-				}
-				break;
-			}
-		}
-		if (!triggered) {
-			inputDone = false;
+		DPosition dpos = UIHelpMethods.CheckDirInput (model, ref triggered, ref inputDone,ref vec);
+		if (dpos != null) {
+			currentButton.OnButtonExit (playerID);
+			SetPosition (currentPosition + dpos);
+			currentButton.OnButtonEnter (playerID);
 		}
 
 		if (UIHelpMethods.IsButtonTrue(model.Submit, lateSubmit, out lateSubmit)) {

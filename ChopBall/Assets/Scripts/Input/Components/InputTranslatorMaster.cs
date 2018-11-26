@@ -5,6 +5,8 @@ using UnityEngine;
 public class InputTranslatorMaster : MonoBehaviour {
 
 	// TODO: Maybe store bool data somewhere and read it for Translators?
+	public bool translateDpad = false;
+
 
 	private bool CheckForControllers = false;
 	private InputTranslator[] translators;
@@ -28,6 +30,7 @@ public class InputTranslatorMaster : MonoBehaviour {
 							Debug.Log ("Joystick " + i + " Connected");
 							connectedControllers [i] = true;
 							translators [i].enabled = true;
+							translators [i].translateDpad = translateDpad;
 						}
 					} else {
 						translators [i].enabled = true;

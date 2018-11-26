@@ -8,12 +8,15 @@ public class CharacterChooser : MonoBehaviour {
 	public int playerID;
 	private PlayerStateData playerStateData;
 	private List<CharacterAttributeData> characterAttributes;
+	private PlayerBaseData playerBaseData;
 	private int currentChoice;
 
+	public Image background;
 	public Text baseText;
 	public Text nameText;
 	public Text readyText;
 	public GameEvent proceedInput;
+	public GameEvent OnUICancel;
 
 	public Transform gameObjectLocation;
 	private GameObject currentCharModel;
@@ -25,6 +28,8 @@ public class CharacterChooser : MonoBehaviour {
 	private bool lateSubmit = false;
 	private bool lateLeftPaddle = false;
 	private bool lateRightPaddle = false;
+	private bool lateCancel = false;
+	private bool lateXDir = false;
 
 	void Awake(){
 		baseText.text = baseStr;
@@ -34,12 +39,17 @@ public class CharacterChooser : MonoBehaviour {
 	void OnEnable(){
 		playerStateData = PlayerStateController.GetAState (playerID);
 		characterAttributes = CharacterAttributeController.GetCharacters ();
+		playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
 		UpdateChosenText ();
 		lateStart = true;
 		lateSelect = true;
 		lateSubmit = true;
 		lateLeftPaddle = true;
 		lateRightPaddle = true;
+		lateCancel = true;
+		lateXDir = true;
+		playerStateData.CheckTeamConstraints ();
+		SetColor ();
 	}
 
 	public void GetInput(InputModel model){
@@ -67,12 +77,28 @@ public class CharacterChooser : MonoBehaviour {
 				if (UIHelpMethods.IsButtonTrue (model.PaddleRight, lateRightPaddle, out lateRightPaddle)) {
 					IncDecCurrentChoice (true);
 				}
-			} else if (model.Cancel) {
+				if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
+					Enabled (false);
+					baseText.text = baseStr;
+					nameText.text = "";
+					UpdateChosenText ();
+				}
+			} else if (UIHelpMethods.IsButtonTrue(model.Cancel, lateCancel, out lateCancel)) {
 				ConfirmChoice ();
 			}
 			if (UIHelpMethods.IsButtonTrue(model.Start, lateStart, out lateStart)){
 				proceedInput.Raise();
 			}
+			int stickDir = UIHelpMethods.IsAxisOverTreshold (model.leftDirectionalInput.x, 0.5f, ref lateXDir);
+			if (stickDir == 1) {
+				IncDecTeam (true);
+			}
+			if (stickDir == -1) {
+				IncDecTeam (false);
+			}
+		}
+		if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
+			OnUICancel.Raise ();
 		}
 	}
 
@@ -91,6 +117,7 @@ public class CharacterChooser : MonoBehaviour {
 
 	private void IncDecTeam(bool incDec){
 		playerStateData.ChangeTeam (incDec);
+		SetColor ();
 	}
 
 	private void LoadCharacterattributes(CharacterAttributeData data){
@@ -122,5 +149,17 @@ public class CharacterChooser : MonoBehaviour {
 		} else {
 			readyText.text = "";
 		}
+	}
+
+	private void SetColor(){
+		if (playerStateData.team != -1) {
+			ApplyColor (playerBaseData.teamColors [playerStateData.team]);
+		} else {
+			ApplyColor (playerBaseData.playerColors [playerID-1]);
+		}
+	}
+
+	private void ApplyColor(Color32 color){
+		background.color = color;
 	}
 }

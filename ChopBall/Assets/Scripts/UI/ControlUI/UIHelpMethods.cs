@@ -29,4 +29,29 @@ public static class UIHelpMethods {
 		}
 		return false;
 	}
+
+	public static int IsAxisOverTreshold(float axis, float treshold ,ref bool lateOut){
+		bool input = false;
+		if (axis < -treshold) {
+			input = true;
+			if (!lateOut) {
+				lateOut = true;
+				return -1;
+			}
+		} 
+		if (axis > treshold) {
+			input = true;
+			if (!lateOut) {
+				lateOut = true;
+				return 1;
+			}
+		}
+		lateOut = input;
+		return 0;
+	}
+
+	public static DPosition GetStickDirection(Vector2 axDir, float treshold, ref bool lateOut){
+		// TODO
+		return null;
+	}
 }

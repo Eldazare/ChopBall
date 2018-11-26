@@ -6,6 +6,7 @@ public class _ControlCursor : MonoBehaviour {
 
 	// TODO: Saved position on character select
 	public MenuPanelHandler menuPanelHandler;
+	public GameEvent OnUICancel;
 	public int playerID;
 	private DPosition currentPosition;
 	private _ControlButton currentButton;
@@ -13,14 +14,21 @@ public class _ControlCursor : MonoBehaviour {
 	private bool inputDone = false;
 	private bool triggered = false;
 
-	private bool lateSubmit;
-	private bool lateCancel;
-	private bool latePaddleLeft;
-	private bool latePaddleRight;
+	private bool lateSubmit = false;
+	private bool lateCancel = false;
+	private bool latePaddleLeft = false;
+	private bool latePaddleRight = false;
 	private Vector2 vec;
 
 	private List<DPosition> dirList = new List<DPosition>() {new DPosition(1,0), new DPosition(-1,0), 
 		new DPosition(0,1), new DPosition(0,-1)};
+
+	void OnEnable(){
+		lateSubmit = true;
+		lateCancel = true;
+		latePaddleLeft = true;
+		latePaddleRight = true;
+	}
 
 	public void OnEnableCursor(){
 		SetPosition (new DPosition (0, 0));
@@ -28,6 +36,7 @@ public class _ControlCursor : MonoBehaviour {
 
 	public void SetPosition(DPosition newPosition){
 		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);	
+		currentButton.OnButtonEnter (playerID);
 		transform.position = currentButton.transform.position;
 	}
 
@@ -44,7 +53,6 @@ public class _ControlCursor : MonoBehaviour {
 					SetPosition (currentPosition + dirList [i]);
 					inputDone = true;
 					currentButton.OnButtonEnter (playerID);
-					Debug.LogWarning ("Did");
 				}
 				break;
 			}
@@ -57,7 +65,7 @@ public class _ControlCursor : MonoBehaviour {
 			currentButton.OnButtonClick (playerID);
 		}
 		if (UIHelpMethods.IsButtonTrue(model.Cancel, lateCancel, out lateCancel)) {
-			menuPanelHandler.Back ();
+			OnUICancel.Raise ();
 		}
 		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, latePaddleLeft, out latePaddleLeft)) {
 			currentButton.OnButtonLeftBumper (playerID);

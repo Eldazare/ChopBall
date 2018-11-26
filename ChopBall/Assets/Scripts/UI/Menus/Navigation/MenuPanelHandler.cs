@@ -39,6 +39,10 @@ public class MenuPanelHandler : MonoBehaviour
         }*/
     }
 
+	public void ForwardNextPanel(){
+		Forward (currentPanel.nextPanel);
+	}
+
 	public void Forward(PanelScript nextPanel){
 		SetCursors (nextPanel.masterZone);
 		if (currentPanel == null) {

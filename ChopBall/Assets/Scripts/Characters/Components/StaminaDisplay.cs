@@ -15,7 +15,7 @@ public class StaminaDisplay : MonoBehaviour {
 
 	public void Initialize(CharacterRuntimeModifiers mod, float maxStamina, Color32 color){
 		this.mod = mod;
-		color.a = 100;
+		color.a = 180;
 		if (staminaCircle == null) {
 			staminaCircle = GetComponentInChildren<Image> ();
 		}

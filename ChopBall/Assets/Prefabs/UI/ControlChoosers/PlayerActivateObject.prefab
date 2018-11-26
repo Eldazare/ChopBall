@@ -141,10 +141,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerID: 1
+  background: {fileID: 114800668118085774}
   baseText: {fileID: 114674923122435856}
   nameText: {fileID: 114004768008176918}
   readyText: {fileID: 114100130241325098}
   proceedInput: {fileID: 11400000, guid: a18480f9787cdf242b1fc058f0ed4c46, type: 2}
+  OnUICancel: {fileID: 11400000, guid: 175f4c8198d88a144ba459c0d5bcfc61, type: 2}
   gameObjectLocation: {fileID: 224744817227141768}
 --- !u!114 &114100130241325098
 MonoBehaviour:

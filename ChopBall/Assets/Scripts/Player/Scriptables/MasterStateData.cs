@@ -28,7 +28,11 @@ public class MasterStateData : ScriptableObject {
 	public void SetBattleDefaults(){
 		// Should contain every field
 		//SetGrandMode (GrandMode.FFA);
-		battleModeBlueprint = DefaultBP ();
+		if (quickBpIndex == -1) {
+			battleModeBlueprint = DefaultBP ();
+		} else {
+			LoadBlueprintFromQuickMode ();
+		}
 		SetGrandMode (GrandMode.FFA);
 		Debug.Log ("Defaults loaded");
 	}

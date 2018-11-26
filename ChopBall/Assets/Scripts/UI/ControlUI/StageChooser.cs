@@ -12,6 +12,7 @@ public class StageChooser : MonoBehaviour {
 	public Transform instantiatePosFor3DModel;
 	public MenuPanelHandler mph;
 	public GameObject loadingIndicator;
+	public GameEvent OnUICancel;
 
 	private GameObject currentModel;
 	private int currentIndex = 0;
@@ -23,6 +24,7 @@ public class StageChooser : MonoBehaviour {
 	private bool latePaddleRight;
 	private bool lateSubmit;
 	private bool lateCancel;
+	private bool lateXDir;
 
 	void OnEnable(){
 		stages = StageDataController.GetStages ();
@@ -30,16 +32,24 @@ public class StageChooser : MonoBehaviour {
 		GetComponent<InputEventListener> ().Event = mph.gridCursor.GetComponent<InputEventListener> ().Event;
 		GetComponent<InputEventListener> ().enabled = true;
 		loadingIndicator.SetActive (false);
-		latePaddleLeft = false;
-		latePaddleRight = false;
-		lateSubmit = false;
-		lateCancel = false;
+		latePaddleLeft = true;
+		latePaddleRight = true;
+		lateSubmit = true;
+		lateCancel = true;
+		lateXDir = true;
 		SetDisplay (currentIndex);
 	}
 
 
 
 	public void GetInput(InputModel model){
+		int stickDir = UIHelpMethods.IsAxisOverTreshold (model.leftDirectionalInput.x, 0.5f, ref lateXDir);
+		if (stickDir == 1) {
+			IncDecCurrentIndex (true);
+		}
+		if (stickDir == -1) {
+			IncDecCurrentIndex (false);
+		}
 		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, latePaddleLeft, out latePaddleLeft)){
 			IncDecCurrentIndex (false);
 		}
@@ -50,7 +60,7 @@ public class StageChooser : MonoBehaviour {
 			SelectStage ();
 		}
 		if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
-			mph.Back ();
+			OnUICancel.Raise ();
 		}
 	}
 

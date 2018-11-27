@@ -2,17 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TVTest : MonoBehaviour {
+public class TVTest : MonoBehaviour
+{
 
     public GameObject Screen;
+    public GameObject ScreenCamera;
+
     private IEnumerator coroutine;
 
-    void Start()
+    void OnEnable()
     {
-        coroutine = Wait(15.0f);
+        Screen.SetActive(true);
+        ScreenCamera.SetActive(true);
+        coroutine = Wait(3.0f);
         StartCoroutine(coroutine);
-
-        Screen.SetActive(false);
     }
 
     private IEnumerator Wait(float waitTime)
@@ -20,9 +23,8 @@ public class TVTest : MonoBehaviour {
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
-            Screen.SetActive(true);
-            yield return (new WaitForSeconds(5));
             Screen.SetActive(false);
+            ScreenCamera.SetActive(false);
         }
     }
 }

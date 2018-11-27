@@ -53,7 +53,7 @@ public class CharacterChooser : MonoBehaviour {
 	}
 
 	public void GetInput(InputModel model){
-		if (UIHelpMethods.IsButtonTrue(model.Select, lateSelect, out lateSelect)){
+		if (UIHelpMethods.IsButtonTrue(model.Select, ref lateSelect)){
 			if (playerStateData.active) {
 				Enabled(false);
 			} else {
@@ -61,23 +61,23 @@ public class CharacterChooser : MonoBehaviour {
 			}
 		}
 		if (playerStateData.active) {
-			if (UIHelpMethods.IsButtonTrue (model.Submit, lateSubmit, out lateSubmit)) {
+			if (UIHelpMethods.IsButtonTrue (model.Submit, ref lateSubmit)) {
 				ConfirmChoice ();
 			}
 			if (!playerStateData.CharacterLocked) {
-				if (UIHelpMethods.IsButtonTrue (model.PaddleLeft, lateLeftPaddle, out lateLeftPaddle)) {
+				if (UIHelpMethods.IsButtonTrue (model.PaddleLeft, ref lateLeftPaddle)) {
 					IncDecCurrentChoice (false);
 				}
-				if (UIHelpMethods.IsButtonTrue (model.PaddleRight, lateRightPaddle, out lateRightPaddle)) {
+				if (UIHelpMethods.IsButtonTrue (model.PaddleRight, ref lateRightPaddle)) {
 					IncDecCurrentChoice (true);
 				}
-				if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
+				if (UIHelpMethods.IsButtonTrue (model.Cancel, ref lateCancel)) {
 					Enabled (false);
 				}
-			} else if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
+			} else if (UIHelpMethods.IsButtonTrue (model.Cancel, ref lateCancel)) {
 				ConfirmChoice ();
 			}
-			if (UIHelpMethods.IsButtonTrue (model.Start, lateStart, out lateStart)) {
+			if (UIHelpMethods.IsButtonTrue (model.Start, ref lateStart)) {
 				proceedInput.Raise ();
 			}
 			int stickDir = UIHelpMethods.IsAxisOverTreshold (model.leftDirectionalInput.x, 0.5f, ref lateXDir);
@@ -87,10 +87,10 @@ public class CharacterChooser : MonoBehaviour {
 			if (stickDir == -1) {
 				IncDecTeam (false);
 			}
-		} else if (UIHelpMethods.IsButtonTrue (model.Submit, lateSubmit, out lateSubmit)) {
+		} else if (UIHelpMethods.IsButtonTrue (model.Submit, ref lateSubmit)) {
 			Enabled (true);
 		}
-		if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
+		if (UIHelpMethods.IsButtonTrue (model.Cancel, ref lateCancel)) {
 			OnUICancel.Raise ();
 		}
 	}

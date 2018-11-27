@@ -30,10 +30,8 @@ public class InputStorage : ScriptableObject {
 	public KeyCode Start; // For menus and such
 	public KeyCode Select; // -||-
 
-	public KeyCode D_PadUP;
-	public KeyCode D_PadDown;
-	public KeyCode D_PadLeft;
-	public KeyCode D_PadRight;
+	public string D_PadAxisX;
+	public string D_PadAxisY;
 
 	public void ChangeAButton(ButtonCommand command, KeyCode newButton){
 		switch (command) {
@@ -96,10 +94,8 @@ public class InputStorage : ScriptableObject {
 		DashAxis = GetAxisString (model.DashAxis);
 		BlockAxis = GetAxisString (model.BlockAxis);
 
-		D_PadUP = GetButtonCode (model.D_PadUP);
-		D_PadDown = GetButtonCode (model.D_PadDown);
-		D_PadLeft = GetButtonCode (model.D_PadLeft);
-		D_PadRight = GetButtonCode (model.D_PadRight);
+		D_PadAxisX = GetAxisString (model.D_PadX);
+		D_PadAxisY = GetAxisString (model.D_PadY);
 	}
 
 	private KeyCode GetButtonCode(int buttonNumber){

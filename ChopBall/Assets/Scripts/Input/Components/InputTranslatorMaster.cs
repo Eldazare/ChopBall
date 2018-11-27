@@ -30,7 +30,7 @@ public class InputTranslatorMaster : MonoBehaviour {
 							Debug.Log ("Joystick " + i + " Connected");
 							connectedControllers [i] = true;
 							translators [i].enabled = true;
-							translators [i].translateDpad = translateDpad;
+							translators [i].SetTranslateDPad(translateDpad);
 						}
 					} else {
 						translators [i].enabled = true;

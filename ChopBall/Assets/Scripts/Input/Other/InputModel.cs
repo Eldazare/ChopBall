@@ -19,10 +19,7 @@ public class InputModel {
 	public bool Start;
 	public bool Select;
 
-	public bool D_PadUp;
-	public bool D_PadDown;
-	public bool D_PadLeft;
-	public bool D_PadRight;
+	public Vector2 D_PadVector;
 
 	public InputModel(){
 		leftDirectionalInput = Vector2.zero;
@@ -39,9 +36,6 @@ public class InputModel {
 		Start = false;
 		Select = false;
 
-		D_PadUp = false;
-		D_PadDown = false;
-		D_PadLeft = false;
-		D_PadRight = false;
+		D_PadVector = Vector2.zero;
 	}
 }

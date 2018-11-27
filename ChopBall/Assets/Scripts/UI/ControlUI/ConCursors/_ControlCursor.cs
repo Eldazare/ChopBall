@@ -48,16 +48,16 @@ public class _ControlCursor : MonoBehaviour {
 			currentButton.OnButtonEnter (playerID);
 		}
 
-		if (UIHelpMethods.IsButtonTrue(model.Submit, lateSubmit, out lateSubmit)) {
+		if (UIHelpMethods.IsButtonTrue(model.Submit, ref lateSubmit)) {
 			currentButton.OnButtonClick (playerID);
 		}
-		if (UIHelpMethods.IsButtonTrue(model.Cancel, lateCancel, out lateCancel)) {
+		if (UIHelpMethods.IsButtonTrue(model.Cancel, ref lateCancel)) {
 			OnUICancel.Raise ();
 		}
-		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, latePaddleLeft, out latePaddleLeft)) {
+		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, ref latePaddleLeft)) {
 			currentButton.OnButtonLeftBumper (playerID);
 		}
-		if (UIHelpMethods.IsButtonTrue(model.PaddleRight, latePaddleRight, out latePaddleRight)) {
+		if (UIHelpMethods.IsButtonTrue(model.PaddleRight, ref latePaddleRight)) {
 			currentButton.OnButtonRightBumper (playerID);
 		}
 	}

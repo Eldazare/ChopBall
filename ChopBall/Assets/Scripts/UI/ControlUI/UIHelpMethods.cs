@@ -22,14 +22,14 @@ public static class UIHelpMethods {
 		return currentIndex;
 	}
 
-	public static bool IsButtonTrue(bool button, bool late, out bool lateOut){
+	public static bool IsButtonTrue(bool button, ref bool late){
 		if (button && !late) {
-			lateOut = true;
+			late = true;
 			return true;
-		} else if (!button && late) {
-			lateOut = false;
+//		} else if (!button && late) {
+//			late = false;
 		} else {
-			lateOut = late;
+			late = button;
 		}
 		return false;
 	}
@@ -68,21 +68,18 @@ public static class UIHelpMethods {
 				}
 				break;
 			}
+			vec = model.D_PadVector * dirList [i];
+			if ((vec.x - vec.y) > 0.8f) {
+				triggered = true;
+				if (!inputDone) {
+					inputDone = true;
+					return dirList [i];
+				}
+				break;
+			}
 		}
 		if (!triggered) {
 			inputDone = false;
-		}
-		if (model.D_PadUp) {
-			return dirList [3];
-		}
-		if (model.D_PadDown) {
-			return dirList [2];
-		}
-		if (model.D_PadLeft) {
-			return dirList [1];
-		}
-		if (model.D_PadLeft) {
-			return dirList [0];
 		}
 		return null;
 	}

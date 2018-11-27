@@ -27,3 +27,5 @@ MonoBehaviour:
   Select: 8
   DashAxis: 4
   BlockAxis: 5
+  D_PadX: 7
+  D_PadY: 8

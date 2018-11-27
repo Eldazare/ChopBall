@@ -24,7 +24,10 @@ public class StageChooser : MonoBehaviour {
 	private bool latePaddleRight;
 	private bool lateSubmit;
 	private bool lateCancel;
-	private bool lateXDir;
+	private bool dirTriggered;
+	private bool dirInputDone;
+	private Vector2 dirVec;
+	private DPosition dirPosi;
 
 	void OnEnable(){
 		stages = StageDataController.GetStages ();
@@ -36,30 +39,34 @@ public class StageChooser : MonoBehaviour {
 		latePaddleRight = true;
 		lateSubmit = true;
 		lateCancel = true;
-		lateXDir = true;
+		dirTriggered = true;
+		dirInputDone = true;
 		SetDisplay (currentIndex);
 	}
 
 
 
 	public void GetInput(InputModel model){
-		int stickDir = UIHelpMethods.IsAxisOverTreshold (model.leftDirectionalInput.x, 0.5f, ref lateXDir);
-		if (stickDir == 1) {
-			IncDecCurrentIndex (true);
+		//int stickDir = UIHelpMethods.IsAxisOverTreshold (model.leftDirectionalInput.x, 0.5f, ref dirTriggered);
+		dirPosi = UIHelpMethods.CheckDirInput (model, ref dirTriggered, ref dirInputDone, ref dirVec);
+		if (dirPosi != null) {
+			if (dirPosi.x == 1) {
+				IncDecCurrentIndex (true);
+			}
+			if (dirPosi.x == -1) {
+				IncDecCurrentIndex (false);
+			}
 		}
-		if (stickDir == -1) {
+		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, ref latePaddleLeft)){
 			IncDecCurrentIndex (false);
 		}
-		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, latePaddleLeft, out latePaddleLeft)){
-			IncDecCurrentIndex (false);
-		}
-		if (UIHelpMethods.IsButtonTrue (model.PaddleRight, latePaddleRight, out latePaddleRight)) {
+		if (UIHelpMethods.IsButtonTrue (model.PaddleRight, ref latePaddleRight)) {
 			IncDecCurrentIndex (true);
 		}
-		if (UIHelpMethods.IsButtonTrue (model.Submit, lateSubmit, out lateSubmit)) {
+		if (UIHelpMethods.IsButtonTrue (model.Submit, ref lateSubmit)) {
 			SelectStage ();
 		}
-		if (UIHelpMethods.IsButtonTrue (model.Cancel, lateCancel, out lateCancel)) {
+		if (UIHelpMethods.IsButtonTrue (model.Cancel, ref lateCancel)) {
 			OnUICancel.Raise ();
 		}
 	}

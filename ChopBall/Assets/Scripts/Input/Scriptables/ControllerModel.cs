@@ -30,9 +30,7 @@ public class ControllerModel : ScriptableObject{
 	public int DashAxis;
 	public int BlockAxis;
 
-	[Header("D-pad Buttons")]
-	public int D_PadUP;
-	public int D_PadDown;
-	public int D_PadLeft;
-	public int D_PadRight;
+	[Header("D-pad Axes")]
+	public int D_PadX;
+	public int D_PadY;
 }

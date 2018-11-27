@@ -176,7 +176,7 @@ public class BattleLoader : MonoBehaviour {
 
 	private void MakeACharacter(Goal goal, Vector2 relativePos, PlayerStateData stateData, Color32 theColor, int playerIndex){
 		goal.InitializeID (playerIndex + 1);
-		Vector3 charSpawnPos = goal.GetComponentInChildren<CharacterSpawnIndicator> ().GetPosition ();
+		//Vector3 charSpawnPos = goal.GetComponentInChildren<CharacterSpawnIndicator> ().GetPosition ();
 		GameObject prefab = null;
 		CharacterAttributeData charAttributes = null;
 		if (stateData != null) {

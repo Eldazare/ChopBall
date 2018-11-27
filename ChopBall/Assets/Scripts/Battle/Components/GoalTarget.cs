@@ -12,20 +12,16 @@ public class GoalTarget : MonoBehaviour {
     //private SpriteRenderer sprite;
 	private MeshRenderer meshRenderer;
 
-    private bool active = true;
-
 	private string soundTarget1Path;
 
     public void Activate()
     {
-        active = true;
         targetCollider.enabled = true;
 		meshRenderer.enabled = true;
     }
 
     public void DeActivate()
     {
-        active = false;
         targetCollider.enabled = false;
 		meshRenderer.enabled = false;
     }

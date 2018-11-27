@@ -12,6 +12,8 @@ public class CharacterChooser : MonoBehaviour {
 	private int currentChoice;
 
 	public Image background;
+	public GameObject indicatorsPanel;
+	public GameObject teamChangeIndicators;
 	public Text baseText;
 	public Text nameText;
 	public Text readyText;
@@ -29,7 +31,6 @@ public class CharacterChooser : MonoBehaviour {
 	private bool lateLeftPaddle = false;
 	private bool lateRightPaddle = false;
 	private bool lateCancel = false;
-	private bool lateXDir = false;
 
 	private DPosition dirPosi;
 	private bool dirTriggered = false;
@@ -51,7 +52,6 @@ public class CharacterChooser : MonoBehaviour {
 		lateLeftPaddle = true;
 		lateRightPaddle = true;
 		lateCancel = true;
-		lateXDir = true;
 		dirInputDone = true;
 		playerStateData.CheckTeamConstraints ();
 		SetColor ();
@@ -84,7 +84,7 @@ public class CharacterChooser : MonoBehaviour {
 					Enabled (false);
 				}
 			} else if (UIHelpMethods.IsButtonTrue (model.Cancel, ref lateCancel)) {
-				playerStateData.UnChooseCharacter ();
+				UnchooseChoice ();
 			}
 			if (UIHelpMethods.IsButtonTrue (model.Start, ref lateStart)) {
 				proceedInput.Raise ();
@@ -115,6 +115,7 @@ public class CharacterChooser : MonoBehaviour {
 			nameText.text = "";
 			playerStateData.UnChooseCharacter ();
 		}
+		teamChangeIndicators.SetActive (active && (playerStateData.team != -1));
 		nameText.enabled = active;
 		PlayerStateController.SetStateActive (playerID - 1, active);
 		UpdateChosenText ();
@@ -142,6 +143,11 @@ public class CharacterChooser : MonoBehaviour {
 		UpdateChosenText();
 	}
 
+	private void UnchooseChoice(){
+		playerStateData.UnChooseCharacter ();
+		UpdateChosenText ();
+	}
+
 	private void SetCharacter(CharacterAttributeData data){
 		if (currentCharModel != null) {
 			DestroyImmediate (currentCharModel);
@@ -156,8 +162,10 @@ public class CharacterChooser : MonoBehaviour {
 			} else {
 				readyText.text = "Choosing....";
 			}
+			indicatorsPanel.SetActive (!playerStateData.CharacterLocked);
 		} else {
 			readyText.text = "";
+			indicatorsPanel.SetActive (false);
 		}
 	}
 

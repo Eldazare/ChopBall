@@ -14,7 +14,7 @@ public class MasterStateData : ScriptableObject {
 
 	public GameEvent OnGrandModeChanged;
 
-	public GrandMode mode;
+	public GrandMode mode = GrandMode.FFA;
 	public int quickBpIndex = -1;
 	public bool teams; // Wether the game is Free-For-All or Teams
 	public int maxTeams;
@@ -26,15 +26,13 @@ public class MasterStateData : ScriptableObject {
 	public List<string> randomStagePreset;
 
 	public void SetBattleDefaults(){
-		// Should contain every field
-		//SetGrandMode (GrandMode.FFA);
+		SetGrandMode (GrandMode.FFA);
 		if (quickBpIndex == -1) {
 			battleModeBlueprint = DefaultBP ();
 		} else {
 			LoadBlueprintFromQuickMode ();
 		}
-		SetGrandMode (GrandMode.FFA);
-		Debug.Log ("Defaults loaded");
+		Debug.LogWarning ("Defaults loaded, assumed debug mode.");
 	}
 
 	public void SetMenuDefaults(){
@@ -91,7 +89,9 @@ public class MasterStateData : ScriptableObject {
 
 	private void LoadBlueprintFromQuickMode(){
 		if (quickBpIndex != -1) {
-			battleModeBlueprint = QuickModeBPController.GetAllBPs () [quickBpIndex].GetBlueprint();
+			battleModeBlueprint = QuickModeBPController.GetAllBPs () [quickBpIndex].GetBlueprint ();
+		} else {
+			battleModeBlueprint = DefaultBP ();
 		}
 	}
 }

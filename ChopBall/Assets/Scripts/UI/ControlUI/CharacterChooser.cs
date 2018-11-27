@@ -31,6 +31,11 @@ public class CharacterChooser : MonoBehaviour {
 	private bool lateCancel = false;
 	private bool lateXDir = false;
 
+	private DPosition dirPosi;
+	private bool dirTriggered = false;
+	private bool dirInputDone = false;
+	private Vector2 dirVec;
+
 	void Awake(){
 		baseText.text = baseStr;
 		nameText.text = "";
@@ -47,6 +52,7 @@ public class CharacterChooser : MonoBehaviour {
 		lateRightPaddle = true;
 		lateCancel = true;
 		lateXDir = true;
+		dirInputDone = true;
 		playerStateData.CheckTeamConstraints ();
 		SetColor ();
 		UpdateChosenText ();
@@ -65,27 +71,29 @@ public class CharacterChooser : MonoBehaviour {
 				ConfirmChoice ();
 			}
 			if (!playerStateData.CharacterLocked) {
-				if (UIHelpMethods.IsButtonTrue (model.PaddleLeft, ref lateLeftPaddle)) {
-					IncDecCurrentChoice (false);
-				}
-				if (UIHelpMethods.IsButtonTrue (model.PaddleRight, ref lateRightPaddle)) {
-					IncDecCurrentChoice (true);
+				dirPosi = UIHelpMethods.CheckDirInput (model, ref dirTriggered, ref dirInputDone, ref dirVec);
+				if (dirPosi != null) {
+					if (dirPosi.x == 1) {
+						IncDecCurrentChoice (true);
+					}
+					if (dirPosi.x == -1) {
+						IncDecCurrentChoice (false);
+					}
 				}
 				if (UIHelpMethods.IsButtonTrue (model.Cancel, ref lateCancel)) {
 					Enabled (false);
 				}
 			} else if (UIHelpMethods.IsButtonTrue (model.Cancel, ref lateCancel)) {
-				ConfirmChoice ();
+				playerStateData.UnChooseCharacter ();
 			}
 			if (UIHelpMethods.IsButtonTrue (model.Start, ref lateStart)) {
 				proceedInput.Raise ();
 			}
-			int stickDir = UIHelpMethods.IsAxisOverTreshold (model.leftDirectionalInput.x, 0.5f, ref lateXDir);
-			if (stickDir == 1) {
-				IncDecTeam (true);
-			}
-			if (stickDir == -1) {
+			if (UIHelpMethods.IsButtonTrue (model.Dash, ref lateLeftPaddle)) {
 				IncDecTeam (false);
+			}
+			if (UIHelpMethods.IsButtonTrue (model.Strike, ref lateRightPaddle)) {
+				IncDecTeam (true);
 			}
 		} else if (UIHelpMethods.IsButtonTrue (model.Submit, ref lateSubmit)) {
 			Enabled (true);
@@ -105,7 +113,7 @@ public class CharacterChooser : MonoBehaviour {
 		} else {
 			baseText.text = baseStr;
 			nameText.text = "";
-			playerStateData.CharacterLocked = false;
+			playerStateData.UnChooseCharacter ();
 		}
 		nameText.enabled = active;
 		PlayerStateController.SetStateActive (playerID - 1, active);

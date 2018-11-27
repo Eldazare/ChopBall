@@ -19,9 +19,8 @@ public class CharacterHandler : MonoBehaviour {
 
     private TrailRenderer trail;
 
-    private bool leftPaddleInputLastFrame = false;
-    private bool rightPaddleInputLastFrame = false;
-    private bool dashTriggeredLastFrame = false;
+	private bool strikeInputLastFrame = false;
+	private bool dashInputLastFrame = false;
 	private bool blockInputLastFrame = false;
 
 	private float rightPaddleCharge;
@@ -154,7 +153,7 @@ public class CharacterHandler : MonoBehaviour {
         {
 			if (CasualControls)
             {
-                if (input.PaddleLeft && !leftPaddleInputLastFrame && currentState.canDash)
+				if (input.Dash && !dashInputLastFrame && currentState.canDash)
                 {
                     if (CharacterRuntimeModifiers.UseStamina(characterBase.DashStaminaCost))
                     {
@@ -174,9 +173,9 @@ public class CharacterHandler : MonoBehaviour {
                 }
                 else if (currentState.canPaddle)
                 {
-                    if (input.PaddleRight)
+					if (input.Strike)
                     {
-                        if (!rightPaddleInputLastFrame)
+                        if (!strikeInputLastFrame)
                         {
                             rightPaddle.Hit();
                             leftPaddle.Hit();
@@ -191,7 +190,7 @@ public class CharacterHandler : MonoBehaviour {
                     }
                     else
                     {
-                        if (rightPaddleInputLastFrame && rightPaddle.isCharging)
+                        if (strikeInputLastFrame && rightPaddle.isCharging)
                         {
                             if (CharacterRuntimeModifiers.UseStamina(characterBase.PaddleChargedStaminaCost))
                             {
@@ -210,24 +209,20 @@ public class CharacterHandler : MonoBehaviour {
                     trail.emitting = false;
                 }
 
-                //if (input.Block && !blockInputLastFrame)
-                //{
-                //    TransitionToState(CharacterStateEnum.Block);
-                //    Debug.Log("Block Registered");
-                //}
+                if (input.Block && !blockInputLastFrame)
+                {
+                    TransitionToState(CharacterStateEnum.Block);
+                    Debug.Log("Block Registered");
+                }
 
-                //if (!input.Block && blockInputLastFrame)
-                //{
-                //    TransitionToState(CharacterStateEnum.Default);
-                //}
+                if (!input.Block && blockInputLastFrame)
+                {
+                    TransitionToState(CharacterStateEnum.Default);
+                }
 
-                // TODO: Implement currentState.blocking;
-                // TODO: Implement state changes. (Transition method is done)
-
-                leftPaddleInputLastFrame = input.PaddleLeft;
-                rightPaddleInputLastFrame = input.PaddleRight;
-                //dashTriggeredLastFrame = input.Dash;
-                //blockInputLastFrame = input.Block;
+				strikeInputLastFrame = input.Strike;
+                dashInputLastFrame = input.Dash;
+                blockInputLastFrame = input.Block;
 
                 if (leftPaddle.isCharging)
                 {
@@ -243,7 +238,7 @@ public class CharacterHandler : MonoBehaviour {
             }
             else
             {
-                if (input.Dash && !dashTriggeredLastFrame && currentState.canDash)
+                if (input.Dash && !dashInputLastFrame && currentState.canDash)
                 {
                     if (CharacterRuntimeModifiers.UseStamina(characterBase.DashStaminaCost))
                     {
@@ -262,36 +257,36 @@ public class CharacterHandler : MonoBehaviour {
                 }
                 else if (currentState.canPaddle)
                 {
-                    if (input.PaddleLeft)
+//                    if (input.PaddleLeft)
+//                    {
+//                        if (!leftPaddleInputLastFrame)
+//                        {
+//                            leftPaddle.Hit();
+//                        }
+//                        else if (!leftPaddle.hitActive)
+//                        {
+//                            //Debug.Log("Charging left");
+//                            leftPaddle.isCharging = true;
+//                            if (currentState.identifier != CharacterStateEnum.Charge) TransitionToState(CharacterStateEnum.Charge);
+//                        }
+//                    }
+//                    else
+//                    {
+//                        if (leftPaddleInputLastFrame && leftPaddle.isCharging)
+//                        {
+//                            if (CharacterRuntimeModifiers.UseStamina(characterBase.PaddleChargedStaminaCost))
+//                            {
+//                                //Debug.Log("Charge shot left");
+//                                leftPaddle.Hit(leftPaddleCharge < 0);
+//                            }
+//                            leftPaddle.isCharging = false;
+//                            TransitionToState(CharacterStateEnum.Default);
+//                            leftPaddleCharge = 1f;
+//                        }
+//                    }
+					if (input.Strike)
                     {
-                        if (!leftPaddleInputLastFrame)
-                        {
-                            leftPaddle.Hit();
-                        }
-                        else if (!leftPaddle.hitActive)
-                        {
-                            //Debug.Log("Charging left");
-                            leftPaddle.isCharging = true;
-                            if (currentState.identifier != CharacterStateEnum.Charge) TransitionToState(CharacterStateEnum.Charge);
-                        }
-                    }
-                    else
-                    {
-                        if (leftPaddleInputLastFrame && leftPaddle.isCharging)
-                        {
-                            if (CharacterRuntimeModifiers.UseStamina(characterBase.PaddleChargedStaminaCost))
-                            {
-                                //Debug.Log("Charge shot left");
-                                leftPaddle.Hit(leftPaddleCharge < 0);
-                            }
-                            leftPaddle.isCharging = false;
-                            TransitionToState(CharacterStateEnum.Default);
-                            leftPaddleCharge = 1f;
-                        }
-                    }
-                    if (input.PaddleRight)
-                    {
-                        if (!rightPaddleInputLastFrame)
+                        if (!strikeInputLastFrame)
                         {
                             rightPaddle.Hit();
                         }
@@ -304,7 +299,7 @@ public class CharacterHandler : MonoBehaviour {
                     }
                     else
                     {
-                        if (rightPaddleInputLastFrame && rightPaddle.isCharging)
+                        if (strikeInputLastFrame && rightPaddle.isCharging)
                         {
                             if (CharacterRuntimeModifiers.UseStamina(characterBase.PaddleChargedStaminaCost))
                             {
@@ -330,13 +325,10 @@ public class CharacterHandler : MonoBehaviour {
                 {
                     TransitionToState(CharacterStateEnum.Default);
                 }
-
-                // TODO: Implement currentState.blocking;
-                // TODO: Implement state changes. (Transition method is done)
-
-                leftPaddleInputLastFrame = input.PaddleLeft;
-                rightPaddleInputLastFrame = input.PaddleRight;
-                dashTriggeredLastFrame = input.Dash;
+					
+               // leftPaddleInputLastFrame = input.PaddleLeft;
+                strikeInputLastFrame = input.Strike;
+                dashInputLastFrame = input.Dash;
                 blockInputLastFrame = input.Block;
 
                 if (leftPaddle.isCharging)

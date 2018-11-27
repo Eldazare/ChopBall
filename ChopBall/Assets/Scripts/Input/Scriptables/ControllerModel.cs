@@ -17,8 +17,7 @@ public class ControllerModel : ScriptableObject{
 	public float deadZone = 0.19f;
 
 	[Header("Main buttons")]
-	public int PaddleLeft;
-	public int PaddleRight;
+	public int Strike;
 	public int Dash;
 	public int Block;
 	public int Submit;

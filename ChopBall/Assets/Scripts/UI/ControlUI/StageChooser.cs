@@ -57,10 +57,10 @@ public class StageChooser : MonoBehaviour {
 				IncDecCurrentIndex (false);
 			}
 		}
-		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, ref latePaddleLeft)){
+		if (UIHelpMethods.IsButtonTrue(model.Dash, ref latePaddleLeft)){
 			IncDecCurrentIndex (false);
 		}
-		if (UIHelpMethods.IsButtonTrue (model.PaddleRight, ref latePaddleRight)) {
+		if (UIHelpMethods.IsButtonTrue (model.Strike, ref latePaddleRight)) {
 			IncDecCurrentIndex (true);
 		}
 		if (UIHelpMethods.IsButtonTrue (model.Submit, ref lateSubmit)) {

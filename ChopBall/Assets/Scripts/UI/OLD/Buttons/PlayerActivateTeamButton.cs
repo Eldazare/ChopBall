@@ -46,11 +46,11 @@ public class PlayerActivateTeamButton : MonoBehaviour {
 	}
 
 	public void GetInput(InputModel model){
-		if (IsButtonTrue(model.PaddleRight, latePRight,out latePRight)) {
+		if (IsButtonTrue(model.Strike, latePRight,out latePRight)) {
 			ChangeTeam (true);
 			SetTeamPart ();
 		}
-		if (IsButtonTrue(model.PaddleLeft, latePLeft,out latePLeft)) {
+		if (IsButtonTrue(model.Dash, latePLeft,out latePLeft)) {
 			ChangeTeam (false);
 			SetTeamPart ();
 		} 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum ButtonCommand {None, PaddleLeft, PaddleRight, Dash, Block, Submit, Cancel, Start, Select}
+public enum ButtonCommand {None,Strike, Dash, Block, Submit, Cancel, Start, Select}
 
 [CreateAssetMenu]
 public class InputStorage : ScriptableObject {
@@ -21,8 +21,7 @@ public class InputStorage : ScriptableObject {
 
 	public bool active = false;
 	public int playerNo;
-	public KeyCode PaddleLeft;
-	public KeyCode PaddleRight;
+	public KeyCode Strike;
 	public KeyCode Block;
 	public KeyCode Dash;
 	public KeyCode Submit; // For menus and such
@@ -35,11 +34,8 @@ public class InputStorage : ScriptableObject {
 
 	public void ChangeAButton(ButtonCommand command, KeyCode newButton){
 		switch (command) {
-		case ButtonCommand.PaddleLeft:
-			PaddleLeft = newButton;
-			break;
-		case ButtonCommand.PaddleRight:
-			PaddleRight = newButton;
+		case ButtonCommand.Strike:
+			Strike = newButton;
 			break;
 		case ButtonCommand.Dash:
 			Dash = newButton;
@@ -82,8 +78,7 @@ public class InputStorage : ScriptableObject {
 	}
 
 	private void ReadModelDefaultButtons(ControllerModel model){
-		PaddleLeft = GetButtonCode (model.PaddleLeft);
-		PaddleRight = GetButtonCode (model.PaddleRight);
+		Strike = GetButtonCode (model.Strike);
 		Dash = GetButtonCode (model.Dash);
 		Block = GetButtonCode (model.Block);
 		Submit = GetButtonCode (model.Submit);

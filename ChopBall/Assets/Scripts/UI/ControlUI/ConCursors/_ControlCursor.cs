@@ -54,10 +54,10 @@ public class _ControlCursor : MonoBehaviour {
 		if (UIHelpMethods.IsButtonTrue(model.Cancel, ref lateCancel)) {
 			OnUICancel.Raise ();
 		}
-		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, ref latePaddleLeft)) {
+		if (UIHelpMethods.IsButtonTrue(model.Dash, ref latePaddleLeft)) {
 			currentButton.OnButtonLeftBumper (playerID);
 		}
-		if (UIHelpMethods.IsButtonTrue(model.PaddleRight, ref latePaddleRight)) {
+		if (UIHelpMethods.IsButtonTrue(model.Strike, ref latePaddleRight)) {
 			currentButton.OnButtonRightBumper (playerID);
 		}
 	}

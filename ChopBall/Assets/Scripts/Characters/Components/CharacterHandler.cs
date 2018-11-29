@@ -8,6 +8,7 @@ public class CharacterHandler : MonoBehaviour {
     public CharacterAttributeData CharacterAttributes;
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
 	public MeshRenderer[] bodyRenderers;
+    public Transform ParticleTransform;
     public ParticleSystem TrailParticles;
     public ParticleSystem DashParticles;
     public bool CasualControls = true;
@@ -167,6 +168,8 @@ public class CharacterHandler : MonoBehaviour {
                 movement.Move(input.leftDirectionalInput * currentState.stateMovementModifier);
                 if (RotateToMoveDir) movement.Rotate(input.leftDirectionalInput);
                 else movement.Rotate(input.rightDirectionalInput);
+
+                ParticleTransform.rotation = Quaternion.AngleAxis(Vector2.SignedAngle(Vector2.up, movement.velocity.normalized), Vector3.forward);
 
                 if (movement.isDashing)
                 {

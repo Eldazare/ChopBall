@@ -108,7 +108,7 @@ Transform:
   m_GameObject: {fileID: 1287798256277060}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 4268735569853620}
   - {fileID: 4249609425146040}
@@ -124,7 +124,7 @@ Transform:
   m_GameObject: {fileID: 1915898121159630}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.75}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4165560391208736}
   m_Father: {fileID: 0}
@@ -245,7 +245,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.9
 --- !u!96 &96477404977235266
 TrailRenderer:
   serializedVersion: 2

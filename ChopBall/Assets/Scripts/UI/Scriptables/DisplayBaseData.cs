@@ -22,4 +22,6 @@ public class DisplayBaseData : ScriptableObject {
 	public float smallScaleMult = 0.4f;
 	[Range(1.0f, 2.0f)]
 	public float largeScaleMult = 1.0f;
+	[Range(0.01f, 100.0f)]
+	public float stillRotationSpeedMultiplier = 1.0f;
 }

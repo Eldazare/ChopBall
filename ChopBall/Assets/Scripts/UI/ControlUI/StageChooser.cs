@@ -91,6 +91,9 @@ public class StageChooser : MonoBehaviour {
 			if (frac > 1) {
 				OnLerpFinish (currentIndex);
 			}
+		} else {
+			// Rotate
+			menuModels[currentIndex].transform.Rotate(new Vector3(0,dbd.stillRotationSpeedMultiplier*Time.deltaTime,0));
 		}
 	}
 
@@ -127,6 +130,7 @@ public class StageChooser : MonoBehaviour {
 	}
 
 	private void StartLerp(){
+		menuModels [previousIndex].transform.localEulerAngles = Vector3.zero;
 		previousIndexScale = menuModels [previousIndex].transform.localScale;
 		currentIndexScale = menuModels [currentIndex].transform.localScale;
 		currentChoiceAvailable = false;

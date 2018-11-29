@@ -19,3 +19,4 @@ MonoBehaviour:
   baseScale: 100
   smallScaleMult: 0.4
   largeScaleMult: 1
+  stillRotationSpeedMultiplier: 40

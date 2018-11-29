@@ -9,6 +9,7 @@ public class CharacterHandler : MonoBehaviour {
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
 	public MeshRenderer[] bodyRenderers;
     public ParticleSystem TrailParticles;
+    public ParticleSystem DashParticles;
     public bool CasualControls = true;
     public bool RotateToMoveDir = true;
 
@@ -158,6 +159,7 @@ public class CharacterHandler : MonoBehaviour {
                     if (CharacterRuntimeModifiers.UseStamina(characterBase.DashStaminaCost))
                     {
                         movement.Dash(input.leftDirectionalInput);
+                        DashParticles.Play();
                     }
                 }
 

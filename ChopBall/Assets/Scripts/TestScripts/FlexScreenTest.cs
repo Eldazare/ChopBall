@@ -14,8 +14,8 @@ public class FlexScreenTest : MonoBehaviour
     {
         Screen.SetActive(true);
         //ScreenCamera.SetActive(true);
-       // coroutine = Wait(3.0f);
-        //StartCoroutine(coroutine);
+        coroutine = Wait(3.0f);
+        StartCoroutine(coroutine);
     }
 
     private IEnumerator Wait(float waitTime)

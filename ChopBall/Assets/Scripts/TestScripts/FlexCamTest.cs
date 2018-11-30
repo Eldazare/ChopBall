@@ -68,16 +68,16 @@ public class FlexCamTest : MonoBehaviour
         flexCam = GetComponent<Camera>();
 
         this.gameObject.SetActive(true);
-        //coroutine = Wait(3.0f);
-        //StartCoroutine(coroutine);
+        coroutine = Wait(3.0f);
+        StartCoroutine(coroutine);
     }
 
-    /*private IEnumerator Wait(float waitTime)
+    private IEnumerator Wait(float waitTime)
     {
         while (true)
         {
             yield return new WaitForSeconds(waitTime);
             this.gameObject.SetActive(false);
         }
-    }*/
+    }
 }

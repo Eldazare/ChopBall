@@ -133,7 +133,7 @@ public class Ball : MonoBehaviour {
         blobShadow.enabled = true;
     }
 
-	void OnCollisionExit2D(Collision2D collision){
+	void OnCollisionEnter2D(Collision2D collision){
 		if (collision.collider.CompareTag("Wall")){
             SetChargedStatus(false);
         }

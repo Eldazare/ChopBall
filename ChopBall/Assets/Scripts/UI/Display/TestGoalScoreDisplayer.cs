@@ -8,17 +8,11 @@ public class TestGoalScoreDisplayer : MonoBehaviour
     public List<Text> allTextList;
     //public Text timerDisplay;
     public List<Text> goalStockDisplays;
-    public Sprite[] characterPortraits;
     private List<Text> displayTextList;
 
     /*public void TimerUpdated(){ 
 		timerDisplay.text = CurrentBattleController.GetATime ();
 	}*/
-
-    /*public void Portrait()
-    {
-        characterPortraits = CharacterAttributeController.GetACharacter().CharacterPortrait;
-    }*/
 
     public void ResolutionChangeUpdatePositions()
     {
@@ -95,7 +89,8 @@ public class TestGoalScoreDisplayer : MonoBehaviour
             {
                 //displayTextList [i].text = "Player " + competitor.playerID;
                 //displayTextList [i].text += "\nGoals: " + competitor.goalsScored;
-                //displayTextList[i].text += CharacterAttributeController.GetACharacter().CharacterName;
+                PlayerStateData pStateData = (PlayerStateData)Resources.Load("Scriptables/_BaseDatas/PlayerStateData", typeof(PlayerStateData));
+                displayTextList[i].text += CharacterAttributeController.GetACharacter(pStateData.characterChoice).CharacterName;
                 displayTextList[i].text += "\nScore: " + competitor.score;
                 i++;
             }

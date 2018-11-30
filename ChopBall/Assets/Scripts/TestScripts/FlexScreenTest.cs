@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TVTest : MonoBehaviour
+public class FlexScreenTest : MonoBehaviour
 {
 
     public GameObject Screen;
-    public GameObject ScreenCamera;
+    //public GameObject ScreenCamera;
 
     private IEnumerator coroutine;
 
     void OnEnable()
     {
         Screen.SetActive(true);
-        ScreenCamera.SetActive(true);
+        //ScreenCamera.SetActive(true);
         coroutine = Wait(3.0f);
         StartCoroutine(coroutine);
     }
@@ -24,7 +24,7 @@ public class TVTest : MonoBehaviour
         {
             yield return new WaitForSeconds(waitTime);
             Screen.SetActive(false);
-            ScreenCamera.SetActive(false);
+            //ScreenCamera.SetActive(false);
         }
     }
 }

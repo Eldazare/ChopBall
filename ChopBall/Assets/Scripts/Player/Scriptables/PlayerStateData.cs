@@ -44,12 +44,17 @@ public class PlayerStateData : ScriptableObject {
 			if (charID != -1 && characterChoice != charID) {
 				characterChoice = charID;
 				CharacterLocked = true;
+				OnCharacterChosen.Raise ();
 			} else {
-				characterChoice = -1;
-				CharacterLocked = false;
+				UnChooseCharacter ();
 			}
-			OnCharacterChosen.Raise ();
 		}
+	}
+
+	public void UnChooseCharacter(){
+		characterChoice = -1;
+		CharacterLocked = false;
+		OnCharacterChosen.Raise ();
 	}
 
 	public void ChangeTeam(bool incDec){
@@ -76,9 +81,9 @@ public class PlayerStateData : ScriptableObject {
 
 	public void CheckTeamConstraints(){
 		GetBaseDataInfo ();
-		if (!MasterStateController.IsBlueprintLoaded ()) {
-			MasterStateController.GetTheMasterData ().SetBattleDefaults ();
-		}
+//		if (!MasterStateController.IsBlueprintLoaded ()) {
+//			MasterStateController.GetTheMasterData ().SetBattleDefaults ();
+//		}
 		if (team >= MasterStateController.GetMaxNumberOfTeams () || team < 0) {
 			team = MasterStateController.GetMaxNumberOfTeams () - 1;
 			OnTeamChanged.Raise ();

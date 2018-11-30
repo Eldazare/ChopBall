@@ -27,11 +27,8 @@ public class MoveComponent : MonoBehaviour {
 			if (model.Dash) {
 				Debug.Log ("Dash registered");
 			}
-			if (model.PaddleLeft) {
-				Debug.Log ("PaddleLeft registered");
-			}
-			if (model.PaddleRight) {
-				Debug.Log ("PaddleRight registered");
+			if (model.Strike) {
+				Debug.Log ("Strike registered");
 			}
 		}	
 	}

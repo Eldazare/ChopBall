@@ -14,4 +14,6 @@ public class InputBaseData : ScriptableObject {
 
 	[Range(0.1f,0.99f)]
 	public float triggerTreshold = 0.5f;
+	[Range(0.1f,0.99f)]
+	public float dpadTreshold = 0.8f;
 }

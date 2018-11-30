@@ -10,7 +10,6 @@ public class _ControlCursor : MonoBehaviour {
 	public int playerID;
 	private DPosition currentPosition;
 	private _ControlButton currentButton;
-	private float treshold = 0.5f;
 	private bool inputDone = false;
 	private bool triggered = false;
 
@@ -19,9 +18,7 @@ public class _ControlCursor : MonoBehaviour {
 	private bool latePaddleLeft = false;
 	private bool latePaddleRight = false;
 	private Vector2 vec;
-
-	private List<DPosition> dirList = new List<DPosition>() {new DPosition(1,0), new DPosition(-1,0), 
-		new DPosition(0,1), new DPosition(0,-1)};
+	private DPosition dpos;
 
 	void OnEnable(){
 		lateSubmit = true;
@@ -41,23 +38,23 @@ public class _ControlCursor : MonoBehaviour {
 	}
 
 	public void GetInput(InputModel model){
-		DPosition dpos = UIHelpMethods.CheckDirInput (model, ref triggered, ref inputDone,ref vec);
+		dpos = UIHelpMethods.CheckDirInput (model, ref triggered, ref inputDone,ref vec);
 		if (dpos != null) {
 			currentButton.OnButtonExit (playerID);
 			SetPosition (currentPosition + dpos);
 			currentButton.OnButtonEnter (playerID);
 		}
 
-		if (UIHelpMethods.IsButtonTrue(model.Submit, lateSubmit, out lateSubmit)) {
+		if (UIHelpMethods.IsButtonTrue(model.Submit, ref lateSubmit)) {
 			currentButton.OnButtonClick (playerID);
 		}
-		if (UIHelpMethods.IsButtonTrue(model.Cancel, lateCancel, out lateCancel)) {
+		if (UIHelpMethods.IsButtonTrue(model.Cancel, ref lateCancel)) {
 			OnUICancel.Raise ();
 		}
-		if (UIHelpMethods.IsButtonTrue(model.PaddleLeft, latePaddleLeft, out latePaddleLeft)) {
+		if (UIHelpMethods.IsButtonTrue(model.Dash, ref latePaddleLeft)) {
 			currentButton.OnButtonLeftBumper (playerID);
 		}
-		if (UIHelpMethods.IsButtonTrue(model.PaddleRight, latePaddleRight, out latePaddleRight)) {
+		if (UIHelpMethods.IsButtonTrue(model.Strike, ref latePaddleRight)) {
 			currentButton.OnButtonRightBumper (playerID);
 		}
 	}

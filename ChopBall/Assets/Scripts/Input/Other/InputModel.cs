@@ -8,8 +8,7 @@ public class InputModel {
 	public Vector2 leftDirectionalInput;
 	public Vector2 rightDirectionalInput;
 
-	public bool PaddleLeft;
-	public bool PaddleRight;
+	public bool Strike;
 	public bool Dash;
 	public bool Block;
 
@@ -19,17 +18,13 @@ public class InputModel {
 	public bool Start;
 	public bool Select;
 
-	public bool D_PadUp;
-	public bool D_PadDown;
-	public bool D_PadLeft;
-	public bool D_PadRight;
+	public Vector2 D_PadVector;
 
 	public InputModel(){
 		leftDirectionalInput = Vector2.zero;
 		rightDirectionalInput = Vector2.zero;
 
-		PaddleLeft = false;
-		PaddleRight = false;
+		Strike = false;
 		Dash = false;
 		Block = false;
 
@@ -39,9 +34,6 @@ public class InputModel {
 		Start = false;
 		Select = false;
 
-		D_PadUp = false;
-		D_PadDown = false;
-		D_PadLeft = false;
-		D_PadRight = false;
+		D_PadVector = Vector2.zero;
 	}
 }

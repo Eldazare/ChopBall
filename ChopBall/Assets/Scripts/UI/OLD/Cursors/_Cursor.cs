@@ -102,14 +102,14 @@ public abstract class _Cursor : MonoBehaviour {
 			}
 		}
 
-		if (IsButtonDown(out latePaddleRight, latePaddleRight, model.PaddleRight)){
+		if (IsButtonDown(out latePaddleRight, latePaddleRight, model.Strike)){
 			clickButton = raycastIfNull(clickButton);
 			if (clickButton != null){
 				clickButton.OnClickRight();
 			}
 		}
 
-		if (IsButtonDown (out laterPaddleLeft, laterPaddleLeft, model.PaddleLeft)) {
+		if (IsButtonDown (out laterPaddleLeft, laterPaddleLeft, model.Dash)) {
 			clickButton = raycastIfNull (clickButton);
 			if (clickButton != null){
 				clickButton.OnClickLeft();

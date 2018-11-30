@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum ButtonCommand {None, PaddleLeft, PaddleRight, Dash, Block, Submit, Cancel, Start, Select}
+public enum ButtonCommand {None,Strike, Dash, Block, Submit, Cancel, Start, Select}
 
 [CreateAssetMenu]
 public class InputStorage : ScriptableObject {
@@ -21,8 +21,7 @@ public class InputStorage : ScriptableObject {
 
 	public bool active = false;
 	public int playerNo;
-	public KeyCode PaddleLeft;
-	public KeyCode PaddleRight;
+	public KeyCode Strike;
 	public KeyCode Block;
 	public KeyCode Dash;
 	public KeyCode Submit; // For menus and such
@@ -30,18 +29,13 @@ public class InputStorage : ScriptableObject {
 	public KeyCode Start; // For menus and such
 	public KeyCode Select; // -||-
 
-	public KeyCode D_PadUP;
-	public KeyCode D_PadDown;
-	public KeyCode D_PadLeft;
-	public KeyCode D_PadRight;
+	public string D_PadAxisX;
+	public string D_PadAxisY;
 
 	public void ChangeAButton(ButtonCommand command, KeyCode newButton){
 		switch (command) {
-		case ButtonCommand.PaddleLeft:
-			PaddleLeft = newButton;
-			break;
-		case ButtonCommand.PaddleRight:
-			PaddleRight = newButton;
+		case ButtonCommand.Strike:
+			Strike = newButton;
 			break;
 		case ButtonCommand.Dash:
 			Dash = newButton;
@@ -84,8 +78,7 @@ public class InputStorage : ScriptableObject {
 	}
 
 	private void ReadModelDefaultButtons(ControllerModel model){
-		PaddleLeft = GetButtonCode (model.PaddleLeft);
-		PaddleRight = GetButtonCode (model.PaddleRight);
+		Strike = GetButtonCode (model.Strike);
 		Dash = GetButtonCode (model.Dash);
 		Block = GetButtonCode (model.Block);
 		Submit = GetButtonCode (model.Submit);
@@ -96,10 +89,8 @@ public class InputStorage : ScriptableObject {
 		DashAxis = GetAxisString (model.DashAxis);
 		BlockAxis = GetAxisString (model.BlockAxis);
 
-		D_PadUP = GetButtonCode (model.D_PadUP);
-		D_PadDown = GetButtonCode (model.D_PadDown);
-		D_PadLeft = GetButtonCode (model.D_PadLeft);
-		D_PadRight = GetButtonCode (model.D_PadRight);
+		D_PadAxisX = GetAxisString (model.D_PadX);
+		D_PadAxisY = GetAxisString (model.D_PadY);
 	}
 
 	private KeyCode GetButtonCode(int buttonNumber){

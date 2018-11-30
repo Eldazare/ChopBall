@@ -11,3 +11,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13522f2cf4df79c40b16def50cd0f0e6, type: 3}
   m_Name: DisplayBaseData
   m_EditorClassIdentifier: 
+  inGameYMultiplier: 0
+  inGameXOverheadMultiplier: 0
+  xDistBetween: 750
+  lerpSpeedMultiplier: 4
+  lerpListEndBoostMultiplier: 3
+  baseScale: 100
+  smallScaleMult: 0.4
+  largeScaleMult: 1
+  stillRotationSpeedMultiplier: 40

@@ -22,7 +22,9 @@ public class SliderConButton : _ControlButton {
 	private RectTransform selfRect;
 	private DPosition dpos;
 
-	public void Initialize(SliderUpdate updateCall){
+	public void Initialize(float min, float max, float current, SliderUpdate updateCall){
+		currentValue = current;
+		this.min = min; this.max = max;
 		rangeMagnitude = (max - min);
 		this.selfRect = GetComponent<RectTransform> ();
 		singleStep = rangeMagnitude / stepAmount;

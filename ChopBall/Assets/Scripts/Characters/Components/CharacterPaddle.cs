@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using Cinemachine;
 
 public class CharacterPaddle : MonoBehaviour {
 
@@ -203,6 +204,8 @@ public class CharacterPaddle : MonoBehaviour {
 
                     Ball hitBall = hitBody.GetComponent<Ball>();
 					if (hitBall) hitBall.GetPlayerPaddleTouch(playerID, theColors, hitIsCharged);
+
+                    GetComponent<CinemachineCollisionImpulseSource>().GenerateImpulse(-hitNormal);
 
                     hitBody.GetComponentInChildren<BallGravity>().AddUpwardsVelocity(4f);
 

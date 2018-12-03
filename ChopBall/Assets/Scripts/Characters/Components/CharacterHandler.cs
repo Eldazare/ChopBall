@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -144,6 +145,42 @@ public class CharacterHandler : MonoBehaviour {
 		currentState.OnStateEnter (PlayerID);
 		movement.SetRigidbodyMass (currentState.stateMassModifier * characterBase.BodyMass);
 	}
+
+    private void OnEnable()
+    {
+        CinemachineTargetGroup targetGroup = GameObject.Find("Camera Target Group").GetComponent<CinemachineTargetGroup>();
+        if (targetGroup != null)
+        {
+            for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+            {
+                if (targetGroup.m_Targets[i].target == null)
+                {
+                    targetGroup.m_Targets[i].target = transform;
+                    targetGroup.m_Targets[i].weight = 0.5f;
+                    targetGroup.m_Targets[i].radius = 1f;
+                    return;
+                }
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        CinemachineTargetGroup targetGroup = GameObject.Find("Camera Target Group").GetComponent<CinemachineTargetGroup>();
+        if (targetGroup != null)
+        {
+            for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+            {
+                if (targetGroup.m_Targets[i].target == transform)
+                {
+                    targetGroup.m_Targets[i].target = null;
+                    targetGroup.m_Targets[i].weight = 0f;
+                    targetGroup.m_Targets[i].radius = 0f;
+                    return;
+                }
+            }
+        }
+    }
 
     private void FixedUpdate()
     {
@@ -354,7 +391,7 @@ public class CharacterHandler : MonoBehaviour {
         rightPaddle.UpdatePaddle();
     }
 
-	void OnCollisionEnter2D(Collision2D collision){
+	private void OnCollisionEnter2D(Collision2D collision){
 		if (collision.collider.CompareTag ("Ball") && currentState.blocking) {
 			Ball ball = collision.collider.GetComponent<Ball> ();
 			if (ball.GetComponent<Rigidbody2D> ().velocity.magnitude > characterBase.MinimumVelocityStamina) {

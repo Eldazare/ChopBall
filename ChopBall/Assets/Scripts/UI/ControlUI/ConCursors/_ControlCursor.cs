@@ -8,6 +8,8 @@ public class _ControlCursor : MonoBehaviour {
 	public MenuPanelHandler menuPanelHandler;
 	public GameEvent OnUICancel;
 	public int playerID;
+	public RectTransform selfRect;
+	public float offset;
 	private DPosition currentPosition;
 	private _ControlButton currentButton;
 	private bool inputDone = false;
@@ -35,6 +37,7 @@ public class _ControlCursor : MonoBehaviour {
 		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);	
 		currentButton.OnButtonEnter (playerID);
 		transform.position = currentButton.transform.position;
+		SetSizeFromCurrentButton ();
 	}
 
 	public void GetInput(InputModel model){
@@ -44,7 +47,7 @@ public class _ControlCursor : MonoBehaviour {
 			SetPosition (currentPosition + dpos);
 			currentButton.OnButtonEnter (playerID);
 		}
-
+	
 		if (UIHelpMethods.IsButtonTrue(model.Submit, ref lateSubmit)) {
 			currentButton.OnButtonClick (playerID);
 		}
@@ -57,5 +60,11 @@ public class _ControlCursor : MonoBehaviour {
 		if (UIHelpMethods.IsButtonTrue(model.Strike, ref latePaddleRight)) {
 			currentButton.OnButtonRightBumper (playerID);
 		}
+	}
+
+	private void SetSizeFromCurrentButton(){
+		Rect currentButtonRect = currentButton.GetComponent<RectTransform> ().rect;
+		selfRect.sizeDelta = new Vector2 (currentButtonRect.width + offset,
+			currentButtonRect.height + offset);
 	}
 }

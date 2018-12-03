@@ -49,7 +49,7 @@ public class BattleLoader : MonoBehaviour {
 			Debug.LogError ("playerBaseData not found");
 			return;
 		}
-		inputEvents = Resources.LoadAll ("Scriptables/Input/Events/", typeof(InputEvent)).Cast<InputEvent>().ToArray ();
+		inputEvents = InputEventController.GetAllEvents ();
 		charMaterials = Resources.LoadAll ("Materials", typeof(Material)).Cast<Material>().ToArray ();
 		int balls = goals.Length / 2;
 		if (balls < 1) {

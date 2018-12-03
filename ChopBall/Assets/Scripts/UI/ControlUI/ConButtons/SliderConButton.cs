@@ -21,6 +21,7 @@ public class SliderConButton : _ControlButton {
 	private SliderUpdate updateCall;
 	private RectTransform selfRect;
 	private DPosition dpos;
+	private int counter = 0;
 
 	public void Initialize(float min, float max, float current, SliderUpdate updateCall){
 		currentValue = current;
@@ -28,6 +29,7 @@ public class SliderConButton : _ControlButton {
 		rangeMagnitude = (max - min);
 		this.selfRect = GetComponent<RectTransform> ();
 		singleStep = rangeMagnitude / stepAmount;
+		Debug.Log (singleStep);
 		this.updateCall = updateCall;
 		SetIndicator ();
 	}
@@ -39,11 +41,29 @@ public class SliderConButton : _ControlButton {
 	}
 
 	public void GetInput(InputModel model){
-		Debug.Log ("FFF");
 		if (model.D_PadVector.x > 0.5f || model.leftDirectionalInput.x > 0.5f) {
-			IncDecSliderValue (true);
+			if (CheckCounter ()) {
+				IncDecSliderValue (true);
+			}
 		} else if (model.D_PadVector.x < -0.5f || model.leftDirectionalInput.x < -0.5f) {
-			IncDecSliderValue (false);
+			if (CheckCounter ()) {
+				IncDecSliderValue (false);
+			}
+		} else {
+			counter = 0;
+		}
+	}
+
+	private bool CheckCounter(){
+		if (counter == 0) {
+			counter++;
+			return true;
+		} else {
+			counter++;
+			if (counter == 6) {
+				counter = 0;
+			}
+			return false;
 		}
 	}
 
@@ -67,6 +87,7 @@ public class SliderConButton : _ControlButton {
 				currentValue = min;
 			}
 		}
+		currentValue = Mathf.Round (currentValue * 10) / 10;
 	}
 
 	override

@@ -4463,6 +4463,11 @@ Prefab:
       propertyPath: m_Text
       value: Movespeed
       objectReference: {fileID: 0}
+    - target: {fileID: 114451923683756898, guid: 12ca5dcb73f2e3e47a0eb3671480b751,
+        type: 2}
+      propertyPath: stepAmount
+      value: 29
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 12ca5dcb73f2e3e47a0eb3671480b751, type: 2}
   m_IsPrefabAsset: 0

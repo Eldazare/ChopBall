@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,7 +32,43 @@ public class Ball : MonoBehaviour {
 	private bool paused = false;
 	private Vector2 savedVelocity = Vector2.zero;
 
-	public void Pause(){
+    private void OnEnable()
+    {
+        CinemachineTargetGroup targetGroup = GameObject.Find("Camera Target Group").GetComponent<CinemachineTargetGroup>();
+        if (targetGroup != null)
+        {
+            for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+            {
+                if (targetGroup.m_Targets[i].target == null)
+                {
+                    targetGroup.m_Targets[i].target = transform;
+                    targetGroup.m_Targets[i].weight = 1f;
+                    targetGroup.m_Targets[i].radius = 1f;
+                    return;
+                }
+            }
+        }
+    }
+
+    private void OnDisable()
+    {
+        CinemachineTargetGroup targetGroup = GameObject.Find("Camera Target Group").GetComponent<CinemachineTargetGroup>();
+        if (targetGroup != null)
+        {
+            for (int i = 0; i < targetGroup.m_Targets.Length; i++)
+            {
+                if (targetGroup.m_Targets[i].target == transform)
+                {
+                    targetGroup.m_Targets[i].target = null;
+                    targetGroup.m_Targets[i].weight = 0f;
+                    targetGroup.m_Targets[i].radius = 0f;
+                    return;
+                }
+            }
+        }
+    }
+
+    public void Pause(){
 		if (paused) {
 			paused = false;
 			rigid2D.velocity = savedVelocity;
@@ -42,8 +79,6 @@ public class Ball : MonoBehaviour {
 			rigid2D.velocity = Vector2.zero;
 		}
 	}
-
-
 
 	public void ResetBallPosition(){
 		StartCoroutine (ResetEnumerator ());

@@ -101,7 +101,7 @@ public class StageChooser : MonoBehaviour {
 
 	public void GetInput(InputModel model){
 		dirPosi = UIHelpMethods.CheckDirInput (model, ref dirTriggered, ref dirInputDone, ref dirVec);
-		if (dirPosi != null) {
+		if (!object.ReferenceEquals(dirPosi,null)) {
 			if (dirPosi.x == 1) {
 				IncDecCurrentIndex (true);
 			}

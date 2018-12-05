@@ -124,7 +124,7 @@ public class CharacterMovement : MonoBehaviour {
                 dashDirection = transform.up;
             }
 
-            dashSpeed = (characterBase.DashDistance * characterAttributes.DashDistanceMultiplier) / (characterBase.DashTime * characterAttributes.DashTimeMultiplier);
+			dashSpeed = (characterBase.DashDistance * characterAttributes.DashDistanceMultiplier * PlayerChooseModifiers.movespeedMod) / (characterBase.DashTime * characterAttributes.DashTimeMultiplier);
             dashTimerElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier;
             dashCoolDownElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier + characterBase.DashCoolDown * characterAttributes.DashCoolDownMultiplier;
         }

@@ -10,8 +10,8 @@ public class _ControlCursor : MonoBehaviour {
 	public int playerID;
 	public RectTransform selfRect;
 	public float offset;
-	private DPosition currentPosition;
-	private _ControlButton currentButton;
+	private DPosition currentPosition = null;
+	private _ControlButton currentButton = null;
 	private bool inputDone = false;
 	private bool triggered = false;
 
@@ -30,17 +30,14 @@ public class _ControlCursor : MonoBehaviour {
 	}
 
 	public void OnEnableCursor(){
-		SetPosition (new DPosition (0, 0));
+		SetPosition (new DPosition (0, 0), true);
 	}
 
-	public void SetPosition(DPosition newPosition){
+	public void SetPosition(DPosition newPosition, bool forceUpdate = false){
 		DPosition prevPos = currentPosition;
 		_ControlButton prevButton = currentButton;
 		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);
-		if (!object.ReferenceEquals(prevPos,null)) {
-			Debug.Log ("Current: " + currentPosition.AsString () + " Prev: " + prevPos.AsString ());
-		}
-		if (currentPosition != prevPos) {
+		if (currentPosition != prevPos || forceUpdate) {
 			if (!object.ReferenceEquals(prevPos,null)) {
 				prevButton.OnButtonExit (playerID);
 			}

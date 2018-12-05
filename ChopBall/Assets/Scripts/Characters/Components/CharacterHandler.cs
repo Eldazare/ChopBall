@@ -196,12 +196,12 @@ public class CharacterHandler : MonoBehaviour {
                 {
                     if (CharacterRuntimeModifiers.UseStamina(characterBase.DashStaminaCost))
                     {
-                        movement.Dash(input.leftDirectionalInput);
+						movement.Dash(input.leftDirectionalInput);
                         DashParticles.Play();
                     }
                 }
 
-                movement.Move(input.leftDirectionalInput * currentState.stateMovementModifier);
+				movement.Move(input.leftDirectionalInput * currentState.stateMovementModifier * PlayerChooseModifiers.movespeedMod);
                 if (RotateToMoveDir) movement.Rotate(input.leftDirectionalInput);
                 else movement.Rotate(input.rightDirectionalInput);
 

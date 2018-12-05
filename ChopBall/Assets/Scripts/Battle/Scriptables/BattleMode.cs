@@ -389,7 +389,7 @@ public class BattleMode : ScriptableObject {
 	}
 
 	public bool CheckRoundEndGoals(CompetitorContainer goalGiver){
-		Debug.Log("Team goals: "+teams.Single(t=>t.teamID == goalGiver.teamIndex).goals);
+		//Debug.Log("Team goals: "+teams.Single(t=>t.teamID == goalGiver.teamIndex).goals);
 		if (roundEnd == RoundEnd.Cap && countObject == CountObject.Goals) {
 			if (teams != null) {
 				if (teams.Single(t=>t.teamID == goalGiver.teamIndex).goals >= roundEndCap) {

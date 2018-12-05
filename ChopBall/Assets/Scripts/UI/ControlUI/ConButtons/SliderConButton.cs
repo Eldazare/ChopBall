@@ -41,7 +41,6 @@ public class SliderConButton : _ControlButton {
 	}
 
 	public void GetInput(InputModel model){
-		Debug.Log (model.D_PadVector + "  " + model.leftDirectionalInput);
 		if (model.D_PadVector.x > 0.5f || model.leftDirectionalInput.x > 0.5f) {
 			if (CheckCounter ()) {
 				IncDecSliderValue (true);
@@ -51,7 +50,6 @@ public class SliderConButton : _ControlButton {
 				IncDecSliderValue (false);
 			}
 		} else if (model.D_PadVector.Equals(Vector2.zero) && model.leftDirectionalInput.Equals(Vector2.zero)) {
-			Debug.Log ("Zeroed");
 			counter = 0;
 		}
 	}

@@ -19,6 +19,8 @@ public class CharacterHandler : MonoBehaviour {
     private CharacterPaddle leftPaddle;
     private CharacterPaddle rightPaddle;
     private InputModel input;
+	private bool invunerable = false;
+	private float invunerableTimer;
 
     private TrailRenderer trail;
 
@@ -73,6 +75,19 @@ public class CharacterHandler : MonoBehaviour {
 		transform.rotation = Quaternion.Euler(new Vector3(0,0, startRot));
         TrailParticles.Play();
     }
+
+	public void GetHitByOpponent(Vector2 force){
+		if (!invunerable) {
+			Debug.Log ("HITT");
+			BecomeInvunerable ();
+			movement.SetImpulseForce (force);
+		}
+	}
+
+	private void BecomeInvunerable(){
+		invunerable = true;
+		invunerableTimer = characterBase.InvunerabilityTime;
+	}
 
     private void LoadCharacterBase()
     {
@@ -188,6 +203,14 @@ public class CharacterHandler : MonoBehaviour {
 			movement.Move (Vector2.zero);
 			return;
 		}
+
+		if (invunerable) {
+			invunerableTimer -= Time.fixedDeltaTime;
+			if (invunerableTimer < 0) {
+				invunerable = false;
+			}
+		}
+
         if (input != null)
         {
 			if (CasualControls)
@@ -392,6 +415,7 @@ public class CharacterHandler : MonoBehaviour {
     }
 
 	private void OnCollisionEnter2D(Collision2D collision){
+		Debug.Log ("Collision Char");
 		if (collision.collider.CompareTag ("Ball") && currentState.blocking) {
 			Ball ball = collision.collider.GetComponent<Ball> ();
 			if (ball.GetComponent<Rigidbody2D> ().velocity.magnitude > characterBase.MinimumVelocityStamina) {

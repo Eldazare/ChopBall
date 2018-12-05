@@ -51,6 +51,10 @@ public class CharacterMovement : MonoBehaviour {
         characterRigidbody.rotation = rotation;
     }
 
+	public void SetImpulseForce(Vector2 force){
+		appliedForce += force;
+	}
+
     private void Awake()
     {
         characterRigidbody = GetComponent<Rigidbody2D>();
@@ -151,6 +155,11 @@ public class CharacterMovement : MonoBehaviour {
     {
         if (isDashing)
         {
+			if (collision.collider.CompareTag ("Character")) {
+				Vector2 dir = (collision.collider.transform.position - transform.position).normalized;
+				dir *= characterBase.DashForceMultiplier;
+				collision.collider.GetComponent<CharacterHandler> ().GetHitByOpponent (dir);
+			}
             isDashing = false;
             dashTimerElapsed = 0;
             AddForce(collision.contacts[0].normal * 10f);
@@ -161,4 +170,5 @@ public class CharacterMovement : MonoBehaviour {
 	public void SetRigidbodyMass(float value){
 		characterRigidbody.mass = value;
 	}
+
 }

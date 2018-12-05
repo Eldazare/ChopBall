@@ -17,6 +17,11 @@ public class CharacterBaseData : ScriptableObject {
 	public float BlockStaminaCost;
 	public float ChargeBlockStaminaCost;
 
+	[Header("PlayerInteraction")]
+	public float InvunerabilityTime;
+	public float DashForceMultiplier;
+	public float PaddleForceMultiplier;
+
     [Header("Paddles")]
     public float PaddleLength;
     public float PaddleThickness;

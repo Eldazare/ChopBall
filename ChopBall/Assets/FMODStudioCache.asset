@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EditorBanks:
   - {fileID: 114232958291995252}
-  - {fileID: 114232307579347222}
-  - {fileID: 114998612431263040}
+  - {fileID: 114808730446456128}
+  - {fileID: 114097926770668750}
   EditorEvents:
   - {fileID: 114413573916645470}
   - {fileID: 114017830179106402}
@@ -25,9 +25,9 @@ MonoBehaviour:
   - {fileID: 114730217481791778}
   - {fileID: 114385383364042318}
   - {fileID: 114183598752617792}
-  MasterBankRef: {fileID: 114232307579347222}
+  MasterBankRef: {fileID: 114808730446456128}
   StringsBankRef: {fileID: 114232958291995252}
-  stringsBankWriteTime: 636777203720000000
+  stringsBankWriteTime: 636778917056679687
   cacheVersion: 2
 --- !u!114 &114004373164334876
 MonoBehaviour:
@@ -91,7 +91,7 @@ MonoBehaviour:
   Path: event:/Characters/General/Chop
   guid: b7e42cd7dc0c9a468969a7c32619f1e2
   Banks:
-  - {fileID: 114232307579347222}
+  - {fileID: 114808730446456128}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -133,6 +133,21 @@ MonoBehaviour:
   Max: 1
   Default: 0
 --- !u!114 &114047925441366404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Calm
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114049417958633644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -285,6 +300,24 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114097926770668750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Repos\ChopBall\ChopBall\FMODProject\ChopBall\FMOD_Builds\Desktop\OrientalJapan.bank
+  lastModified: 636778917056699218
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 294368
+  Exists: 1
 --- !u!114 &114101070341259540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -397,6 +430,21 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114126134912599688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: FastPace
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114143708760834626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -424,6 +472,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Calm
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114149214092965360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: FastPace
   Min: 0
   Max: 1
   Default: 0
@@ -535,7 +598,7 @@ MonoBehaviour:
   Path: event:/Misc/Goal
   guid: 41315f510cc6744a84e7929efd9ac29e
   Banks:
-  - {fileID: 114232307579347222}
+  - {fileID: 114808730446456128}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -606,7 +669,7 @@ MonoBehaviour:
   Path: event:/Music/ChopTaiko
   guid: f87dc8006209db438b14239004da08a7
   Banks:
-  - {fileID: 114232307579347222}
+  - {fileID: 114808730446456128}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -626,6 +689,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Calm
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114202119639071398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Final
   Min: 0
   Max: 1
   Default: 0
@@ -703,7 +781,7 @@ MonoBehaviour:
   Path: event:/Objects/Ball
   guid: ec0f0408d88c344cb9dd7d14a0359870
   Banks:
-  - {fileID: 114232307579347222}
+  - {fileID: 114808730446456128}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -820,7 +898,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Path: FMODProject\ChopBall\FMOD_Builds\Desktop\Master Bank.strings.bank
-  lastModified: 636777203720000000
+  lastModified: 636778917056679687
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -1255,7 +1333,7 @@ MonoBehaviour:
   Path: event:/Objects/Wall
   guid: c0ecd5522d75c64c95ef24a7aa381507
   Banks:
-  - {fileID: 114232307579347222}
+  - {fileID: 114808730446456128}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1426,7 +1504,7 @@ MonoBehaviour:
   Path: event:/Characters/General/PlayerHit
   guid: 2b19f2d5f117724e9ebc7042c5d57de7
   Banks:
-  - {fileID: 114232307579347222}
+  - {fileID: 114808730446456128}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -1667,6 +1745,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Goal
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114492308745118112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Ignore
   Min: 0
   Max: 1
   Default: 0
@@ -2047,17 +2140,17 @@ MonoBehaviour:
   Path: event:/Levels/OrientalJapan/Atmosphere
   guid: 35c327680c0b2e46ac7c21f3ea2ccc77
   Banks:
-  - {fileID: 114232307579347222}
-  - {fileID: 114998612431263040}
+  - {fileID: 114808730446456128}
+  - {fileID: 114097926770668750}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
   Parameters:
-  - {fileID: 114372910559630728}
-  - {fileID: 114517089848763284}
-  - {fileID: 114567933383624050}
-  - {fileID: 114304121517947144}
-  - {fileID: 114759555458840844}
+  - {fileID: 114754681473281672}
+  - {fileID: 114967927132742446}
+  - {fileID: 114149214092965360}
+  - {fileID: 114664852053958136}
+  - {fileID: 114492308745118112}
   MinDistance: 0
   MaxDistance: 0
   Length: 28500
@@ -2133,6 +2226,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Goal
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114664852053958136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Final
   Min: 0
   Max: 1
   Default: 0
@@ -2320,6 +2428,21 @@ MonoBehaviour:
   - Name: Desktop
     Value: 2093536
   Exists: 1
+--- !u!114 &114719763017016208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Ignore
+  Min: 0
+  Max: 1
+  Default: 0
 --- !u!114 &114730217481791778
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2334,7 +2457,7 @@ MonoBehaviour:
   Path: event:/Objects/Target
   guid: abec1a94a864114ea7e5f91c621afdfd
   Banks:
-  - {fileID: 114232307579347222}
+  - {fileID: 114808730446456128}
   IsStream: 0
   Is3D: 0
   IsOneShot: 1
@@ -2386,7 +2509,7 @@ MonoBehaviour:
   Path: event:/Music/ChopMenu
   guid: 87369a00773dc54db360093c7dc628f2
   Banks:
-  - {fileID: 114232307579347222}
+  - {fileID: 114808730446456128}
   IsStream: 1
   Is3D: 0
   IsOneShot: 0
@@ -2470,6 +2593,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Goal
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114754681473281672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Calm
   Min: 0
   Max: 1
   Default: 0
@@ -2626,6 +2764,25 @@ MonoBehaviour:
   Min: 0
   Max: 1
   Default: 0
+--- !u!114 &114808730446456128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Path: D:\Repos\ChopBall\ChopBall\FMODProject\ChopBall\FMOD_Builds\Desktop\Master
+    Bank.bank
+  lastModified: 636778917056679687
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 2093536
+  Exists: 1
 --- !u!114 &114810297829977620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2713,6 +2870,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: FastPace
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114837793399885426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Goal
   Min: 0
   Max: 1
   Default: 0
@@ -2946,6 +3118,21 @@ MonoBehaviour:
   Max: 1
   Default: 0
 --- !u!114 &114956211667501590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Goal
+  Min: 0
+  Max: 1
+  Default: 0
+--- !u!114 &114967927132742446
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

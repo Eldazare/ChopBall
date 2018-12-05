@@ -156,8 +156,25 @@ public class DPosition{
 	}
 
 	public static DPosition operator+(DPosition dpos1, DPosition dpos2){
-		dpos1.x += dpos2.x;
-		dpos1.y += dpos2.y;
-		return dpos1;
+		return new DPosition (dpos1.x + dpos2.x, dpos1.y + dpos2.y);
+	}
+
+	public static bool operator==(DPosition dpos1, DPosition dpos2){
+		if (object.ReferenceEquals(dpos2, null)){
+			return false;
+		}
+		if (dpos1.x == dpos2.x && dpos1.y == dpos2.y) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static bool operator!=(DPosition dpos1, DPosition dpos2){
+		return !(dpos1 == dpos2);
+	}
+
+	public string AsString(){
+		return x + "," + y;
 	}
 }

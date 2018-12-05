@@ -34,18 +34,26 @@ public class _ControlCursor : MonoBehaviour {
 	}
 
 	public void SetPosition(DPosition newPosition){
-		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);	
-		currentButton.OnButtonEnter (playerID);
+		DPosition prevPos = currentPosition;
+		_ControlButton prevButton = currentButton;
+		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);
+		if (!object.ReferenceEquals(prevPos,null)) {
+			Debug.Log ("Current: " + currentPosition.AsString () + " Prev: " + prevPos.AsString ());
+		}
+		if (currentPosition != prevPos) {
+			if (!object.ReferenceEquals(prevPos,null)) {
+				prevButton.OnButtonExit (playerID);
+			}
+			currentButton.OnButtonEnter (playerID);
+		}
 		transform.position = currentButton.transform.position;
 		SetSizeFromCurrentButton ();
 	}
 
 	public void GetInput(InputModel model){
 		dpos = UIHelpMethods.CheckDirInput (model, ref triggered, ref inputDone,ref vec);
-		if (dpos != null) {
-			currentButton.OnButtonExit (playerID);
+		if (!object.ReferenceEquals(dpos, null)) {
 			SetPosition (currentPosition + dpos);
-			currentButton.OnButtonEnter (playerID);
 		}
 	
 		if (UIHelpMethods.IsButtonTrue(model.Submit, ref lateSubmit)) {

@@ -157,7 +157,7 @@ public class CharacterMovement : MonoBehaviour {
         {
 			if (collision.collider.CompareTag ("Character")) {
 				Vector2 dir = (collision.collider.transform.position - transform.position).normalized;
-				dir *= characterBase.DashForceMultiplier;
+				dir *= characterBase.HitDashForceMultiplier;
 				collision.collider.GetComponent<CharacterHandler> ().GetHitByOpponent (dir);
 			}
             isDashing = false;

@@ -27,6 +27,8 @@ public class CharacterPaddle : MonoBehaviour {
 
     private RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     private List<int> hitObjectIDs = new List<int>(16);
+	CharacterHandler handler = null;
+	Vector2 paddleForce = Vector2.zero;
 
     private int playerID;
     private CharacterBaseData characterBase;
@@ -161,56 +163,65 @@ public class CharacterPaddle : MonoBehaviour {
                 // Check for a rigidbody on the object
                 Rigidbody2D hitBody = hitBuffer[i].collider.GetComponent<Rigidbody2D>();
 
-                if (hitBody)
-                {
-                    //Debug.Log("Rigidbody found");
+				if (hitBody) {
+					//Debug.Log("Rigidbody found");
 
-                    BallGravity ballGravity = hitBody.GetComponentInChildren<BallGravity>();
-                    //Debug.Log(ballGravity.currentHeight);
-                    if (ballGravity && ballGravity.currentHeight > ballGravity.MaxHitHeight) continue;
+					BallGravity ballGravity = hitBody.GetComponentInChildren<BallGravity> ();
+					if (ballGravity != null) {
+						//Debug.Log(ballGravity.currentHeight);
+						if (ballGravity && ballGravity.currentHeight > ballGravity.MaxHitHeight)
+							continue;
 
-                    // Calculate the hit normal based on the direction of the hit
-                    Vector2 hitNormal;
+						// Calculate the hit normal based on the direction of the hit
+						Vector2 hitNormal;
 
-                    if (!hitIsCharged)
-                    {
-                        Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier;
-                        Vector2 distanceFromTip = (hitBody.position - tipPoint);
+						if (!hitIsCharged) {
+							Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier;
+							Vector2 distanceFromTip = (hitBody.position - tipPoint);
 
-                        //Vector2 distanceFromPivot = (hitBody.position - pivotPoint);
-                        //float distanceMultiplier = distanceFromPivot.magnitude;
-                        //if (Vector2.Dot(distanceFromPivot, paddleVector) < 0) distanceMultiplier = 0;
+							//Vector2 distanceFromPivot = (hitBody.position - pivotPoint);
+							//float distanceMultiplier = distanceFromPivot.magnitude;
+							//if (Vector2.Dot(distanceFromPivot, paddleVector) < 0) distanceMultiplier = 0;
 
-                        float ballRadius = hitBody.GetComponent<CircleCollider2D>().radius * hitBuffer[i].transform.localScale.y;
+							float ballRadius = hitBody.GetComponent<CircleCollider2D> ().radius * hitBuffer [i].transform.localScale.y;
 
-                        if (distanceFromTip.magnitude <= ballRadius + (characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier) / 2 && Vector2.Dot(distanceFromTip, paddleVector) > 0f)
-                        {
-                            //Debug.Log("tip hit");
-                            hitNormal = distanceFromTip.normalized;
-                        }
-                        else hitNormal = new Vector2(-paddleVector.y, paddleVector.x).normalized * paddleHitDirection;
-                    }
-                    else
-                    {
-                        Debug.Log("Charge shot");
-                        hitNormal = masterTransform.up;
-						hitNormal *= characterBase.PaddleChargedForceMultiplier;
-                    }
+							if (distanceFromTip.magnitude <= ballRadius + (characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier) / 2 && Vector2.Dot (distanceFromTip, paddleVector) > 0f) {
+								//Debug.Log("tip hit");
+								hitNormal = distanceFromTip.normalized;
+							} else
+								hitNormal = new Vector2 (-paddleVector.y, paddleVector.x).normalized * paddleHitDirection;
+						} else {
+							Debug.Log ("Charge shot");
+							hitNormal = masterTransform.up;
+							hitNormal *= characterBase.PaddleChargedForceMultiplier;
+						}
 
-                    //Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);
+						//Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);
 
-                    hitBody.velocity = Vector2.zero;
-                    hitBody.AddForce(hitNormal * characterBase.PaddleForceAmount * characterAttributes.PaddleForceMultiplier * hitBody.mass, ForceMode2D.Impulse);
+						hitBody.velocity = Vector2.zero;
+						hitBody.AddForce (hitNormal * characterBase.PaddleForceAmount * characterAttributes.PaddleForceMultiplier * hitBody.mass, ForceMode2D.Impulse);
 
-                    Ball hitBall = hitBody.GetComponent<Ball>();
-					if (hitBall) hitBall.GetPlayerPaddleTouch(playerID, theColors, hitIsCharged);
+						Ball hitBall = hitBody.GetComponent<Ball> ();
+						if (hitBall)
+							hitBall.GetPlayerPaddleTouch (playerID, theColors, hitIsCharged);
 
-                    GetComponent<CinemachineCollisionImpulseSource>().GenerateImpulse(-hitNormal);
+						GetComponent<CinemachineCollisionImpulseSource> ().GenerateImpulse (-hitNormal);
 
-                    hitBody.GetComponentInChildren<BallGravity>().AddUpwardsVelocity(4f);
+						hitBody.GetComponentInChildren<BallGravity> ().AddUpwardsVelocity (4f);
 
-                    hitObjectIDs.Add(hitObjectID);
-                }
+						hitObjectIDs.Add (hitObjectID);
+					} else {
+						handler = hitBuffer [i].collider.GetComponent<CharacterHandler> ();
+						if (handler.PlayerID != playerID) {
+							paddleForce = masterTransform.up;
+							if (hitIsCharged) {
+								paddleForce *= characterBase.PaddleChargedForceMultiplier;
+							}
+							paddleForce *= characterBase.HitPaddleForceMultiplier;
+							handler.GetHitByOpponent (paddleForce);
+						}
+					}
+				}
             }
         }
     }

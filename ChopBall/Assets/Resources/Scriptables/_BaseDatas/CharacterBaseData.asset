@@ -18,9 +18,9 @@ MonoBehaviour:
   DashStaminaCost: 35
   BlockStaminaCost: 45
   ChargeBlockStaminaCost: 60
-  InvunerabilityTime: 3
-  DashForceMultiplier: 40
-  PaddleForceMultiplier: 20
+  InvunerabilityTime: 2
+  HitDashForceMultiplier: 40
+  HitPaddleForceMultiplier: 30
   PaddleLength: 1.2
   PaddleThickness: 0.9
   PaddleUpperAngle: 0
@@ -31,7 +31,7 @@ MonoBehaviour:
   PaddleChargedForceMultiplier: 3
   PaddleCollisionLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 3072
   MovementSpeed: 8
   RotationSpeed: 4
   DashDistance: 6

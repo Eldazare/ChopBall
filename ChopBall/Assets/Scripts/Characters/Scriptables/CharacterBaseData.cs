@@ -19,8 +19,8 @@ public class CharacterBaseData : ScriptableObject {
 
 	[Header("PlayerInteraction")]
 	public float InvunerabilityTime;
-	public float DashForceMultiplier;
-	public float PaddleForceMultiplier;
+	public float HitDashForceMultiplier;
+	public float HitPaddleForceMultiplier;
 
     [Header("Paddles")]
     public float PaddleLength;

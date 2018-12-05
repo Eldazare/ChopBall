@@ -10,12 +10,19 @@ public class TestGoalScoreDisplayer : MonoBehaviour
     public List<Text> goalStockDisplays;
     private List<Text> displayTextList;
 
-    /*public void TimerUpdated(){ 
-		timerDisplay.text = CurrentBattleController.GetATime ();
-	}*/
+	private PlayerStateData[] states;
+	private List<string> characterNames;
 
     public void ResolutionChangeUpdatePositions()
     {
+		states = PlayerStateController.GetAllStates ();
+		characterNames = new List<string> ();
+		foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors()) {
+			characterNames.Add(CharacterAttributeController.GetACharacter(
+				PlayerStateController.GetAState (competitor.playerID).characterChoice).CharacterName
+			);
+		}
+
         if (displayTextList != null)
         {
             if (displayTextList.Count == 0)
@@ -61,7 +68,6 @@ public class TestGoalScoreDisplayer : MonoBehaviour
             foreach (TeamContainer team in CurrentBattleController.GetTeams())
             {
                 displayTextList[i].text = "Team " + team.teamID;
-                //displayTextList [i].text += "\nGoals: " + team.goals;
                 displayTextList[i].text += "\nScore: " + team.score;
                 i++;
             }
@@ -87,10 +93,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour
             int i = 0;
             foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors())
             {
-                //displayTextList [i].text = "Player " + competitor.playerID;
-                //displayTextList [i].text += "\nGoals: " + competitor.goalsScored;
-                PlayerStateData pStateData = (PlayerStateData)Resources.Load("Scriptables/_BaseDatas/PlayerStateData", typeof(PlayerStateData));
-                displayTextList[i].text += CharacterAttributeController.GetACharacter(pStateData.characterChoice).CharacterName;
+				displayTextList[i].text = characterNames[i];
                 displayTextList[i].text += "\nScore: " + competitor.score;
                 i++;
             }

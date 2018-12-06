@@ -8,6 +8,7 @@ public class InputTranslator : MonoBehaviour {
 	public int controllerNumber;
 	public UnityInputEvent UpdateInputs;
 	public bool invertYInput = true;
+	private bool translateDpad = false;
 	private string begin;
 	private InputStorage customInputs;
 	private PlayerStateData stateData;
@@ -51,11 +52,13 @@ public class InputTranslator : MonoBehaviour {
 			model.rightDirectionalInput.y = -Input.GetAxisRaw (customInputs.YAxisRight);
 		}
 		DeadZoneCheck (model, customInputs.deadZoneLeft, customInputs.deadZoneRight);
-
-		model.PaddleLeft = Input.GetKey (customInputs.PaddleLeft);
-		model.PaddleRight = Input.GetKey (customInputs.PaddleRight);
-		model.Dash = Input.GetKey (customInputs.Dash);
-		model.Block = Input.GetKey (customInputs.Block);
+		if (translateDpad) {
+			model.D_PadVector.x = Input.GetAxisRaw (customInputs.D_PadAxisX);
+			model.D_PadVector.y = Input.GetAxisRaw (customInputs.D_PadAxisY);
+		}
+		model.Strike = Input.GetKey (customInputs.Strike);
+		model.Dash = (Input.GetKey (customInputs.Dash) || Input.GetAxisRaw(customInputs.DashAxis)>baseData.triggerTreshold);
+		model.Block = (Input.GetKey (customInputs.Block) || Input.GetAxisRaw(customInputs.BlockAxis)>baseData.triggerTreshold);
 		model.Submit = Input.GetKey (customInputs.Submit);
 		model.Cancel = Input.GetKey (customInputs.Cancel);
 		model.Start = Input.GetKey (customInputs.Start);
@@ -93,6 +96,10 @@ public class InputTranslator : MonoBehaviour {
 		inputVector.y = Mathf.SmoothDamp(previousInput.y, sensitivityInput.y, ref smoothVelocity.y, baseData.smoothingCurve.Evaluate(sensitivityInput.magnitude) * baseData.inputSmoothing * baseData.velocitySmoothingCurve.Evaluate(inputDistanceDelta) * (1 - gravityMultiplier));
 
 		return inputVector;
+	}
+
+	public void SetTranslateDPad(bool isTranslated){
+		this.translateDpad = isTranslated;
 	}
 
 	public void FinalCall(){

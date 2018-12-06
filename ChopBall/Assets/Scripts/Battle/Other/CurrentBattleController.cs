@@ -16,6 +16,11 @@ public static class CurrentBattleController  {
 		LoadCurrentBattle ();
 		currentBattle.InitializeFromMasterStateData (numberOfGoals);
 	}
+
+	public static bool IsStockActive(){
+		LoadCurrentBattle ();
+		return currentBattle.maxStock != -1;
+	}
 		
 	public static void AddGoal(GoalData goalData){
 		LoadCurrentBattle ();
@@ -32,13 +37,12 @@ public static class CurrentBattleController  {
 		currentBattle.ProgressTime (deltaTime);
 	}
 
-	public static ATime GetATime(){
+	public static string GetATime(){
 		LoadCurrentBattle ();
-		ATime time = new ATime (currentBattle.minutesLeft, currentBattle.secondsLeft);
 		if (currentBattle.suddenDeath) {
-			time.str = "Sudden Death!";
+			return "Sudden Death!";
 		}
-		return time;
+		return currentBattle.timer.GetAsString();
 	}
 
 	public static List<CompetitorContainer> GetCompetitors(){
@@ -49,5 +53,15 @@ public static class CurrentBattleController  {
 	public static List<TeamContainer> GetTeams(){
 		LoadCurrentBattle ();
 		return currentBattle.teams;
+	}
+
+	public static List<GoalInfo> GetGoalInfos(){
+		LoadCurrentBattle ();
+		return currentBattle.goalDatas;
+	}
+
+	public static bool InitializeGoalData(int playerID, int goalIndex){
+		LoadCurrentBattle ();
+		return currentBattle.InitializeGoal (playerID, goalIndex);
 	}
 }

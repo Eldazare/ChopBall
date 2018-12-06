@@ -17,11 +17,14 @@ MonoBehaviour:
   XAxisRight: 4
   YAxisRight: 5
   deadZone: 0.19
-  PaddleLeft: 4
-  PaddleRight: 5
-  Dash: 9
+  Strike: 5
+  Dash: 4
   Block: 8
   Submit: 0
   Cancel: 1
   Start: 7
   Select: 6
+  DashAxis: 9
+  BlockAxis: 10
+  D_PadX: 6
+  D_PadY: 7

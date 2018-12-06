@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
+using Cinemachine;
 
 public class CharacterPaddle : MonoBehaviour {
 
@@ -26,6 +27,8 @@ public class CharacterPaddle : MonoBehaviour {
 
     private RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     private List<int> hitObjectIDs = new List<int>(16);
+	CharacterHandler handler = null;
+	Vector2 paddleForce = Vector2.zero;
 
     private int playerID;
     private CharacterBaseData characterBase;
@@ -68,23 +71,18 @@ public class CharacterPaddle : MonoBehaviour {
         currentRotation = characterBase.PaddleLowerAngle * characterAttributes.PaddleLowerAngleMultiplier * (float)Side;
         targetRotation = currentRotation;
         paddleVector = Rotate(masterTransform.up, targetRotation);
+        Pivot.localRotation = Quaternion.AngleAxis(currentRotation, transform.forward);
 
         paddleHitDirection = Mathf.Sign(characterBase.PaddleUpperAngle * characterAttributes.PaddleUpperAngleMultiplier - currentRotation);
 
 		soundPaddlePath = SoundPathController.GetPath ("Chop");
-		soundHitPath = SoundPathController.GetPath ("Hit");
+		soundHitPath = SoundPathController.GetPath ("PlayerHit");
     }
 
-    public void Hit(bool charged = false)
+	public void Hit(bool charged = false)
     {
         if (!hitActive || !hitIsCharged)
         {
-			if (characterRuntimeModifiers == null) {
-				Debug.LogWarning ("1");
-			}
-			if (characterBase == null) {
-				Debug.LogWarning ("2");
-			}
 			if (characterRuntimeModifiers.UseStamina (characterBase.PaddleStaminaCost)) {
 				FMODUnity.RuntimeManager.PlayOneShotAttached (soundPaddlePath, gameObject);
 				//soundEmitter.SendMessage("Play");
@@ -123,8 +121,9 @@ public class CharacterPaddle : MonoBehaviour {
 			currentRotation = targetRotation;
 
 			paddleVector = Rotate (masterTransform.up, targetRotation);
+            Pivot.localRotation = Quaternion.AngleAxis(currentRotation, transform.forward);
 
-			if (currentAngularDirection > 0)
+            if (currentAngularDirection > 0)
 				CheckPaddleCollisions ();
 
 			//if (hitActive == false) hitObjectIDs.Clear();
@@ -164,49 +163,65 @@ public class CharacterPaddle : MonoBehaviour {
                 // Check for a rigidbody on the object
                 Rigidbody2D hitBody = hitBuffer[i].collider.GetComponent<Rigidbody2D>();
 
-                if (hitBody)
-                {
-                    //Debug.Log("Rigidbody found");
+				if (hitBody) {
+					//Debug.Log("Rigidbody found");
 
-                    // Calculate the hit normal based on the direction of the hit
-                    Vector2 hitNormal;
+					BallGravity ballGravity = hitBody.GetComponentInChildren<BallGravity> ();
+					if (ballGravity != null) {
+						//Debug.Log(ballGravity.currentHeight);
+						if (ballGravity && ballGravity.currentHeight > ballGravity.MaxHitHeight)
+							continue;
 
-                    if (!hitIsCharged)
-                    {
-                        Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier;
-                        Vector2 distanceFromTip = (hitBody.position - tipPoint);
+						// Calculate the hit normal based on the direction of the hit
+						Vector2 hitNormal;
 
-                        //Vector2 distanceFromPivot = (hitBody.position - pivotPoint);
-                        //float distanceMultiplier = distanceFromPivot.magnitude;
-                        //if (Vector2.Dot(distanceFromPivot, paddleVector) < 0) distanceMultiplier = 0;
+						if (!hitIsCharged) {
+							Vector2 tipPoint = pivotPoint + paddleVector * characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier;
+							Vector2 distanceFromTip = (hitBody.position - tipPoint);
 
-                        float ballRadius = hitBody.GetComponent<CircleCollider2D>().radius * hitBuffer[i].transform.localScale.y;
+							//Vector2 distanceFromPivot = (hitBody.position - pivotPoint);
+							//float distanceMultiplier = distanceFromPivot.magnitude;
+							//if (Vector2.Dot(distanceFromPivot, paddleVector) < 0) distanceMultiplier = 0;
 
-                        if (distanceFromTip.magnitude <= ballRadius + (characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier) / 2 && Vector2.Dot(distanceFromTip, paddleVector) > 0f)
-                        {
-                            //Debug.Log("tip hit");
-                            hitNormal = distanceFromTip.normalized;
-                        }
-                        else hitNormal = new Vector2(-paddleVector.y, paddleVector.x).normalized * paddleHitDirection;
-                    }
-                    else
-                    {
-                        //Debug.Log("Charge shot");
-                        hitNormal = masterTransform.up;
-                    }
+							float ballRadius = hitBody.GetComponent<CircleCollider2D> ().radius * hitBuffer [i].transform.localScale.y;
 
-                    //Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);
+							if (distanceFromTip.magnitude <= ballRadius + (characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier) / 2 && Vector2.Dot (distanceFromTip, paddleVector) > 0f) {
+								//Debug.Log("tip hit");
+								hitNormal = distanceFromTip.normalized;
+							} else
+								hitNormal = new Vector2 (-paddleVector.y, paddleVector.x).normalized * paddleHitDirection;
+						} else {
+							Debug.Log ("Charge shot");
+							hitNormal = masterTransform.up;
+							hitNormal *= characterBase.PaddleChargedForceMultiplier;
+						}
 
-                    hitBody.velocity = Vector2.zero;
-                    hitBody.AddForceAtPosition(hitNormal * characterBase.PaddleForceAmount * characterAttributes.PaddleForceMultiplier * hitBody.mass,
-                                                hitBuffer[i].point,
-                                                ForceMode2D.Impulse);
+						//Debug.DrawRay(hitBuffer[i].point, hitNormal, Color.red, 1f);
 
-                    Ball hitBall = hitBody.GetComponent<Ball>();
-					if (hitBall) hitBall.GetPlayerPaddleTouch(playerID, theColors, hitIsCharged);
+						hitBody.velocity = Vector2.zero;
+						hitBody.AddForce (hitNormal * characterBase.PaddleForceAmount * characterAttributes.PaddleForceMultiplier * hitBody.mass, ForceMode2D.Impulse);
 
-                    hitObjectIDs.Add(hitObjectID);
-                }
+						Ball hitBall = hitBody.GetComponent<Ball> ();
+						if (hitBall)
+							hitBall.GetPlayerPaddleTouch (playerID, theColors, hitIsCharged);
+
+						GetComponent<CinemachineCollisionImpulseSource> ().GenerateImpulse (-hitNormal);
+
+						hitBody.GetComponentInChildren<BallGravity> ().AddUpwardsVelocity (4f);
+
+						hitObjectIDs.Add (hitObjectID);
+					} else {
+						handler = hitBuffer [i].collider.GetComponent<CharacterHandler> ();
+						if (handler.PlayerID != playerID) {
+							paddleForce = masterTransform.up;
+							if (hitIsCharged) {
+								paddleForce *= characterBase.PaddleChargedForceMultiplier;
+							}
+							paddleForce *= characterBase.HitPaddleForceMultiplier;
+							handler.GetHitByOpponent (paddleForce);
+						}
+					}
+				}
             }
         }
     }
@@ -217,13 +232,13 @@ public class CharacterPaddle : MonoBehaviour {
         Gizmos.color = new Color(255, 255, 255, 0.5f);
         for (int i = 0; i < 10; i++)
         {
-            Gizmos.DrawSphere(pivotPoint + ((characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier / 10) * i * paddleVector),
+            Gizmos.DrawSphere((Vector3)pivotPoint + -Vector3.forward * 1.25f + (Vector3)((characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier / 10) * i * paddleVector),
                                             characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier / 2);
         }
 
         Gizmos.color = new Color(0, 255, 0, 0.5f);
 
-        Gizmos.DrawSphere(pivotPoint + characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier * paddleVector,
+        Gizmos.DrawSphere((Vector3)pivotPoint + -Vector3.forward * 1.25f + (Vector3)(characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier * paddleVector),
                           characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier / 2);
     }
 

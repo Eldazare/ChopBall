@@ -11,9 +11,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ef32ea94e76d34bb02cca6bc3154cc, type: 3}
   m_Name: SquareTest
   m_EditorClassIdentifier: 
-  CharacterName: NotRoyston
-  CharacterPrefabName: null
+  CharacterName: Stan
+  CharacterPrefabName: GenericCharacter3D
+  CharacterBattleModelPrefab: {fileID: 1973047356847882, guid: d9f38bafffe102e489e69d11a31a8059,
+    type: 2}
+  CharacterMenuModelPrefab: {fileID: 1538555779620374, guid: e1b0629cc5b2c264bbca4edb704d3f8f,
+    type: 2}
   CharacterPortrait: {fileID: 21300000, guid: ddf5ec761c8d47944b754f602aeb57e2, type: 3}
+  StaminaMax: 1
+  StaminaRegen: 1
   PaddleLengthMultiplier: 1
   PaddleThicknessMultiplier: 1
   PaddleUpperAngleMultiplier: 1

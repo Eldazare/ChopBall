@@ -63,8 +63,8 @@ public static class InputStorageController {
 			"{6,-20} {13,-8} \n" +
 			"{7,-20} {14,-8} \n", 
 			playerID.ToString(),
-			"Dash", "PaddleLeft", "PaddleRight", "Submit", "Cancel", "Start", "Select",
-			storage.Dash.ToString (), storage.PaddleLeft.ToString (), storage.PaddleRight.ToString (),
+			"Dash", "Strike", "Submit", "Cancel", "Start", "Select",
+			storage.Dash.ToString () , storage.Strike.ToString (),
 			storage.Submit.ToString (), storage.Cancel.ToString (), storage.Start.ToString(), storage.Select.ToString());
 		return str;
 	}

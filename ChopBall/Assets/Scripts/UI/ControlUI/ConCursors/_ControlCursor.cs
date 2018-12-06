@@ -6,49 +6,70 @@ public class _ControlCursor : MonoBehaviour {
 
 	// TODO: Saved position on character select
 	public MenuPanelHandler menuPanelHandler;
+	public GameEvent OnUICancel;
 	public int playerID;
-	private DPosition currentPosition;
-	private _ControlButton currentButton;
-	private float treshold = 0.5f;
+	public RectTransform selfRect;
+	public float offset;
+	private DPosition currentPosition = null;
+	private _ControlButton currentButton = null;
 	private bool inputDone = false;
 	private bool triggered = false;
 
-	private List<DPosition> dirList = new List<DPosition>() {new DPosition(1,0), new DPosition(-1,0), 
-		new DPosition(0,1), new DPosition(0,-1)};
+	private bool lateSubmit = false;
+	private bool lateCancel = false;
+	private bool latePaddleLeft = false;
+	private bool latePaddleRight = false;
+	private Vector2 vec;
+	private DPosition dpos;
 
-	public void SetPosition(DPosition newPosition){
-		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);	
+	void OnEnable(){
+		lateSubmit = true;
+		lateCancel = true;
+		latePaddleLeft = true;
+		latePaddleRight = true;
+	}
+
+	public void OnEnableCursor(){
+		SetPosition (new DPosition (0, 0), true);
+	}
+
+	public void SetPosition(DPosition newPosition, bool forceUpdate = false){
+		DPosition prevPos = currentPosition;
+		_ControlButton prevButton = currentButton;
+		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);
+		if (currentPosition != prevPos || forceUpdate) {
+			if (!object.ReferenceEquals(prevPos,null)) {
+				prevButton.OnButtonExit (playerID);
+			}
+			currentButton.OnButtonEnter (playerID);
+		}
+		transform.position = currentButton.transform.position;
+		SetSizeFromCurrentButton ();
 	}
 
 	public void GetInput(InputModel model){
-		triggered = false;
-		for (int i = 0; i < dirList.Count; i++) {
-			if ((model.leftDirectionalInput * dirList [i]).magnitude > treshold) {
-				triggered = true;
-				if (!inputDone) {
-					currentButton.OnButtonExit (playerID);
-					currentButton = menuPanelHandler.GoAnywhere (currentPosition + dirList [i], out currentPosition); 
-					inputDone = true;
-					currentButton.OnButtonEnter (playerID);
-					break;
-				}
-			}
+		dpos = UIHelpMethods.CheckDirInput (model, ref triggered, ref inputDone,ref vec);
+		if (!object.ReferenceEquals(dpos, null)) {
+			SetPosition (currentPosition + dpos);
 		}
-		if (!triggered) {
-			inputDone = false;
-		}
-
-		if (model.Submit) {
+	
+		if (UIHelpMethods.IsButtonTrue(model.Submit, ref lateSubmit)) {
 			currentButton.OnButtonClick (playerID);
 		}
-		if (model.Cancel) {
-			// TODO: invoke cancel event
+		if (UIHelpMethods.IsButtonTrue(model.Cancel, ref lateCancel)) {
+			OnUICancel.Raise ();
 		}
-		if (model.PaddleLeft) {
+		if (UIHelpMethods.IsButtonTrue(model.Dash, ref latePaddleLeft)) {
 			currentButton.OnButtonLeftBumper (playerID);
 		}
-		if (model.PaddleRight) {
+		if (UIHelpMethods.IsButtonTrue(model.Strike, ref latePaddleRight)) {
 			currentButton.OnButtonRightBumper (playerID);
 		}
+	}
+
+	private void SetSizeFromCurrentButton(){
+		Rect currentButtonRect = currentButton.GetComponent<RectTransform> ().rect;
+		selfRect.sizeDelta = new Vector2 (currentButtonRect.width + offset,
+			currentButtonRect.height + offset);
 	}
 }

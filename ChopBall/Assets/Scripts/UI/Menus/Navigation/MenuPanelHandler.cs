@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MenuPanelHandler : MonoBehaviour
 {
@@ -10,8 +11,11 @@ public class MenuPanelHandler : MonoBehaviour
 	public List<ChoiceCursor> playerCursors;
 	public MasterCursor masterCursors;
 
+	public _ControlCursor gridCursor;
+
 	void Awake(){
 		currentPanel = firstPanel;
+		SetControlCursor (currentPanel.masterZone);
 	}
 
 	public void Back()
@@ -21,6 +25,7 @@ public class MenuPanelHandler : MonoBehaviour
 			currentPanel.previousPanel.gameObject.SetActive (true);
 			currentPanel = currentPanel.previousPanel;
 			SetCursors (currentPanel.masterZone);
+			SetControlCursor (currentPanel.masterZone);
 			currentPanel.OnPanelEnter.Invoke ();
 		} else {
 			Debug.Log ("previousPanel was null. Are we at start panel?");
@@ -34,6 +39,10 @@ public class MenuPanelHandler : MonoBehaviour
         }*/
     }
 
+	public void ForwardNextPanel(){
+		Forward (currentPanel.nextPanel);
+	}
+
 	public void Forward(PanelScript nextPanel){
 		SetCursors (nextPanel.masterZone);
 		if (currentPanel == null) {
@@ -43,6 +52,7 @@ public class MenuPanelHandler : MonoBehaviour
 		currentPanel = nextPanel;
 		currentPanel.gameObject.SetActive (true);
 		currentPanel.OnPanelEnter.Invoke ();
+		SetControlCursor (nextPanel.masterZone);
 	}
 
 
@@ -75,7 +85,9 @@ public class MenuPanelHandler : MonoBehaviour
 	}
 
 	public void SetCursors(bool isMaster){
-		masterCursors.gameObject.SetActive (isMaster);
+		if (masterCursors != null) {
+			masterCursors.gameObject.SetActive (isMaster);
+		}
 		foreach (ChoiceCursor cursor in playerCursors) {
 			cursor.gameObject.SetActive (!isMaster);
 			if (!isMaster) {
@@ -84,23 +96,34 @@ public class MenuPanelHandler : MonoBehaviour
 		}
 	}
 
+	public void SetControlCursor(bool zone){
+		if (gridCursor != null) {
+			gridCursor.gameObject.SetActive (zone);
+			if (zone) {
+				gridCursor.OnEnableCursor ();
+			}
+		}
+	}
+
+
+
 
 	// CONTROL
 
 	public _ControlButton GoAnywhere(DPosition currentPos, out DPosition pos){
 		int x = currentPos.x; int y = currentPos.y;
-		if (currentPanel.buttonList[currentPos.y].Count <= currentPos.x) {
-			x = 0;
-		} else if (currentPos.x < 0) {
-			x = currentPanel.buttonList[currentPos.y].Count-1;
-		}
 		if (currentPanel.buttonList.Count <= currentPos.y) {
 			y = 0;
 		} else if (currentPos.y < 0) {
 			y = currentPanel.buttonList.Count - 1;
+			if (y < 0) {
+				y = 0;
+			}
 		}
-		if (currentPanel.buttonList [y].Count <= currentPos.x) {
-			x = currentPanel.buttonList [y].Count;
+		if (currentPanel.buttonList[y].Count <= x) {
+			x = 0;
+		} else if (currentPos.x < 0) {
+			x = currentPanel.buttonList[y].Count-1;
 		}
 		pos = new DPosition (x, y);
 		return currentPanel.buttonList [y] [x];
@@ -116,7 +139,7 @@ public class MenuPanelHandler : MonoBehaviour
 	}
 }
 
-
+[Serializable]
 public class DPosition{
 	public int x;
 	public int y;
@@ -133,8 +156,25 @@ public class DPosition{
 	}
 
 	public static DPosition operator+(DPosition dpos1, DPosition dpos2){
-		dpos1.x += dpos2.x;
-		dpos1.y += dpos2.y;
-		return dpos1;
+		return new DPosition (dpos1.x + dpos2.x, dpos1.y + dpos2.y);
+	}
+
+	public static bool operator==(DPosition dpos1, DPosition dpos2){
+		if (object.ReferenceEquals(dpos2, null)){
+			return false;
+		}
+		if (dpos1.x == dpos2.x && dpos1.y == dpos2.y) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static bool operator!=(DPosition dpos1, DPosition dpos2){
+		return !(dpos1 == dpos2);
+	}
+
+	public string AsString(){
+		return x + "," + y;
 	}
 }

@@ -9,18 +9,27 @@ public class ControllerModel : ScriptableObject{
 	// Stores default buttons as button number
 
 	public string ControllerName;
+	[Header("Input Axes")]
 	public int XAxisLeft;
 	public int YAxisLeft;
 	public int XAxisRight;
 	public int YAxisRight;
 	public float deadZone = 0.19f;
 
-	public int PaddleLeft;
-	public int PaddleRight;
+	[Header("Main buttons")]
+	public int Strike;
 	public int Dash;
 	public int Block;
 	public int Submit;
 	public int Cancel;
 	public int Start;
 	public int Select;
+
+	[Header("Button Axes")]
+	public int DashAxis;
+	public int BlockAxis;
+
+	[Header("D-pad Axes")]
+	public int D_PadX;
+	public int D_PadY;
 }

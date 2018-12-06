@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11987901a03fc1d4788ce4594e3861c6, type: 3}
+  m_Name: 3_FT5
+  m_EditorClassIdentifier: 
+  bpName: FT5
+  descriptionLine1: First to 5 goals wins!
+  descriptionLine2: 
+  descriptionLine3: 
+  descriptionLine4: 
+  descriptionLine5: 
+  countObject: 1
+  roundEnd: 1
+  roundEndCap: 5
+  timerMinutes: 0
+  timerSeconds: 0
+  endCriteria: 0
+  endValue: 1
+  scoringMode: 2

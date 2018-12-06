@@ -14,8 +14,8 @@ public class MasterStateData : ScriptableObject {
 
 	public GameEvent OnGrandModeChanged;
 
-	public GrandMode mode;
-	public int quickBpIndex = 0;
+	public GrandMode mode = GrandMode.FFA;
+	public int quickBpIndex = -1;
 	public bool teams; // Wether the game is Free-For-All or Teams
 	public int maxTeams;
 	public BattleModeBlueprint battleModeBlueprint;
@@ -26,17 +26,19 @@ public class MasterStateData : ScriptableObject {
 	public List<string> randomStagePreset;
 
 	public void SetBattleDefaults(){
-		// Should contain every field
-		//SetGrandMode (GrandMode.FFA);
-		battleModeBlueprint = DefaultBP ();
 		SetGrandMode (GrandMode.FFA);
-		Debug.Log ("Defaults loaded");
+		if (quickBpIndex == -1) {
+			battleModeBlueprint = DefaultBP ();
+		} else {
+			LoadBlueprintFromQuickMode ();
+		}
+		Debug.LogWarning ("Defaults loaded, assumed debug mode.");
 	}
 
 	public void SetMenuDefaults(){
 		stageChoiceType = StageChoiceType.masterSingle;
 		stageNameFinal = "1v1 Test";
-		quickBpIndex = 0;
+		quickBpIndex = -1;
 	}
 
 	private BattleModeBlueprint DefaultBP(){
@@ -75,12 +77,21 @@ public class MasterStateData : ScriptableObject {
 	}
 
 	public void GoToBattle(){
+		LoadBlueprintFromQuickMode ();
 		foreach (StageData stageData in StageDataController.GetStages ()) {
-			if (stageNameFinal == stageData.stageName) {
+			if (stageNameFinal == stageData.stageMenuName) {
 				SceneManager.LoadScene (stageData.stageSceneName);
 				return;
 			}
 		}
 		Debug.LogWarning ("Stage name not found: " + stageNameFinal);
+	}
+
+	private void LoadBlueprintFromQuickMode(){
+		if (quickBpIndex != -1) {
+			battleModeBlueprint = QuickModeBPController.GetAllBPs () [quickBpIndex].GetBlueprint ();
+		} else {
+			battleModeBlueprint = DefaultBP ();
+		}
 	}
 }

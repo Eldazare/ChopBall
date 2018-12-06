@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public class Goal : MonoBehaviour {
 
-	public int goalNumber; // Begins from 0
 	public GoalEvent goalEvent;
 	public SpriteRenderer goalMarker;
+	public MeshRenderer goalMarker3D;
 
 
 	private int goalPlayerID;
+	private int goalIndex;
 
     private Vector2 characterSpawnPoint;
 
@@ -18,14 +19,26 @@ public class Goal : MonoBehaviour {
     private List<CharacterHandler> charactersInArea;
     private GoalAreaCheck areaCheck;
 
-	public void Initialize(int playerID, Color32 color){
+	private string soundGoalPath;
+
+	public void Initialize( Color32 color, Material mat, int goalIndex){
 		gameObject.GetComponent<BoxCollider2D> ().enabled = true;
-		goalMarker.enabled = true;
-		goalMarker.color = color;
-		goalPlayerID = playerID;
-        characterSpawnPoint = GetComponentInChildren<CharacterSpawnIndicator>().transform.position;
+		if (goalMarker != null) {
+			goalMarker.enabled = true;
+			goalMarker.color = color;
+		} if (goalMarker3D != null) {
+			goalMarker3D.material = mat;
+		}
         charactersInArea = new List<CharacterHandler>(16);
         areaCheck = GetComponentInChildren<GoalAreaCheck>();
+		soundGoalPath = SoundPathController.GetPath ("Goal1");
+		this.goalIndex = goalIndex;
+		CurrentBattleController.InitializeGoalData (goalPlayerID, goalIndex);
+	}
+
+	public void InitializeID(int playerID){
+		characterSpawnPoint = GetComponentInChildren<CharacterSpawnIndicator>().transform.position;
+		this.goalPlayerID = playerID;
 	}
 
 	// Dunno if this is good way to do this
@@ -36,11 +49,12 @@ public class Goal : MonoBehaviour {
 			Ball ball = collider.gameObject.GetComponent<Ball> ();
 			gd.goalPlayerID = goalPlayerID;
 			gd.giverPlayerIDs = ball.touchedPlayers;
-			gd.goalNumber = goalNumber;
+			gd.goalIndex = goalIndex;
 			goalEvent.Raise (gd);
 			ball.ResetBallPosition ();
 			ResetGoalTargets ();
             EvictCharactersFromArea();
+			FMODUnity.RuntimeManager.PlayOneShot (soundGoalPath, gameObject.transform.position);
 		}
 	}
 
@@ -51,7 +65,7 @@ public class Goal : MonoBehaviour {
 		targets.Add (target);
 	}
 
-	private void ResetGoalTargets(){
+	public void ResetGoalTargets(){
 		foreach(var target in targets){
 			target.Activate ();
 		}

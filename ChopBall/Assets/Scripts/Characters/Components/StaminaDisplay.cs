@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class StaminaDisplay : MonoBehaviour {
 
-	public Image image;
+	public Image staminaCircle;
+	public Image arrow;
 
 	private CharacterRuntimeModifiers mod;
 	private SpriteRenderer sRenderer;
@@ -14,10 +15,14 @@ public class StaminaDisplay : MonoBehaviour {
 
 	public void Initialize(CharacterRuntimeModifiers mod, float maxStamina, Color32 color){
 		this.mod = mod;
-		if (image == null) {
-			image = GetComponentInChildren<Image> ();
+		color.a = 180;
+		if (staminaCircle == null) {
+			staminaCircle = GetComponentInChildren<Image> ();
 		}
-		image.color = color;
+		if (arrow != null) {
+			arrow.color = color;
+		}
+		staminaCircle.color = color;
 		this.maxStamina = maxStamina;
 		initialized = true;
 		//Debug.Log (maxStamina);
@@ -25,7 +30,7 @@ public class StaminaDisplay : MonoBehaviour {
 
 	void Update(){
 		if (initialized) {
-			image.fillAmount = mod.stamina / maxStamina;
+			staminaCircle.fillAmount = mod.stamina / maxStamina;
 			//Debug.Log (mod.stamina / maxStamina);
 		}
 	}

@@ -19,6 +19,11 @@ public static class QuickModeBPController  {
 		return bpList [index].GetName ();
 	}
 
+	public static string GetDescriptionPerIndex (int index){
+		LoadBpList ();
+		return bpList [index].GetDescription ();
+	}
+
 	public static QuickModeBlueprint[] GetAllBPs(){
 		LoadBpList ();
 		return bpList;

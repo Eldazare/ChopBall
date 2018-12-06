@@ -51,6 +51,10 @@ public class CharacterMovement : MonoBehaviour {
         characterRigidbody.rotation = rotation;
     }
 
+	public void SetImpulseForce(Vector2 force){
+		appliedForce += force;
+	}
+
     private void Awake()
     {
         characterRigidbody = GetComponent<Rigidbody2D>();
@@ -72,8 +76,8 @@ public class CharacterMovement : MonoBehaviour {
         if (dashTimerElapsed <= 0)
         {
             isDashing = false;
-            velocity.x = inputAxis.x * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * Time.deltaTime;
-            velocity.y = inputAxis.y * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * Time.deltaTime;
+			velocity.x = inputAxis.x * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * characterRigidbody.mass * Time.deltaTime;
+			velocity.y = inputAxis.y * characterBase.MovementSpeed * characterAttributes.MovementSpeedMultiplier * characterRigidbody.drag * characterRigidbody.mass * Time.deltaTime;
         }
         else
         {
@@ -124,7 +128,7 @@ public class CharacterMovement : MonoBehaviour {
                 dashDirection = transform.up;
             }
 
-            dashSpeed = (characterBase.DashDistance * characterAttributes.DashDistanceMultiplier) / (characterBase.DashTime * characterAttributes.DashTimeMultiplier);
+			dashSpeed = (characterBase.DashDistance * characterAttributes.DashDistanceMultiplier * PlayerChooseModifiers.movespeedMod) / (characterBase.DashTime * characterAttributes.DashTimeMultiplier);
             dashTimerElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier;
             dashCoolDownElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier + characterBase.DashCoolDown * characterAttributes.DashCoolDownMultiplier;
         }
@@ -151,6 +155,11 @@ public class CharacterMovement : MonoBehaviour {
     {
         if (isDashing)
         {
+			if (collision.collider.CompareTag ("Character")) {
+				Vector2 dir = (collision.collider.transform.position - transform.position).normalized;
+				dir *= characterBase.HitDashForceMultiplier;
+				collision.collider.GetComponent<CharacterHandler> ().GetHitByOpponent (dir);
+			}
             isDashing = false;
             dashTimerElapsed = 0;
             AddForce(collision.contacts[0].normal * 10f);
@@ -161,4 +170,5 @@ public class CharacterMovement : MonoBehaviour {
 	public void SetRigidbodyMass(float value){
 		characterRigidbody.mass = value;
 	}
+
 }

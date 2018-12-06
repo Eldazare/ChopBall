@@ -26,12 +26,15 @@ public class Bumper : MonoBehaviour {
 
             if (ballBody)
             {
+                ContactPoint2D contact = collision.GetContact(0);
+
                 //Debug.Log("Ball hit bumper");
                 float appliedForce = collision.relativeVelocity.magnitude * BallForceAmount;
                 appliedForce = Mathf.Clamp(appliedForce, BallMinForce, Mathf.Infinity);
 
                 ballBody.velocity = Vector2.zero;
-                ballBody.AddForceAtPosition(-collision.contacts[0].normal * ballBody.mass * appliedForce, collision.contacts[0].point);
+                ballBody.AddForce(-contact.normal * ballBody.mass * appliedForce, ForceMode2D.Impulse);
+                ballBody.GetComponentInChildren<BallGravity>().AddUpwardsVelocity(4f);
             }
         }
         else if (collision.collider.CompareTag("Character"))
@@ -40,7 +43,9 @@ public class Bumper : MonoBehaviour {
 
             if (charMovement)
             {
-                charMovement.AddForce(-collision.contacts[0].normal * PlayerForceAmount);
+                ContactPoint2D contact = collision.GetContact(0);
+
+                charMovement.AddForce(-contact.normal * PlayerForceAmount);
             }
         }
 

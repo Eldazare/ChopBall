@@ -10,8 +10,28 @@ public class BallGravity : MonoBehaviour {
     public float MinBounce = 0.01f;
     public float StartHeight = 2f;
     public float MaxHeight = 2f;
+    public float MaxHitHeight = 1.5f;
+    public ParticleSystem BounceParticles;
+
+    public float currentHeight
+    {
+        get { return -transform.localPosition.z; }
+    }
 
     private float velocity;
+	private string soundBouncePath;
+    [SerializeField]
+    private bool grounded = false;
+
+    private ParticleSystem.MainModule bParticleMain;
+
+	private bool paused = false;
+
+    private void Awake()
+    {
+        bParticleMain = BounceParticles.main;
+		soundBouncePath = SoundPathController.GetPath ("BallBounce");
+    }
 
     private void OnEnable()
     {
@@ -26,26 +46,66 @@ public class BallGravity : MonoBehaviour {
     public void SetHeight(float height)
     {
         transform.localPosition = new Vector3(0, 0, -height);
+        if (height > 0) grounded = false;
     }
+
+	public void Pause(){
+		if (paused) {
+			paused = false;
+		} else {
+			paused = true;
+		}
+	}
 
     private void Update()
     {
-        velocity += Gravity * Time.deltaTime;
-        transform.localPosition += velocity * Vector3.forward * Time.deltaTime;
-
-        if (transform.localPosition.z >= 0f)
+		if (paused) {
+			return;
+		}
+        if (!grounded)
         {
-            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
-            if (velocity > MinBounce) velocity = -LimitVelocity(velocity * Bounce);
-            else velocity = 0f;
-        }
+            velocity += Gravity * Time.deltaTime;
+            transform.localPosition += velocity * Vector3.forward * Time.deltaTime;
 
-        if (Input.GetKeyDown(KeyCode.Space)) AddUpwardsVelocity(8f);
+            if (transform.localPosition.z >= 0f)
+            {
+                ContactGround();
+            }
+        }
     }
 
     public void AddUpwardsVelocity(float amount)
     {
         velocity = -LimitVelocity(amount);
+        grounded = false;
+    }
+
+    private void ContactGround()
+    {
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0f);
+        float bounce = LimitVelocity(velocity * Bounce);
+        float maxBounce = Mathf.Sqrt(2f * Gravity * MaxHeight);
+
+        if (bounce > MinBounce)
+        {
+            //Bounce
+            //Debug.Log("Small bounce");
+            velocity = -bounce;
+            if (bounce > maxBounce / 3)
+            {
+				//Debug.Log ("Basic bounce");
+                bParticleMain.startLifetime = (bounce / maxBounce) * 0.8f;
+                BounceParticles.Play();
+				FMODUnity.RuntimeManager.PlayOneShot (soundBouncePath, transform.position);
+            }
+        }
+        else
+        {
+            //Grounded
+            //Debug.Log("Grounded");
+            grounded = true;
+            velocity = 0f;
+        }
     }
 
     private float LimitVelocity(float velocity)
@@ -54,11 +114,12 @@ public class BallGravity : MonoBehaviour {
         float maxVelocity = (distanceToCeiling > 0f && distanceToCeiling <= MaxHeight) ? Mathf.Sqrt(2f * Gravity * distanceToCeiling) : 0f;
         return Mathf.Min(maxVelocity, velocity);
     }
-
+	/*
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere((transform.localScale.z / 2 + MaxHeight) * -transform.forward, transform.localScale.z / 2);
         Gizmos.DrawWireSphere(transform.localScale.z / 2 * -transform.forward, transform.localScale.z / 2);
     }
+    */
 }

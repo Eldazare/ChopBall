@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class BattleEventHandler : MonoBehaviour {
 
-	public GameEvent GameEndEvent;
 	private bool paused = false;
 	private bool startGame = false;
 	float time;

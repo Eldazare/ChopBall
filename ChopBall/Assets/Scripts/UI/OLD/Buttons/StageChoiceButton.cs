@@ -18,7 +18,7 @@ public class StageChoiceButton : _CursorButton {
 		outline = GetComponent<Outline> ();
 		outline.effectColor = baseData.ScbOutlineColor;
 		this.stageData = stageData;
-		overlay.sprite = stageData.previewImage;
+		overlay.sprite = stageData.stageMenuOverviewImage;
 	}
 
 	virtual public void CheckPrimaryTag(StageTag primaryTag){
@@ -53,9 +53,9 @@ public class StageChoiceButton : _CursorButton {
 	public void Click(int playerID){
 		if (clickable) {
 			if (playerID > 0) {
-				PlayerStateController.ChooseStage (playerID, stageData.stageName);
+				PlayerStateController.ChooseStage (playerID, stageData.stageMenuName);
 			} else if (playerID == 0) {
-				MasterStateController.WriteStageName (stageData.stageName);
+				MasterStateController.WriteStageName (stageData.stageMenuName);
 				MasterStateController.GoToBattle ();
 			} else {
 				Debug.LogError ("Invalid playerID given :" + playerID);
@@ -72,7 +72,7 @@ public class StageChoiceButton : _CursorButton {
 
 	override
 	public void Hover(int playerID){
-		Debug.Log ("Hovering over stage choice: " + stageData.stageName);
+		Debug.Log ("Hovering over stage choice: " + stageData.stageMenuName);
 	}
 
 	override

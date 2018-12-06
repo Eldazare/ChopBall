@@ -14,21 +14,30 @@ MonoBehaviour:
   StaminaMax: 100
   StaminaRegen: 33
   PaddleStaminaCost: 10
-  DashStaminaCost: 25
-  PaddleLength: 1.5
-  PaddleThickness: 0.6
+  PaddleChargedStaminaCost: 20
+  DashStaminaCost: 35
+  BlockStaminaCost: 45
+  ChargeBlockStaminaCost: 60
+  InvunerabilityTime: 2
+  HitDashForceMultiplier: 40
+  HitPaddleForceMultiplier: 30
+  PaddleLength: 1.2
+  PaddleThickness: 0.9
   PaddleUpperAngle: 0
   PaddleLowerAngle: 90
   PaddleSpeedUp: 20
   PaddleSpeedDown: 5
   PaddleForceAmount: 25
+  PaddleChargedForceMultiplier: 3
   PaddleCollisionLayers:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 3072
   MovementSpeed: 8
   RotationSpeed: 4
-  DashDistance: 4
+  DashDistance: 6
   DashTime: 0.1
-  DashCoolDown: 1
+  DashCoolDown: 0.05
   BodyMass: 1
   LinearDrag: 80
+  BlockForceDampModifier: 0.1
+  MinimumVelocityStamina: 2.5

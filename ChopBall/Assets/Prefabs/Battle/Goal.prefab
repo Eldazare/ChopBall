@@ -69,6 +69,7 @@ GameObject:
   - component: {fileID: 4479290715326820}
   - component: {fileID: 61070112917102688}
   - component: {fileID: 114056829238270820}
+  - component: {fileID: 114888790398125888}
   m_Layer: 12
   m_Name: Goal
   m_TagString: Untagged
@@ -199,7 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goalEvent: {fileID: 11400000, guid: 642047872e771b14bb70274e532b3691, type: 2}
   goalMarker: {fileID: 212840917113099162}
-  goalPlayerID: 0
+  goalMarker3D: {fileID: 0}
 --- !u!114 &114099529155899054
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -233,6 +234,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dfdc6f9e9cc69e8419ea3be065a7c99c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114888790398125888
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1503994909644682}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706fc1cd12f49bc459f85a68485279b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: 0119c844770d91340ac2106d114ee0f8, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 114056829238270820}
+        m_MethodName: ResetGoalTargets
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!212 &212840917113099162
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class _ControlButton : MonoBehaviour {
 
-	//public DPosition dpos;
+	protected string selectSoundPath;
 
 	virtual
 	public void OnButtonEnter(int playerID){

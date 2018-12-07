@@ -22,6 +22,9 @@ public class _ControlCursor : MonoBehaviour {
 	private Vector2 vec;
 	private DPosition dpos;
 
+	private string hilightSoundPath;
+	private string selectSoundPath;
+
 	void OnEnable(){
 		lateSubmit = true;
 		lateCancel = true;
@@ -30,6 +33,8 @@ public class _ControlCursor : MonoBehaviour {
 	}
 
 	public void OnEnableCursor(){
+		hilightSoundPath = SoundPathController.GetPath ("Hilight");
+		selectSoundPath = SoundPathController.GetPath ("Select");
 		SetPosition (new DPosition (0, 0), true);
 	}
 
@@ -42,6 +47,9 @@ public class _ControlCursor : MonoBehaviour {
 				prevButton.OnButtonExit (playerID);
 			}
 			currentButton.OnButtonEnter (playerID);
+			if (!forceUpdate) {
+				FMODUnity.RuntimeManager.PlayOneShot (hilightSoundPath);
+			}
 		}
 		transform.position = currentButton.transform.position;
 		SetSizeFromCurrentButton ();

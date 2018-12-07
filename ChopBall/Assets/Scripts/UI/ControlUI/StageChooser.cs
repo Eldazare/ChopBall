@@ -43,8 +43,13 @@ public class StageChooser : MonoBehaviour {
 
 	private bool initialized = false;
 
+	private string hilightSoundPath;
+	private string selectSoundPath;
+
 	void Initialize(){
 		if (!initialized) {
+			hilightSoundPath = SoundPathController.GetPath ("Hilight");
+			selectSoundPath = SoundPathController.GetPath ("Select");
 			dbd = (DisplayBaseData)Resources.Load ("Scriptables/_BaseDatas/DisplayBaseData", typeof(DisplayBaseData));
 			smallScaleVector = new Vector3 (dbd.smallScaleMult*dbd.baseScale, dbd.smallScaleMult*dbd.baseScale, dbd.smallScaleMult*dbd.baseScale);
 			largeScaleVector = new Vector3 (dbd.largeScaleMult*dbd.baseScale, dbd.largeScaleMult*dbd.baseScale, dbd.largeScaleMult*dbd.baseScale);
@@ -146,6 +151,7 @@ public class StageChooser : MonoBehaviour {
 	}
 
 	private void OnLerpFinish(int index){
+		FMODUnity.RuntimeManager.PlayOneShot (hilightSoundPath);
 		lerpActive = false;
 		StageData stage = stages [index];
 		stageNameSpace.text = stage.stageMenuName;
@@ -166,6 +172,7 @@ public class StageChooser : MonoBehaviour {
 
 	private void SelectStage(){
 		if (currentChoiceAvailable) {
+			FMODUnity.RuntimeManager.PlayOneShot (selectSoundPath);
 			loadingIndicator.SetActive (true);
 			MasterStateController.WriteStageName (stages [currentIndex].stageMenuName);
 			MasterStateController.GoToBattle ();

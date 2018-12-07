@@ -37,12 +37,17 @@ public class CharacterChooser : MonoBehaviour {
 	private bool dirInputDone = false;
 	private Vector2 dirVec;
 
+	private string hilightSoundPath;
+	private string selectSoundPath;
+
 	void Awake(){
 		baseText.text = baseStr;
 		nameText.text = "";
 	}
 
 	void OnEnable(){
+		hilightSoundPath = SoundPathController.GetPath ("Hilight");
+		selectSoundPath = SoundPathController.GetPath ("Select");
 		playerStateData = PlayerStateController.GetAState (playerID);
 		characterAttributes = CharacterAttributeController.GetCharacters ();
 		playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
@@ -122,6 +127,7 @@ public class CharacterChooser : MonoBehaviour {
 	}
 
 	private void IncDecCurrentChoice(bool incDec){
+		FMODUnity.RuntimeManager.PlayOneShot (hilightSoundPath);
 		currentChoice = UIHelpMethods.CheckIndex (currentChoice,  characterAttributes.Count, incDec);
 		LoadCharacterattributes (characterAttributes [currentChoice]);
 	}
@@ -139,6 +145,7 @@ public class CharacterChooser : MonoBehaviour {
 	private void ConfirmChoice(){
 		if (playerStateData.active) {
 			PlayerStateController.ChooseCharacter (playerID, currentChoice);
+			FMODUnity.RuntimeManager.PlayOneShot (selectSoundPath);
 		}
 		UpdateChosenText();
 	}

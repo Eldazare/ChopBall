@@ -17,6 +17,5 @@ public class SoundMenuPanel : MonoBehaviour {
 
 	public void SetMasterVolume(float value){
 		Debug.Log ("Value set to " + value);
-		// TODO
 	}
 }

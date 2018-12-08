@@ -46,7 +46,7 @@ public class CharacterChoiceButtonGenerator : MonoBehaviour {
 		}
 		Debug.Log ("Attributes found: " + attributes.Count + " | Buttons found: " + buttons.Length);
 		for (int i = 0; i < indexCap; i++) {
-			buttons [i].Initialize (i, attributes[i].CharacterPortrait, attributes[i].CharacterName);
+			buttons [i].Initialize (i, attributes[i].CharacterPortraits[0], attributes[i].CharacterName);
 		}
 		for (int i = indexCap; i<buttons.Length;i++){
 			buttons [i].gameObject.SetActive (false);

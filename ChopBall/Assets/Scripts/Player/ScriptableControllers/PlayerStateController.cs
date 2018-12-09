@@ -25,9 +25,9 @@ public static class PlayerStateController {
 		return states [playerID - 1];
 	}
 
-	public static void ChooseCharacter(int playerID, int characterID){
+	public static bool ChooseCharacter(int playerID, int characterID){
 		LoadStates ();
-		states [playerID-1].ChooseCharacter(characterID);
+		return states [playerID-1].ChooseCharacter(characterID);
 	}
 
 	public static void ChooseStage(int playerID, string stageName){

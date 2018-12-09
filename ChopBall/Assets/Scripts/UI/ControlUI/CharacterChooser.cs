@@ -60,6 +60,7 @@ public class CharacterChooser : MonoBehaviour {
 		dirInputDone = true;
 		playerStateData.CheckTeamConstraints ();
 		SetColor ();
+		teamChangeIndicators.SetActive (playerStateData.active && (playerStateData.team != -1));
 		UpdateChosenText ();
 	}
 
@@ -144,8 +145,9 @@ public class CharacterChooser : MonoBehaviour {
 
 	private void ConfirmChoice(){
 		if (playerStateData.active) {
-			PlayerStateController.ChooseCharacter (playerID, currentChoice);
-			FMODUnity.RuntimeManager.PlayOneShot (selectSoundPath);
+			if (PlayerStateController.ChooseCharacter (playerID, currentChoice)) {
+				FMODUnity.RuntimeManager.PlayOneShot (selectSoundPath);
+			}
 		}
 		UpdateChosenText();
 	}

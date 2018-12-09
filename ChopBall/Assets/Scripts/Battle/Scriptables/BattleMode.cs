@@ -610,9 +610,14 @@ public class ATime{
 public class GoalInfo{
 	public int goalIndex;
 	public int stocks;
+	private static string[] goalIndicators = { "-", " * ", "* *", "* * *" };
 
 	public GoalInfo(int goalIndex, int stocks){
 		this.goalIndex = goalIndex;
 		this.stocks = stocks;
+	}
+
+	public string GetStockString(){
+		return goalIndicators [this.stocks];
 	}
 }

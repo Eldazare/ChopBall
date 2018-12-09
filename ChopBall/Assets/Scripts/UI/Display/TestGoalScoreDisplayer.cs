@@ -122,7 +122,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour
         {
             for (int i = 0; i < CurrentBattleController.GetGoalInfos().Count; i++)
             {
-                goalStockDisplays[i].text = CurrentBattleController.GetGoalInfos()[i].stocks.ToString();
+				goalStockDisplays [i].text = CurrentBattleController.GetGoalInfos () [i].GetStockString ();
             }
         }
         else

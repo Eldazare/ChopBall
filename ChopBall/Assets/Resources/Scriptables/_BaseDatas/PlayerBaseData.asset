@@ -31,3 +31,23 @@ MonoBehaviour:
     rgba: 48245
   - serializedVersion: 2
     rgba: 4278208989
+  P1BGs:
+  - {fileID: 21300000, guid: e2b44d94546187a419aebda6887ab297, type: 3}
+  - {fileID: 21300000, guid: 2d38f4c6b0eb5d747950b057bb896941, type: 3}
+  - {fileID: 21300000, guid: f96d9d356d34bda45a385e0abe6bce01, type: 3}
+  - {fileID: 21300000, guid: 0cd390edee9dd294cb7bb92441f87eec, type: 3}
+  P2BGs:
+  - {fileID: 21300000, guid: 64108f8fe27feee49bff3923210127d7, type: 3}
+  - {fileID: 21300000, guid: f33520a2e47d33d45a57b92d1caa2c26, type: 3}
+  - {fileID: 21300000, guid: 3f1faf7861cce6341974fdb8b592e14d, type: 3}
+  - {fileID: 21300000, guid: c3beae405c2548f4482ac308439832fe, type: 3}
+  P3BGs:
+  - {fileID: 21300000, guid: 56fbaf51c42184c4c8618e053a387927, type: 3}
+  - {fileID: 21300000, guid: 5850678c14c19a044acb545634c765e6, type: 3}
+  - {fileID: 21300000, guid: 96c34f7cb23126e43b1f73db6427b8db, type: 3}
+  - {fileID: 21300000, guid: 813fda9d1380088479648a3573bc6c38, type: 3}
+  P4BGs:
+  - {fileID: 21300000, guid: 8364710da4056e442adeff3863eaa8b1, type: 3}
+  - {fileID: 21300000, guid: 146711fec5362964e8822e97f6a0cf6b, type: 3}
+  - {fileID: 21300000, guid: c823308d2f94876479d1a86438c75b01, type: 3}
+  - {fileID: 21300000, guid: 8c63116df174fd949aaaa77287b01876, type: 3}

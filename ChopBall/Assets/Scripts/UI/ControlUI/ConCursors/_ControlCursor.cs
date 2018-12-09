@@ -10,6 +10,9 @@ public class _ControlCursor : MonoBehaviour {
 	public int playerID;
 	public RectTransform selfRect;
 	public float offset;
+	public GameObject arrow;
+
+
 	private DPosition currentPosition = null;
 	private _ControlButton currentButton = null;
 	private bool inputDone = false;
@@ -52,7 +55,8 @@ public class _ControlCursor : MonoBehaviour {
 			}
 		}
 		transform.position = currentButton.transform.position;
-		SetSizeFromCurrentButton ();
+		//SetSizeFromCurrentButton ();
+		SetArrowPosFromCurrentButton ();
 	}
 
 	public void GetInput(InputModel model){
@@ -79,5 +83,10 @@ public class _ControlCursor : MonoBehaviour {
 		Rect currentButtonRect = currentButton.GetComponent<RectTransform> ().rect;
 		selfRect.sizeDelta = new Vector2 (currentButtonRect.width + offset,
 			currentButtonRect.height + offset);
+	}
+
+	private void SetArrowPosFromCurrentButton(){
+		Rect currentButtonRect = currentButton.GetComponent<RectTransform> ().rect;
+		arrow.transform.localPosition = new Vector2(currentButtonRect.width * - 0.5f - offset, 0);
 	}
 }

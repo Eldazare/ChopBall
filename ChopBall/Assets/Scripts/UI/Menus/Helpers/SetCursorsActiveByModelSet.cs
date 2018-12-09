@@ -8,7 +8,7 @@ public class SetCursorsActiveByModelSet : MonoBehaviour {
 
 	void OnEnable(){
 		for(int i = 0; i < InputTranslatorMaster.modelsPut.Length;i++){
-			mph.playerCursors [i].gameObject.SetActive (InputTranslatorMaster.modelsPut [i]);
+			//mph.playerCursors [i].gameObject.SetActive (InputTranslatorMaster.modelsPut [i]);
 		}
 	}
 }

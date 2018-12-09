@@ -8,14 +8,15 @@ public class MenuPanelHandler : MonoBehaviour
 	// TODO: ControlCursor positionSet event
 	public PanelScript firstPanel;
 	public static PanelScript currentPanel;
-	public List<ChoiceCursor> playerCursors;
-	public MasterCursor masterCursors;
+	//public List<ChoiceCursor> playerCursors;
+	//public MasterCursor masterCursors;
 
 	public _ControlCursor gridCursor;
+	public GameObject inputHelpPanel;
 
 	void Awake(){
 		currentPanel = firstPanel;
-		SetControlCursor (currentPanel.masterZone);
+		OnNewPanel ();
 	}
 
 	public void Back()
@@ -24,9 +25,9 @@ public class MenuPanelHandler : MonoBehaviour
 			currentPanel.gameObject.SetActive (false);
 			currentPanel.previousPanel.gameObject.SetActive (true);
 			currentPanel = currentPanel.previousPanel;
-			SetCursors (currentPanel.masterZone);
-			SetControlCursor (currentPanel.masterZone);
+			OnNewPanel ();
 			currentPanel.OnPanelEnter.Invoke ();
+
 		} else {
 			Debug.Log ("previousPanel was null. Are we at start panel?");
 		}
@@ -44,7 +45,6 @@ public class MenuPanelHandler : MonoBehaviour
 	}
 
 	public void Forward(PanelScript nextPanel){
-		SetCursors (nextPanel.masterZone);
 		if (currentPanel == null) {
 			currentPanel = firstPanel;
 		}
@@ -52,7 +52,7 @@ public class MenuPanelHandler : MonoBehaviour
 		currentPanel = nextPanel;
 		currentPanel.gameObject.SetActive (true);
 		currentPanel.OnPanelEnter.Invoke ();
-		SetControlCursor (nextPanel.masterZone);
+		OnNewPanel ();
 	}
 
 
@@ -76,8 +76,9 @@ public class MenuPanelHandler : MonoBehaviour
 		Debug.LogError ("False Open panel call with: " + tier + " & " + index);
 	}
 
+	/*
 	public void SetCursorsActiveFromCurrentAndStates(){
-		if (!currentPanel.masterZone) {
+		if (!currentPanel.gridMenuZone) {
 			foreach (ChoiceCursor cursor in playerCursors) {
 				cursor.CheckActiveState ();
 			}
@@ -95,6 +96,7 @@ public class MenuPanelHandler : MonoBehaviour
 			}
 		}
 	}
+	*/
 
 	public void SetControlCursor(bool zone){
 		if (gridCursor != null) {
@@ -136,6 +138,11 @@ public class MenuPanelHandler : MonoBehaviour
 	public static void SetCurrentPanel(PanelScript currentPan){
 		currentPanel = currentPan;
 		Debug.Log ("Current panel = " + currentPanel.name);
+	}
+
+	public void OnNewPanel(){
+		inputHelpPanel.SetActive (currentPanel.helpSubmenuActive);
+		SetControlCursor (currentPanel.gridMenuZone);
 	}
 }
 

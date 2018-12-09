@@ -499,7 +499,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1973047356847882}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4944359372685478}
@@ -1253,6 +1253,10 @@ MonoBehaviour:
   bodyRenderers:
   - {fileID: 23818831596123922}
   - {fileID: 23607579917189650}
+  headRenderer: {fileID: 23170955550866758}
+  headMaterials:
+  - {fileID: 2100000, guid: b0cbcbf277662c545b8e44a15ff5d533, type: 2}
+  - {fileID: 2100000, guid: d3049afed72da964a8ffdb7632d7013d, type: 2}
   ParticleTransform: {fileID: 4210070273019950}
   TrailParticles: {fileID: 198569281040982272}
   DashParticles: {fileID: 198281103986947306}

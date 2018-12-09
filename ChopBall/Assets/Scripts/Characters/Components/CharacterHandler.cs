@@ -9,6 +9,8 @@ public class CharacterHandler : MonoBehaviour {
     public CharacterAttributeData CharacterAttributes;
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
 	public MeshRenderer[] bodyRenderers;
+	public MeshRenderer headRenderer;
+	public List<Material> headMaterials; // 0 = Default, 1 = BlackMat
     public Transform ParticleTransform;
     public ParticleSystem TrailParticles;
     public ParticleSystem DashParticles;
@@ -78,7 +80,6 @@ public class CharacterHandler : MonoBehaviour {
 
 	public void GetHitByOpponent(Vector2 force){
 		if (!invunerable) {
-			Debug.Log ("HITT");
 			BecomeInvunerable ();
 			movement.SetImpulseForce (force);
 		}
@@ -97,10 +98,11 @@ public class CharacterHandler : MonoBehaviour {
             
             if (characterBase == null)
             {
-				Debug.LogWarning ("FFUUU");
                 characterBase = new CharacterBaseData();
             }
         }
+		rightPaddleCharge = characterBase.ChargeTime;
+		leftPaddleCharge = characterBase.ChargeTime;
     }
 
 	private void InitializeComponentData(Color32 theColor)
@@ -159,6 +161,9 @@ public class CharacterHandler : MonoBehaviour {
 		currentState = characterStates [(int)enu];
 		currentState.OnStateEnter (PlayerID);
 		movement.SetRigidbodyMass (currentState.stateMassModifier * characterBase.BodyMass);
+		if (enu == CharacterStateEnum.Default) {
+			headRenderer.material = headMaterials [0];
+		}
 	}
 
     private void OnEnable()
@@ -250,8 +255,13 @@ public class CharacterHandler : MonoBehaviour {
                             //Debug.Log("Charging right");
                             rightPaddle.isCharging = true;
                             leftPaddle.isCharging = true;
-                            if (currentState.identifier != CharacterStateEnum.Charge) TransitionToState(CharacterStateEnum.Charge);
+							if (currentState.identifier != CharacterStateEnum.Charge) { 
+								TransitionToState (CharacterStateEnum.Charge);
+							}
                         }
+						if (currentState.identifier == CharacterStateEnum.Charge && rightPaddleCharge < 0) {
+							headRenderer.material = bodyRenderers[0].material;
+						}
                     }
                     else
                     {
@@ -266,8 +276,8 @@ public class CharacterHandler : MonoBehaviour {
                             rightPaddle.isCharging = false;
                             leftPaddle.isCharging = false;
                             TransitionToState(CharacterStateEnum.Default);
-                            rightPaddleCharge = 1f;
-                            leftPaddleCharge = 1f;
+							rightPaddleCharge = characterBase.ChargeTime;
+							leftPaddleCharge = characterBase.ChargeTime;
                         }
                     }
 
@@ -277,12 +287,14 @@ public class CharacterHandler : MonoBehaviour {
                 if (input.Block && !blockInputLastFrame)
                 {
                     TransitionToState(CharacterStateEnum.Block);
+					headRenderer.material = headMaterials [1];
                     Debug.Log("Block Registered");
                 }
 
                 if (!input.Block && blockInputLastFrame)
                 {
                     TransitionToState(CharacterStateEnum.Default);
+
                 }
 
 				strikeInputLastFrame = input.Strike;
@@ -301,6 +313,7 @@ public class CharacterHandler : MonoBehaviour {
 
                 //Debug.Log("State: " + currentState);
             }
+			/*
             else
             {
                 if (input.Dash && !dashInputLastFrame && currentState.canDash)
@@ -408,6 +421,7 @@ public class CharacterHandler : MonoBehaviour {
 
                 //Debug.Log("State: " + currentState);
             }
+            */
         }
 
         leftPaddle.UpdatePaddle();

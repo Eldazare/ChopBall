@@ -51,7 +51,8 @@ public class GoalTarget : MonoBehaviour {
     {
         if (collision.collider.CompareTag("Ball"))
         {
-            if (collision.collider.GetComponent<Ball>().HasCollidedWithTarget)
+			Ball ball = collision.collider.GetComponent<Ball> ();
+            if (ball.HasCollidedWithTarget)
             {
                 return;
             }
@@ -64,15 +65,26 @@ public class GoalTarget : MonoBehaviour {
             Rigidbody2D ballBody = collision.collider.GetComponent<Rigidbody2D>();
 
             if (ballBody)
-            {
-                ContactPoint2D contact = collision.GetContact(0);
+			{
+				if (ball.IsCharged ()) {
+					ContactPoint2D contact = collision.GetContact (0);
 
-                float forceAmount = collision.relativeVelocity.magnitude * BallForceAmount;
-                forceAmount = Mathf.Clamp(forceAmount, BallMinForce, Mathf.Infinity);
-                Vector2 appliedForce = Vector2.Reflect(collision.relativeVelocity.normalized, contact.normal) * forceAmount;
+					float forceAmount = collision.relativeVelocity.magnitude * BallForceAmount;
+					forceAmount = Mathf.Clamp (forceAmount, 0, BallMinForce*1.5f);
+					Vector2 appliedForce = Vector2.Reflect (collision.relativeVelocity.normalized, contact.normal) * forceAmount;
 
-                ballBody.velocity = Vector2.zero;
-                ballBody.AddForce(ballBody.mass * appliedForce, ForceMode2D.Impulse);
+					ballBody.velocity = Vector2.zero;
+					ballBody.AddForce (ballBody.mass * appliedForce, ForceMode2D.Impulse);
+				} else {
+					ContactPoint2D contact = collision.GetContact (0);
+
+					float forceAmount = collision.relativeVelocity.magnitude * BallForceAmount;
+					forceAmount = Mathf.Clamp (forceAmount, BallMinForce, Mathf.Infinity);
+					Vector2 appliedForce = Vector2.Reflect (collision.relativeVelocity.normalized, contact.normal) * forceAmount;
+
+					ballBody.velocity = Vector2.zero;
+					ballBody.AddForce (ballBody.mass * appliedForce, ForceMode2D.Impulse);
+				}
             }
 
             FMODUnity.RuntimeManager.PlayOneShot (soundTarget1Path, gameObject.transform.position);

@@ -34,8 +34,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1627556879534414}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 0.8444432, z: -0, w: 0.5356451}
+  m_LocalPosition: {x: -0.453, y: 0.022962963, z: -1.77}
   m_LocalScale: {x: 0.81861997, y: 0.037037037, z: 0.20702177}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3414,7 +3414,7 @@ ParticleSystem:
         m_NumAlphaKeys: 2
     range: {x: 0, y: 1}
   CollisionModule:
-    enabled: 1
+    enabled: 0
     serializedVersion: 3
     type: 0
     collisionMode: 0

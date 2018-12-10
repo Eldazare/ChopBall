@@ -24,10 +24,10 @@ public class StageChoiceButtonGenerator : MonoBehaviour {
 		if (menuPanelHandler != null) {
 			switch (MasterStateController.GetTheMasterData ().stageChoiceType) {
 			case StageChoiceType.individualRandom:
-				menuPanelHandler.SetCursors (false);
+				//menuPanelHandler.SetCursors (false);
 				break;
 			case StageChoiceType.masterSingle:
-				menuPanelHandler.SetCursors (true);
+				//menuPanelHandler.SetCursors (true);
 				break;
 			case StageChoiceType.randomPreset:
 				MasterStateController.GoToBattle ();

@@ -7,14 +7,14 @@ using UnityEngine.Events;
 public class CharacterSelectProceedCheck : MonoBehaviour {
 
 	public GameEvent forward;
+	private Text[] texts;
 	private Image[] image;
-	private Text text;
 	private GameEventListener charProceedListener;
 
 
 	void Awake(){
 		image = GetComponentsInChildren<Image> ();
-		text = GetComponentInChildren<Text> ();
+		texts = GetComponentsInChildren<Text> ();
 		charProceedListener = GetComponent<GameEventListener> ();
 		CheckProceedState ();
 	}
@@ -31,7 +31,9 @@ public class CharacterSelectProceedCheck : MonoBehaviour {
 		foreach (var imag in image) {
 			imag.enabled = active;
 		}
-		text.enabled = active;
+		foreach (Text text in texts) {
+			text.enabled = active;
+		}
 		charProceedListener.enabled = active;
 	}
 

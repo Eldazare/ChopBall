@@ -8,19 +8,23 @@ public class TestGoalScoreDisplayer : MonoBehaviour
     public List<Text> allTextList;
     //public Text timerDisplay;
     public List<Text> goalStockDisplays;
+	public List<Image> portraits;
     private List<Text> displayTextList;
 
 	private PlayerStateData[] states;
 	private List<string> characterNames;
+	private List<CharacterAttributeData> listedAttributes;
 
     public void ResolutionChangeUpdatePositions()
     {
 		states = PlayerStateController.GetAllStates ();
+		listedAttributes = new List<CharacterAttributeData> ();
 		characterNames = new List<string> ();
 		foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors()) {
 			characterNames.Add(CharacterAttributeController.GetACharacter(
-				PlayerStateController.GetAState (competitor.playerID).characterChoice).CharacterName
+				states[competitor.playerID-1].characterChoice).CharacterName
 			);
+			listedAttributes.Add (CharacterAttributeController.GetACharacter (states [competitor.playerID-1].characterChoice));
 		}
 
         if (displayTextList != null)
@@ -62,6 +66,14 @@ public class TestGoalScoreDisplayer : MonoBehaviour
                     j++;
                 }
                 ResolutionChangeUpdatePositions();
+				if (portraits.Count == 0) {
+					return;
+				}
+				j = 0;
+				foreach (TeamContainer team in CurrentBattleController.GetTeams()) {
+					portraits [j].sprite = listedAttributes [j].CharacterPortraits [0];
+					j++;
+				}
             }
 
             int i = 0;
@@ -88,6 +100,14 @@ public class TestGoalScoreDisplayer : MonoBehaviour
                     j++;
                 }
                 ResolutionChangeUpdatePositions();
+				if (portraits.Count == 0) {
+					return;
+				}
+				j = 0;
+				foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors()) {
+					portraits [j].sprite = listedAttributes [j].CharacterPortraits [0];
+					j++;
+				}
             }
 
             int i = 0;
@@ -102,7 +122,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour
         {
             for (int i = 0; i < CurrentBattleController.GetGoalInfos().Count; i++)
             {
-                goalStockDisplays[i].text = CurrentBattleController.GetGoalInfos()[i].stocks.ToString();
+				goalStockDisplays [i].text = CurrentBattleController.GetGoalInfos () [i].GetStockString ();
             }
         }
         else

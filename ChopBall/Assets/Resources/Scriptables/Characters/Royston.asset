@@ -17,7 +17,8 @@ MonoBehaviour:
     type: 2}
   CharacterMenuModelPrefab: {fileID: 1538555779620374, guid: e1b0629cc5b2c264bbca4edb704d3f8f,
     type: 2}
-  CharacterPortrait: {fileID: 21300000, guid: 3db78b1a2b780dd4980c07d916d5aa3e, type: 3}
+  CharacterPortraits:
+  - {fileID: 21300000, guid: f189b80d8cbecd042930a668e8a71af7, type: 3}
   StaminaMax: 1
   StaminaRegen: 1
   PaddleLengthMultiplier: 1

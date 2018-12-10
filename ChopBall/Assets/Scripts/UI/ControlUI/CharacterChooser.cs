@@ -21,6 +21,9 @@ public class CharacterChooser : MonoBehaviour {
 	public GameEvent OnUICancel;
 
 	public Transform gameObjectLocation;
+	private List<Sprite> allSprites;
+
+
 	private GameObject currentCharModel;
 
 	private string baseStr = "Press SELECT to activate!";
@@ -37,15 +40,13 @@ public class CharacterChooser : MonoBehaviour {
 	private bool dirInputDone = false;
 	private Vector2 dirVec;
 
-	void Awake(){
-		baseText.text = baseStr;
-		nameText.text = "";
-	}
+	private string hilightSoundPath;
+	private string selectSoundPath;
+
+	private bool initialized = false;
 
 	void OnEnable(){
-		playerStateData = PlayerStateController.GetAState (playerID);
-		characterAttributes = CharacterAttributeController.GetCharacters ();
-		playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
+		Initialize ();
 		lateStart = true;
 		lateSelect = true;
 		lateSubmit = true;
@@ -55,7 +56,23 @@ public class CharacterChooser : MonoBehaviour {
 		dirInputDone = true;
 		playerStateData.CheckTeamConstraints ();
 		SetColor ();
+		teamChangeIndicators.SetActive (playerStateData.active && (playerStateData.team != -1));
 		UpdateChosenText ();
+	}
+
+	private void Initialize(){
+		if (!initialized) {
+			initialized = true;
+			baseText.text = baseStr;
+			nameText.text = "";
+
+			hilightSoundPath = SoundPathController.GetPath ("Hilight");
+			selectSoundPath = SoundPathController.GetPath ("Select");
+			playerStateData = PlayerStateController.GetAState (playerID);
+			characterAttributes = CharacterAttributeController.GetCharacters ();
+			playerBaseData = (PlayerBaseData)Resources.Load ("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
+			allSprites = playerBaseData.GetBGSprites (playerID);
+		}
 	}
 
 	public void GetInput(InputModel model){
@@ -122,6 +139,7 @@ public class CharacterChooser : MonoBehaviour {
 	}
 
 	private void IncDecCurrentChoice(bool incDec){
+		FMODUnity.RuntimeManager.PlayOneShot (hilightSoundPath);
 		currentChoice = UIHelpMethods.CheckIndex (currentChoice,  characterAttributes.Count, incDec);
 		LoadCharacterattributes (characterAttributes [currentChoice]);
 	}
@@ -138,7 +156,9 @@ public class CharacterChooser : MonoBehaviour {
 
 	private void ConfirmChoice(){
 		if (playerStateData.active) {
-			PlayerStateController.ChooseCharacter (playerID, currentChoice);
+			if (PlayerStateController.ChooseCharacter (playerID, currentChoice)) {
+				FMODUnity.RuntimeManager.PlayOneShot (selectSoundPath);
+			}
 		}
 		UpdateChosenText();
 	}
@@ -171,13 +191,13 @@ public class CharacterChooser : MonoBehaviour {
 
 	private void SetColor(){
 		if (playerStateData.team != -1) {
-			ApplyColor (playerBaseData.teamColors [playerStateData.team]);
+			ApplyColor (playerStateData.team);
 		} else {
-			ApplyColor (playerBaseData.playerColors [playerID-1]);
+			ApplyColor (playerID-1);
 		}
 	}
 
-	private void ApplyColor(Color32 color){
-		background.color = color;
+	private void ApplyColor(int colorIndex){
+		background.sprite = allSprites[colorIndex];
 	}
 }

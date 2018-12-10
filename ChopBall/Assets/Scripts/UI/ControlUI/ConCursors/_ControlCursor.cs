@@ -10,7 +10,10 @@ public class _ControlCursor : MonoBehaviour {
 	public int playerID;
 	public RectTransform selfRect;
 	public float offset;
-	private DPosition currentPosition = null;
+	public GameObject arrow;
+
+
+	public DPosition currentPosition = null;
 	private _ControlButton currentButton = null;
 	private bool inputDone = false;
 	private bool triggered = false;
@@ -22,6 +25,9 @@ public class _ControlCursor : MonoBehaviour {
 	private Vector2 vec;
 	private DPosition dpos;
 
+	private string hilightSoundPath;
+	private string selectSoundPath;
+
 	void OnEnable(){
 		lateSubmit = true;
 		lateCancel = true;
@@ -29,8 +35,10 @@ public class _ControlCursor : MonoBehaviour {
 		latePaddleRight = true;
 	}
 
-	public void OnEnableCursor(){
-		SetPosition (new DPosition (0, 0), true);
+	public void OnEnableCursor(DPosition currentPanelLastPos){
+		hilightSoundPath = SoundPathController.GetPath ("Hilight");
+		selectSoundPath = SoundPathController.GetPath ("Select");
+		SetPosition (currentPanelLastPos, true);
 	}
 
 	public void SetPosition(DPosition newPosition, bool forceUpdate = false){
@@ -38,13 +46,17 @@ public class _ControlCursor : MonoBehaviour {
 		_ControlButton prevButton = currentButton;
 		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);
 		if (currentPosition != prevPos || forceUpdate) {
-			if (!object.ReferenceEquals(prevPos,null)) {
+			if (!object.ReferenceEquals(prevButton,null)) {
 				prevButton.OnButtonExit (playerID);
 			}
 			currentButton.OnButtonEnter (playerID);
+			if (!forceUpdate) {
+				FMODUnity.RuntimeManager.PlayOneShot (hilightSoundPath);
+			}
 		}
 		transform.position = currentButton.transform.position;
-		SetSizeFromCurrentButton ();
+		//SetSizeFromCurrentButton ();
+		SetArrowPosFromCurrentButton ();
 	}
 
 	public void GetInput(InputModel model){
@@ -71,5 +83,10 @@ public class _ControlCursor : MonoBehaviour {
 		Rect currentButtonRect = currentButton.GetComponent<RectTransform> ().rect;
 		selfRect.sizeDelta = new Vector2 (currentButtonRect.width + offset,
 			currentButtonRect.height + offset);
+	}
+
+	private void SetArrowPosFromCurrentButton(){
+		Rect currentButtonRect = currentButton.GetComponent<RectTransform> ().rect;
+		arrow.transform.localPosition = new Vector2(currentButtonRect.width * - 0.5f - offset, 0);
 	}
 }

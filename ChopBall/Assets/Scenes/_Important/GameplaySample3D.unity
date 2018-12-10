@@ -2921,7 +2921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &998942470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3492,6 +3492,7 @@ MonoBehaviour:
   goalStockDisplays:
   - {fileID: 85030134}
   - {fileID: 1218747252}
+  portraits: []
 --- !u!222 &1171805102
 CanvasRenderer:
   m_ObjectHideFlags: 0

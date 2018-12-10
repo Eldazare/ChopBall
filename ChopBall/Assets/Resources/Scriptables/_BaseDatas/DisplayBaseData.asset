@@ -16,7 +16,7 @@ MonoBehaviour:
   xDistBetween: 750
   lerpSpeedMultiplier: 4
   lerpListEndBoostMultiplier: 3
-  baseScale: 100
+  baseScale: 25
   smallScaleMult: 0.4
   largeScaleMult: 1
   stillRotationSpeedMultiplier: 40

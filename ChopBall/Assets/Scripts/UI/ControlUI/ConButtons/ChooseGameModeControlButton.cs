@@ -12,6 +12,7 @@ public class ChooseGameModeControlButton : _ControlButton {
 	private Text descriptionText;
 
 	public void Initialize(int modeIndex, Text descriptionText){
+		selectSoundPath = SoundPathController.GetPath ("Select");
 		this.modeIndex = modeIndex;
 		buttonText.text = QuickModeBPController.GetNamePerIndex (modeIndex);
 		this.descriptionText = descriptionText;
@@ -19,6 +20,7 @@ public class ChooseGameModeControlButton : _ControlButton {
 
 	override
 	public void OnButtonClick(int playerID){
+		FMODUnity.RuntimeManager.PlayOneShot (selectSoundPath);
 		ChooseGamemode ();
 		forward.Raise ();
 	}

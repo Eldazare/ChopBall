@@ -38,17 +38,19 @@ public class PlayerStateData : ScriptableObject {
 		}
 	}
 
-	public void ChooseCharacter(int charID){
+	public bool ChooseCharacter(int charID){
 		GetBaseDataInfo ();
 		if (active) {
 			if (charID != -1 && characterChoice != charID) {
 				characterChoice = charID;
 				CharacterLocked = true;
 				OnCharacterChosen.Raise ();
+				return true;
 			} else {
 				UnChooseCharacter ();
 			}
 		}
+		return false;
 	}
 
 	public void UnChooseCharacter(){

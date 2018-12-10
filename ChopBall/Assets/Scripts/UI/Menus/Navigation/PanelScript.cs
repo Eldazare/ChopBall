@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public enum CursorActiveStatus{None, PlayerCursors, MasterCursor}
 
 public class PanelScript : MonoBehaviour
 {
 	public PanelScript previousPanel;
 	public PanelScript nextPanel;
-	public bool masterZone;
-	public CursorActiveStatus cursorActiveStatus; // TODO: Implement instead of masterZone
+	public bool gridMenuZone;
+	public bool helpSubmenuActive;
 
 	[Header("Rows")]
 	public List<_ControlButton> row0;
@@ -24,6 +23,8 @@ public class PanelScript : MonoBehaviour
 	public List<List<_ControlButton>> buttonList;
 
 	public UnityEvent OnPanelEnter;
+
+	public DPosition lastPosition;
 
 	void Awake(){
 		buttonList = new List<List<_ControlButton>> ();

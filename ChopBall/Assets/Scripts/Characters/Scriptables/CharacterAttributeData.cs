@@ -12,7 +12,7 @@ public class CharacterAttributeData : ScriptableObject {
 	public string CharacterPrefabName;
 	public GameObject CharacterBattleModelPrefab;
 	public GameObject CharacterMenuModelPrefab;
-	public Sprite CharacterPortrait;
+	public List<Sprite> CharacterPortraits;
 
 	[Header("General")]
 	public float StaminaMax = 1f;

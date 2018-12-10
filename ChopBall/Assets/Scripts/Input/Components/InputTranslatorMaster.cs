@@ -35,6 +35,7 @@ public class InputTranslatorMaster : MonoBehaviour {
 					} else {
 						translators [i].enabled = true;
 						connectedControllers [i] = true;
+						translators [i].SetTranslateDPad(translateDpad);
 					}
 				} 
 			} else {

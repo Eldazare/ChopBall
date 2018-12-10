@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: 3-TestStage2v2
   m_EditorClassIdentifier: 
   stageMenuName: 2v2 - 2DTest
-  stageMenuModel: {fileID: 1482889238592772, guid: 015edba67e15f6848a47311aac62858f,
+  stageMenuModel: {fileID: 1100187412686960, guid: 7281e982cbdd00a4ca2594cfe6b5aa1c,
     type: 2}
   stageMenuOverviewImage: {fileID: 21300000, guid: ddf5ec761c8d47944b754f602aeb57e2,
     type: 3}

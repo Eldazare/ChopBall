@@ -13,6 +13,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StaminaMax: 100
   StaminaRegen: 33
+  ChargeTime: 0.6
   PaddleStaminaCost: 10
   PaddleChargedStaminaCost: 20
   DashStaminaCost: 35

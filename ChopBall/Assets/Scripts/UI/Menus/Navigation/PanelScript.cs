@@ -24,6 +24,8 @@ public class PanelScript : MonoBehaviour
 
 	public UnityEvent OnPanelEnter;
 
+	public DPosition lastPosition;
+
 	void Awake(){
 		buttonList = new List<List<_ControlButton>> ();
 		AddIfNotEmpty (buttonList, row0);

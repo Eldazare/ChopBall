@@ -13,7 +13,7 @@ public class _ControlCursor : MonoBehaviour {
 	public GameObject arrow;
 
 
-	private DPosition currentPosition = null;
+	public DPosition currentPosition = null;
 	private _ControlButton currentButton = null;
 	private bool inputDone = false;
 	private bool triggered = false;
@@ -35,10 +35,10 @@ public class _ControlCursor : MonoBehaviour {
 		latePaddleRight = true;
 	}
 
-	public void OnEnableCursor(){
+	public void OnEnableCursor(DPosition currentPanelLastPos){
 		hilightSoundPath = SoundPathController.GetPath ("Hilight");
 		selectSoundPath = SoundPathController.GetPath ("Select");
-		SetPosition (new DPosition (0, 0), true);
+		SetPosition (currentPanelLastPos, true);
 	}
 
 	public void SetPosition(DPosition newPosition, bool forceUpdate = false){
@@ -46,7 +46,7 @@ public class _ControlCursor : MonoBehaviour {
 		_ControlButton prevButton = currentButton;
 		currentButton = menuPanelHandler.GoAnywhere (newPosition, out currentPosition);
 		if (currentPosition != prevPos || forceUpdate) {
-			if (!object.ReferenceEquals(prevPos,null)) {
+			if (!object.ReferenceEquals(prevButton,null)) {
 				prevButton.OnButtonExit (playerID);
 			}
 			currentButton.OnButtonEnter (playerID);

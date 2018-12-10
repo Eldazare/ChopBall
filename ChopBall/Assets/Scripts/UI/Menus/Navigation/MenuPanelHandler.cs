@@ -15,8 +15,7 @@ public class MenuPanelHandler : MonoBehaviour
 	public GameObject inputHelpPanel;
 
 	void Awake(){
-		currentPanel = firstPanel;
-		OnNewPanel ();
+		OnNewPanel (firstPanel);
 	}
 
 	public void Back()
@@ -24,10 +23,7 @@ public class MenuPanelHandler : MonoBehaviour
 		if (currentPanel.previousPanel != null) {
 			currentPanel.gameObject.SetActive (false);
 			currentPanel.previousPanel.gameObject.SetActive (true);
-			currentPanel = currentPanel.previousPanel;
-			OnNewPanel ();
-			currentPanel.OnPanelEnter.Invoke ();
-
+			OnNewPanel (currentPanel.previousPanel);
 		} else {
 			Debug.Log ("previousPanel was null. Are we at start panel?");
 		}
@@ -49,10 +45,8 @@ public class MenuPanelHandler : MonoBehaviour
 			currentPanel = firstPanel;
 		}
 		currentPanel.gameObject.SetActive (false);
-		currentPanel = nextPanel;
-		currentPanel.gameObject.SetActive (true);
-		currentPanel.OnPanelEnter.Invoke ();
-		OnNewPanel ();
+		nextPanel.gameObject.SetActive (true);
+		OnNewPanel (nextPanel);
 	}
 
 
@@ -102,7 +96,7 @@ public class MenuPanelHandler : MonoBehaviour
 		if (gridCursor != null) {
 			gridCursor.gameObject.SetActive (zone);
 			if (zone) {
-				gridCursor.OnEnableCursor ();
+				gridCursor.OnEnableCursor (currentPanel.lastPosition);
 			}
 		}
 	}
@@ -134,15 +128,23 @@ public class MenuPanelHandler : MonoBehaviour
 	public void SetCharactersPerPlayerChoice(){
 		//??
 	}
-
+	/*
 	public static void SetCurrentPanel(PanelScript currentPan){
 		currentPanel = currentPan;
 		Debug.Log ("Current panel = " + currentPanel.name);
 	}
+	*/
 
-	public void OnNewPanel(){
+	private void OnNewPanel(PanelScript newPanel){
+		if (currentPanel != null) {
+			if (currentPanel.gridMenuZone) {
+				currentPanel.lastPosition = gridCursor.currentPosition;
+			}
+		}
+		currentPanel = newPanel;
 		inputHelpPanel.SetActive (currentPanel.helpSubmenuActive);
 		SetControlCursor (currentPanel.gridMenuZone);
+		currentPanel.OnPanelEnter.Invoke ();
 	}
 }
 

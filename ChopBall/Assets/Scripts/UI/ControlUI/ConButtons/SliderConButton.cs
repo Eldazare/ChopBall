@@ -29,7 +29,6 @@ public class SliderConButton : _ControlButton {
 		rangeMagnitude = (max - min);
 		this.selfRect = GetComponent<RectTransform> ();
 		singleStep = rangeMagnitude / stepAmount;
-		Debug.Log (singleStep);
 		this.updateCall = updateCall;
 		SetIndicator ();
 	}
@@ -57,7 +56,6 @@ public class SliderConButton : _ControlButton {
 	private bool CheckCounter(){
 		if (counter == 0) {
 			counter++;
-			Debug.Log ("Zero");
 			return true;
 		} else if (counter > 20) {
 			counter++;

@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3ac3c7e320d2db42b364c46d2416b72, type: 3}
-  m_Name: 1-TestStage
+  m_Name: 1-TestStage3D
   m_EditorClassIdentifier: 
-  stageMenuName: 1v1 - 2DTest
-  stageMenuModel: {fileID: 1735545746360048, guid: 7ed2a1481c75a5345a6f1981cbd845e8,
+  stageMenuName: 1v1 - Temple
+  stageMenuModel: {fileID: 1647378202638998, guid: 13cba13fc38898a49b77036eb55979dc,
     type: 2}
-  stageMenuOverviewImage: {fileID: 21300000, guid: f189b80d8cbecd042930a668e8a71af7,
+  stageMenuOverviewImage: {fileID: 21300000, guid: 0a3626f230b716948ab1a181843a95bf,
     type: 3}
-  stageSceneName: GameplaySample
+  stageSceneName: Level-01
   PrimaryTag: 1
   SecondaryTags: 02000000

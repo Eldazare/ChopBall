@@ -13,6 +13,7 @@ public class StageChooser : MonoBehaviour {
 	public MenuPanelHandler mph;
 	public GameObject loadingIndicator;
 	public GameEvent OnUICancel;
+	public bool rotate = false;
 
 	private DisplayBaseData dbd;
 	private List<GameObject> menuModels;
@@ -98,7 +99,9 @@ public class StageChooser : MonoBehaviour {
 			}
 		} else {
 			// Rotate
-			menuModels[currentIndex].transform.Rotate(new Vector3(0,dbd.stillRotationSpeedMultiplier*Time.deltaTime,0));
+			if (rotate) {
+				menuModels [currentIndex].transform.Rotate (new Vector3 (0, dbd.stillRotationSpeedMultiplier * Time.deltaTime, 0));
+			}
 		}
 	}
 

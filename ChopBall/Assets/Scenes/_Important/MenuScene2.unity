@@ -399,6 +399,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  lastPosition:
+    x: 0
+    y: 0
 --- !u!114 &67831626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1991,6 +1994,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  lastPosition:
+    x: 0
+    y: 0
 --- !u!1 &644900262
 GameObject:
   m_ObjectHideFlags: 0
@@ -2061,6 +2067,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  lastPosition:
+    x: 0
+    y: 0
 --- !u!114 &644900265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3639,6 +3648,52 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1527588577}
   m_CullTransparentMesh: 0
+--- !u!1001 &1542673247
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4108968447281820, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108968447281820, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108968447281820, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108968447281820, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108968447281820, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108968447281820, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108968447281820, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4108968447281820, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1647378202638998, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 13cba13fc38898a49b77036eb55979dc, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!224 &1548297689 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224762606946749544, guid: 12ca5dcb73f2e3e47a0eb3671480b751,
@@ -4289,6 +4344,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  lastPosition:
+    x: 0
+    y: 0
 --- !u!1 &1895629067
 GameObject:
   m_ObjectHideFlags: 0
@@ -4356,6 +4414,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  lastPosition:
+    x: 0
+    y: 0
 --- !u!1 &1911160485
 GameObject:
   m_ObjectHideFlags: 0
@@ -4416,6 +4477,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  lastPosition:
+    x: 0
+    y: 0
 --- !u!1 &1939537119
 GameObject:
   m_ObjectHideFlags: 0
@@ -4533,6 +4597,9 @@ MonoBehaviour:
   selfRect: {fileID: 1939537120}
   offset: 50
   arrow: {fileID: 2123488937}
+  currentPosition:
+    x: 0
+    y: 0
 --- !u!224 &1958319951 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 224762606946749544, guid: 12ca5dcb73f2e3e47a0eb3671480b751,
@@ -5396,6 +5463,9 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  lastPosition:
+    x: 0
+    y: 0
 --- !u!1 &2123488937
 GameObject:
   m_ObjectHideFlags: 0
@@ -5487,7 +5557,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2135244298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1411389323}
@@ -5495,6 +5565,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 262}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

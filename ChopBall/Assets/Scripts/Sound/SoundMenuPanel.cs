@@ -30,6 +30,20 @@ public class SoundMenuPanel : MonoBehaviour {
 		sliders [2].Initialize (min, max, sfxVol*100, SetSfxVolume);
 	}
 
+	void OnDisable(){
+		SystemSettings sett = (SystemSettings) Resources.Load ("Scriptables/_BaseDatas/SystemSettings");
+		float masterVol = 0; 
+		float sfxVol = 0;
+		float musicVol = 0;
+		float final = 0;
+		masterBus.getVolume (out masterVol, out final);
+		musicBus.getVolume (out musicVol, out final);
+		sfxBus.getVolume (out sfxVol, out final);
+		sett.masterVol = masterVol;
+		sett.bgmVol = musicVol;
+		sett.sfxVol = sfxVol;
+	}
+
 	public void SetMasterVolume(float value){
 		masterBus.setVolume (value / 100);
 	}

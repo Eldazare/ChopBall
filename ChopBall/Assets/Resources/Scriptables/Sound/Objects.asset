@@ -17,7 +17,7 @@ MonoBehaviour:
   - key: Bumper1
     path: event:/Objects/Bumber
   - key: Target1
-    path: event:/Objects/Ball
+    path: event:/Objects/Target
   - key: Wall
     path: event:/Objects/Ball
   - key: BallBounce

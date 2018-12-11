@@ -28,6 +28,7 @@ public class EndSceneDisplay : MonoBehaviour {
 					displayTextList [i].fontSize = fontScales [teams [i].endPosition - 1];
 				}
 				if (teams [i].endPosition == 1) {
+					winnerText.color = pBaseData.teamColors [teams [i].teamID];
 					winnerText.text = "Team " + teams [i].teamID + " is the winner!";
 				}
 			}
@@ -43,6 +44,7 @@ public class EndSceneDisplay : MonoBehaviour {
 					displayTextList [i].fontSize = fontScales [competitors [i].endPosition - 1];
 				}
 				if (competitors [i].endPosition == 1) {
+					winnerText.color = pBaseData.playerColors [competitors [i].playerID - 1];
 					winnerText.text = "Player " + competitors [i].playerID + " is the winner!";
 				}
 			}

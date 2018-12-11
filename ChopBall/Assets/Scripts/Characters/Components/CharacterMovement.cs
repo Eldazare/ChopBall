@@ -17,6 +17,7 @@ public class CharacterMovement : MonoBehaviour {
     private float dashSpeed;
     private float dashTimerElapsed = 0f;
     private float dashCoolDownElapsed = 0f;
+	private string dashSoundPath;
 
     private Rigidbody2D characterRigidbody;
 
@@ -58,6 +59,7 @@ public class CharacterMovement : MonoBehaviour {
     private void Awake()
     {
         characterRigidbody = GetComponent<Rigidbody2D>();
+		dashSoundPath = SoundPathController.GetPath ("Dash");
     }
 
     private void Update()
@@ -131,6 +133,7 @@ public class CharacterMovement : MonoBehaviour {
 			dashSpeed = (characterBase.DashDistance * characterAttributes.DashDistanceMultiplier * PlayerChooseModifiers.movespeedMod) / (characterBase.DashTime * characterAttributes.DashTimeMultiplier);
             dashTimerElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier;
             dashCoolDownElapsed = characterBase.DashTime * characterAttributes.DashTimeMultiplier + characterBase.DashCoolDown * characterAttributes.DashCoolDownMultiplier;
+			FMODUnity.RuntimeManager.PlayOneShot (dashSoundPath, transform.position);
         }
     }
 

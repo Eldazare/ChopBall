@@ -44,6 +44,7 @@ public class CharacterHandler : MonoBehaviour {
 	private bool startPosRotSet = false;
 	private bool paused = false;
 
+
     public void SetInputModel(InputModel model)
     {
         this.input = model;

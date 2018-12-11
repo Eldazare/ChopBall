@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8132abd458069cf4090877bb683fcd84, type: 3}
+  m_Name: PortraitBaseData
+  m_EditorClassIdentifier: 
+  neutralList:
+  - {fileID: 21300000, guid: c16d422df4dc18a47a6d08f8d4bcf6c0, type: 3}
+  - {fileID: 21300000, guid: a3581047e28d99d4290b47a32151d830, type: 3}
+  - {fileID: 21300000, guid: b61ef60d5afa9574ab4f4460d28dc62f, type: 3}
+  - {fileID: 21300000, guid: 1bfe674f135e85d419fc67d51ac03204, type: 3}
+  successList:
+  - {fileID: 21300000, guid: 73e0a2ba819f6b145b8a7b55fd302b11, type: 3}
+  - {fileID: 21300000, guid: a84f96934368d74429dd385bac7e5173, type: 3}
+  - {fileID: 21300000, guid: d948a98a21bb9b54289f315d56737b27, type: 3}
+  - {fileID: 21300000, guid: d649840e50fb05d4da5ceb0b1915033f, type: 3}
+  inFlamesList:
+  - {fileID: 21300000, guid: f5769407dd1e56748aab104439eb0232, type: 3}
+  - {fileID: 21300000, guid: a354572e3920fab4c95d25028fa4e192, type: 3}
+  - {fileID: 21300000, guid: a32756873b300a348a38c855dd1c3086, type: 3}
+  - {fileID: 21300000, guid: 75ad0d5e2d99aa14b9ffcd6dd93069bb, type: 3}

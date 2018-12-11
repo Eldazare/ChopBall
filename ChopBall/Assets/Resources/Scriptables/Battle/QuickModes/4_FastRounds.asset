@@ -11,7 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11987901a03fc1d4788ce4594e3861c6, type: 3}
   m_Name: 4_FastRounds
   m_EditorClassIdentifier: 
-  bpName: GangBeasts
+  bpName: Fast Stocks
   descriptionLine1: 40 second rounds, 5 rounds.
   descriptionLine2: 2 Lives per goal per round.
   descriptionLine3: Score points at end of round

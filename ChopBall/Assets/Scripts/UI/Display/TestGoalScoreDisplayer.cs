@@ -5,12 +5,12 @@ using UnityEngine.UI;
 
 public class TestGoalScoreDisplayer : MonoBehaviour
 {
-    public List<Text> allTextList;
-    //public Text timerDisplay;
-    public List<Text> goalStockDisplays;
-	public List<Image> portraits;
-    private List<Text> displayTextList;
+	public List<GameObject> allTextObjectsList;
+	private List<GameObject> displayObjectList;
+	private List<Text> displayTexts;
 
+
+	public List<Text> goalStockDisplays;
 	private PlayerStateData[] states;
 	private List<string> characterNames;
 	private List<CharacterAttributeData> listedAttributes;
@@ -27,9 +27,9 @@ public class TestGoalScoreDisplayer : MonoBehaviour
 			listedAttributes.Add (CharacterAttributeController.GetACharacter (states [competitor.playerID-1].characterChoice));
 		}
 
-        if (displayTextList != null)
+        if (displayObjectList != null)
         {
-            if (displayTextList.Count == 0)
+            if (displayObjectList.Count == 0)
             {
                 return;
             }
@@ -37,13 +37,13 @@ public class TestGoalScoreDisplayer : MonoBehaviour
             int width = 1920;
             Debug.Log("Height :" + Screen.height + " Width: " + Screen.width);
 
-            float yPos = (float)height * -0.5f + 120f;
-            float relativeX = (float)width / displayTextList.Count;
+            float yPos = (float)height * -0.5f + 100f;
+            float relativeX = (float)width / displayObjectList.Count;
             float xPos = (float)width * -0.5f + relativeX / 2.0f;
-            for (int i = 0; i < displayTextList.Count; i++)
+            for (int i = 0; i < displayObjectList.Count; i++)
             {
                 Debug.Log(xPos + "   " + yPos);
-                displayTextList[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, yPos);
+                displayObjectList[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(xPos, yPos);
                 xPos += relativeX;
             }
         }
@@ -53,69 +53,57 @@ public class TestGoalScoreDisplayer : MonoBehaviour
     {
         if (CurrentBattleController.GetTeams() != null)
         {
-            if (displayTextList == null)
+            if (displayObjectList == null)
             {
-                displayTextList = new List<Text>();
+				displayObjectList = new List<GameObject>();
+				displayTexts = new List<Text> ();
                 PlayerBaseData pBaseData = (PlayerBaseData)Resources.Load("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
                 int j = 0;
                 foreach (TeamContainer team in CurrentBattleController.GetTeams())
                 {
-                    displayTextList.Add(allTextList[j]);
-                    displayTextList[j].gameObject.SetActive(true);
-                    displayTextList[j].color = pBaseData.teamColors[team.teamID];
+                    displayObjectList.Add(allTextObjectsList[j]);
+                    displayObjectList[j].gameObject.SetActive(true);
+					displayTexts.Add (displayObjectList [j].GetComponentInChildren<Text> ());
+					displayTexts[j].color = pBaseData.teamColors[team.teamID];
                     j++;
                 }
                 ResolutionChangeUpdatePositions();
-				if (portraits.Count == 0) {
-					return;
-				}
-				j = 0;
-				foreach (TeamContainer team in CurrentBattleController.GetTeams()) {
-					portraits [j].sprite = listedAttributes [j].CharacterPortraits [0];
-					j++;
-				}
             }
 
             int i = 0;
-            foreach (TeamContainer team in CurrentBattleController.GetTeams())
-            {
-                displayTextList[i].text = "Team " + team.teamID;
-                displayTextList[i].text += "\nScore: " + team.score;
-                i++;
-            }
+			foreach (TeamContainer team in CurrentBattleController.GetTeams())
+			{
+//				displayTexts[i].text = "Team " + team.teamID;
+//				displayTexts[i].text += "\nScore: " + team.score;
+//				i++;
+			}
 
         }
         else
         {
-            if (displayTextList == null)
+            if (displayObjectList == null)
             {
-                displayTextList = new List<Text>();
+				displayObjectList = new List<GameObject>();
+				displayTexts = new List<Text> ();
                 PlayerBaseData pBaseData = (PlayerBaseData)Resources.Load("Scriptables/_BaseDatas/PlayerBaseData", typeof(PlayerBaseData));
                 int j = 0;
                 foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors())
                 {
-                    displayTextList.Add(allTextList[j]);
-                    displayTextList[j].gameObject.SetActive(true);
-                    displayTextList[j].color = pBaseData.playerColors[competitor.playerID - 1];
+                    displayObjectList.Add(allTextObjectsList[j]);
+                    displayObjectList[j].gameObject.SetActive(true);
+					displayTexts.Add (displayObjectList [j].GetComponentInChildren<Text> ());
+					displayTexts[j].color = pBaseData.playerColors[competitor.playerID - 1];
                     j++;
                 }
                 ResolutionChangeUpdatePositions();
-				if (portraits.Count == 0) {
-					return;
-				}
-				j = 0;
-				foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors()) {
-					portraits [j].sprite = listedAttributes [j].CharacterPortraits [0];
-					j++;
-				}
             }
 
             int i = 0;
             foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors())
             {
-				displayTextList[i].text = characterNames[i];
-                displayTextList[i].text += "\nScore: " + competitor.score;
-                i++;
+//				displayTexts[i].text = characterNames[i];
+//                displayTexts[i].text += "\nScore: " + competitor.score;
+//                i++;
             }
         }
         if (CurrentBattleController.IsStockActive() && goalStockDisplays.Count > 0)

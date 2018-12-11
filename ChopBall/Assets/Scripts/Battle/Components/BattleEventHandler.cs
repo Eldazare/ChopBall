@@ -18,6 +18,7 @@ public class BattleEventHandler : MonoBehaviour {
 	}
 
 	public void StartGame(){
+		Debug.Log ("STARTED");
 		startGame = true;
 	}
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class PortraitDisplayer : MonoBehaviour {
 
@@ -9,17 +10,30 @@ public class PortraitDisplayer : MonoBehaviour {
 	private int lastGoal = 0;
 	private PortraitBaseData pbd;
 	private List<int> IDList;
+	private bool teams;
 
-	void Start(){
+	List<CompetitorContainer> competitors;
+
+	public void GameStart(){
+		teams = CurrentBattleController.GetTeams () != null;
 		pbd = (PortraitBaseData) Resources.Load ("Scriptables/_BaseDatas/PortraitBaseData");
-		IDList = new List<int> ();
+		competitors = CurrentBattleController.GetCompetitors ();
 		Reset (true);
+		Debug.Log ("DONE!");
 	}
 
 	void Reset(bool AddIDs = false){
+		if (AddIDs) {
+			IDList = new List<int> ();
+		}
 		int i = 0;
-		foreach (var competitor in CurrentBattleController.GetCompetitors()) {
-			portraitList [i].sprite = pbd.neutralList [competitor.playerID-1];
+		Debug.Log (competitors.Count);
+		foreach (var competitor in competitors) {
+			if (teams) {
+				portraitList [i].sprite = pbd.neutralList [competitor.teamIndex];
+			} else {
+				portraitList [i].sprite = pbd.neutralList [competitor.playerID - 1];
+			}
 			if (AddIDs) {
 				IDList.Add (competitor.playerID);
 			}
@@ -38,6 +52,9 @@ public class PortraitDisplayer : MonoBehaviour {
 
 	public void GetGoalData(GoalData data){
 		int giver = data.GetTrueGiver ();
+		if (teams) {
+			giver = competitors.Single (c => c.playerID == giver).teamIndex;
+		}
 		if (lastGoal == giver) {
 			portraitList [IDList.IndexOf (giver)].sprite = pbd.inFlamesList [giver - 1];
 			return;

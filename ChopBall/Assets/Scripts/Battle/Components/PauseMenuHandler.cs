@@ -37,7 +37,6 @@ public class PauseMenuHandler : MonoBehaviour {
 			if (!paused) {
 				pausedPlayerID = -1;
 			}
-			Debug.Log (pausePressed);
 		}
 
 	}

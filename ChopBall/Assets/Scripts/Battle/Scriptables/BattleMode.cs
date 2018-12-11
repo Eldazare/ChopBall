@@ -447,11 +447,16 @@ public class BattleMode : ScriptableObject {
 	public bool InitializeGoal(int playerID, int goalIndex){
 		goalDatas.Add(new GoalInfo(goalIndex, maxStock));
 		if (countObject == CountObject.Lives && competitors.Count > 0) {
-			if (teams != null) {
-				teams.Single (s => s.teamID == competitors.Single (c => c.playerID == playerID).teamIndex).AddGoalIndex (goalIndex);
-			} else {
-				competitors.Single (s => s.playerID == playerID).goalIndex = goalIndex;
-				Debug.Log ("GoalIndex: " + goalIndex);
+			try{
+				if (teams != null) {
+					teams.Single (s => s.teamID == competitors.Single (c => c.playerID == playerID).teamIndex).AddGoalIndex (goalIndex);
+				} else {
+					competitors.Single (s => s.playerID == playerID).goalIndex = goalIndex;
+					//Debug.Log ("GoalIndex: " + goalIndex);
+				}
+			} catch {
+				// TODO: CHANGE!
+				return false;
 			}
 		}
 		return true;

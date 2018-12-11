@@ -51,7 +51,7 @@ public class BattleLoader : MonoBehaviour {
 		}
 		inputEvents = InputEventController.GetAllEvents ();
 		charMaterials = Resources.LoadAll ("Materials", typeof(Material)).Cast<Material>().ToArray ();
-		int balls = goals.Length / 2;
+		int balls = goals.Length-1;
 		if (balls < 1) {
 			balls = 1;
 		}

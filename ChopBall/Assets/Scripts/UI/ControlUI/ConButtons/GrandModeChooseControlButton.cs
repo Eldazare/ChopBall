@@ -12,7 +12,7 @@ public class GrandModeChooseControlButton : _ControlButton {
 
 	void Awake(){
 		selectSoundPath = SoundPathController.GetPath ("Select");
-		nameText.text = "Multiplayer: "+chosenMode.ToString ();
+		nameText.text = chosenMode.ToString ();
 	}
 
 	override

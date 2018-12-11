@@ -112,7 +112,7 @@ public class BattleLoader : MonoBehaviour {
 			if (!areAnyActive) {
 				theColor.a = 0;
 				MakeACharacter (goals [i], Vector2.zero, null, new Color32(255,255,255,255), i);
-			} else if (mode == GrandMode.FFA) {
+			} else if (mode == GrandMode.FreeForAll) {
 				if (activeStates.Count > i) {
 					theColor = playerBaseData.playerColors [activeStates [i]];
 					MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates [i]], theColor , activeStates [i]);

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public enum StageChoiceType {individualRandom, masterSingle, randomPreset}
-public enum GrandMode{ FFA, TeamVSTeam } //TEAMFFA
+public enum GrandMode{ FreeForAll, TeamVSTeam } //TEAMFFA
 
 [CreateAssetMenu]
 public class MasterStateData : ScriptableObject {
@@ -14,7 +14,7 @@ public class MasterStateData : ScriptableObject {
 
 	public GameEvent OnGrandModeChanged;
 
-	public GrandMode mode = GrandMode.FFA;
+	public GrandMode mode = GrandMode.FreeForAll;
 	public int quickBpIndex = -1;
 	public bool teams; // Wether the game is Free-For-All or Teams
 	public int maxTeams;
@@ -26,7 +26,7 @@ public class MasterStateData : ScriptableObject {
 	public List<string> randomStagePreset;
 
 	public void SetBattleDefaults(){
-		SetGrandMode (GrandMode.FFA);
+		SetGrandMode (GrandMode.FreeForAll);
 		if (quickBpIndex == -1) {
 			battleModeBlueprint = DefaultBP ();
 		} else {
@@ -59,7 +59,7 @@ public class MasterStateData : ScriptableObject {
 
 	public void SetGrandMode (GrandMode mode){
 		this.mode = mode;
-		if (this.mode == GrandMode.FFA) {
+		if (this.mode == GrandMode.FreeForAll) {
 			teams = false;
 			maxTeams = 0;
 		} else {

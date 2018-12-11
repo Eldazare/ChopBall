@@ -16,3 +16,5 @@ MonoBehaviour:
     path: event:/Characters/General/Chop
   - key: PlayerHit
     path: event:/Characters/General/PlayerHit
+  - key: Dash
+    path: event:/Characters/General/Dash

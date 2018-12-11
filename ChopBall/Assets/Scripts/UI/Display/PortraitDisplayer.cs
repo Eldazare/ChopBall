@@ -52,22 +52,30 @@ public class PortraitDisplayer : MonoBehaviour {
 
 	public void GetGoalData(GoalData data){
 		int giver = data.GetTrueGiver ();
+		int team = -1;
 		if (teams) {
-			giver = competitors.Single (c => c.playerID == giver).teamIndex;
+			team = competitors.Single (c => c.playerID == giver).teamIndex;
+		} else {
+			if (team == -1) {
+				team = giver - 1;
+			}
 		}
+		//giver -= 1; // used as index
 		if (lastGoal == giver) {
-			portraitList [IDList.IndexOf (giver)].sprite = pbd.inFlamesList [giver - 1];
+			portraitList [IDList.IndexOf (giver)].sprite 
+				= pbd.inFlamesList [team];
 			return;
 		} else {
 			Reset (false);
 		}
-		StartCoroutine (ChangeSprite (giver));
+		StartCoroutine (ChangeSprite (giver, team));
 	}
 
-	private IEnumerator ChangeSprite(int giver){
-		portraitList [IDList.IndexOf(giver)].sprite = pbd.successList [giver - 1];
+	private IEnumerator ChangeSprite(int giver, int team){
+		Debug.Log ("Giver: "+giver);
+		portraitList [IDList.IndexOf(giver)].sprite = pbd.successList [team];
 		yield return new WaitForSeconds (3.0f);
-		portraitList [IDList.IndexOf(giver)].sprite = pbd.neutralList [giver - 1];
+		portraitList [IDList.IndexOf(giver)].sprite = pbd.neutralList [team];
 		lastGoal = giver;
 	}
 }

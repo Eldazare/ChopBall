@@ -38,9 +38,7 @@ public class InGameScoreboard : MonoBehaviour
             int i = 0;
             foreach (TeamContainer team in CurrentBattleController.GetTeams())
             {
-                displayTextList[i].text = "Team " + team.teamID;
-                displayTextList[i].text += "\nGoals: " + team.goals;
-                //displayTextList[i].text += "\nScore: " + team.score;
+				displayTextList[i].text = "T" + (team.teamID+1) + ":" + team.goals;
                 i++;
             }
 
@@ -64,8 +62,8 @@ public class InGameScoreboard : MonoBehaviour
             int i = 0;
             foreach (CompetitorContainer competitor in CurrentBattleController.GetCompetitors())
             {
-                displayTextList[i].text = "Player " + competitor.playerID;
-                displayTextList[i].text += "\nGoals: " + competitor.goalsScored;
+				displayTextList[i].text = "P" + competitor.playerID + ":" + competitor.goalsScored;
+                //displayTextList[i].text += "\nGoals: " + competitor.goalsScored;
                 //displayTextList[i].text += "\nScore: " + competitor.score;
                 i++;
             }

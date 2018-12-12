@@ -31,6 +31,7 @@ public class BattleMode : ScriptableObject {
 	private ScoringMode scoringMode; // How do goals/Stocks/etc relate to score at end of round
 
 	public ATime timer;
+	private float lastSecondUpdate = 60;
 	public bool useTimer = false;
 	public int roundNumber;
 	public bool suddenDeath = false;
@@ -128,13 +129,18 @@ public class BattleMode : ScriptableObject {
 				if (timer.seconds < 0) {
 					timer.minutes -= 1;
 					timer.seconds += 60;
+					TimerUpdated.Raise ();
+					lastSecondUpdate = timer.seconds;
 					if (timer.minutes < 0) {
 						if (roundEnd == RoundEnd.Timer) {
 							EndRound ();
 						}
 					}
 				}
-				TimerUpdated.Raise ();
+				if (timer.seconds < lastSecondUpdate - 1) {
+					TimerUpdated.Raise ();
+					lastSecondUpdate = timer.seconds;
+				}
 			}
 		}
 	}
@@ -600,7 +606,7 @@ public class ATime{
 
 	public string GetAsString(){
 		if (str == "") {
-			return minutes+":"+seconds.ToString("F1");
+			return minutes+":"+seconds.ToString("F0");
 			// return minutes+":"+RoundTo1Decim(seconds);
 		} else {
 			return str;

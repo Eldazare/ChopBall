@@ -21,7 +21,7 @@ public class EndSceneDisplay : MonoBehaviour {
 				displayTextList.Add (textList [i]);
 				displayTextList [i].gameObject.SetActive (true);
 				displayTextList [i].color = pBaseData.teamColors [teams [i].teamID];
-				displayTextList [i].text = "Team " + teams [i].teamID + "\n"
+				displayTextList [i].text = "Team " + (teams [i].teamID+1) + "\n"
 				+ "No. " + teams [i].endPosition + "\n"
 				+ "Score: " + teams [i].score + "\n";
 				if (teams [i].endPosition != 0) {
@@ -29,7 +29,7 @@ public class EndSceneDisplay : MonoBehaviour {
 				}
 				if (teams [i].endPosition == 1) {
 					winnerText.color = pBaseData.teamColors [teams [i].teamID];
-					winnerText.text = "Team " + teams [i].teamID + " is the winner!";
+					winnerText.text = "Team " + (teams [i].teamID+1) + " is the winner!";
 				}
 			}
 		} else if (competitors != null) {

@@ -17,7 +17,7 @@ public class Ball : MonoBehaviour {
 	CircleCollider2D circleCollider;
 	TrailRenderer trailRenderer;
     BallGravity gravity;
-    Projector blobShadow;
+    //Projector blobShadow;
     Rigidbody2D rigid2D;
 	Gradient gradient;
 	GradientAlphaKey[] gradAlphKey;
@@ -105,7 +105,7 @@ public class Ball : MonoBehaviour {
 		circleCollider = GetComponent<CircleCollider2D>();
 		trailRenderer = GetComponentInChildren<TrailRenderer>();
         gravity = GetComponentInChildren<BallGravity>();
-        blobShadow = GetComponentInChildren<Projector>();
+        //blobShadow = GetComponentInChildren<Projector>();
         rigid2D = GetComponent<Rigidbody2D> ();
 		gradient = new Gradient();
 		gradAlphKey = new GradientAlphaKey[] { new GradientAlphaKey(1f,0f), new GradientAlphaKey(0f,1f) };
@@ -153,7 +153,7 @@ public class Ball : MonoBehaviour {
 		circleCollider.enabled = false;
 		trailRenderer.enabled = false;
         gravity.enabled = false;
-        blobShadow.enabled = false;
+        //blobShadow.enabled = false;
         SetChargedStatus(false);
         rigid2D.velocity = Vector2.zero;
 		preSpawnIndicatorInstance.transform.position = spawnPos;
@@ -165,7 +165,7 @@ public class Ball : MonoBehaviour {
 		circleCollider.enabled = true;
 		trailRenderer.enabled = true;
         gravity.enabled = true;
-        blobShadow.enabled = true;
+        //blobShadow.enabled = true;
     }
 
 	void OnCollisionEnter2D(Collision2D collision){

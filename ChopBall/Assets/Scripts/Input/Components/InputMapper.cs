@@ -64,10 +64,10 @@ public class InputMapper : MonoBehaviour {
 	void Update(){
 		if (enableMegaTranslators) {
 			MegaTranslatorAxes ();
-			MegaTranslatorButtons ();
+			ReadAllPlayerButtons ();
 		}
 		if (CheckListenedCommands ()) {
-			MegaTranslatorButtons ();
+			ReadAllPlayerButtons ();
 		}
 	}
 
@@ -110,13 +110,13 @@ public class InputMapper : MonoBehaviour {
 		}
 	}
 
-	private void MegaTranslatorButtons(){
+	private void ReadAllPlayerButtons(){
 		for (int i = 0; i < numberOfPlayers; i++) {
-			SuperTranslatorButtons (i);
+			ReadSinglePlayerButtons (i);
 		}
 	}
 
-	private void SuperTranslatorButtons(int playerIndex){
+	private void ReadSinglePlayerButtons(int playerIndex){
 		foreach (KeyCode keyCode in keyCodesList[playerIndex]) {
 			if (Input.GetKeyDown (keyCode)) {
 				Debug.Log ("Key " + keyCode.ToString () + " registered");

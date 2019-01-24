@@ -200,10 +200,8 @@ public class BattleLoader : MonoBehaviour {
 		charIEListener.enabled = true;
 		charMaterials [playerIndex].color = theColor;
 		if (stateData != null) {
-			MeshRenderer[] renderers = charHand.bodyRenderers;
-			foreach (var renderer in renderers) {
-				renderer.material = charMaterials [playerIndex];
-			}
+			MeshRenderer renderer = charHand.bodyRenderer;
+				renderer.materials[4] = charMaterials [playerIndex];
 		}
 		charHand.CharacterAttributes = CharacterAttributeController.GetDefaultChar(); // BIG: Change this to get "real" stats
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);

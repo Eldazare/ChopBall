@@ -57,10 +57,8 @@ public static class UIHelpMethods {
 	public static DPosition CheckDirInput(InputModel model, ref bool triggered, ref bool inputDone, ref Vector2 vec){
 		triggered = false;
 		for (int i = 0; i < dirList.Count; i++) {
-			//Debug.Log ("Magnitude:" + (model.leftDirectionalInput * dirList [i]).magnitude);
 			vec = model.leftDirectionalInput * dirList[i];
 			if ((vec.x-vec.y) > treshold) {
-				//Debug.Log (dirList [i].x +"  "+ dirList[i].y);
 				triggered = true;
 				if (!inputDone) {
 					inputDone = true;

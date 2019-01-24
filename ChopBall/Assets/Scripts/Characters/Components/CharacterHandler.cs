@@ -8,9 +8,8 @@ public class CharacterHandler : MonoBehaviour {
     public int PlayerID;
     public CharacterAttributeData CharacterAttributes;
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
-	public MeshRenderer[] bodyRenderers;
-	public MeshRenderer headRenderer;
-	public List<Material> headMaterials; // 0 = Default, 1 = BlackMat
+	public MeshRenderer bodyRenderer;
+	public List<Material> headMaterials; // 0 = Default, 1 = Blocking, 2 = Charging
     public Transform ParticleTransform;
     public ParticleSystem TrailParticles;
     public ParticleSystem DashParticles;
@@ -163,7 +162,7 @@ public class CharacterHandler : MonoBehaviour {
 		currentState.OnStateEnter (PlayerID);
 		movement.SetRigidbodyMass (currentState.stateMassModifier * characterBase.BodyMass);
 		if (enu == CharacterStateEnum.Default) {
-			headRenderer.material = headMaterials [0];
+			UpdateCharacterMaterial(headMaterials [0], 3);
 		}
 	}
 
@@ -261,7 +260,7 @@ public class CharacterHandler : MonoBehaviour {
 							}
                         }
 						if (currentState.identifier == CharacterStateEnum.Charge && rightPaddleCharge < 0) {
-							headRenderer.material = bodyRenderers[0].material;
+							UpdateCharacterMaterial(headMaterials [2], 3);
 						}
                     }
                     else
@@ -288,7 +287,7 @@ public class CharacterHandler : MonoBehaviour {
                 if (input.Block && !blockInputLastFrame)
                 {
                     TransitionToState(CharacterStateEnum.Block);
-					headRenderer.material = headMaterials [1];
+					UpdateCharacterMaterial(headMaterials [1], 3);
                     Debug.Log("Block Registered");
                 }
 
@@ -446,5 +445,11 @@ public class CharacterHandler : MonoBehaviour {
 			}
 			FMODUnity.RuntimeManager.PlayOneShotAttached (soundPlayerHit, gameObject);
 		}
+	}
+
+	private void UpdateCharacterMaterial(Material material, int index){
+		Material[] mats = bodyRenderer.materials;
+		mats [index] = material;
+		bodyRenderer.materials = mats;
 	}
 }

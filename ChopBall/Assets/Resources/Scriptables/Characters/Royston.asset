@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: Royston
   m_EditorClassIdentifier: 
   CharacterName: Royston
-  CharacterPrefabName: GenericCharacter3D
-  CharacterBattleModelPrefab: {fileID: 1973047356847882, guid: d9f38bafffe102e489e69d11a31a8059,
+  CharacterPrefabName: TrueGenericCharacter
+  CharacterBattleModelPrefab: {fileID: 1235189208001580, guid: be7e50028001ce440a94cb00872f8c49,
     type: 2}
   CharacterMenuModelPrefab: {fileID: 1538555779620374, guid: e1b0629cc5b2c264bbca4edb704d3f8f,
     type: 2}

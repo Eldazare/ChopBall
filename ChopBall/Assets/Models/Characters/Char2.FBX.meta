@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: fdb0f25b918e9c446911b3f9a953a683
+guid: a54d33db26820e347a4258dbd97bb27c
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -15,7 +15,7 @@ ModelImporter:
     2100014: Material_Lips
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Box021
+    4300000: Character
   externalObjects: {}
   materials:
     importMaterials: 1

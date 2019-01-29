@@ -8,7 +8,6 @@ public class BattleLoader : MonoBehaviour {
 
 	// Currently Initializes shared goals as last player's goal in team list.
 
-	public GameObject characterTest;
 	public GameObject goalDefenseTarget;
 	public GameObject ball;
 	public float betweenTargets;
@@ -183,14 +182,14 @@ public class BattleLoader : MonoBehaviour {
 			charAttributes = CharacterAttributeController.GetACharacter (stateData.characterChoice);
 			if (charAttributes != null) {
 				RuntimeModifierController.AddAttributeData (charAttributes, playerIndex);
-				prefab = (GameObject)Resources.Load (CharacterAttributeController.GetCharacterPrefabPreString () + charAttributes.CharacterPrefabName);
+				//prefab = (GameObject)Resources.Load (CharacterAttributeController.GetCharacterPrefabPreString () + charAttributes.CharacterPrefabName);
 			}
 		}
 		if (prefab == null) {
-			prefab = characterTest;
 			charAttributes = CharacterAttributeController.GetDefaultChar ();
 			RuntimeModifierController.AddAttributeData (charAttributes, playerIndex);
 		}
+		prefab = charAttributes.CharacterBattleModelPrefab;
 		CharacterHandler charHand = Instantiate (prefab, new Vector3(0,0,0), Quaternion.identity).GetComponent<CharacterHandler> ();
 		//charHand.transform.Translate (relativePos);
 		//charHand.transform.Rotate(new Vector3(0,0,-90)); // Difference between default goal and default character rotations

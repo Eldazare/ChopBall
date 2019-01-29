@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Name: __Default
   m_EditorClassIdentifier: 
   CharacterName: 
-  CharacterPrefabName: GenericCharacter3D
-  CharacterPortrait: {fileID: 0}
+  CharacterPrefabName: TrueGenericCharacter
+  CharacterBattleModelPrefab: {fileID: 1235189208001580, guid: be7e50028001ce440a94cb00872f8c49,
+    type: 2}
+  CharacterMenuModelPrefab: {fileID: 0}
+  CharacterPortraits: []
   StaminaMax: 1
   StaminaRegen: 1
   PaddleLengthMultiplier: 1

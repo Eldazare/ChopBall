@@ -20,6 +20,7 @@ public class InputTranslatorMaster : MonoBehaviour {
 
 	public void CheckOnce(){
 		string[] JoyNames = Input.GetJoystickNames ();
+		Debug.Log (JoyNames.Length);
 		for (int i = 0; i < JoyNames.Length; i++) {
 			if (!string.IsNullOrEmpty (JoyNames [i])) {
 				if (!connectedControllers [i]) {

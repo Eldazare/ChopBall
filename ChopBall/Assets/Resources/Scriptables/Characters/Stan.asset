@@ -9,16 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06ef32ea94e76d34bb02cca6bc3154cc, type: 3}
-  m_Name: SquareTest
+  m_Name: Stan
   m_EditorClassIdentifier: 
   CharacterName: Stan
-  CharacterPrefabName: GenericCharacter3D
-  CharacterBattleModelPrefab: {fileID: 1973047356847882, guid: d9f38bafffe102e489e69d11a31a8059,
+  CharacterPrefabName: TrueGenericCharacter
+  CharacterBattleModelPrefab: {fileID: 1235189208001580, guid: be7e50028001ce440a94cb00872f8c49,
     type: 2}
   CharacterMenuModelPrefab: {fileID: 1538555779620374, guid: e1b0629cc5b2c264bbca4edb704d3f8f,
     type: 2}
   CharacterPortraits:
   - {fileID: 21300000, guid: c97640d8e143b374fb48076693bcb842, type: 3}
+  Palettes: []
   StaminaMax: 1
   StaminaRegen: 1
   PaddleLengthMultiplier: 1

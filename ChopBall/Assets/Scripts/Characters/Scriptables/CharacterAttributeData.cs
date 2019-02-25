@@ -14,6 +14,9 @@ public class CharacterAttributeData : ScriptableObject {
 	public GameObject CharacterMenuModelPrefab;
 	public List<Sprite> CharacterPortraits;
 
+	[Header("Color palettes")]
+	public List<PaletteContainer> Palettes;
+
 	[Header("General")]
 	public float StaminaMax = 1f;
 	public float StaminaRegen = 1f; 
@@ -35,4 +38,11 @@ public class CharacterAttributeData : ScriptableObject {
     public float DashCoolDownMultiplier = 1f;
     public float BodyMassMultiplier = 1f;
     public float LinearDragMultiplier = 1f;
+}
+
+[System.Serializable]
+public class PaletteContainer{
+	public Material hair;
+	public Material skin;
+	public Material eyes;
 }

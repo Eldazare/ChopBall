@@ -11,12 +11,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ef32ea94e76d34bb02cca6bc3154cc, type: 3}
   m_Name: __Default
   m_EditorClassIdentifier: 
-  CharacterName: 
+  CharacterName: DEFAULT
   CharacterPrefabName: TrueGenericCharacter
   CharacterBattleModelPrefab: {fileID: 1235189208001580, guid: be7e50028001ce440a94cb00872f8c49,
     type: 2}
   CharacterMenuModelPrefab: {fileID: 0}
   CharacterPortraits: []
+  Palettes: []
   StaminaMax: 1
   StaminaRegen: 1
   PaddleLengthMultiplier: 1

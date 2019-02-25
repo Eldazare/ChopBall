@@ -1644,6 +1644,48 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1001 &473541660
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4264153552378208, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264153552378208, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264153552378208, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264153552378208, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.000000021855694
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264153552378208, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264153552378208, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264153552378208, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4264153552378208, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: be7e50028001ce440a94cb00872f8c49, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &479867187
 GameObject:
   m_ObjectHideFlags: 0
@@ -3484,15 +3526,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63e71177005ac44b9cfcadaafda3984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allTextList:
-  - {fileID: 920323479}
-  - {fileID: 1485253386}
-  - {fileID: 503898742}
-  - {fileID: 971141416}
+  allTextObjectsList: []
   goalStockDisplays:
   - {fileID: 85030134}
   - {fileID: 1218747252}
-  portraits: []
 --- !u!222 &1171805102
 CanvasRenderer:
   m_ObjectHideFlags: 0

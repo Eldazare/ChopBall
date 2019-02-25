@@ -10,6 +10,7 @@ public class CharacterHandler : MonoBehaviour {
 	public CharacterRuntimeModifiers CharacterRuntimeModifiers;
 	public MeshRenderer bodyRenderer;
 	public List<Material> headMaterials; // 0 = Default, 1 = Blocking, 2 = Charging
+	public List<MeshRenderer> handRenderers;
     public Transform ParticleTransform;
     public ParticleSystem TrailParticles;
     public ParticleSystem DashParticles;

@@ -180,12 +180,18 @@ public class BattleLoader : MonoBehaviour {
 		CharacterAttributeData charAttributes = null;
 		if (stateData != null) {
 			charAttributes = CharacterAttributeController.GetACharacter (stateData.characterChoice);
+			Debug.Log ("Char attributes name: " + charAttributes.CharacterName);
 			if (charAttributes != null) {
 				RuntimeModifierController.AddAttributeData (charAttributes, playerIndex);
-				//prefab = (GameObject)Resources.Load (CharacterAttributeController.GetCharacterPrefabPreString () + charAttributes.CharacterPrefabName);
+				prefab = charAttributes.CharacterBattleModelPrefab;
+			}else {
+				Debug.LogError ("CharAttributes not found for player " + playerIndex);
 			}
+		}else {
+			Debug.LogError ("PlayerStateData not found for Character creation for player " + playerIndex);
 		}
-		if (prefab == null) {
+		if (prefab == null) { // in case of testing
+			Debug.LogWarning("Test character taken...");
 			charAttributes = CharacterAttributeController.GetDefaultChar ();
 			RuntimeModifierController.AddAttributeData (charAttributes, playerIndex);
 		}
@@ -200,7 +206,16 @@ public class BattleLoader : MonoBehaviour {
 		charMaterials [playerIndex].color = theColor;
 		if (stateData != null) {
 			MeshRenderer renderer = charHand.bodyRenderer;
-				renderer.materials[4] = charMaterials [playerIndex];
+			renderer.materials = CharacterColorSetter.SetMainColor (renderer.materials, charMaterials [playerIndex]);
+			if (stateData.characterPaletteChoice < charAttributes.Palettes.Count) {
+				renderer.materials = CharacterColorSetter.SetColorPalette (renderer.materials, charAttributes.Palettes [stateData.characterPaletteChoice]);
+			} else {
+				Debug.LogError ("Palette and choice mismatch: Palettes " + charAttributes.Palettes.Count + " | Choice: " + stateData.characterPaletteChoice + " | CharName: "+charAttributes.CharacterName);
+			}
+			foreach (MeshRenderer rend in charHand.handRenderers) {
+				rend.material = charMaterials [playerIndex];
+			}
+			charHand.headMaterials [0] = renderer.materials [3]; // TODO: Remove
 		}
 		charHand.CharacterAttributes = CharacterAttributeController.GetDefaultChar(); // BIG: Change this to get "real" stats
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);

@@ -227,6 +227,7 @@ public class CharacterPaddle : MonoBehaviour {
     }
 
     //Debug gizmos
+    /*
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(255, 255, 255, 0.5f);
@@ -241,6 +242,7 @@ public class CharacterPaddle : MonoBehaviour {
         Gizmos.DrawSphere((Vector3)pivotPoint + -Vector3.forward * 1.25f + (Vector3)(characterBase.PaddleLength * characterAttributes.PaddleLengthMultiplier * paddleVector),
                           characterBase.PaddleThickness * characterAttributes.PaddleThicknessMultiplier / 2);
     }
+    */
 
     // Helper function to rotate a 2d vector -> change to an extension method later
     private Vector2 Rotate(Vector2 v, float degrees)

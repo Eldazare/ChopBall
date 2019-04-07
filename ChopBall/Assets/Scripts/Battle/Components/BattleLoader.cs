@@ -110,11 +110,13 @@ public class BattleLoader : MonoBehaviour {
 			Color32 theColor = new Color32(0,0,0,0);
 			if (!areAnyActive) {
 				theColor.a = 0;
-				MakeACharacter (goals [i], Vector2.zero, null, new Color32(255,255,255,255), i);
+                Sprite shape = playerBaseData.characterIndicators[0];
+                MakeACharacter (goals [i], Vector2.zero, null, new Color32(255,255,255,255), shape, i);
 			} else if (mode == GrandMode.FreeForAll) {
 				if (activeStates.Count > i) {
 					theColor = playerBaseData.playerColors [activeStates [i]];
-					MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates [i]], theColor , activeStates [i]);
+                    Sprite shape = playerBaseData.characterIndicators[activeStates[i]];
+					MakeACharacter (goals [i], Vector2.zero, playerStates [activeStates [i]], theColor , shape, activeStates [i]);
 				}
 			} 
 			/*else if (mode == GrandMode.TEAMFFA) {
@@ -129,7 +131,7 @@ public class BattleLoader : MonoBehaviour {
 					if (playersInSpawnPoints [i].Count > 0) {
 						Debug.Log ("i: " + i + " | spawpoints: " + playersInSpawnPoints [i].Count);
 						theColor = playerBaseData.teamColors [playerStates [playersInSpawnPoints [i] [0]].team];
-						MakeMultipleCharacters (goals [i], playersInSpawnPoints [i], playerStates, theColor);
+						MakeMultipleCharacters (goals [i], playersInSpawnPoints [i], playerStates, theColor, playerBaseData);
 					}
 				}
 			}
@@ -161,7 +163,7 @@ public class BattleLoader : MonoBehaviour {
 		}
 	}
 
-	private void MakeMultipleCharacters (Goal goal, List<int> stateIndexes, PlayerStateData[] stateDatas, Color32 theColor){
+	private void MakeMultipleCharacters (Goal goal, List<int> stateIndexes, PlayerStateData[] stateDatas, Color32 theColor, PlayerBaseData playerBaseData){
 		for (int i = 0; i < stateIndexes.Count; i++) {
 			Vector2 modPos = modifierPositions [i];
 			if (stateIndexes.Count == 1) {
@@ -169,11 +171,12 @@ public class BattleLoader : MonoBehaviour {
 			} else if (stateIndexes.Count == 2) {
 				modPos.x -= distanceFromCenter;
 			}
-			MakeACharacter (goal, modPos, stateDatas [stateIndexes[i]], theColor, stateIndexes[i]);
+            Sprite shape = playerBaseData.characterIndicators[stateIndexes[i]];
+			MakeACharacter (goal, modPos, stateDatas [stateIndexes[i]], theColor, shape, stateIndexes[i]);
 		}
 	}
 
-	private void MakeACharacter(Goal goal, Vector2 relativePos, PlayerStateData stateData, Color32 theColor, int playerIndex){
+	private void MakeACharacter(Goal goal, Vector2 relativePos, PlayerStateData stateData, Color32 theColor, Sprite shape, int playerIndex){
 		goal.InitializeID (playerIndex + 1);
 		//Vector3 charSpawnPos = goal.GetComponentInChildren<CharacterSpawnIndicator> ().GetPosition ();
 		GameObject prefab = null;
@@ -205,18 +208,18 @@ public class BattleLoader : MonoBehaviour {
 		charIEListener.enabled = true;
 		charMaterials [playerIndex].color = theColor;
 		if (stateData != null) {
-			MeshRenderer renderer = charHand.bodyRenderer;
-			renderer.materials = CharacterColorSetter.SetMainColor (renderer.materials, charMaterials [playerIndex]);
+			CharRendererStorage rendererStor = charHand.GetComponent<CharRendererStorage>();
+			rendererStor.mainRenderer.materials = CharacterColorSetter.SetMainColor (rendererStor.mainRenderer.materials, charMaterials [playerIndex]);
 			if (stateData.characterPaletteChoice < charAttributes.Palettes.Count) {
-				renderer.materials = CharacterColorSetter.SetColorPalette (renderer.materials, charAttributes.Palettes [stateData.characterPaletteChoice]);
+                rendererStor.mainRenderer.materials = CharacterColorSetter.SetColorPalette (rendererStor.mainRenderer.materials, charAttributes.Palettes [stateData.characterPaletteChoice]);
 			} else {
 				Debug.LogError ("Palette and choice mismatch: Palettes " + charAttributes.Palettes.Count + " | Choice: " + stateData.characterPaletteChoice + " | CharName: "+charAttributes.CharacterName);
 			}
-			foreach (MeshRenderer rend in charHand.handRenderers) {
-				rend.material = charMaterials [playerIndex];
-			}
-			charHand.headMaterials [0] = renderer.materials [3]; // TODO: Remove
-		}
+            rendererStor.SetMaterialToSkin(charAttributes.Palettes[stateData.characterPaletteChoice].skin);
+            rendererStor.SetMainMaterialToTip(charMaterials[playerIndex]);
+            charHand.headMaterials[0] = charMaterials[playerIndex];
+
+        }
 		charHand.CharacterAttributes = CharacterAttributeController.GetDefaultChar(); // BIG: Change this to get "real" stats
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);
 		charHand.Initialize (theColor);
@@ -228,7 +231,8 @@ public class BattleLoader : MonoBehaviour {
 		if (charAttributes != null) {
 			staminaMax *= charAttributes.StaminaMax;
 		}
-		charHand.GetComponent<StaminaDisplay> ().Initialize (RuntimeModifierController.GetAMod (playerIndex + 1), staminaMax, theColor);
+
+		charHand.GetComponent<StaminaDisplay> ().Initialize (RuntimeModifierController.GetAMod (playerIndex + 1), staminaMax, theColor, shape);
 	}
 
 	private void GenerateTargets(Goal goal, Material targetMat){

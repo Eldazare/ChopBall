@@ -13,7 +13,7 @@ public class StaminaDisplay : MonoBehaviour {
 	private bool initialized = false;
 	private float maxStamina;
 
-	public void Initialize(CharacterRuntimeModifiers mod, float maxStamina, Color32 color){
+	public void Initialize(CharacterRuntimeModifiers mod, float maxStamina, Color32 color, Sprite shape){
 		this.mod = mod;
 		color.a = 180;
 		if (staminaCircle == null) {
@@ -23,6 +23,7 @@ public class StaminaDisplay : MonoBehaviour {
 			arrow.color = color;
 		}
 		staminaCircle.color = color;
+        staminaCircle.sprite = shape;
 		this.maxStamina = maxStamina;
 		initialized = true;
 		//Debug.Log (maxStamina);

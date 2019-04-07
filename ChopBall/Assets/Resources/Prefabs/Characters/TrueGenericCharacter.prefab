@@ -83,6 +83,7 @@ GameObject:
   - component: {fileID: 114783643775101678}
   - component: {fileID: 114299516607002618}
   - component: {fileID: 114631238276513398}
+  - component: {fileID: 114607651447671448}
   m_Layer: 10
   m_Name: TrueGenericCharacter
   m_TagString: Character
@@ -1292,6 +1293,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10690b54d6177384c9c45492d9b79387, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114607651447671448
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1235189208001580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2e45fc59fc14b4a813cf6eeda2ec64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainRenderer: {fileID: 23105822830230188}
+  skinRenderers:
+  - {fileID: 23137922099221136}
+  - {fileID: 23262220340780070}
+  - {fileID: 23630274137813318}
+  - {fileID: 23525283440815538}
+  - {fileID: 23642942783603788}
+  - {fileID: 23408507891394398}
+  tipRenderers:
+  - {fileID: 23572536653169114}
+  - {fileID: 23051508477149712}
 --- !u!114 &114630878239882536
 MonoBehaviour:
   m_ObjectHideFlags: 1

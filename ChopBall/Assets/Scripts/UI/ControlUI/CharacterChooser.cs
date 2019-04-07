@@ -10,6 +10,9 @@ public class CharacterChooser : MonoBehaviour {
 	private List<CharacterAttributeData> characterAttributes;
 	private PlayerBaseData playerBaseData;
 	private int currentChoice;
+    private CharRendererStorage charModelRenderer;
+
+    private int mainColor;
 
 	public Image background;
 	public GameObject indicatorsPanel;
@@ -21,7 +24,7 @@ public class CharacterChooser : MonoBehaviour {
 	public GameEvent OnUICancel;
 
 	public Transform gameObjectLocation;
-	private List<Sprite> allSprites;
+	private List<Sprite> allSprites; // Backgrounds
 
 
 	private GameObject currentCharModel;
@@ -96,6 +99,12 @@ public class CharacterChooser : MonoBehaviour {
 					if (dirPosi.x == -1) {
 						IncDecCurrentChoice (false);
 					}
+                    if (dirPosi.y == 1) {
+                        IncDecCurrentColor(true);
+                    }
+                    if (dirPosi.y == -1) {
+                        IncDecCurrentColor(false);
+                    }
 				}
 				if (UIHelpMethods.IsButtonTrue (model.Cancel, ref lateCancel)) {
 					Enabled (false);
@@ -140,9 +149,16 @@ public class CharacterChooser : MonoBehaviour {
 
 	private void IncDecCurrentChoice(bool incDec){
 		FMODUnity.RuntimeManager.PlayOneShot (hilightSoundPath);
+        playerStateData.characterPaletteChoice = 0;
 		currentChoice = UIHelpMethods.CheckIndex (currentChoice,  characterAttributes.Count, incDec);
 		LoadCharacterattributes (characterAttributes [currentChoice]);
 	}
+
+    private void IncDecCurrentColor(bool incDec) {
+        FMODUnity.RuntimeManager.PlayOneShot(hilightSoundPath);
+        playerStateData.characterPaletteChoice = UIHelpMethods.CheckIndex(playerStateData.characterPaletteChoice, characterAttributes[currentChoice].Palettes.Count, incDec);
+        SetPaletteToModel();
+    }
 
 	private void IncDecTeam(bool incDec){
 		playerStateData.ChangeTeam (incDec);
@@ -173,7 +189,22 @@ public class CharacterChooser : MonoBehaviour {
 			DestroyImmediate (currentCharModel);
 		}
 		currentCharModel = (GameObject)Instantiate(data.CharacterMenuModelPrefab, gameObjectLocation);
-	}
+        charModelRenderer = currentCharModel.GetComponent<CharRendererStorage>();
+        SetMainColorToModel();
+        SetPaletteToModel();
+        
+    }
+
+    private void SetPaletteToModel() {
+        PaletteContainer palette = characterAttributes[currentChoice].Palettes[playerStateData.characterPaletteChoice];
+        charModelRenderer.mainRenderer.materials = CharacterColorSetter.SetColorPalette(charModelRenderer.mainRenderer.materials, palette);
+        charModelRenderer.SetMaterialToSkin(palette.skin);
+    }
+
+    private void SetMainColorToModel() {
+        charModelRenderer.mainRenderer.materials = CharacterColorSetter.SetMainColor(charModelRenderer.mainRenderer.materials, playerBaseData.playerColorMaterials[mainColor]);
+        charModelRenderer.SetMainMaterialToTip(playerBaseData.playerColorMaterials[mainColor]);
+    }
 
 	private void UpdateChosenText(){
 		if (playerStateData.active) {
@@ -191,13 +222,14 @@ public class CharacterChooser : MonoBehaviour {
 
 	private void SetColor(){
 		if (playerStateData.team != -1) {
-			ApplyColor (playerStateData.team);
+            mainColor = playerStateData.team;
 		} else {
-			ApplyColor (playerID-1);
+            mainColor = playerID - 1;
 		}
-	}
+        background.sprite = allSprites[mainColor];
+        if (charModelRenderer != null) {
+            SetMainColorToModel();
+        }
 
-	private void ApplyColor(int colorIndex){
-		background.sprite = allSprites[colorIndex];
-	}
+    }
 }

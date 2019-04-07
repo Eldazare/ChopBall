@@ -15,13 +15,19 @@ MonoBehaviour:
   CharacterPrefabName: TrueGenericCharacter
   CharacterBattleModelPrefab: {fileID: 1235189208001580, guid: be7e50028001ce440a94cb00872f8c49,
     type: 2}
-  CharacterMenuModelPrefab: {fileID: 1538555779620374, guid: e1b0629cc5b2c264bbca4edb704d3f8f,
+  CharacterMenuModelPrefab: {fileID: 1353390544209922, guid: 0c3b948fb3edeca4485c7860e66f7ff0,
     type: 2}
   CharacterPortraits:
   - {fileID: 21300000, guid: f189b80d8cbecd042930a668e8a71af7, type: 3}
   Palettes:
   - hair: {fileID: 2100000, guid: ac82d2cabd781ac4ca94f073665fd966, type: 2}
     skin: {fileID: 2100000, guid: bdeff6e874e13a2468b922b7332a790c, type: 2}
+    eyes: {fileID: 2100000, guid: 86e1ab4094067bb4fb80d0d346c04dcd, type: 2}
+  - hair: {fileID: 2100000, guid: 1821457ca1be69840991f77833f10ff7, type: 2}
+    skin: {fileID: 2100000, guid: 71e418b21e368eb42af21d844530d9e0, type: 2}
+    eyes: {fileID: 2100000, guid: 86e1ab4094067bb4fb80d0d346c04dcd, type: 2}
+  - hair: {fileID: 2100000, guid: 53e1bdb4c49961f419a1949a136f3895, type: 2}
+    skin: {fileID: 2100000, guid: 75586a9a7c5870e43ab0272e1bb03563, type: 2}
     eyes: {fileID: 2100000, guid: 86e1ab4094067bb4fb80d0d346c04dcd, type: 2}
   StaminaMax: 1
   StaminaRegen: 1

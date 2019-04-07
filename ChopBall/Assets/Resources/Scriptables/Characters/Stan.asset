@@ -15,11 +15,20 @@ MonoBehaviour:
   CharacterPrefabName: TrueGenericCharacter
   CharacterBattleModelPrefab: {fileID: 1235189208001580, guid: be7e50028001ce440a94cb00872f8c49,
     type: 2}
-  CharacterMenuModelPrefab: {fileID: 1538555779620374, guid: e1b0629cc5b2c264bbca4edb704d3f8f,
+  CharacterMenuModelPrefab: {fileID: 1353390544209922, guid: 0c3b948fb3edeca4485c7860e66f7ff0,
     type: 2}
   CharacterPortraits:
   - {fileID: 21300000, guid: c97640d8e143b374fb48076693bcb842, type: 3}
-  Palettes: []
+  Palettes:
+  - hair: {fileID: 2100000, guid: eb7b2c9b487b69c4d92008131194280b, type: 2}
+    skin: {fileID: 2100000, guid: 71e418b21e368eb42af21d844530d9e0, type: 2}
+    eyes: {fileID: 2100000, guid: ef79366a9df75f249b455954d5974556, type: 2}
+  - hair: {fileID: 2100000, guid: 9f1082b5d4aadbc44874dd211034ac81, type: 2}
+    skin: {fileID: 2100000, guid: bf12b03c506f7444fa47f5412420ea7a, type: 2}
+    eyes: {fileID: 2100000, guid: ef79366a9df75f249b455954d5974556, type: 2}
+  - hair: {fileID: 2100000, guid: 08eff4f3bbffd0e43a4f5d1c2532d7dd, type: 2}
+    skin: {fileID: 2100000, guid: a1d8dd5b7649b8545a42b44c5129fc4a, type: 2}
+    eyes: {fileID: 2100000, guid: ef79366a9df75f249b455954d5974556, type: 2}
   StaminaMax: 1
   StaminaRegen: 1
   PaddleLengthMultiplier: 1

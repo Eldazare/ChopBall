@@ -37,7 +37,7 @@ public class TestGoalScoreDisplayer : MonoBehaviour
             int width = 1920;
             Debug.Log("Height :" + Screen.height + " Width: " + Screen.width);
 
-            float yPos = (float)height * -0.5f + 100f;
+            float yPos = (float)height * -0.5f + 75f;
             float relativeX = (float)width / displayObjectList.Count;
             float xPos = (float)width * -0.5f + relativeX / 2.0f;
             for (int i = 0; i < displayObjectList.Count; i++)

@@ -212,13 +212,12 @@ public class BattleLoader : MonoBehaviour {
 			rendererStor.mainRenderer.materials = CharacterColorSetter.SetMainColor (rendererStor.mainRenderer.materials, charMaterials [playerIndex]);
 			if (stateData.characterPaletteChoice < charAttributes.Palettes.Count) {
                 rendererStor.mainRenderer.materials = CharacterColorSetter.SetColorPalette (rendererStor.mainRenderer.materials, charAttributes.Palettes [stateData.characterPaletteChoice]);
-			} else {
+                charHand.headMaterials[0] = charAttributes.Palettes[stateData.characterPaletteChoice].hair;
+            } else {
 				Debug.LogError ("Palette and choice mismatch: Palettes " + charAttributes.Palettes.Count + " | Choice: " + stateData.characterPaletteChoice + " | CharName: "+charAttributes.CharacterName);
 			}
             rendererStor.SetMaterialToSkin(charAttributes.Palettes[stateData.characterPaletteChoice].skin);
             rendererStor.SetMainMaterialToTip(charMaterials[playerIndex]);
-            charHand.headMaterials[0] = charMaterials[playerIndex];
-
         }
 		charHand.CharacterAttributes = CharacterAttributeController.GetDefaultChar(); // BIG: Change this to get "real" stats
 		charHand.CharacterRuntimeModifiers = RuntimeModifierController.GetAMod (playerIndex + 1);

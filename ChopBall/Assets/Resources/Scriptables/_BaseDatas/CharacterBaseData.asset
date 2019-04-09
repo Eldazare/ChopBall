@@ -33,6 +33,8 @@ MonoBehaviour:
   PaddleCollisionLayers:
     serializedVersion: 2
     m_Bits: 3072
+  ChargeAnimationSecondaryMaterial: {fileID: 2100000, guid: ef79366a9df75f249b455954d5974556,
+    type: 2}
   MovementSpeed: 8
   RotationSpeed: 4
   DashDistance: 6

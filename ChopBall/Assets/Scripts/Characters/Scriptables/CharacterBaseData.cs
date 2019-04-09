@@ -34,6 +34,7 @@ public class CharacterBaseData : ScriptableObject {
     public float PaddleForceAmount;
 	public float PaddleChargedForceMultiplier;
     public LayerMask PaddleCollisionLayers;
+    public Material ChargeAnimationSecondaryMaterial;
 
     [Header("Movement")]
 	public float MovementSpeed;

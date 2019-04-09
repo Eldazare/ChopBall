@@ -8,11 +8,6 @@ public class CharRendererStorage : MonoBehaviour {
     public List<MeshRenderer> skinRenderers;
     public List<MeshRenderer> tipRenderers;
 
-
-    public Material fickleSecondaryMaterial;
-    private Material fickleMainMaterial;
-    private Coroutine fickle;
-
     public void SetMaterialToSkin(Material skinMaterial) {
         foreach (MeshRenderer m in skinRenderers) {
             m.material = skinMaterial;
@@ -20,17 +15,26 @@ public class CharRendererStorage : MonoBehaviour {
     }
 
     public void SetMainMaterialToTip(Material mainMaterial) {
-        if (fickleMainMaterial == null) {
-            fickleMainMaterial = mainMaterial;
-        }
+        LoadFickleMaterials(mainMaterial);
         foreach (MeshRenderer m in tipRenderers) {
             m.material = mainMaterial;
         }
     }
 
+    // FICKLE
+    private Material fickleSecondaryMaterial;
+    private Material fickleMainMaterial;
+    private Coroutine fickle;
+
+    private void LoadFickleMaterials(Material mainMaterial) {
+    if (fickleMainMaterial == null){
+        fickleMainMaterial = mainMaterial;
+        fickleSecondaryMaterial = ((CharacterBaseData)Resources.Load("Scriptables/_BaseDatas/CharacterBaseData", typeof(CharacterBaseData))).ChargeAnimationSecondaryMaterial;
+        }
+    }
+
     public void StartTipFickle() {
         if (fickle == null) {
-            Debug.Log("StartedFickle");
             fickle = StartCoroutine(ChargeAnimation());
         }
        
@@ -38,7 +42,6 @@ public class CharRendererStorage : MonoBehaviour {
 
     public void StopTipFickle() {
         if (fickle != null) {
-            Debug.Log("StoppedFickle");
             StopCoroutine(fickle);
             SetMainMaterialToTip(fickleMainMaterial);
             fickle = null;
@@ -54,4 +57,5 @@ public class CharRendererStorage : MonoBehaviour {
             yield return new WaitForSeconds(waitTime);
         }
     }
+    //END FICKLE
 }

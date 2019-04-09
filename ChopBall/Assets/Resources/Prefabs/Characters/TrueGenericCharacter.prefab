@@ -1312,6 +1312,8 @@ MonoBehaviour:
   tipRenderers:
   - {fileID: 23572536653169114}
   - {fileID: 23051508477149712}
+  fickleSecondaryMaterial: {fileID: 2100000, guid: ef79366a9df75f249b455954d5974556,
+    type: 2}
 --- !u!114 &114630878239882536
 MonoBehaviour:
   m_ObjectHideFlags: 1

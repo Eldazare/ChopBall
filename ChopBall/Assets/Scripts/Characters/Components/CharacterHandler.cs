@@ -20,6 +20,7 @@ public class CharacterHandler : MonoBehaviour {
     private CharacterMovement movement;
     private CharacterPaddle leftPaddle;
     private CharacterPaddle rightPaddle;
+    private CharRendererStorage charRendererStorage;
     private InputModel input;
 	private bool invunerable = false;
 	private float invunerableTimer;
@@ -104,6 +105,7 @@ public class CharacterHandler : MonoBehaviour {
         }
 		rightPaddleCharge = characterBase.ChargeTime;
 		leftPaddleCharge = characterBase.ChargeTime;
+        charRendererStorage = gameObject.GetComponent<CharRendererStorage>();
     }
 
 	private void InitializeComponentData(Color32 theColor)
@@ -164,7 +166,8 @@ public class CharacterHandler : MonoBehaviour {
 		movement.SetRigidbodyMass (currentState.stateMassModifier * characterBase.BodyMass);
 		if (enu == CharacterStateEnum.Default) {
 			UpdateCharacterMaterial(headMaterials [0], 3);
-		}
+            charRendererStorage.StopTipFickle();
+        }
 	}
 
     private void OnEnable()
@@ -261,7 +264,8 @@ public class CharacterHandler : MonoBehaviour {
 							}
                         }
 						if (currentState.identifier == CharacterStateEnum.Charge && rightPaddleCharge < 0) {
-							UpdateCharacterMaterial(headMaterials [2], 3);
+                            //UpdateCharacterMaterial(headMaterials [2], 3);
+                            charRendererStorage.StartTipFickle();
 						}
                     }
                     else

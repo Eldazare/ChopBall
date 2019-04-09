@@ -1130,6 +1130,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &448399290 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114018252987880720, guid: 1a2825a717af04b4a979dcd4d8f0126b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1076623307}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &451286034
 Prefab:
   m_ObjectHideFlags: 0
@@ -2728,6 +2734,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114527219936097676, guid: 19ffcf86dfca8b54697986f0e39097cd,
+        type: 2}
+      propertyPath: image
+      value: 
+      objectReference: {fileID: 448399290}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 19ffcf86dfca8b54697986f0e39097cd, type: 2}
   m_IsPrefabAsset: 0

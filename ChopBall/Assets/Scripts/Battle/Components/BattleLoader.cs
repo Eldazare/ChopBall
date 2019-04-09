@@ -18,6 +18,7 @@ public class BattleLoader : MonoBehaviour {
 	// TODO: TEST for null checks
 
 	public GameEvent StartGame;
+    public GameEvent LateLoad;
 
 	public InputEvent[] inputEvents;
 	public Material[] charMaterials;
@@ -141,7 +142,14 @@ public class BattleLoader : MonoBehaviour {
 			GenerateTargets (goals [i], mat);
 			nextPlayerStateIndex++;
 		}
-		StartGame.Raise();
+        LateLoad.Raise();
+        BeginningCountdown countDown = gameObject.GetComponent<BeginningCountdown>();
+        if (countDown != null){
+            countDown.CountDown(StartGame.Raise);
+        }
+        else {
+            StartGame.Raise();
+        }
 	}
 
 	private void DivideTeamIntoSpawnPoints(List<int> team, int bas, int cap){

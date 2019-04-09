@@ -14,7 +14,7 @@ public class PortraitDisplayer : MonoBehaviour {
 
 	List<CompetitorContainer> competitors;
 
-	public void GameStart(){
+	public void LateLoad(){
 		teams = CurrentBattleController.GetTeams () != null;
 		pbd = (PortraitBaseData) Resources.Load ("Scriptables/_BaseDatas/PortraitBaseData");
 		competitors = CurrentBattleController.GetCompetitors ();

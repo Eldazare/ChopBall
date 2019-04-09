@@ -90,6 +90,7 @@ public static class MasterStateController {
 	public static void GoToBattle(){
 		LoadMasterData ();
 		if (ChooseStage()) {
+
 			masterData.GoToBattle ();
 		}
 	}

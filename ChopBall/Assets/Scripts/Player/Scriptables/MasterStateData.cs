@@ -13,6 +13,7 @@ public class MasterStateData : ScriptableObject {
 	// TODO: Presets in the UI component. Might be stored as scriptable themselves.
 
 	public GameEvent OnGrandModeChanged;
+    public GameEvent OnMenuExit;
 
 	public GrandMode mode = GrandMode.FreeForAll;
 	public int quickBpIndex = -1;
@@ -80,6 +81,7 @@ public class MasterStateData : ScriptableObject {
 		LoadBlueprintFromQuickMode ();
 		foreach (StageData stageData in StageDataController.GetStages ()) {
 			if (stageNameFinal == stageData.stageMenuName) {
+                OnMenuExit.Raise();
 				SceneManager.LoadScene (stageData.stageSceneName);
 				return;
 			}

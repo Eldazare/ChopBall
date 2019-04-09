@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Name: MasterStateData
   m_EditorClassIdentifier: 
   OnGrandModeChanged: {fileID: 11400000, guid: 34f05fd534bfb23418e1495d9cc671c7, type: 2}
+  OnMenuExit: {fileID: 11400000, guid: ea8e1019ea488094486413b01be4b1b2, type: 2}
   mode: 0
+  quickBpIndex: -1
   teams: 0
   maxTeams: 0
   stageChoiceType: 1

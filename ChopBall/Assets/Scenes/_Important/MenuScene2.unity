@@ -1961,6 +1961,8 @@ GameObject:
   m_Component:
   - component: {fileID: 556390518}
   - component: {fileID: 556390517}
+  - component: {fileID: 556390519}
+  - component: {fileID: 556390520}
   m_Layer: 0
   m_Name: SystemLoader
   m_TagString: Untagged
@@ -1992,6 +1994,46 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &556390519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 556390516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de74347c6b4c1b540b481d53832ee8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  master: {fileID: 869116221}
+--- !u!114 &556390520
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 556390516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 706fc1cd12f49bc459f85a68485279b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Event: {fileID: 11400000, guid: ea8e1019ea488094486413b01be4b1b2, type: 2}
+  Response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 556390519}
+        m_MethodName: EndChecking
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &622001470
 GameObject:
   m_ObjectHideFlags: 0
@@ -2351,6 +2393,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5db5f0a4e9788e34eb2c1872734fa402, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &869116221 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114928776142679624, guid: 5db5f0a4e9788e34eb2c1872734fa402,
+    type: 2}
+  m_PrefabInternal: {fileID: 869116220}
+  m_Script: {fileID: 11500000, guid: 3bb3c5514fc10c94db7dd4c88b4d3450, type: 3}
 --- !u!1 &958373606
 GameObject:
   m_ObjectHideFlags: 0

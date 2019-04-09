@@ -73,10 +73,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spriteList:
-  - {fileID: 21300000, guid: 08cdb8ad45fbb5040b97b28de54454ef, type: 3}
-  - {fileID: 21300000, guid: a4bd6d0e53d400b498062dc7080c2f32, type: 3}
-  - {fileID: 21300000, guid: 2e9518e60c0726140b7fc37c6ba810d1, type: 3}
-  - {fileID: 21300000, guid: 3547f5e39840b864182f8618085e76c9, type: 3}
+  - {fileID: 21300000, guid: 2a56d3d4fa7b56642b96c784c6f9b7cb, type: 3}
+  - {fileID: 21300000, guid: 7efe4f2c37bb58641b353c92ac2e1f70, type: 3}
+  - {fileID: 21300000, guid: f65ee626e20f1dd4d96ab14ea5580842, type: 3}
+  - {fileID: 21300000, guid: 3b9c473f6c91fe540b012af5bfea278b, type: 3}
   image: {fileID: 0}
 --- !u!114 &114921155645051386
 MonoBehaviour:

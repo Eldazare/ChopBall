@@ -68,11 +68,13 @@ public class PortraitDisplayer : MonoBehaviour {
 		} else {
 			Reset (false);
 		}
-		StartCoroutine (ChangeSprite (giver, team));
+        if (giver > -1) {
+		    StartCoroutine (ChangeSprite (giver, team));
+        }
 	}
 
 	private IEnumerator ChangeSprite(int giver, int team){
-		Debug.Log ("Giver: "+giver);
+		Debug.Log ("Giver: "+giver+" Team: "+team);
 		portraitList [IDList.IndexOf(giver)].sprite = pbd.successList [team];
 		yield return new WaitForSeconds (3.0f);
 		portraitList [IDList.IndexOf(giver)].sprite = pbd.neutralList [team];
